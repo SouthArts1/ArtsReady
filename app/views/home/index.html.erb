@@ -1,2 +1,42 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="grid_6">
+  <hgroup><h2>ArtsReady Library</h2></hgroup>
+  <section>
+    <% @featured_articles.each do |article| %>
+    <article>
+        <h3><%= link_to article["title"], "/articles/#{article['id']}" %></h3>
+        <p><time><%= article["published_on"].to_formatted_s(:long) %></time></p>
+      <p><%= article["content"] %></p>
+    </article>
+    <% end %>
+  </section>
+  <section class="list-kb">
+    <% @public_articles.each do |article| %>
+    <article>
+      <h3><%= link_to article["title"], "/articles/#{article['id']}" %></h3>
+      <p><time><%= article["published_on"].to_formatted_s(:long) %></time></p>
+    </article>
+    <% end %>
+  </section>
+</div>
+<div class="grid_6">
+  <div class="areyou">
+    <p><a href="/wireframe/join" class="button button-join">Join Today</a></p>
+  </div>
+  <div class="grid_3 alpha">
+    <section>
+      <h3>About ArtsReady</h4>
+      <p>Plan for “what if” instead of “why me.” The fire. The flood. The storm. The broken pipes. The break-in. The disaster. The unforeseen happens too often. The unexpected, once-in-a-lifetime, won’t-happen-to-me, I-don’t-want-to-talk-about-it-possibility, happens.</p>
+    </section>
+  </div>
+  <div class="grid_3 omega">
+    <section>
+      <h3>Features for Members</h4>
+      <ul class="list-join">
+        <li>Assess the readiness of your organization</li>
+        <li>Prioritize actions that your organization can take to become more ready</li>
+        <li>Take action. Assign staff, create deadlines, store readiness information (up to X GB of storage)</li>
+        <li>Post your own stories and calls for help</li>
+      </ul>
+    </section>
+  </div>
+</div>
