@@ -1,0 +1,32 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: artsready_development
+  pool: 5
+  username: rails
+  password:
+  socket: /tmp/mysql.sock
+
+test: &test
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: artsready_test
+  pool: 5
+  username: rails
+  password:
+  socket: /tmp/mysql.sock
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: artsready_production
+  pool: 5
+  username: artsready
+  password: 
+  socket: /var/run/mysqld/mysqld.sock
+
+cucumber:
+  <<: *test
