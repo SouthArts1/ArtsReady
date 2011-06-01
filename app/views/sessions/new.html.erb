@@ -1,0 +1,27 @@
+
+<div class="grid_7">
+  <hgroup>
+    <h2>Login</h2>
+  </hgroup>
+  <section>
+    <%= form_tag sessions_path do %>  
+      <p>
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email] %>  
+      </p>
+      <p>
+        <%= label_tag :password %>
+        <%= password_field_tag :password %>  
+      </p>
+      <p>
+        <p class="button"><%= submit_tag "Sign In" %></p>  
+      </p>
+      <% end %>
+  </section>
+</div>
+<div class="grid_5">
+  <aside>
+    <h3>Not a member yet?</h3>
+    <p>No problem. Joining is easy and only takes a minute. <%= link_to "Click here", sign_up_path %> to join ArtsReady today.</p>
+  </aside>
+</div>

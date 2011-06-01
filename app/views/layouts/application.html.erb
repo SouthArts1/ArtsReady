@@ -61,6 +61,9 @@
     </header>
     <div class="content">
       <div class="container container_12 clearfix">
+        <% flash.each do |name, msg| %>  
+          <%= content_tag :div, msg, :id => "flash#{name}" %>  
+        <% end %>
         <%= yield %>
       </div>
     </div>
