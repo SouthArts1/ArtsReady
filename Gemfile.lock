@@ -104,6 +104,8 @@ GEM
       railties (= 3.0.7)
     rails-footnotes (3.7.4)
       rails (>= 3.0.0)
+    rails3-generators (0.17.4)
+      railties (>= 3.0.0)
     railties (3.0.7)
       actionpack (= 3.0.7)
       activesupport (= 3.0.7)
@@ -149,7 +151,6 @@ DEPENDENCIES
   console_update
   cucumber-rails
   database_cleaner
-  factory_girl
   factory_girl_rails
   growl
   guard
@@ -161,6 +162,7 @@ DEPENDENCIES
   newrelic_rpm
   rails (= 3.0.7)
   rails-footnotes (>= 3.7)
+  rails3-generators
   rake (= 0.8.7)
   rb-fsevent
   rspec-rails

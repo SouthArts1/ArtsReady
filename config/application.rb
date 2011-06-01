@@ -40,7 +40,8 @@ module Artsready
     config.filter_parameters += [:password]
 
     config.generators do |g|
-      g.test_framework :rspec, :fixture => true, :views => false, :helpers => false 
+      g.stylesheets false
+      g.test_framework :rspec, :fixtures => false, :view_specs => false, :helper_specs => false 
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
   end

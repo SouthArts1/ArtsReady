@@ -17,6 +17,7 @@ group :test, :development do
 end
 
 group :development do
+  gem 'rails3-generators'
   gem 'awesome_print'
   gem 'hirb'
   gem 'console_update'
