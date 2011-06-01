@@ -19,7 +19,7 @@
         </h1>
         <div class="user-nav">
           <ul>
-            <% if logged_in? %>
+            <% if user_signed_in? %>
               <li><a href="">Settings</a></li>
               <li><a href="">Admin</a></li>
               <li><a href="">Logout</a></li>
@@ -28,7 +28,7 @@
               <li><a href="/wireframe/join">Join</a></li>
             <% end %>
           </ul>
-          <% if logged_in? %>
+          <% if user_signed_in? %>
             <div id="logged-in-status">
               Josh McDonnell @ Ohno Opera Company
             </div>
