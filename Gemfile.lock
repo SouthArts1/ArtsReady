@@ -30,6 +30,7 @@ GEM
     activesupport (3.0.7)
     arel (2.0.10)
     awesome_print (0.4.0)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
     capybara (1.0.0.beta1)
       mime-types (>= 1.16)
@@ -147,6 +148,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  bcrypt-ruby
   capybara
   console_update
   cucumber-rails
