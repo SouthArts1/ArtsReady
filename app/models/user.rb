@@ -10,6 +10,15 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password, :on => :create
   validates_uniqueness_of :email
+
+  def self.authenticate(email, password)
+    user = find_by_email(email)  
+    if user && BCrypt::Password.new(user.encrypted_password) == password  
+      user  
+    else  
+      nil  
+    end  
+  end
   
   def encrypt_password  
     if password.present?  

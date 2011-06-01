@@ -19,16 +19,16 @@
         </h1>
         <div class="user-nav">
           <ul>
-            <% if logged_in? %>
-              <li><a href="">Settings</a></li>
-              <li><a href="">Admin</a></li>
-              <li><a href="">Logout</a></li>
+            <% if user_signed_in? %>
+            <li><a href="">Settings</a></li>
+            <li><a href="">Admin</a></li>
+            <li><%= link_to "Logout", sign_out_path %></li>
             <% else %>
-              <li><a href="/wireframe/login">Login</a></li>
-              <li><a href="/wireframe/join">Join</a></li>
+            <li><%= link_to "Login", sign_in_path %></li>
+            <li><%= link_to "Join", sign_up_path %></li>
             <% end %>
           </ul>
-          <% if logged_in? %>
+          <% if user_signed_in? %>
             <div id="logged-in-status">
               Josh McDonnell @ Ohno Opera Company
             </div>
@@ -36,7 +36,7 @@
         </div>
         <nav>
           <ul>
-            <% if logged_in? %>
+            <% if user_signed_in? %>
               <li><%= link_to 'Dashboard', "/wireframe/dashboard" %></li>
               <li><%= link_to 'Assess', "/wireframe/assess" %></li>
               <li><a href="/wireframe/actionitems">To do</a></li>
@@ -61,6 +61,9 @@
     </header>
     <div class="content">
       <div class="container container_12 clearfix">
+        <% flash.each do |name, msg| %>  
+          <%= content_tag :div, msg, :id => "flash#{name}" %>  
+        <% end %>
         <%= yield %>
       </div>
     </div>
