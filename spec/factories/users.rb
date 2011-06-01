@@ -5,5 +5,5 @@ Factory.define :user do |f|
   f.last_name "MyString"
   f.email "MyString"
   f.password "MyString"
-  f.password_confirmation "MyString"
+  f.password_confirmation {|p| p.password}
 end
