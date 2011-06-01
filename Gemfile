@@ -9,6 +9,11 @@ gem 'newrelic_rpm'
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'rb-fsevent'
+  gem 'growl'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
 end
 
 group :development do
