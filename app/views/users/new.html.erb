@@ -1,0 +1,46 @@
+<div class="grid_2">&nbsp;</div>
+<div class="grid_8">
+  <hgroup>
+    <h2>Join ArtsReady</h2>
+  </hgroup>
+  <section>
+    <%= form_for @user do |f| %>
+    <% if @user.errors.any? %>
+      <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @user.errors.full_messages %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="grid_4 alpha">
+      <p>
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name %>
+      </p>
+    </div>
+    <div class="grid_4 omega">
+      <p>
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name %>
+      </p>
+    </div>
+    <p>
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
+    </p>
+    <p class="button"><%= f.submit %></p>
+    <% end %>
+  </section>
+</div>
+<div class="grid_2">&nbsp;</div>
