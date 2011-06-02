@@ -6,8 +6,19 @@ Artsready::Application.routes.draw do
   get "sign_out" => "sessions#destroy", :as => "sign_out"  
   
   resources :users
+  
   get "member/index"
+
+  # public pages
   get "home/index"
+  get "about" => "home#about", :as => "about"
+  get "contact" => "home#contact", :as => "contact"
+  get "faq" => "home#faq", :as => "faq"
+  get "links" => "home#links", :as => "links"
+  get "sitemap" => "home#sitemap", :as => "sitemap"
+  get "support" => "home#support", :as => "support"
+  get "tour" => "home#tour", :as => "tour"
+  
   root :to => "home#index"
 
   # match ':controller(/:action(/:id(.:format)))'

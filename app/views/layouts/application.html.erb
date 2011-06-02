@@ -46,13 +46,13 @@
               <li><a href="/wireframe/kb">Library</a></li>
               <li><input type="text" placeholder=""/></li>
             <% else %>
-              <li><%= link_to_function 'About' %></li>
-              <li><%= link_to_function 'Tour' %></li>
-              <li><%= link_to_function 'FAQ' %></li>
-              <li><%= link_to_function 'Links' %></li>
-              <li><%= link_to_function 'Contact' %></li>
+              <li><%= link_to 'About', about_path %></li>
+              <li><%= link_to 'Tour', tour_path %></li>
+              <li><%= link_to 'FAQ', faq_path %></li>
+              <li><%= link_to 'Links', links_path %></li>
+              <li><%= link_to 'Contact', contact_path %></li>
               <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
-              <li><%= link_to_function 'Library' %></li>
+              <li><%= link_to 'Library' %></li>
               <li><input type="text" placeholder=""/></li>
             <% end %>
           </ul>
@@ -82,9 +82,9 @@
     </p>
     <nav class="f-right">
       <ul>
-        <li><a href="/wireframe/sitemap">Sitemap</a></li>
-        <li><a href="/wireframe/support">Support</a></li>
-        <li><a href="/wireframe/contact">Contact Us</a></li>
+        <li><%= link_to 'Sitemap', sitemap_path %></li>
+        <li><%= link_to 'Support', support_path %></li>
+        <li><%= link_to 'Contact Us', contact_path %></li>
       </ul>
     </nav>
   </footer>
