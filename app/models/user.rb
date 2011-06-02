@@ -20,6 +20,14 @@ class User < ActiveRecord::Base
     end  
   end
   
+  def name
+    "#{first_name} #{last_name}".strip
+  end
+  
+  def organization_name
+    "My Organization"
+  end
+  
   def encrypt_password  
     if password.present?  
       self.encrypted_password = BCrypt::Password.create(password)  

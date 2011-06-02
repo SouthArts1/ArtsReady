@@ -30,7 +30,7 @@
           </ul>
           <% if user_signed_in? %>
             <div id="logged-in-status">
-              Josh McDonnell @ Ohno Opera Company
+              <%= current_user.name %> @ <%= current_user.organization_name %>
             </div>
           <% end %>
         </div>
@@ -51,7 +51,7 @@
               <li><%= link_to_function 'FAQ' %></li>
               <li><%= link_to_function 'Links' %></li>
               <li><%= link_to_function 'Contact' %></li>
-              <li><%= link_to 'Get ArtsReady', '/wireframe/join' %></li>
+              <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
               <li><%= link_to_function 'Library' %></li>
               <li><input type="text" placeholder=""/></li>
             <% end %>

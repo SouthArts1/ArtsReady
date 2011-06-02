@@ -28,4 +28,24 @@ describe User do
     
   end
   
+  
+  context ".name" do
+
+    it "should be composed of first_name and last_name" do
+      member=Factory.build(:user, :first_name => 'First', :last_name => 'Last')
+      member.name.should eq("First Last")
+    end
+
+    it "should handle a missing or blank first name" do
+      
+      member=Factory.build(:user, :first_name => nil, :last_name => 'Last')
+      member.name.should eq("Last")
+    end
+
+    it "should be composed of first_name and last_name" do
+      member=Factory.build(:user, :first_name => 'First', :last_name => nil)
+      member.name.should eq("First")
+    end
+  end
+  
 end
