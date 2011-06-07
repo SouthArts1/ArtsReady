@@ -21,6 +21,7 @@ Artsready::Application.routes.draw do
   get "support" => "home#support", :as => "support"
   get "tour" => "home#tour", :as => "tour"
   
+  get "tbd" => "dev#tbd", :as => "tbd"
   root :to => "home#index"
 
   # match ':controller(/:action(/:id(.:format)))'
