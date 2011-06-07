@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  helper_method :current_user, :user_signed_in?  
+  helper_method :current_user, :user_signed_in?, :current_org
     
   def authenticate!(*args)
     redirect_to :sign_in unless user_signed_in?
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_org
-    @organization ||= current_user.organization
+    @current_org ||= current_user.organization
   end
   
   

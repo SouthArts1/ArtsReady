@@ -12,7 +12,7 @@
 </div>
 
 <div class="grid_8">
-  <%= render :partial => 'intro' unless @organization.assessment_in_progress?%>
+  <%= render :partial => 'intro' unless current_org.assessment_in_progress?%>
   
   <div class="grid_4 alpha">
     <section>
@@ -38,14 +38,8 @@
 </div>
 <div class="grid_4">
   <section>
-    <p class="progress" style="float:left;">
-      <span class="progress-complete" style="right:63%"></span>
-      <span class="progress-percent">Assessment is 37% complete</span>
-    </p>
-    <p class="progress" style="float:left;">
-      <span class="progress-complete" style="right:90%"></span>
-      <span class="progress-percent">Action items are 10% complete</span>
-    </p>
+    <%= render :partial => 'progress_bar', :locals => {:percent => current_org.assessment_completion, :message => 'Assessment is'} %>
+    <%= render :partial => 'progress_bar', :locals => {:percent => current_org.todo_completion, :message => 'Action items are'} %>
   </section>
   <section class="list-kb">
     <article>
