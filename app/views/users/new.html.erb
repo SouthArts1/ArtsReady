@@ -13,6 +13,8 @@
           </ul>
         </div>
       <% end %>
+      <fieldset>
+        <legend>User Information</legend>
         <div class="grid_4 alpha">
           <p>
             <%= f.label :first_name %>
@@ -38,9 +40,41 @@
           <%= f.label :password_confirmation, 'Confirm Password' %>
           <%= f.password_field :password_confirmation %>
         </p>
+        </fieldset>
+        <fieldset>
+          <legend>Organization Information</legend>
+        <%= f.fields_for :organization do |org| %>
+        <p>
+          <%= org.label :name %>
+          <%= org.text_field :name %>
+        </p>
+        <p>
+          <%= org.label :address %>
+          <%= org.text_field :address %>
+        </p>
+        <div class="grid_4 alpha">
+        <p>
+          <%= org.label :city %>
+          <%= org.text_field :city %>
+        </p>
+        </div>
+        <div class="grid_1">
+        <p>
+          <%= org.label :state %>
+          <%= org.text_field :state %>
+        </p>
+        </div>
+        <div class="grid_3 omega">
+        <p>
+          <%= org.label :zipcode %>
+          <%= org.text_field :zipcode %>
+        </p>
+        </div>
+        <% end %>
+      </fieldset>
+        <p></p>
         <p class="button"><%= f.submit %></p>
         <% end %>
-        
     </section>
   </div>
   <div class="grid_4 omega">

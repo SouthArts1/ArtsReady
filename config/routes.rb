@@ -1,5 +1,7 @@
 Artsready::Application.routes.draw do
 
+  resources :organizations, :except => [:index, :destroy]
+
   get "sign_up" => "users#new", :as => "sign_up"  
   get "sign_in" => "sessions#new", :as => "sign_in"  
   post "sign_in" => "sessions#create"
@@ -7,7 +9,7 @@ Artsready::Application.routes.draw do
   
   resources :users
   
-  get "member/index"
+  get "member/index", :as => "dashboard"
 
   # public pages
   get "home/index"

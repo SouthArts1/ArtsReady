@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   
-  attr_accessor :password 
+  belongs_to :organization
   
   before_save :encrypt_password
   
@@ -11,6 +11,12 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :on => :create
   validates_uniqueness_of :email
 
+  attr_accessor :password 
+  
+  accepts_nested_attributes_for :organization
+  
+  delegate :name, :to => :organization, :allow_nil => true, :prefix => true
+  
   def self.authenticate(email, password)
     user = find_by_email(email)  
     if user && BCrypt::Password.new(user.encrypted_password) == password  
@@ -23,10 +29,7 @@ class User < ActiveRecord::Base
   def name
     "#{first_name} #{last_name}".strip
   end
-  
-  def organization_name
-    "My Organization"
-  end
+
   
   def encrypt_password  
     if password.present?  
