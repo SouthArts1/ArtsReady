@@ -1,2 +1,54 @@
-<h1>DASHBOARD</h1>
+<div class="alert-emergency">
+  <p>The National Weather Service has declared a Flood Warning for parts of Eastern Georgia. <a href="#">Read More</a></p>
+</div>
+
+<div class="grid_8" style="margin-bottom:20px;">
+  <h1>Your Dashboard</h1>
+</div>
+<div class="grid_4 alpha">
+  <div style="margin-left:20px">
+  <%= render :partial => 'crisis_switch', :locals => {:float => 'left'} %>
+  </div>
+</div>
+
+<div class="grid_8">
+  <%= render :partial => 'intro' unless current_org.assessment_in_progress?%>
+  
+  <div class="grid_4 alpha">
+    <section>
+      <h3 class="icon-action">Our Most Urgent To-Dos</h3>
+      <ul class="list-actionitems">
+        <li><a href="/wireframe/actionitems"><span class="urgent">Due</span> This is an example of an Action Item</a></li>
+        <li><a href="/wireframe/actionitems"><span class="urgent">Due</span> This is another example of an Action Item</a></li>
+        <li><a href="/wireframe/actionitems">This is example Action Item number three</a></li>
+        <li><a href="/wireframe/actionitems">Example of an Action Item numero quatro which is particularly long</a></li>
+      </ul>
+    </section>
+  </div>
+  <div class="grid_4 omega">
+    <section>
+      <h3 class="icon-resources">Critical Stuff Short Cuts</h3>
+      <ul class="list-resources">
+        <li><a href="/wireframe/resourcelist">People Resources</a></li>
+        <li><a href="/wireframe/resourcelist">Finance & Insurance Resources</a></li>
+        <li><a href="/wireframe/resourcelist">Technology Resources</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+<div class="grid_4">
+  <section>
+    <%= render :partial => 'progress_bar', :locals => {:percent => current_org.assessment_completion, :message => 'Assessment is'} %>
+    <%= render :partial => 'progress_bar', :locals => {:percent => current_org.todo_completion, :message => 'Action items are'} %>
+  </section>
+  <section class="list-kb">
+    <article>
+      <h3><%= link_to '1 Battle Buddy in Need', 'wireframe/battlebuddies_help' %></h3>
+      <p><br /><strong><%= link_to '954 Dance Movement Collective', "/wireframe/battlebuddies_buddy?title=954 Dance Movement Collective" %></strong><br />
+      "Thanks so much for everyone's response..."</p>
+      <p><time>Yesterday</time></p>
+    </article>
+  </section>
+  <%= render :partial => 'featured_article' %>
+</div>
 
