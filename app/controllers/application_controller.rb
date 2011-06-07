@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
   
+  def current_org
+    @organization ||= current_user.organization
+  end
+  
+  
 end
