@@ -1,2 +1,67 @@
-<h1>DASHBOARD</h1>
+<div class="alert-emergency">
+  <p>The National Weather Service has declared a Flood Warning for parts of Eastern Georgia. <a href="#">Read More</a></p>
+</div>
+
+<div class="grid_8" style="margin-bottom:20px;">
+  <h1>Your Dashboard</h1>
+</div>
+<div class="grid_4 alpha">
+  <div style="margin-left:20px">
+  <%= render :partial => 'crisis_switch', :locals => {:float => 'left'} %>
+  </div>
+</div>
+
+<div class="grid_8">
+  <%= render :partial => 'intro' unless @organization.assessment_in_progress?%>
+  
+  <div class="grid_4 alpha">
+    <section>
+      <h3 class="icon-action">Our Most Urgent To-Dos</h3>
+      <ul class="list-actionitems">
+        <li><a href="/wireframe/actionitems"><span class="urgent">Due</span> This is an example of an Action Item</a></li>
+        <li><a href="/wireframe/actionitems"><span class="urgent">Due</span> This is another example of an Action Item</a></li>
+        <li><a href="/wireframe/actionitems">This is example Action Item number three</a></li>
+        <li><a href="/wireframe/actionitems">Example of an Action Item numero quatro which is particularly long</a></li>
+      </ul>
+    </section>
+  </div>
+  <div class="grid_4 omega">
+    <section>
+      <h3 class="icon-resources">Critical Stuff Short Cuts</h3>
+      <ul class="list-resources">
+        <li><a href="/wireframe/resourcelist">People Resources</a></li>
+        <li><a href="/wireframe/resourcelist">Finance & Insurance Resources</a></li>
+        <li><a href="/wireframe/resourcelist">Technology Resources</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+<div class="grid_4">
+  <section>
+    <p class="progress" style="float:left;">
+      <span class="progress-complete" style="right:63%"></span>
+      <span class="progress-percent">Assessment is 37% complete</span>
+    </p>
+    <p class="progress" style="float:left;">
+      <span class="progress-complete" style="right:90%"></span>
+      <span class="progress-percent">Action items are 10% complete</span>
+    </p>
+  </section>
+  <section class="list-kb">
+    <article>
+      <h3><%= link_to '1 Battle Buddy in Need', 'wireframe/battlebuddies_help' %></h3>
+      <p><br /><strong><%= link_to '954 Dance Movement Collective', "/wireframe/battlebuddies_buddy?title=954 Dance Movement Collective" %></strong><br />
+      "Thanks so much for everyone's response..."</p>
+      <p><time>Yesterday</time></p>
+    </article>
+  </section>
+  <section>
+    <article>
+      <h3><a href="/wireframe/kb">Featured Library Article</a></h3>
+      <p><time>March 5, 2011</time></p>
+      <p><img class="f-right half" src="/images/sample-1.png" alt="Image of Readiness">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean eu leo quam. Sed posuere at lobortis. Aenean lacinia bibendum nulla sed consectetur.</p>
+      <p>This is meant to be a leader to <a href="/wireframe/kb">draw people in.</a></p>
+    </article>
+  </section>
+</div>
 
