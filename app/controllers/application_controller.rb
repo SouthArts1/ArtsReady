@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]  
   end
   
-  def user_signed_in?  
-    current_user.present?
-  end
-  
   def current_org
     @current_org ||= current_user.organization
+  end
+  
+  def user_signed_in?  
+    current_user.present? && current_org.active?
   end
   
   

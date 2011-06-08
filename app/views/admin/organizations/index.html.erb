@@ -1,0 +1,23 @@
+<h2>Organizations</h2>
+
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Name</th>
+    <th>Address</th>
+  </tr>
+<% @organizations.each do |org| %>
+  <tr>
+    <td>
+      <% unless org.active?%>
+      <%= form_for([:admin, org]) do |f| %>
+      <%= f.hidden_field :active, :value => true %>
+      <%= f.submit "Approve" %>
+      <% end %>
+      <% end %>
+    </td>
+    <td><%= org.name %></td>
+    <td><%= org.city %> <%= org.state %> <%= org.zipcode %></td>
+  </tr>
+<% end %>
+</table>
