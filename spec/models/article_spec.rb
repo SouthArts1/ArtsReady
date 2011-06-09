@@ -9,4 +9,5 @@ describe Article do
   it { should validate_presence_of(:title) } 
   it { should validate_presence_of(:content) }
 
+  it { subject.is_public.should be_false}
 end
