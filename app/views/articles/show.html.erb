@@ -6,6 +6,12 @@
       <%= link_to 'submit article', new_article_path, :class => 'button', :style => 'float:right;' %>
       <h1><%= @article.title %></h1>
     </hgroup>
+    <% if @article.link.present? %>
+    <div><%= link_to "Link", @article.link %></div>
+    <% end %>
+    <% if @article.document.present? %>
+    <div><%= link_to "Download", @article.document.url %></div>
+    <% end %>    
     <div><%= @article.content %></div>
   </article>
   <%= render 'share' %>
