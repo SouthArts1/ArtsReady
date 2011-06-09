@@ -1,13 +1,69 @@
 <% title "Article" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @article.name %>
-</p>
-<p>
-  <strong>Context:</strong>
-  <%= @article.context %>
-</p>
+<div class="grid_8">
+  <article>
+    <hgroup>
+      <%= link_to 'submit article', "/wireframe/kb_form", :class => 'button', :style => 'float:right;' %>
+      <h1>Library article title</h1>
+    </hgroup>
+    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec id elit non mi porta gravida at eget metus. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis interdum. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas faucibus mollis interdum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+    <p>Cras mattis consectetur purus sit amet fermentum. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+  </article>
+  <%= render 'share' %>
+  <section>
+    <h4>Comments</h4>
+    <ul class="comments">
+      <li>
+        <div class="comments-meta clearfix">
+          <p class="comments-author f-left">Hannah Hero, Ohno Opera Company</p>
+          <p class="comments-time f-right">January 10, 2011</p>
+        </div>
+        <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h4>Leave your comment</h4>
+    <div class="create-comment">
+      <div class="grid_4 alpha">
+        <p>
+          <input type="text" placeholder="Name"/>
+        </p>
+      </div>
+      <div class="grid_4 omega">
+        <p>
+          <input type="text" placeholder="Company"/>
+        </p>
+      </div>
+      <div class="grid_8">
+        <textarea placeholder="Comment"></textarea>
+        <br><br>
+        <input type="submit" value="Submit" class="button">
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="grid_4">
+  <ul class="tag-cloud">
+    <li><a href="#" class="size-1">this</a></li>
+    <li><a href="#" class="size-4">is a</a></li>
+    <li><a href="#" class="size-3">tag cloud</a></li>
+    <li><a href="#" class="size-6">crisis</a></li>
+    <li><a href="#" class="size-3">flooding</a></li>
+    <li><a href="#" class="size-2">fire</a></li>
+    <li><a href="#" class="size-1">tornado</a></li>
+    <li><a href="#" class="size-5">hurricane</a></li>
+    <li><a href="#" class="size-3">fraud</a></li>
+    <li><a href="#" class="size-6">riot</a></li>
+    <li><a href="#" class="size-5">act of god</a></li>
+    <li><a href="#" class="size-6">rodentia</a></li>
+    <li><a href="#" class="size-3">labor</a></li>
+  </ul>
+  <p><img src="/images/sample-1.png" alt="Image of Readiness"></p>
+  <p><img src="/images/sample-2.png" alt="Image of Readiness"></p>
+</div>
 
 <p>
   <%= link_to "Edit", edit_article_path(@article) %> |

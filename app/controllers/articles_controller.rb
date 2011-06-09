@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
+    @featured_articles = Article.featured
+    @articles = Article.recent
   end
 
   def show

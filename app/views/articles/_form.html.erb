@@ -1,24 +1,38 @@
-<%= form_for @article do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :tags %><br />
-    <%= f.text_field :tags %>
-  </p>
-  <p>
-    <%= f.label :link %><br />
-    <%= f.text_field :link %>
-  </p>
-  <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </p>
-  <p>
-    <%= f.label :document %><br />
-    <%= f.file_field :document %>
-  </p>
-  <p><%= f.submit %></p>
-<% end %>
+<div class="grid_8">
+  <article>
+    <hgroup>
+      <h1>Submit Library article</h1>
+    </hgroup>
+  <section>
+    <div class="create-knowledge-base-article">
+
+    <%= form_for @article do |f| %>
+      <%= f.error_messages %>
+      <p>
+        <%= f.label :title %><br />
+        <%= f.text_field :title, :placeholder=>'Title' %>
+      </p>
+      <p>
+        <%= f.label :tags %><br />
+        <%= f.text_field :tags, :placeholder=>'Tags' %>
+      </p>
+      <p>
+        <%= f.label :link %><br />
+        <%= f.text_field :link %>
+      </p>
+      <p>
+        <%= f.label :content %><br />
+        <%= f.text_area :content, :placeholder=>'Content' %>
+      </p>
+      <p>
+        <%= f.label :document %><br />
+        <%= f.file_field :document %>
+      </p>
+      <p><%= f.submit 'Save Article', :class => 'button' %></p>
+    <% end %>
+    </div>
+  </section>
+  </article>
+</div>
+<div class="grid_4">
+</div>
