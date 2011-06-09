@@ -1,0 +1,44 @@
+<% title "Articles" %>
+
+<div class="grid_8">
+  <hgroup><h2>ArtsReady Library</h2></hgroup>
+  <%= link_to 'submit article', new_article_path, :class => 'button', :style => 'float:right;' %>
+  <section>
+    <% @featured_articles.each do |article| %>
+    <article>
+        <h3><%= link_to article.title, article_path(article) %></h3>
+        <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
+      <p><%= article.content %></p>
+    </article>
+    <% end %>
+  </section>
+  <section class="list-kb">
+    <% @articles.each do |article| %>
+    <article>
+      <h3><%= link_to article.title, article_path(article) %></h3>
+      <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
+    </article>
+    <% end %>
+  </section>
+</div>
+
+
+<div class="grid_4">
+  <ul class="tag-cloud">
+    <li><a href="#" class="size-1">this</a></li>
+    <li><a href="#" class="size-4">is a</a></li>
+    <li><a href="#" class="size-3">tag cloud</a></li>
+    <li><a href="#" class="size-6">crisis</a></li>
+    <li><a href="#" class="size-3">flooding</a></li>
+    <li><a href="#" class="size-2">fire</a></li>
+    <li><a href="#" class="size-1">tornado</a></li>
+    <li><a href="#" class="size-5">hurricane</a></li>
+    <li><a href="#" class="size-3">fraud</a></li>
+    <li><a href="#" class="size-6">riot</a></li>
+    <li><a href="#" class="size-5">act of god</a></li>
+    <li><a href="#" class="size-6">rodentia</a></li>
+    <li><a href="#" class="size-3">labor</a></li>
+  </ul>
+  <p><img src="/images/sample-1.png" alt="Image of Readiness"></p>
+  <p><img src="/images/sample-2.png" alt="Image of Readiness"></p>
+</div>

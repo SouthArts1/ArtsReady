@@ -4,7 +4,8 @@ gem 'rails', '3.0.8'
 gem 'mysql2', '0.2.6'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
-
+gem 'carrierwave'
+  
 # deploy
 gem 'newrelic_rpm'
 
@@ -19,6 +20,7 @@ group :test, :development do
 end
 
 group :development do
+  gem "nifty-generators"
   gem 'rails3-generators'
   gem 'awesome_print'
   gem 'hirb'
@@ -35,3 +37,4 @@ group :test do
   gem 'capybara'
   gem 'shoulda'
 end
+gem "mocha", :group => :test
