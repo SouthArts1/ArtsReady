@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Article do
-  it "should be valid" do
-    Article.new.should be_valid
-  end
+  subject { Article.new }
+  
+  it { should validate_presence_of(:title)} 
+  it { should validate_presence_of(:content)}
+
 end

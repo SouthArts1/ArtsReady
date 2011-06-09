@@ -3,12 +3,10 @@
 <div class="grid_8">
   <article>
     <hgroup>
-      <%= link_to 'submit article', "/wireframe/kb_form", :class => 'button', :style => 'float:right;' %>
-      <h1>Library article title</h1>
+      <%= link_to 'submit article', new_article_path, :class => 'button', :style => 'float:right;' %>
+      <h1><%= @article.title %></h1>
     </hgroup>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec id elit non mi porta gravida at eget metus. Curabitur blandit tempus porttitor. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-    <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis interdum. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas faucibus mollis interdum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-    <p>Cras mattis consectetur purus sit amet fermentum. Donec ullamcorper nulla non metus auctor fringilla. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+    <div><%= @article.content %></div>
   </article>
   <%= render 'share' %>
   <section>
