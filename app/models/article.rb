@@ -11,7 +11,7 @@ class Article < ActiveRecord::Base
   validates_presence_of :content
 
   def self.featured
-    [Article.first]
+    Article.where("1=0")
   end
 
   def self.recent

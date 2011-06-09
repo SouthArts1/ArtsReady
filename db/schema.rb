@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609101453) do
+ActiveRecord::Schema.define(:version => 20110609153644) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20110609101453) do
     t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_public",       :default => false
   end
 
   create_table "organizations", :force => true do |t|
