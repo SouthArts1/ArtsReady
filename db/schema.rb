@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20110609101453) do
     t.string   "document"
     t.text     "content"
     t.date     "published_on"
-    t.integer  "owner_id"
+    t.integer  "user_id"
     t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"

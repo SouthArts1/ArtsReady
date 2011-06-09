@@ -4,6 +4,8 @@ describe Organization do
 
   subject { Factory(:organization) }
   
+  it { should have_many(:articles) }
+  
   it { should validate_presence_of(:name)} 
   it { should validate_presence_of(:address)} 
   it { should validate_presence_of(:city)} 

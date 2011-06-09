@@ -1,6 +1,7 @@
 class Organization < ActiveRecord::Base
   
   has_many :users
+  has_many :articles
   
   validates_presence_of :name, :address, :city, :state, :zipcode
   

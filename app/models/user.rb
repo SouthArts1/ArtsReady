@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   
   belongs_to :organization
+  has_many :articles
   
   before_save :encrypt_password
   

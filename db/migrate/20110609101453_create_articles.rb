@@ -4,7 +4,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string :title, :tags, :link, :document
       t.text :content
       t.date :published_on
-      t.integer :owner_id, :organization_id
+      t.integer :user_id, :organization_id
       t.timestamps
     end
   end

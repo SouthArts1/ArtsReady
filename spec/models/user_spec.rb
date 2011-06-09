@@ -4,6 +4,8 @@ describe User do
 
   subject { Factory(:user) }
   
+  it { should have_many(:articles) }
+  
   it { should belong_to(:organization) }
   it { should validate_presence_of(:first_name)}
   it { should validate_presence_of(:last_name)}
