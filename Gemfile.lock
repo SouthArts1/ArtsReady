@@ -40,6 +40,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 0.2.0)
       xpath (~> 0.1.4)
+    carrierwave (0.5.4)
+      activesupport (~> 3.0)
     childprocess (0.1.9)
       ffi (~> 1.0.6)
     configuration (1.2.0)
@@ -95,8 +97,10 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mocha (0.9.12)
     mysql2 (0.2.6)
     newrelic_rpm (3.0.1)
+    nifty-generators (0.4.6)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     rack (1.2.3)
@@ -159,6 +163,7 @@ DEPENDENCIES
   awesome_print
   bcrypt-ruby
   capybara
+  carrierwave
   console_update
   cucumber-rails
   database_cleaner
@@ -170,8 +175,10 @@ DEPENDENCIES
   guard-rspec
   hirb
   launchy
+  mocha
   mysql2 (= 0.2.6)
   newrelic_rpm
+  nifty-generators
   rails (= 3.0.8)
   rails-footnotes (>= 3.7)
   rails3-generators
