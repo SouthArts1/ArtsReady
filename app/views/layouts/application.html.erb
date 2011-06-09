@@ -43,7 +43,7 @@
               <li><%= link_to 'Our Critical Stuff', tbd_path %></li>
               <li><%= link_to 'Lend a Hand', tbd_path %></li>
               <li><%= link_to 'Get Help', tbd_path %></li>
-              <li><%= link_to 'Library', tbd_path %></li>
+              <li><%= link_to 'Library', articles_path %></li>
               <li><input type="text" placeholder=""/></li>
             <% else %>
               <li><%= link_to 'About', about_path %></li>
@@ -52,7 +52,7 @@
               <li><%= link_to 'Links', links_path %></li>
               <li><%= link_to 'Contact', contact_path %></li>
               <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
-              <li><%= link_to 'Library' %></li>
+              <li><%= link_to 'Library', tbd_path %></li>
               <li><input type="text" placeholder=""/></li>
             <% end %>
           </ul>
