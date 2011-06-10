@@ -16,6 +16,7 @@ Artsready::Application.routes.draw do
   resources :users
   
   get "member/index", :as => "dashboard"
+  get "member/assessment_intro", :as => "assessment_intro"
 
   # public pages
   get "home/index"

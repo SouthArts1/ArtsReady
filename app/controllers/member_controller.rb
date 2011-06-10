@@ -5,4 +5,7 @@ class MemberController < ApplicationController
   def index
   end
   
+  def assessment_intro
+  end
+  
 end
