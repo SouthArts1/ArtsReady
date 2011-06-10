@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
   belongs_to :organization
   belongs_to :user
   
+  before_create :set_organization
+  
   attr_accessible :title, :content, :tags, :link, :user
   
   validates_presence_of :title
@@ -24,5 +26,9 @@ class Article < ActiveRecord::Base
   
   def published_on
     created_at.to_date rescue nil
+  end
+  
+  def set_organization
+    self.organization = user.organization
   end
 end
