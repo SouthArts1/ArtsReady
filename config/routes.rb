@@ -1,7 +1,11 @@
 Artsready::Application.routes.draw do
+  
+  namespace :admin do
+    resources :users, :only => [:index, :edit, :update]
+    resources :organizations, :only => [:index, :edit, :update]
+  end
 
   resources :articles
-
   resources :organizations, :except => [:index, :destroy]
 
   get "sign_up" => "users#new", :as => "sign_up"  

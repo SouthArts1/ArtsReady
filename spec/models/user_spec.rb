@@ -51,5 +51,15 @@ describe User do
       member.name.should eq("First")
     end
   end
-  
+
+  context ".admin?" do
+    it "should not be an admin by default" do
+      @member = Factory(:user, :email => 'member@test.host', :password => 'secret')
+      @member.admin?.should be_false
+    end
+    it "should be an admin if set" do
+      @member = Factory(:user, :email => 'member@test.host', :password => 'secret', :admin => true)
+      @member.admin?.should be_true
+    end
+  end
 end
