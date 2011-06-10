@@ -601,6 +601,7 @@ header nav {
   li {
     display: inline; }
   a {
+    color: green;
     white-space: nowrap; }
   .size-1 {
     font-size: 24px; }
@@ -780,7 +781,7 @@ tbody {
         background: #cee1f3;
         cursor: pointer; } } }
   .active a {
-    background: #525e96;
+    background: #28387D;
     color: #fff;
     border-color: #525e96;
     &:hover {
@@ -819,9 +820,7 @@ tbody {
     color: #ccc;
     h3 {
       background: #eee;
-      color: #ccc; }
-    .response {
-      background: #eeeeee url("../images/icon-delete.png") no-repeat 0px center; } }
+      color: #ccc; } }
   &.answered {
     background: #fff;
     &.not-applicable {
@@ -834,9 +833,7 @@ tbody {
     width: 90px;
     height: 50px;
     &.answered {
-      background: url("../images/icon-check.png") no-repeat 0px center; }
-    .answers a {
-      text-decoration: underline; } }
+      background: url("../images/icon-check.png") no-repeat 0px center; } }
   .explain {
     float: left;
     width: 200px;
@@ -862,25 +859,15 @@ tbody {
     float: left;
     margin-right: 20px; } }
 
-.button {
-  &.weak {
-    background: #999;
-    font-weight: normal;
-    border: none; }
-  &.white {
-    color: #333;
-    background-color: #eee;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
-    background-image: -moz-linear-gradient(center top, white, #eeeeee); }
-  &.blue {
-    background-color: #525e96;
-    /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#525e96), to(#28387d));
-    background: -moz-linear-gradient(top, #525e96, #28387d); } }
-
 .buddy {
   margin-bottom: 20px;
-  clear: both; }
+  clear: both; 
+
+  .badge {
+    float: left;
+    height: 60px;
+    text-align: center;
+    width: 65px;} }
 
 .buddies .buddy:last-child {
   margin: 0; }
@@ -900,15 +887,15 @@ tbody {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px; }
 
-.add-actionitem, .add-resource {
+.add-actionitem, .add-resource, .add-need {
   border: 1px solid #777; }
 
-.add-actionitem thead, .add-resource thead {
+.add-actionitem thead, .add-resource thead, .add-need thead {
   background-color: #888;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#aaaaaa), to(#777777));
   background-image: -moz-linear-gradient(100% 100% 90deg, #777777, #aaaaaa); }
 
-.add-acitonitem thead td, .add-resource thead td {
+.add-actionitem thead td, .add-resource thead td, .add-need thead td {
   background: none;
   border: 1px solid #777; }
 
@@ -947,6 +934,16 @@ tbody {
     width: 135px; }
   .description input {
     width: 180px; } }
+
+.needs {
+  .status {
+    font-weight: bold; }
+  .activity {
+    color: #777; } }
+    
+.add-need {
+  .description input {
+    width: 500px; } }
 
 .editable {
   padding-right: 20px;
@@ -1000,6 +997,7 @@ tbody {
     width: 590px; } }
 
 .button, a.button {
+  text-decoration: none;
   border: 1px solid #C31D29;
   padding: 5px 8px;
   font-weight: bold;
@@ -1017,7 +1015,26 @@ tbody {
   background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #c31d29);
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
+  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+
+  &.weak {
+    background: #999;
+    font-weight: normal;
+    border: none; }
+  &.white {
+    color: #333;
+    background-color: #eee;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
+    background-image: -moz-linear-gradient(center top, white, #eeeeee); }
+  &.blue {
+    background-color: #525e96;
+    background: -webkit-gradient(linear, left top, left bottom, from(#525e96), to(#28387d));
+    background: -moz-linear-gradient(top, #525e96, #28387d); } 
+  &.green {
+    background-color: #84983d;
+    border: 1px solid #84983d;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a8b653), to(#84983d));
+    background-image: -moz-linear-gradient(100% 100% 90deg, #84983d, #a8b653); } }
 
 input.button {
   padding: 5px 8px; }
@@ -1303,3 +1320,103 @@ h3 {
   background: #cee1f3;
   padding: 10px;
   margin-bottom: 20px; }
+
+table#messages {
+  border: none;
+  border-top: 1px solid #999;
+  margin-bottom: 10px;
+
+  p {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  tr {
+    border-bottom: 1px solid #ccc;
+  }
+
+  td {
+    padding: 10px;
+    border: none;
+
+    &.badge {
+      text-align: center;
+      padding-top: 20px;
+      vertical-align: top;
+      width: 5%;
+
+      .date {
+        color: #777;
+      }
+    }
+
+    &.from {
+      vertical-align: top;
+      width: 35%;
+    }
+
+    &.body {
+      width: 60%;
+    }
+
+    textarea {
+      width: 95%;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+#messages-nav {
+  text-align: right;
+}
+
+#distress-switch {
+  padding: 15px;
+  background: #ccc;
+  color: #333;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+
+  &.on {
+    background: #C31D29;
+    color: #fff;
+  }
+
+  span#distress-status {
+    font-weight: bold;
+  }
+}
+
+#distress-confirm {
+  #some-buddies {
+    background: #ccc;
+    padding: 10px;
+  }
+}
+
+/*Library (knowledgebase)*/
+
+input.library-search {
+  width: 75%; }
+
+ul.library {
+  margin: 10px;
+
+  li {
+    list-style-type: none; 
+    margin-bottom: 5px; } }
+
+.library-sidebar {
+  padding: 10px;
+  background: #F3F3F3;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  border: 1px solid #eee;
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 1) inset;
+  -moz-box-shadow: 0px 1px 2px rgba(255, 255, 255, 1) inset;
+  -webkit-box-shadow: 0px 1px 2px rgba(255, 255, 255, 1) inset;
+
+  p:last-child {
+    margin: 0; } }

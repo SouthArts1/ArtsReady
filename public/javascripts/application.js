@@ -135,13 +135,15 @@ function updateQuestionnaire(selectParent) {
 }
 
 // For questions on assess
-$('.button.respond, .question .prompt').live('click', function() {
+$('.button.respond, .question .prompt, .answers .button').live('click', function() {
 	toggleQuestion(this);
 	var question = $(this).parents('.question');
 	question.removeClass('not-applicable');
+	question.find('.reconsider').remove();
 	if (!question.hasClass('answered')) {
 		question.find('.respond').show(); 
 	}
+	return false;
 });
 
 $('a.does-not-apply').live('click', function() {
@@ -151,6 +153,7 @@ $('a.does-not-apply').live('click', function() {
 	question.find('.answer').hide();
 	question.find('.does-not-apply').hide();
 	question.find('.explain').hide();
+	question.find('.answers').html("<a href='#' class='button weak reconsider'>reconsider</a>");
 });
 
 $('.button.save-response').live('click', function() {
