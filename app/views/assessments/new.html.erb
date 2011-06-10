@@ -3,29 +3,19 @@
   <div class="grid_6 alpha">
     <h2>A couple things before we start:</h2>
     <p>Please un-check any areas that don't apply to your organization.</p>
+    <%= form_for @assessment do |f| %>
     <ul class="checklist">
+      <%= Assessment::CHOICES.each do |option| %>
       <li>
-        <label><input type="checkbox" checked="checked"> We have our own space/facility </label>
+        <label><%= f.check_box :options, {:checked => true}, option[0] %> <%= option[1] %></label>
       </li>
-      <li>
-        <label><input type="checkbox" checked="checked"> We manage ticket sales </label>
-      </li>
-      <li>
-        <label><input type="checkbox" checked="checked"> We put on performances</label>
-      </li>
-      <li>
-        <label><input type="checkbox" checked="checked"> We put on exhibits</label>
-      </li>
-      <li>
-        <label><input type="checkbox" checked="checked"> We manage ongoing public programs.</label>
-      </li>
-      <li>
-        <label><input type="checkbox" checked="checked"> We provide grants</label>
-      </li>
+      <% end %>
     </ul>
     <div class="grid_5">
-      <p><a href="/wireframe/assess" class="button button-join">Begin Assessment &raquo;</a></p>
+      
+      <p><%= f.submit "Begin Assessment &raquo;".html_safe, :class=> "button button-join" %></p>
     </div>
+    <% end %>
   </div>
   <div class="grid_6 alpha">
     <ul class="blue-box plain">
