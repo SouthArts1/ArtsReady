@@ -3,17 +3,17 @@
   <section>
     <% @featured_articles.each do |article| %>
     <article>
-        <h3><%= link_to article["title"], "/articles/#{article['id']}" %></h3>
-        <p><time><%= article["published_on"].to_formatted_s(:long) %></time></p>
-      <p><%= article["content"] %></p>
+      <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
+      <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
+      <p><%= article.content %></p>
     </article>
     <% end %>
   </section>
   <section class="list-kb">
     <% @public_articles.each do |article| %>
     <article>
-      <h3><%= link_to article["title"], "/articles/#{article['id']}" %></h3>
-      <p><time><%= article["published_on"].to_formatted_s(:long) %></time></p>
+      <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
+      <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
     </article>
     <% end %>
   </section>
