@@ -28,6 +28,10 @@
         <%= f.label :document %><br />
         <%= f.file_field :document %>
       </p>
+      <p>
+        <%= f.check_box :is_public %>
+        <%= f.label :is_public, 'Make Public?' %>
+      </p>
       <p><%= f.submit 'Save Article', :class => 'button' %></p>
     <% end %>
     </div>

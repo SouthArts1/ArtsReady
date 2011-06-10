@@ -11,11 +11,15 @@ class Article < ActiveRecord::Base
   validates_presence_of :content
 
   def self.featured
-    [Article.first]
+    Article.limit(1)
   end
 
   def self.recent
-    Article.all - self.featured
+    Article.all
+  end
+
+  def self.for_public
+    where(:is_public => true)
   end
   
   def published_on
