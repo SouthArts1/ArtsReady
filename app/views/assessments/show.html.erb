@@ -4,31 +4,18 @@
       <span class="progress-complete" style="right:63%"></span>
       <span class="progress-percent">Assessment is 37% complete</span>
     </p>
-    <p class="progress-sub"><%= rand(10) %>/10 answered in <%= @current_function[0] %></p>
+    <p class="progress-sub"><%= rand(10) %>/10 answered in section %></p>
   </div>
   <h1>Readiness Assessment</h1>
   <ul class="top-nav">
-    <% Assesment.critical_functions.each_with_index do |function, i| %>
-      <li id="<%= function[0].parameterize('_') %>" class="<%= 'active' if function == @current_function %>">
-        <%= link_to function[0], :tab => i %>
-      </li>
+    <% Assessment::CRITICAL_FUNCTIONS.each do |critical_function| %>
+      <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(@assessment, :tab => critical_function[:name]) %></li>
     <% end %>
   </ul>
   <div class="critical-function-toggle">
-    <% unless @current_function[1].blank? %>
-      <ul class="asses checklist">
-        <li class="<%= @current_function[0].parameterize('_') %>">
-          <label>
-            <input type="checkbox" checked="checked" class="checker">
-            <%= @current_function[1] %>
-          </label>
-        </li>
-      </ul>
-    <% end %>
   </div>
   <div class="questions">    
     <div class="section">
-      <%= raw(Assesment.send(@current_function[0].parameterize('_')).collect {|q| render :partial => 'assesment_question', :locals => {:question => q[0], :learn_more => q[1]}}) %>
     </div>
   </div>
   <section>
