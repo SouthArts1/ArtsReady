@@ -1,5 +1,7 @@
 class Assessment < ActiveRecord::Base
+
   belongs_to :organization
+  has_many :answers
   
   attr_accessor :critical_functions
   
