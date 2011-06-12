@@ -1,1 +1,32 @@
-<%= debug(@assessment) %>
+<div class="grid_12">
+  <div class="progress-container">
+    <p class="progress">
+      <span class="progress-complete" style="right:63%"></span>
+      <span class="progress-percent">Assessment is 37% complete</span>
+    </p>
+    <p class="progress-sub"><%= rand(10) %>/10 answered in section %></p>
+  </div>
+  <h1>Readiness Assessment</h1>
+  <ul class="top-nav">
+    <% Assessment::CRITICAL_FUNCTIONS.each do |critical_function| %>
+      <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(@assessment, :tab => critical_function[:name]) %></li>
+    <% end %>
+  </ul>
+  <div class="critical-function-toggle">
+  </div>
+  <div class="questions">    
+    <div class="section">
+    </div>
+  </div>
+  <section>
+    <ul class="article-tools clearfix">
+      <li><a class="icon-print" href="#">Print</a></li>
+      <li><a class="icon-email" href="#">Email</a></li>
+      <li><a class="icon-share" href="#">Share</a></li>
+    </ul>
+  </section>
+  <div class="asses-actions">
+    <%= link_to raw("Continue to #{@next_function[0]}  &raquo;"), "/wireframe/assess?tab=#{Assesment.critical_functions.index(@next_function)}", :class => 'button blue', :style => 'margin-bottom:10px;' if @next_function %>
+    <br /><%= link_to raw('View To Do List &raquo;'), "/wireframe/actionitems" %>
+  </div>
+</div>
