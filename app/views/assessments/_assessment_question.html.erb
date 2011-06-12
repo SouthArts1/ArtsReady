@@ -5,26 +5,25 @@
     <div class="answers">
     </div>
   </div>
-  <h3 class="prompt plain">
-    <%= ("Ready means " + question.description) %>
-  </h3>
+  <h3 class="prompt plain"><%= question.description %></h3>
   <div class="answer" style="display:none;">
+    <%= form_for :answer, (question.answers.build), :url => {:controller => 'answers', :actions => 'new'} do |a| %>
     <table>
       <tr>
         <td>
           <strong>Preparedness:</strong>
         </td>
         <td>
-          <label><input type="radio" name="preparedness" value="not ready"> not ready</label>
+          <label><%= a.radio_button :preparedness, 'not ready' %> not ready</label>
         </td>
         <td>
-          <label><input type="radio" name="preparedness" value="needs work"> needs work</label>
-        </td>
-        <td>
-          <label><input type="radio" name="preparedness" value="ready"> ready</label>
-        </td>
-        <td>
-          <label><input type="radio" name="preparedness" value="unknown"> unknown</label>
+          <label><%= a.radio_button :preparedness, 'needs work' %> needs work</label>
+        </td>                                      
+        <td>                                       
+          <label><%= a.radio_button :preparedness, 'ready' %> ready</label>
+        </td>                                      
+        <td>                                       
+          <label><%= a.radio_button :preparedness, 'unknown' %> unknown</label>
         </td>
       </tr>
       <tr>
@@ -32,14 +31,16 @@
           <strong>Priority:</strong>
         </td>
         <td>
-          <label><input type="radio" name="priority" value="critical"> critical</label>
-        </td>
-        <td>
-          <label><input type="radio" name="priority" value="non-critical"> non-critical</label>
+          <label><%= a.radio_button :priority, 'critical' %> critical</label>
+        </td>                                  
+        <td>                                   
+          <label><%= a.radio_button :priority, 'non-critical' %> non-critical</label>
         </td>
       </tr>
     </table>
-    <%= link_to_function 'save answer', '', :class => 'button blue save-response' %>
+    <%= a.submit 'save answer', :class => 'button blue save-response' %>
+    <% end %>
+    <%#= link_to_function 'save answer', '', :class => 'button blue save-response' %>
   </div>
   <div class="explain" style="display:none;">
     <p>Please rate the priority and preparedness of this topic for your organization.</p>
