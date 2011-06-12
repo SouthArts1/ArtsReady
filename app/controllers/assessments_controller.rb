@@ -14,7 +14,7 @@ class AssessmentsController < ApplicationController
   end
   
   def show
-    redirect_to :new_assessment_path unless current_org.assessment.present?
+    redirect_to new_assessment_path unless current_org.assessment.present? 
     @assessment = current_org.assessment
   end
   

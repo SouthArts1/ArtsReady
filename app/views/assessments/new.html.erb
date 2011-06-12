@@ -5,10 +5,13 @@
     <p>Please un-check any areas that don't apply to your organization.</p>
     <%= form_for @assessment do |f| %>
     <ul class="checklist">
-      <%= Assessment::CHOICES.each do |option| %>
+      <% Assessment::CRITICAL_FUNCTIONS.each do |critical_function| %>
+      <% if critical_function[:optional] %>
       <li>
-        <label><%= f.check_box :options, {:checked => true}, option[0] %> <%= option[1] %></label>
+        <label>
+          <%= f.check_box :critical_functions, {:checked => true}, critical_function[:title] %> <%= critical_function[:optional] %></label>
       </li>
+      <% end %>
       <% end %>
     </ul>
     <div class="grid_5">

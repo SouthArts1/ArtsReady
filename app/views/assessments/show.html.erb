@@ -1,1 +1,45 @@
-<%= debug(@assessment) %>
+<div class="grid_12">
+  <div class="progress-container">
+    <p class="progress">
+      <span class="progress-complete" style="right:63%"></span>
+      <span class="progress-percent">Assessment is 37% complete</span>
+    </p>
+    <p class="progress-sub"><%= rand(10) %>/10 answered in <%= @current_function[0] %></p>
+  </div>
+  <h1>Readiness Assessment</h1>
+  <ul class="top-nav">
+    <% Assesment.critical_functions.each_with_index do |function, i| %>
+      <li id="<%= function[0].parameterize('_') %>" class="<%= 'active' if function == @current_function %>">
+        <%= link_to function[0], :tab => i %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="critical-function-toggle">
+    <% unless @current_function[1].blank? %>
+      <ul class="asses checklist">
+        <li class="<%= @current_function[0].parameterize('_') %>">
+          <label>
+            <input type="checkbox" checked="checked" class="checker">
+            <%= @current_function[1] %>
+          </label>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+  <div class="questions">    
+    <div class="section">
+      <%= raw(Assesment.send(@current_function[0].parameterize('_')).collect {|q| render :partial => 'assesment_question', :locals => {:question => q[0], :learn_more => q[1]}}) %>
+    </div>
+  </div>
+  <section>
+    <ul class="article-tools clearfix">
+      <li><a class="icon-print" href="#">Print</a></li>
+      <li><a class="icon-email" href="#">Email</a></li>
+      <li><a class="icon-share" href="#">Share</a></li>
+    </ul>
+  </section>
+  <div class="asses-actions">
+    <%= link_to raw("Continue to #{@next_function[0]}  &raquo;"), "/wireframe/assess?tab=#{Assesment.critical_functions.index(@next_function)}", :class => 'button blue', :style => 'margin-bottom:10px;' if @next_function %>
+    <br /><%= link_to raw('View To Do List &raquo;'), "/wireframe/actionitems" %>
+  </div>
+</div>

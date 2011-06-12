@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20110610154153) do
 
   create_table "assessments", :force => true do |t|
     t.integer  "organization_id"
-    t.string   "config"
+    t.string   "critical_functions"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -2,7 +2,7 @@ class CreateAssessments < ActiveRecord::Migration
   def self.up
     create_table :assessments do |t|
       t.integer :organization_id
-      t.string :config
+      t.string :critical_functions
 
       t.timestamps
     end
