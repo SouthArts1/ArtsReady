@@ -8,7 +8,7 @@
 
 admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true)
 
-org = Organization.create!(:name => 'Test Organization', :address => '1500 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001')
+org = Organization.create!(:name => 'Test Organization', :address => '1500 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true)
 member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org)
 
 puts member.inspect
