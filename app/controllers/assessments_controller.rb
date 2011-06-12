@@ -9,7 +9,7 @@ class AssessmentsController < ApplicationController
   end
   
   def create
-    @assessment = current_org.create_assessment unless current_org.assessment.present?
+    @assessment = current_org.create_assessment(params[:assessment]) #unless current_org.assessment.present?
     redirect_to assessment_path(@assessment)
   end
   

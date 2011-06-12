@@ -28,7 +28,12 @@ ActiveRecord::Schema.define(:version => 20110610154153) do
 
   create_table "assessments", :force => true do |t|
     t.integer  "organization_id"
-    t.string   "critical_functions"
+    t.boolean  "has_performances"
+    t.boolean  "has_tickets"
+    t.boolean  "has_facilities"
+    t.boolean  "has_programs"
+    t.boolean  "has_grants"
+    t.boolean  "has_exhibits"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

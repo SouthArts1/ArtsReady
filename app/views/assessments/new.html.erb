@@ -5,14 +5,12 @@
     <p>Please un-check any areas that don't apply to your organization.</p>
     <%= form_for @assessment do |f| %>
     <ul class="checklist">
-      <% Assessment::CRITICAL_FUNCTIONS.each do |critical_function| %>
-      <% if critical_function[:optional] %>
-      <li>
-        <label>
-          <%= f.check_box :critical_functions, {:checked => true}, critical_function[:title] %> <%= critical_function[:optional] %></label>
-      </li>
-      <% end %>
-      <% end %>
+      <li><label><%= f.check_box :has_performances, {:checked => true} %> We put on performances</label></li>
+      <li><label><%= f.check_box :has_tickets, {:checked => true} %> We manage ticket sales</label></li>
+      <li><label><%= f.check_box :has_facilities, {:checked => true} %> We have our own space/facility</label></li>
+      <li><label><%= f.check_box :has_programs, {:checked => true} %> We manage ongoing public programs</label></li>
+      <li><label><%= f.check_box :has_grants, {:checked => true} %> We provide grants</label></li>
+      <li><label><%= f.check_box :has_exhibits, {:checked => true} %> We put on exhibits</label></li>
     </ul>
     <div class="grid_5">
       
