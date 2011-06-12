@@ -15,6 +15,8 @@ class AssessmentsController < ApplicationController
   
   def show
     redirect_to new_assessment_path unless current_org.assessment.present? 
+    
+    @questions = Question.by_critical_function('People Resources')
     @assessment = current_org.assessment
   end
   

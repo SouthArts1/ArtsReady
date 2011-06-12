@@ -1,0 +1,56 @@
+<div class="question">
+  <div class="response">
+    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
+    <%= link_to_function 'not applicable', '', :class => 'does-not-apply', :style => 'color:#666;text-decoration:underline;' %>
+    <div class="answers">
+    </div>
+  </div>
+  <h3 class="prompt plain">
+    <%= ("Ready means " + question.description) %>
+  </h3>
+  <div class="answer" style="display:none;">
+    <table>
+      <tr>
+        <td>
+          <strong>Preparedness:</strong>
+        </td>
+        <td>
+          <label><input type="radio" name="preparedness" value="not ready"> not ready</label>
+        </td>
+        <td>
+          <label><input type="radio" name="preparedness" value="needs work"> needs work</label>
+        </td>
+        <td>
+          <label><input type="radio" name="preparedness" value="ready"> ready</label>
+        </td>
+        <td>
+          <label><input type="radio" name="preparedness" value="unknown"> unknown</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Priority:</strong>
+        </td>
+        <td>
+          <label><input type="radio" name="priority" value="critical"> critical</label>
+        </td>
+        <td>
+          <label><input type="radio" name="priority" value="non-critical"> non-critical</label>
+        </td>
+      </tr>
+    </table>
+    <%= link_to_function 'save answer', '', :class => 'button blue save-response' %>
+  </div>
+  <div class="explain" style="display:none;">
+    <p>Please rate the priority and preparedness of this topic for your organization.</p>
+    <p class="info-bubble">
+      <%= link_to 'Learn more about this topic', '', :class => 'button weak info-bubble-trigger' %>
+      <span class="info-bubble-text">
+        <%= raw(learn_more) %>
+        <br /><br />
+        <a href="#">See how others answered this question.</a>
+      </span>
+    </p>
+  </div>
+  <div style="clear: both;"></div>
+</div>
