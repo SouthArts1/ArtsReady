@@ -1,8 +1,12 @@
 class Assessment < ActiveRecord::Base
+
   belongs_to :organization
+  has_many :answers
   
   attr_accessor :critical_functions
   
+  after_create :populate_empty_answers
+
   CRITICAL_FUNCTIONS = [
     {:name => 'people', :title => 'People Resources', :optional => false},
     {:name => 'finance', :title => 'Finances & Insurance', :optional => false},
@@ -14,5 +18,12 @@ class Assessment < ActiveRecord::Base
     {:name => 'grants', :title => 'Grantmaking', :optional => 'We provide grants'},
     {:name => 'exhibits', :title => 'Exhibits', :optional => 'We put on exhibits'}
   ]
+  
+  
+  def populate_empty_answers
+    Question.all.each do |q| 
+      answers.create(:question => q)
+    end
+  end
   
 end

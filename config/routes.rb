@@ -8,6 +8,7 @@ Artsready::Application.routes.draw do
   resources :articles
   resources :organizations, :except => [:index, :destroy]
   resources :assessments
+  resources :answers
 
   get "sign_up" => "users#new", :as => "sign_up"  
   get "sign_in" => "sessions#new", :as => "sign_in"  

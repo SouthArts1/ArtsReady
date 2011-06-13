@@ -14,9 +14,12 @@
   </ul>
   <div class="critical-function-toggle">
   </div>
-  <div class="questions">    
+  <div class="questions">
+    <% @assessment.answers.each do |a| %>    
     <div class="section">
+      <%= render :partial => 'assessment_question', :locals => {:answer => a, :learn_more => 'Learn more'} %>
     </div>
+    <% end %>
   </div>
   <section>
     <ul class="article-tools clearfix">
