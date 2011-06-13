@@ -5,9 +5,9 @@
     <div class="answers">
     </div>
   </div>
-  <h3 class="prompt plain"><%= question.description %></h3>
+  <h3 class="prompt plain"><%= answer.question_description %></h3>
   <div class="answer" style="display:none;">
-    <%= form_for :answer, (question.answers.build), :url => {:controller => 'answers', :actions => 'new'} do |a| %>
+    <%= form_for answer do |a| %>
     <table>
       <tr>
         <td>
