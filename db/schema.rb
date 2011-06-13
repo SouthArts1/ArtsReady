@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 20110612152620) do
 
   create_table "answers", :force => true do |t|
     t.integer  "assessment_id"
+    t.integer  "question_id"
     t.string   "preparedness"
     t.string   "priority"
     t.boolean  "was_skipped"
