@@ -1,0 +1,17 @@
+Changes on the EC2 Dev server
+
+Security/Users
+* added two users that did not use (deployer, rails) yet
+* port 80 opened by request
+* generated ssh key in johnpaul account for github deploy key
+
+Yum installations:
+
+* mysql
+* compilation tools (gcc, gcc-c++ autoconf  automake rpm-build make which libtool)
+* dev tools (readline-devel, openssl-devel, mysql-devel, libcurl-devel)
+
+Installs
+* installed rvm and used for ruby 1.9.2
+* installed passenger gem and hooked into custom 
+* installed passenger module and nginx using passenger tools
