@@ -46,3 +46,6 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/system #{release_path}/public"
   end
 end
+
+        require './config/boot'
+        require 'hoptoad_notifier/capistrano'
