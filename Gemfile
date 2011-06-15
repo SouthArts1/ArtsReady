@@ -8,6 +8,7 @@ gem 'carrierwave'
   
 # deploy
 gem 'newrelic_rpm'
+gem 'capistrano'
 
 group :test, :development do
   gem 'rspec-rails'
