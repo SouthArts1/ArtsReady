@@ -1,3 +1,8 @@
+require 'bundler/capistrano'
+
+# runtime dependencies
+depend :remote, :gem, "bundler"
+
 set :application, "artsready"
 
 
@@ -9,7 +14,7 @@ default_run_options[:pty] = true  # Must be set for the password prompt from git
 set :repository,  "git@github.com:fracturedatlas/ArtsReady.git"
 
 set :scm, "git"
-set :branch, "master"
+set :branch, "develop"
 set :deploy_via, :remote_cache
 
 set :user, "johnpaul"  # The server's user for deploys
