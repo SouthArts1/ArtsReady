@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110616151008) do
+ActiveRecord::Schema.define(:version => 20110616154820) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -72,6 +72,16 @@ ActiveRecord::Schema.define(:version => 20110616151008) do
     t.string   "description"
     t.string   "critical_function"
     t.integer  "import_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "todos", :force => true do |t|
+    t.integer  "action_item_id"
+    t.integer  "answer_id"
+    t.date     "due_on"
+    t.integer  "user_id"
+    t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
