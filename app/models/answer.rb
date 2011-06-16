@@ -8,11 +8,14 @@ class Answer < ActiveRecord::Base
   
   after_save :add_todo_items
   
+  def ready?
+    self.preparedness=='ready'
+  end
   
   def add_todo_items
     self.question.action_items.each do |i|
-      self.todos.create(:action_item => i)
-      logger.debug("Adding todo #{i.description} for question #{self.question.description}")
+      self.todos.create(:action_item => i) unless self.ready?
+      logger.debug("Adding todo #{i.description} for question #{self.question.description}") unless self.ready?
     end
   end
   
