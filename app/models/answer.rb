@@ -14,7 +14,7 @@ class Answer < ActiveRecord::Base
   
   def add_todo_items
     self.question.action_items.each do |i|
-      self.todos.create(:action_item => i) unless self.ready?
+      self.todos.create(:action_item => i, :organization => assessment.organization) unless self.ready?
       logger.debug("Adding todo #{i.description} for question #{self.question.description}") unless self.ready?
     end
   end
