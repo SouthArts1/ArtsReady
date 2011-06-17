@@ -18,10 +18,9 @@
     <section>
       <h3 class="icon-action">Our Most Urgent To-Dos</h3>
       <ul class="list-actionitems">
-        <li><a href="/wireframe/actionitems"><span class="urgent">Due</span> This is an example of an Action Item</a></li>
-        <li><a href="/wireframe/actionitems"><span class="urgent">Due</span> This is another example of an Action Item</a></li>
-        <li><a href="/wireframe/actionitems">This is example Action Item number three</a></li>
-        <li><a href="/wireframe/actionitems">Example of an Action Item numero quatro which is particularly long</a></li>
+        <% @todos.each do |todo| %>
+        <li><span class="urgent">Due</span><%= link_to todo.description, todo_path(todo) %></li>
+        <% end %>
       </ul>
     </section>
   </div>
