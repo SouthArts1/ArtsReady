@@ -1,17 +1,17 @@
 require 'csv'
 
+puts "Creating admin@test.host"
 admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true)
 
+puts "Creating test@test.host for Test Organization"
 org = Organization.create!(:name => 'Test Organization', :address => '1500 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true)
 member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org)
 
-puts member.inspect
-
+puts "Adding some articles"
 member.articles.create(:title => 'First Article', :content => 'This is my article')
 member.articles.create(:title => 'Another Article', :content => 'This is another article')
 
-Article.all.each {|a| puts a.inspect}
-
+puts "Loading the questions"
 questions = <<END
 1,"Ready means you keep your organizational chart in such a way that it can be accessed, no matter what happens.",People Resources
 2,Ready means your stakeholder contact lists are recently updated and easily obtained from offsite.,People Resources
@@ -90,6 +90,7 @@ CSV.parse(questions) do |row|
     Question.create(:import_id => row[0],:description => row[1], :critical_function => row[2])
 end
 
+puts "Loading the action items"
 action_items = <<END
  Update your organizational chart and upload to your Critical Stuff on ArtsReady,1,People Resources,
  Update the stakeholder contact list and upload to your Critical Stuff on ArtsReady,2,People Resources,
