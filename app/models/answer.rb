@@ -6,7 +6,7 @@ class Answer < ActiveRecord::Base
   
   delegate :description, :to => :question, :allow_nil => true, :prefix => true
   
-  after_save :add_todo_items
+#  after_update :add_todo_items
   
   def ready?
     self.preparedness=='ready'
