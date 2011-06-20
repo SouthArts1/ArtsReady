@@ -68,7 +68,7 @@
         </thead>
         <tbody>
             <tr>
-              <%= form_for(current_org.todos.new) do |f|%>
+              <%= form_for(@todo) do |f|%>
               <td class="item"><p><input type="text" placeholder="Action Item"></p></td>
               <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
               </p></td>
@@ -81,7 +81,7 @@
                   </select>
                 </p>
               </td>
-              <td class="add-button"><p><a class="button add-actionitem-button green">Add</a><%= f.submit "Add" %></p></td>
+              <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green" %></p></td>
               <% end %>
             </tr>
         </tbody>

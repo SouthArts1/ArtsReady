@@ -1,0 +1,55 @@
+<div class="grid_12">
+  <hgroup>
+    <%= link_to 'edit to do', edit_todo_path(@todo), :class => 'button', :style => 'float:right;' %>
+    <h1><%= @todo.description %></h1>
+  </hgroup>
+</div>
+
+<div class="grid_6 todo-details">
+  <section>
+    <div class="grid_3 alpha">
+      <h3>Assigned to</h3>
+      <%= @todo.user_name %>
+    </div>
+    <div class="grid_3 omega">
+      <h3>Status</h3>
+      In progress
+    </div>
+  </section>
+  <section>
+    <div class="grid_3 alpha">
+      <h3>Due Date</h3>
+      <%= @todo.due_on ||= 'Unassigned' %>
+    </div>
+    <div class="grid_3 omega">
+      <h3>Review Date</h3>
+      <%= @todo.recurrence  %>
+    </div>
+  </section>
+
+  <h3>Related Articles</h3>
+  <section class="list-kb">
+    <article>
+      <h5><a href="/wireframe/kb">Library Article Title</a></h5>
+      <p><time>February 26, 2011</time></p>
+    </article>
+    <article>
+      <h5><a href="/wireframe/kb">Another Library Article Title</a></h5>
+      <p><time>February 19, 2011</time></p>
+    </article>
+    <article>
+      <h5><a href="/wireframe/kb">And Yet Another Library Article Title Goes Here</a></h5>
+      <p><time>February 12, 2011</time></p>
+    </article>
+  </section>
+</div>
+
+<div class="grid_6 todo-logs">
+  <h3 style="">Log</h3>
+  <% 5.times do |i| %>
+    <div class="log">
+      <div>Something happened! (Todo was created, or edited, or completed)</div>
+      <time><%= time_ago_in_words(i.days.ago) %> ago by Jake Johnson</time>
+    </div>
+  <% end %>
+</div>
