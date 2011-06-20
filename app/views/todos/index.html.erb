@@ -53,7 +53,7 @@
                 </p>
               </td>
               <td><p>
-                <%= link_to 'details', '/wireframe/actionitems_show', :class => 'button' %>
+                <%= link_to 'details', todo_path(todo), :class => 'button' %>
               </td></p>
             <% end %>
           </tr>
@@ -68,8 +68,10 @@
         </thead>
         <tbody>
             <tr>
+              <%= form_for(current_org.todos.new) do |f|%>
               <td class="item"><p><input type="text" placeholder="Action Item"></p></td>
-              <td class="assigned"><p><input type="text" placeholder="Assigned"></p></td>
+              <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
+              </p></td>
               <td class="due"><p><input type="text" placeholder="Due" class="datepicker"></p></td>
               <td class="priority">
                 <p>
@@ -79,7 +81,8 @@
                   </select>
                 </p>
               </td>
-              <td class="add-button"><p><a class="button add-actionitem-button green">Add</a></p></td>
+              <td class="add-button"><p><a class="button add-actionitem-button green">Add</a><%= f.submit "Add" %></p></td>
+              <% end %>
             </tr>
         </tbody>
       </table>
