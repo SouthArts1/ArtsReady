@@ -217,7 +217,7 @@ input {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) inset;
     background: #fff;
     border-bottom-color: #ddd;
-    width: 100%; } }
+    width: 98%; } }
 
 textarea {
   border-radius: 5px;
@@ -832,6 +832,7 @@ tbody {
     padding-left: 30px;
     width: 90px;
     height: 50px;
+    margin-bottom: 20px;
     &.answered {
       background: url("../images/icon-check.png") no-repeat 0px center; } }
   .explain {
@@ -859,18 +860,14 @@ tbody {
     float: left;
     margin-right: 20px; } }
 
-.buddy {
-  margin-bottom: 20px;
-  clear: both; 
 
-  .badge {
-    float: left;
-    height: 60px;
-    text-align: center;
-    width: 65px;} }
+/*  Assess Admin  */
 
-.buddies .buddy:last-child {
-  margin: 0; }
+.edit_question {
+//  background: #fffce0;
+//  padding: 10px;
+  label {
+    font-weight: bold; } }
 
 .readiness-intro {
   font-size: 16px; }
@@ -996,7 +993,7 @@ tbody {
   textarea {
     width: 590px; } }
 
-.button, a.button {
+.button, a.button, input[type="submit"] {
   text-decoration: none;
   border: 1px solid #C31D29;
   padding: 5px 8px;
@@ -1281,6 +1278,19 @@ footer {
   text-align: left;
   margin-bottom: 20px; }
 
+.buddy {
+  margin-bottom: 20px;
+  clear: both; 
+
+  .badge {
+    float: left;
+    height: 60px;
+    text-align: center;
+    width: 65px;} }
+
+.buddies .buddy:last-child {
+  margin: 0; }
+
 h2.buddy {
   clear: both;
   padding: 0;
@@ -1312,7 +1322,7 @@ h3 {
   .field {
     margin-bottom: 10px; } }
 
-.top-nav.battle {
+.top-nav.battle, .top-nav.settings {
   margin-bottom: 10px;
   border-bottom: 1px solid #525e96; }
 
@@ -1420,3 +1430,49 @@ ul.library {
 
   p:last-child {
     margin: 0; } }
+// Admin editing of Todos and Assessment
+
+table#edit_todos, table#edit_questions {
+  border: none; 
+
+  tr {
+    border-bottom: 1px solid #ccc; 
+    &.expanded td, &.expanded:hover td{
+      background: #fff; } } 
+
+  td {
+    text-align: left;
+    padding: 10px;
+    border: none;
+    &.respond {
+      width: 100px; 
+      text-align: left; }
+
+    .edit {
+      label {
+        font-weight: bold; }
+      p {
+        margin-bottom: 20px; }
+      input[type="text"], textarea {
+        width: 600px; }
+    }
+    .delete {
+      float:right; }
+  }
+}
+
+// Settings
+td.actions {
+  text-align: right;
+}
+
+// actionitem (todo) detail
+.todo-details, .todo-logs {
+  h3 {
+    margin: 0; 
+    padding: 0;}
+}
+
+.log {
+  margin-bottom: 20px;
+}
