@@ -8,14 +8,12 @@
           <span class="progress-complete" style="right:63%"></span>
           <span class="progress-percent">Todos are 37% complete</span>
         </p>
-        <p class="progress-sub"><%= rand(10) + 1 %>/10 done in <%= @current_function[0] %></p>
+        <p class="progress-sub"><%= rand(10) + 1 %>/10 done in SECTION</p>
       </div>
     </div>
     <ul class="top-nav">
-      <% Assesment.critical_functions.each_with_index do |function, i| %>
-        <li id="<%= function[0].parameterize('_') %>" class="<%= 'active' if function == @current_function %>">
-          <%= link_to function[0], :tab => i %>
-        </li>
+      <% Assessment::CRITICAL_FUNCTIONS.each do |critical_function| %>
+        <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= critical_function[:name] %></li>
       <% end %>
     </ul>
     <section>
@@ -30,9 +28,9 @@
           <td></td>
         </thead>
         <tbody>
-          <% (rand(8) + 1).times do %>
+          <% @todos.each do |todo| %>
             <tr>
-              <td class="item"><p contenteditable="true" class="editable">Select, train and document authorized signatories</p></td>
+              <td class="item"><p contenteditable="true" class="editable"><%= todo.description %></p></td>
               <td class="assigned">
                 <p>
                   <select>
@@ -44,7 +42,7 @@
                   </select>
                 </p>
               </td>
-              <td class="updated"><p>Created 2/24/2011</p></td>
+              <td class="updated"><p><%= todo.updated_at.to_date.to_formatted_s(:short) %></p></td>
               <td class="due">
                 <p>
                   <input type="text" class="datepicker">
