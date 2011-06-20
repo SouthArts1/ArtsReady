@@ -29,20 +29,15 @@
         </thead>
         <tbody>
           <% @todos.each do |todo| %>
-            <tr>
+          <tr>
+            <%= form_for todo do |f| %>
               <td class="item"><p contenteditable="true" class="editable"><%= todo.description %></p></td>
               <td class="assigned">
                 <p>
-                  <select>
-                    <option>Unassigned</option>
-                    <option>Amy Adams</option>
-                    <option>Bob Barker</option>
-                    <option>Charlie Chaplin</option>
-                    <option>Daniel Dennet</option>
-                  </select>
+                  <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
                 </p>
               </td>
-              <td class="updated"><p><%= todo.updated_at.to_date.to_formatted_s(:short) %></p></td>
+              <td class="updated"><p><%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
               <td class="due">
                 <p>
                   <input type="text" class="datepicker">
@@ -60,7 +55,8 @@
               <td><p>
                 <%= link_to 'details', '/wireframe/actionitems_show', :class => 'button' %>
               </td></p>
-            </tr>
+            <% end %>
+          </tr>
           <% end %>
         </tbody>
       </table>
