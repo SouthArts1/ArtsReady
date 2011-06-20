@@ -1,0 +1,100 @@
+<div class="grid_12">
+    <div class="grid_6 alpha">
+      <h1>To Do List</h1>
+    </div>
+    <div class="grid_6 omega">
+      <div class="progress-container">
+        <p class="progress">
+          <span class="progress-complete" style="right:63%"></span>
+          <span class="progress-percent">Todos are 37% complete</span>
+        </p>
+        <p class="progress-sub"><%= rand(10) + 1 %>/10 done in <%= @current_function[0] %></p>
+      </div>
+    </div>
+    <ul class="top-nav">
+      <% Assesment.critical_functions.each_with_index do |function, i| %>
+        <li id="<%= function[0].parameterize('_') %>" class="<%= 'active' if function == @current_function %>">
+          <%= link_to function[0], :tab => i %>
+        </li>
+      <% end %>
+    </ul>
+    <section>
+      <table class="actionitems">
+        <thead>
+          <td><p>Item</p></td>
+          <td><p>Assigned To</p></td>
+          <td><p>Updated</p></td>
+          <td><p>Due</p></td>
+          <td><p>Status</p></td>
+          <td><p>Priority</p></td>
+          <td></td>
+        </thead>
+        <tbody>
+          <% (rand(8) + 1).times do %>
+            <tr>
+              <td class="item"><p contenteditable="true" class="editable">Select, train and document authorized signatories</p></td>
+              <td class="assigned">
+                <p>
+                  <select>
+                    <option>Unassigned</option>
+                    <option>Amy Adams</option>
+                    <option>Bob Barker</option>
+                    <option>Charlie Chaplin</option>
+                    <option>Daniel Dennet</option>
+                  </select>
+                </p>
+              </td>
+              <td class="updated"><p>Created 2/24/2011</p></td>
+              <td class="due">
+                <p>
+                  <input type="text" class="datepicker">
+                </p>
+              </td>
+              <td class="status"><p>In progress</p></td>
+              <td class="priority">
+                <p>
+                  <select>
+                    <option>Non-critical</option>
+                    <option>Critical</option>
+                  </select>
+                </p>
+              </td>
+              <td><p>
+                <%= link_to 'details', '/wireframe/actionitems_show', :class => 'button' %>
+              </td></p>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>  
+   <section> 
+      <table class="add-actionitem">
+        <thead>
+          <td colspan="7"><p>Add another item</p></td>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="item"><p><input type="text" placeholder="Action Item"></p></td>
+              <td class="assigned"><p><input type="text" placeholder="Assigned"></p></td>
+              <td class="due"><p><input type="text" placeholder="Due" class="datepicker"></p></td>
+              <td class="priority">
+                <p>
+                  <select>
+                    <option>Non-critical</option>
+                    <option>Critical</option>
+                  </select>
+                </p>
+              </td>
+              <td class="add-button"><p><a class="button add-actionitem-button green">Add</a></p></td>
+            </tr>
+        </tbody>
+      </table>
+  </section>
+  <section>
+    <ul class="article-tools clearfix">
+      <li><a class="icon-print" href="#">Print</a></li>
+      <li><a class="icon-email" href="#">Email</a></li>
+      <li><a class="icon-share" href="#">Share</a></li>
+    </ul>
+  </section>
+</div>
