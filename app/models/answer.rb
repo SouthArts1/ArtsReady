@@ -4,6 +4,8 @@ class Answer < ActiveRecord::Base
   belongs_to :question
   has_many :todos
   
+  delegate :description, :to => :question, :allow_nil => true, :prefix => true
+  
 #  after_update :add_todo_items
   
   def ready?
