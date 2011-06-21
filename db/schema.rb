@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621174432) do
+ActiveRecord::Schema.define(:version => 20110621185010) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20110621174432) do
     t.datetime "updated_at"
     t.boolean  "active",               :default => false
     t.boolean  "battle_buddy_enabled", :default => false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "questions", :force => true do |t|
