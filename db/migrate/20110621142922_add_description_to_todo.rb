@@ -6,7 +6,7 @@ class AddDescriptionToTodo < ActiveRecord::Migration
   end
 
   def self.down
-    #remove_column :todos, :priority
+    remove_column :todos, :priority
     rename_column :todos, :details, :note
     remove_column :todos, :description
   end

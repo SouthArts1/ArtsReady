@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20110621142922) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
+    t.string   "priority"
   end
 
   create_table "users", :force => true do |t|
