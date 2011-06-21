@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20110621185010) do
     t.boolean  "battle_buddy_enabled", :default => false
     t.float    "latitude"
     t.float    "longitude"
+    t.boolean  "gmaps"
   end
 
   create_table "questions", :force => true do |t|
