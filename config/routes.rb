@@ -6,7 +6,7 @@ Artsready::Application.routes.draw do
   end
 
   resources :articles
-  resources :organizations, :except => [:index, :destroy]
+  resources :organizations, :only => [:edit, :update, :show]
   resources :assessments
   resources :answers
   resources :todos

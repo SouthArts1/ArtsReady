@@ -1,0 +1,12 @@
+<% params[:tab] = 'Organization' unless params[:tab] %>
+<h1><%= params[:tab] %></h1>
+
+<ul class="top-nav settings">
+  <% ['My Info', 'Organization', 'Our Team', 'Billing'].each do |tab| %>
+    <li class="<%= 'active' if params[:tab] == tab%>">
+      <%= link_to tab, :tab => tab %>
+    </li>
+  <% end %>
+</ul>
+
+<%= render :partial => "settings_#{params[:tab].parameterize('_')}" %>

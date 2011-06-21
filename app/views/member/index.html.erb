@@ -41,12 +41,11 @@
     <%= render :partial => 'progress_bar', :locals => {:percent => current_org.todo_completion, :message => 'Action items are'} %>
   </section>
   <section class="list-kb">
-    <article>
-      <h3><%= link_to '1 Battle Buddy in Need', 'wireframe/battlebuddies_help' %></h3>
-      <p><br /><strong><%= link_to '954 Dance Movement Collective', "/wireframe/battlebuddies_buddy?title=954 Dance Movement Collective" %></strong><br />
-      "Thanks so much for everyone's response..."</p>
-      <p><time>Yesterday</time></p>
-    </article>
+    <% if current_org.battle_buddy_enabled? %>
+    <%= render :partial => 'battle_buddy_headlines' %>    
+    <% else %>
+    <%= link_to "Join the Battle Buddy Network", edit_organization_path(current_org) %>
+    <% end %>
   </section>
   <%= render :partial => 'featured_article' %>
 </div>
