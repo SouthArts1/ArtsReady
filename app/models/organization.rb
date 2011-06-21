@@ -20,4 +20,8 @@ class Organization < ActiveRecord::Base
     0
   end
   
+  def battle_buddy_enabled?
+    true
+  end
+  
 end
