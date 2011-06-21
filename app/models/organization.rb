@@ -1,5 +1,7 @@
 class Organization < ActiveRecord::Base
-  
+  acts_as_gmappable
+  geocoded_by :full_street_address
+
   has_one :assessment
 
   has_many :articles
@@ -8,10 +10,13 @@ class Organization < ActiveRecord::Base
   
   validates_presence_of :name, :address, :city, :state, :zipcode
   
-  geocoded_by :full_street_address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  after_validation :geocode
     
   def full_street_address
+    [address, city, state, zipcode].compact.join(', ')
+  end
+
+  def gmaps4rails_address
     [address, city, state, zipcode].compact.join(', ')
   end
   

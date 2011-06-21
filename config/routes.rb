@@ -1,5 +1,10 @@
 Artsready::Application.routes.draw do
   
+  get "buddies/help"
+  get "buddies/offer"
+  get "buddies/index"
+  get "buddies/profile"
+
   namespace :admin do
     resources :users, :only => [:index, :edit, :update]
     resources :organizations, :only => [:index, :edit, :update]

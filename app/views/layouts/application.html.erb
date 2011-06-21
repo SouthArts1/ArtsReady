@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag "jquery-1.4.2.min", "modernizr-1.6.min", "jquery.uniform.min", "jquery-ui-1.8.10.custom.min", "tablesorter.min.js", "application" %>
   <%= csrf_meta_tag %>
+  <%= yield :head %>
 </head>
 <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
@@ -99,6 +100,6 @@
     <script src="javascripts/dd_belatedpng.js"></script>
     <script> DD_belatedPNG.fix('img, .png_bg'); </script>
   <![endif]-->
-
+  <%= yield :scripts %>
 </body>
 </html>
