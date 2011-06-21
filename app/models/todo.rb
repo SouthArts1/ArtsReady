@@ -6,4 +6,7 @@ class Todo < ActiveRecord::Base
   
   delegate :recurrence, :to => :action_item, :allow_nil => true, :prefix => false
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
+  
+  PRIORITY = ['critical' 'non-critical']
+  PREPAREDNESS = ['not-ready', 'needs work', 'ready', 'unknown']
 end

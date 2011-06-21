@@ -73,6 +73,7 @@
               <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
               <td class="priority">
                 <p>
+                  <%= f.select :priority, Todo::PRIORITY %>
                   <select>
                     <option>Non-critical</option>
                     <option>Critical</option>
