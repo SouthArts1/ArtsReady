@@ -1,0 +1,79 @@
+<div class="grid_12">
+    <div class="grid_6 alpha">
+      <h1>To Do List</h1>
+    </div>
+    <div class="grid_6 omega">
+      <div class="progress-container">
+        <p class="progress">
+          <span class="progress-complete" style="right:63%"></span>
+          <span class="progress-percent">Todos are 37% complete</span>
+        </p>
+        <p class="progress-sub"><%= rand(10) + 1 %>/10 done in SECTION</p>
+      </div>
+    </div>
+    <ul class="top-nav">
+      <% Assessment::CRITICAL_FUNCTIONS.each do |critical_function| %>
+        <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= critical_function[:name] %></li>
+      <% end %>
+    </ul>
+    <section>
+      <table class="actionitems">
+        <thead>
+          <td><p>Item</p></td>
+          <td><p>Assigned To</p></td>
+          <td><p>Updated</p></td>
+          <td><p>Due</p></td>
+          <td><p>Status</p></td>
+          <td><p>Priority</p></td>
+          <td></td>
+        </thead>
+        <tbody>
+          <% @todos.each do |todo| %>
+          <tr>
+            <%= form_for todo do |f| %>
+              <td class="item"><p contenteditable="true" class="editable"><%= todo.description %></p></td>
+              <td class="assigned">
+                <p>
+                  <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
+                </p>
+              </td>
+              <td class="updated"><p><%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
+              <td class="due">
+                <p><%= todo.due_on.to_formatted_s(:slashed) unless todo.due_on.nil? %> <%#= f.text_field :due_on, :class => 'datepicker' %></p>
+              </td>
+              <td class="status"><p>In progress</p></td>
+              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
+              <td><p><%= link_to 'details', todo_path(todo), :class => 'button' %></p></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>  
+   <section> 
+     <%= form_for(@todo) do |f|%>
+      <table class="add-actionitem">
+        <thead>
+          <td colspan="7"><p>Add another item</p></td>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="item"><p><%= f.text_field :description, :placeholder => 'Action Item' %></p></td>
+              <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
+              </p></td>
+              <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
+              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
+              <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green" %></p></td>
+            </tr>
+        </tbody>
+      </table>
+      <% end %>
+  </section>
+  <section>
+    <ul class="article-tools clearfix">
+      <li><a class="icon-print" href="#">Print</a></li>
+      <li><a class="icon-email" href="#">Email</a></li>
+      <li><a class="icon-share" href="#">Share</a></li>
+    </ul>
+  </section>
+</div>

@@ -19,6 +19,8 @@ group :test, :development do
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-livereload'
+  gem 'guard-bundler'
+  gem 'guard-rails'
 end
 
 group :development do

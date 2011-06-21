@@ -208,7 +208,7 @@ input[type="text"], input[type="password"] {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) inset;
   background: #fff;
   border-bottom-color: #ddd;
-  width: 100%; }
+  width: 98%; }
 
 textarea {
   border-radius: 5px;
@@ -809,7 +809,8 @@ tbody tr:hover td {
     padding: 10px;
     padding-left: 30px;
     width: 90px;
-    height: 50px; }
+    height: 50px;
+    margin-bottom: 20px; }
     .question .response.answered {
       background: url("../images/icon-check.png") no-repeat 0px center; }
   .question .explain {
@@ -837,17 +838,9 @@ tbody tr:hover td {
     float: left;
     margin-right: 20px; }
 
-.buddy {
-  margin-bottom: 20px;
-  clear: both; }
-  .buddy .badge {
-    float: left;
-    height: 60px;
-    text-align: center;
-    width: 65px; }
-
-.buddies .buddy:last-child {
-  margin: 0; }
+/*  Assess Admin  */
+.edit_question label {
+  font-weight: bold; }
 
 .readiness-intro {
   font-size: 16px; }
@@ -967,7 +960,7 @@ tbody tr:hover td {
 .create-comment textarea {
   width: 590px; }
 
-.button, a.button {
+.button, a.button, input[type="submit"] {
   text-decoration: none;
   border: 1px solid #C31D29;
   padding: 5px 8px;
@@ -987,20 +980,20 @@ tbody tr:hover td {
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
-  .button.weak, a.button.weak {
+  .button.weak, a.button.weak, input[type="submit"].weak {
     background: #999;
     font-weight: normal;
     border: none; }
-  .button.white, a.button.white {
+  .button.white, a.button.white, input[type="submit"].white {
     color: #333;
     background-color: #eee;
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
     background-image: -moz-linear-gradient(center top, white, #eeeeee); }
-  .button.blue, a.button.blue {
+  .button.blue, a.button.blue, input[type="submit"].blue {
     background-color: #525e96;
     background: -webkit-gradient(linear, left top, left bottom, from(#525e96), to(#28387d));
     background: -moz-linear-gradient(top, #525e96, #28387d); }
-  .button.green, a.button.green {
+  .button.green, a.button.green, input[type="submit"].green {
     background-color: #84983d;
     border: 1px solid #84983d;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a8b653), to(#84983d));
@@ -1246,6 +1239,18 @@ footer {
   text-align: left;
   margin-bottom: 20px; }
 
+.buddy {
+  margin-bottom: 20px;
+  clear: both; }
+  .buddy .badge {
+    float: left;
+    height: 60px;
+    text-align: center;
+    width: 65px; }
+
+.buddies .buddy:last-child {
+  margin: 0; }
+
 h2.buddy {
   clear: both;
   padding: 0;
@@ -1276,7 +1281,7 @@ h3.nopad {
   .resource-form .field {
     margin-bottom: 10px; }
 
-.top-nav.battle {
+.top-nav.battle, .top-nav.settings {
   margin-bottom: 10px;
   border-bottom: 1px solid #525e96; }
 
@@ -1355,3 +1360,35 @@ ul.library {
   -webkit-box-shadow: 0px 1px 2px white inset; }
   .library-sidebar p:last-child {
     margin: 0; }
+
+table#edit_todos, table#edit_questions {
+  border: none; }
+  table#edit_todos tr, table#edit_questions tr {
+    border-bottom: 1px solid #ccc; }
+    table#edit_todos tr.expanded td, table#edit_todos tr.expanded:hover td, table#edit_questions tr.expanded td, table#edit_questions tr.expanded:hover td {
+      background: #fff; }
+  table#edit_todos td, table#edit_questions td {
+    text-align: left;
+    padding: 10px;
+    border: none; }
+    table#edit_todos td.respond, table#edit_questions td.respond {
+      width: 100px;
+      text-align: left; }
+    table#edit_todos td .edit label, table#edit_questions td .edit label {
+      font-weight: bold; }
+    table#edit_todos td .edit p, table#edit_questions td .edit p {
+      margin-bottom: 20px; }
+    table#edit_todos td .edit input[type="text"], table#edit_todos td .edit textarea, table#edit_questions td .edit input[type="text"], table#edit_questions td .edit textarea {
+      width: 600px; }
+    table#edit_todos td .delete, table#edit_questions td .delete {
+      float: right; }
+
+td.actions {
+  text-align: right; }
+
+.todo-details h3, .todo-logs h3 {
+  margin: 0;
+  padding: 0; }
+
+.log {
+  margin-bottom: 20px; }

@@ -10,15 +10,7 @@ $(function(){
 	  buttonImage: '/images/calendar.gif',
 	  changeMonth: true,
 	  changeYear: true,
-	  dateFormat: "mm/dd/yy",
-	  onSelect: function() {
-		    $(this).removeClass("clearFieldBlurred");
-		    $(this).focus();
-			if ( $(".actionitems").length > 0 ) {
-				var selectParent = $(this).closest("tr");
-				updateQuestionnaire(selectParent);
-			}
-	    }
+	  dateFormat: "yy-mm-dd",
 	});
 	
 });
@@ -36,24 +28,6 @@ $(".side-nav li a").live('click', function(event) {
 	$(".side-nav li").removeClass("active");
 	el.parent("li").addClass("active");
 	$(".side-nav-panels tbody").hide().eq( el.parent("li").index() ).show();
-});
-
-// Action items "add another item" button
-$(".add-actionitem-button").live('click', function(event) {
-	event.preventDefault(); // Keeps the link from actually doing anything
-	var newItem = $(".add-actionitem .item input").val();
-	var newAssigned = $(".add-actionitem .assigned input").val();
-	var newDue = "Due " + $(".add-actionitem .due input").val();
-	var newPriority = $(".add-actionitem .priority select").val();
-	var dt = new Date();
-	var newUpdated = "Created " + (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear() ;
-
-	$(".actionitems tbody tr:last-child").clone().appendTo( $(".actionitems") );
-	$(".actionitems tbody tr:last-child td.item").html(in_p(newItem));
-	$(".actionitems tbody tr:last-child td.assigned").html(in_p(newAssigned));
-	$(".actionitems tbody tr:last-child td.due").html(in_p(newDue));
-	$(".actionitems tbody tr:last-child td.priority").html(in_p(newPriority));
-	$(".actionitems tbody tr:last-child td.updated").html(in_p(newUpdated));
 });
 
 // Action items "add resource" button
