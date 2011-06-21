@@ -42,17 +42,8 @@
                 <p><%= todo.due_on.to_formatted_s(:slashed) unless todo.due_on.nil? %> <%#= f.text_field :due_on, :class => 'datepicker' %></p>
               </td>
               <td class="status"><p>In progress</p></td>
-              <td class="priority">
-                <p>
-                  <select>
-                    <option>Non-critical</option>
-                    <option>Critical</option>
-                  </select>
-                </p>
-              </td>
-              <td><p>
-                <%= link_to 'details', todo_path(todo), :class => 'button' %>
-              </td></p>
+              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
+              <td><p><%= link_to 'details', todo_path(todo), :class => 'button' %></p></td>
             <% end %>
           </tr>
           <% end %>
@@ -71,15 +62,7 @@
               <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
               </p></td>
               <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
-              <td class="priority">
-                <p>
-                  <%= f.select :priority, Todo::PRIORITY %>
-                  <select>
-                    <option>Non-critical</option>
-                    <option>Critical</option>
-                  </select>
-                </p>
-              </td>
+              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
               <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green" %></p></td>
             </tr>
         </tbody>
