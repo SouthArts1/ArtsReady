@@ -17,9 +17,9 @@ class TodosController < ApplicationController
     @todo = current_org.todos.new(params[:todo])
 
     if @todo.save
-      redirect_to todos_path, :notice => 'Post was successfully created.'
+      redirect_to todos_path, :notice => 'Todo was successfully created.'
     else
-      render :action => "index"
+      redirect_to todos_path, :notice => 'There was a problem with your todo'
     end
 
   end

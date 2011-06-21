@@ -10,15 +10,7 @@ $(function(){
 	  buttonImage: '/images/calendar.gif',
 	  changeMonth: true,
 	  changeYear: true,
-	  dateFormat: "mm/dd/yy",
-	  onSelect: function() {
-		    $(this).removeClass("clearFieldBlurred");
-		    $(this).focus();
-			if ( $(".actionitems").length > 0 ) {
-				var selectParent = $(this).closest("tr");
-				updateQuestionnaire(selectParent);
-			}
-	    }
+	  dateFormat: "yy-mm-dd",
 	});
 	
 });

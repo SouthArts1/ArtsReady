@@ -39,9 +39,7 @@
               </td>
               <td class="updated"><p><%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
               <td class="due">
-                <p>
-                  <input type="text" class="datepicker">
-                </p>
+                <p><%= todo.due_on.to_formatted_s(:slashed) unless todo.due_on.nil? %> <%#= f.text_field :due_on, :class => 'datepicker' %></p>
               </td>
               <td class="status"><p>In progress</p></td>
               <td class="priority">
@@ -62,17 +60,17 @@
       </table>
     </section>  
    <section> 
+     <%= form_for(@todo) do |f|%>
       <table class="add-actionitem">
         <thead>
           <td colspan="7"><p>Add another item</p></td>
         </thead>
         <tbody>
             <tr>
-              <%= form_for(@todo) do |f|%>
-              <td class="item"><p><input type="text" placeholder="Action Item"></p></td>
+              <td class="item"><p><%= f.text_field :description, :placeholder => 'Action Item' %></p></td>
               <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
               </p></td>
-              <td class="due"><p><input type="text" placeholder="Due" class="datepicker"></p></td>
+              <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
               <td class="priority">
                 <p>
                   <select>
@@ -82,10 +80,10 @@
                 </p>
               </td>
               <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green" %></p></td>
-              <% end %>
             </tr>
         </tbody>
       </table>
+      <% end %>
   </section>
   <section>
     <ul class="article-tools clearfix">
