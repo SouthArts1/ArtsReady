@@ -44,7 +44,7 @@
     <% if current_org.battle_buddy_enabled? %>
     <%= render :partial => 'battle_buddy_headlines' %>    
     <% else %>
-    <%= render :partial => 'join_battle_buddy_network' %>    
+    <%= link_to "Join the Battle Buddy Network", edit_organization_path(current_org) %>
     <% end %>
   </section>
   <%= render :partial => 'featured_article' %>

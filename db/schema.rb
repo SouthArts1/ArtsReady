@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621142922) do
+ActiveRecord::Schema.define(:version => 20110621174432) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -65,7 +65,8 @@ ActiveRecord::Schema.define(:version => 20110621142922) do
     t.string   "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",     :default => false
+    t.boolean  "active",               :default => false
+    t.boolean  "battle_buddy_enabled", :default => false
   end
 
   create_table "questions", :force => true do |t|
