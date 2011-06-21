@@ -12,7 +12,7 @@ class Organization < ActiveRecord::Base
   after_validation :geocode          # auto-fetch coordinates
     
   def full_street_address
-    "#{address} #{city} #{state} #{zipcode}"
+    [address, city, state, zipcode].compact.join(', ')
   end
   
   def assessment_in_progress?
