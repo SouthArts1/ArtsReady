@@ -12,6 +12,8 @@ class Article < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :content
 
+  scope :on_critical_list, where(:on_critical_list => true)
+
   def self.featured
     Article.limit(1)
   end
