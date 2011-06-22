@@ -12,7 +12,7 @@
     <% if @article.document.present? %>
     <div><%= link_to "Download", @article.document.url %></div>
     <% end %>    
-    <div><%= @article.content %></div>
+    <div><%= @article.body %></div>
   </article>
   <%= render 'share' %>
   <section>

@@ -1,7 +1,12 @@
 class ArticlesController < ApplicationController
+
   def index
     @featured_articles = Article.featured
     @articles = Article.recent
+  end
+  
+  def critical_list
+    @critical_list = current_org.articles.on_critical_list
   end
 
   def show

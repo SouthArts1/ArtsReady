@@ -1,0 +1,26 @@
+<div class="grid_12">
+  <h1>Our Critical Stuff</h1>
+    <section>
+      <table class="resource side-nav-panels">
+        <thead>
+          <td><p>Critical Function</p></td>
+          <td><p>Title</p></td>
+          <td><p>Description</p></td>
+          <td><p>Type</p></td>
+          <td><p>Tags</p></td>
+        </thead>
+        <tbody>
+          <% @critical_list.each do |a| %>
+            <tr>
+              <td class="function"><p><a href="#"><%= a.critical_function %></a></p></td>
+              <td class="title"><p><a href="#"><%= a.title %></a></p></td>
+              <td class="description"><p><%= a.description %></p></td>
+              <td class="source"><p></p></td>
+              <td class="tags"><p></p></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+    <%= link_to 'Add Item', new_article_path, :class => 'button green'%>
+</div>

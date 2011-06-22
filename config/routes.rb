@@ -12,7 +12,10 @@ Artsready::Application.routes.draw do
     resources :organizations, :only => [:index, :edit, :update]
   end
 
-  resources :articles
+  resources :articles do
+    get 'critical_list', :on => :collection
+  end
+  
   resources :organizations, :only => [:edit, :update, :show]
   resources :assessments
   resources :answers

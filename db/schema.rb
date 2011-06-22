@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110622185904) do
+ActiveRecord::Schema.define(:version => 20110622205025) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -33,16 +33,18 @@ ActiveRecord::Schema.define(:version => 20110622185904) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
-    t.string   "tags"
     t.string   "link"
     t.string   "document"
-    t.text     "content"
+    t.text     "body"
     t.date     "published_on"
     t.integer  "user_id"
     t.integer  "organization_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_public",       :default => false
+    t.string   "description"
+    t.string   "visibility",        :default => "private"
+    t.string   "critical_function"
+    t.boolean  "on_critical_list",  :default => false
   end
 
   create_table "assessments", :force => true do |t|
