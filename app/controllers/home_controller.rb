@@ -18,7 +18,6 @@ class HomeController < ApplicationController
   end
   
   def tbd
-    render :text => 'TBD'
   end
   
 

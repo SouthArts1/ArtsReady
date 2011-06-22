@@ -1232,8 +1232,12 @@ footer {
   width: 270px;
   margin: 0 auto;
   margin-bottom: 20px; }
-  #map_canvas.large {
-    height: 500px; }
+#map_canvas_large {
+  height: 500px;
+ clear: both;
+ width: 270px;
+ margin: 0 auto;
+ margin-bottom: 20px; }
 
 .map-address {
   text-align: left;

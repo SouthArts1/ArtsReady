@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag "jquery-1.4.2.min", "modernizr-1.6.min", "jquery.uniform.min", "jquery-ui-1.8.10.custom.min", "tablesorter.min.js", "application" %>
   <%= csrf_meta_tag %>
+  <%= yield :head %>
 </head>
 <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
@@ -41,8 +42,8 @@
               <li><%= link_to 'Assess', new_assessment_path %></li>
               <li><%= link_to 'To do', todos_path %></li>
               <li><%= link_to 'Our Critical Stuff', tbd_path %></li>
-              <li><%= link_to 'Lend a Hand', tbd_path %></li>
-              <li><%= link_to 'Get Help', tbd_path %></li>
+              <li><%= link_to 'Lend a Hand', buddies_lend_a_hand_path %></li>
+              <li><%= link_to 'Get Help', buddies_get_help_path %></li>
               <li><%= link_to 'Library', articles_path %></li>
               <li><input type="text" placeholder=""/></li>
             <% else %>
@@ -99,6 +100,6 @@
     <script src="javascripts/dd_belatedpng.js"></script>
     <script> DD_belatedPNG.fix('img, .png_bg'); </script>
   <![endif]-->
-
+  <%= yield :scripts %>
 </body>
 </html>

@@ -1,0 +1,42 @@
+<div class="grid_12 alpha">
+  <%= render '/member/crisis_switch' %>
+  <h1>Battle Buddy Network</h1>
+  <ul class="top-nav battle">
+    <li><%= link_to "Lend a Hand", buddies_lend_a_hand_path %></li>
+    <li class="active"><%= link_to "Get Help", buddies_get_help_path %></li>
+    <li><%= link_to "Crisis Console", tbd_path %></li>
+    <li><%= link_to "Our Profile", buddies_profile_path %></li>
+  </ul>
+</div>
+
+
+<div class="grid_4">
+  <%= gmaps( 
+  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => false}, 
+  "markers" => { "data" => @buddies.to_gmaps4rails}) %>
+  
+</div>
+<div class="grid_8">
+  <section>
+    <h2 class="buddy"><%= @buddies.size %> Nearby Organization Who Can Help</h2>
+    <div class="buddy-filter">
+      Show buddies within <%= text_field_tag :miles, 50, :style => 'width: 40px;' %> miles offering
+      <%= select_tag :resource, options_for_select(['Any Help', 'Office Space', 'Personnel', 'Prop Storage']) %>
+      &nbsp; 
+      <%= link_to_function 'Filter', '', :class => 'button' %>
+    </div>
+    <div class="buddies">
+      <% @buddies.each do |buddy| %>
+      <%= render :partial => 'buddy', :object => buddy   %>
+      <% end %>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="buddy">1 Pending Battle Buddy</h2>
+    <div class="buddies">
+      <%#= render :partial => 'buddy', :locals => {:title => 'Amaryllis Theatre Company: The Playground at the Adrienne', :buddy => false} %>
+    </div>
+  </section>
+</div>
+
