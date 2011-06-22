@@ -1129,6 +1129,45 @@ input.datepicker, table input.datepicker {
     margin: 10px;
     padding-left: 25px; }
 
+.flash-notice {
+  margin: -10px 20px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: #9ccb83 url("../images/icon-notice.png") 10px 10px no-repeat;
+  box-shadow: 0px 1px 2px #fff inset;
+  -moz-box-shadow: 0px 1px #fff inset;
+  -webkit-box-shadow: 0px 1px 2px #fff inset; }
+  .flash-notice p {
+    margin: 10px;
+    padding-left: 25px; }
+
+.flash-warning {
+  margin: -10px 20px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: #e1e591 url("../images/icon-warning.png") 10px 10px no-repeat;
+  box-shadow: 0px 1px 2px #fff inset;
+  -moz-box-shadow: 0px 1px #fff inset;
+  -webkit-box-shadow: 0px 1px 2px #fff inset; }
+  .flash-warning p {
+    margin: 10px;
+    padding-left: 25px; }
+
+.flash-error {
+  margin: -10px 20px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: #f4aaa1 url("../images/icon-error.png") 10px 10px no-repeat;
+  box-shadow: 0px 1px 2px #fff inset;
+  -moz-box-shadow: 0px 1px #fff inset;
+  -webkit-box-shadow: 0px 1px 2px #fff inset; }
+  .flash-error p {
+    margin: 10px;
+    padding-left: 25px; }
+
 .swatches {
   list-style: none;
   margin-bottom: 10px;
