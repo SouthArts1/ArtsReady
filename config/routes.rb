@@ -1,7 +1,7 @@
 Artsready::Application.routes.draw do
   
-  get "buddies/help"
-  get "buddies/offer"
+  get "buddies/get_help"
+  get "buddies/lend_a_hand"
   get "buddies/index"
   get "buddies/profile"
 

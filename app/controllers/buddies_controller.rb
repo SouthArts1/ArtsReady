@@ -1,8 +1,8 @@
 class BuddiesController < ApplicationController
-  def help
+  def get_help
   end
 
-  def offer
+  def lend_a_hand
   end
 
   def index
