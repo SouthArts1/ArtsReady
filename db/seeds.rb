@@ -12,14 +12,17 @@ member.articles.create(:title => 'First Article', :content => 'This is my articl
 member.articles.create(:title => 'Another Article', :content => 'This is another article')
 
 puts "Creating battle buddies"
-org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :active => true)
+org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :active => true, :battle_buddy_enabled => true)
 member = User.create!(:email=>'lc@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Lincoln', :last_name => 'Center', :organization => org)
 
-org = Organization.create!(:name => 'Whitney Museum of American Art', :address => '945 Madison Avenue', :city => 'New York', :state => 'NY', :zipcode => '10021', :active => true)
+org = Organization.create!(:name => 'Whitney Museum of American Art', :address => '945 Madison Avenue', :city => 'New York', :state => 'NY', :zipcode => '10021', :active => true, :battle_buddy_enabled => true)
 member = User.create!(:email=>'wmaa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Whitney', :last_name => 'Museum', :organization => org)
 
-org = Organization.create!(:name => 'Alliance of Queens Artists', :address => '99-10 Metropolitan Ave', :city => 'Forest Hills', :state => 'NY', :active => true)
+org = Organization.create!(:name => 'The Museum of Modern Art', :address => '11 West 53rd Street', :city => 'New York', :state => 'NY', :zipcode => '10019', :active => true, :battle_buddy_enabled => true)
 member = User.create!(:email=>'queens@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Queens', :last_name => 'Alliance', :organization => org)
+
+org = Organization.create!(:name => 'Fractured Atlas', :address => '248 West 35th Street', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true, :battle_buddy_enabled => false)
+member = User.create!(:email=>'fa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Queens', :last_name => 'Alliance', :organization => org)
 
 puts "Loading the questions"
 questions = <<END
