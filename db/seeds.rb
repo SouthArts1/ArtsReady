@@ -3,13 +3,23 @@ require 'csv'
 puts "Creating admin@test.host"
 admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true)
 
-puts "Creating test@test.host for Test Organization"
+puts "Creating test@test.host for NYC Test Organization"
 org = Organization.create!(:name => 'Test Organization', :address => '1500 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true)
 member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org)
 
 puts "Adding some articles"
 member.articles.create(:title => 'First Article', :content => 'This is my article')
 member.articles.create(:title => 'Another Article', :content => 'This is another article')
+
+puts "Creating battle buddies"
+org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :active => true)
+member = User.create!(:email=>'lc@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Lincoln', :last_name => 'Center', :organization => org)
+
+org = Organization.create!(:name => 'Whitney Museum of American Art', :address => '945 Madison Avenue', :city => 'New York', :state => 'NY', :zipcode => '10021', :active => true)
+member = User.create!(:email=>'wmaa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Whitney', :last_name => 'Museum', :organization => org)
+
+org = Organization.create!(:name => 'Alliance of Queens Artists', :address => '99-10 Metropolitan Ave', :city => 'Forest Hills', :state => 'NY', :active => true)
+member = User.create!(:email=>'queens@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Queens', :last_name => 'Alliance', :organization => org)
 
 puts "Loading the questions"
 questions = <<END
