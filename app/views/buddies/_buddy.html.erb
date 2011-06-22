@@ -1,0 +1,21 @@
+<div class="buddy">
+  <div class="badge">
+    <% if buddy %>
+      <%= image_tag('buddy_marker.png') %>
+    <% else %>
+      <%= image_tag('map_marker.png') %>
+    <% end %>
+  </div>
+  <h3 class="name plain"><%= link_to title, "/wireframe/battlebuddies_buddy?title=#{title}" %></h3>
+  <div class="address">
+    <%= rand(5) + 2 %> miles away: <%= link_to "954 North 8th Street" %>
+  </div>
+  <div class="requested-help">
+    Available Resources: <%= link_to_function 'Prop storage' %> and <%= link_to_function 'personnel' %>
+  </div>
+  <% unless buddy %>
+    <button class="button" style="padding:5px 10px;">
+      <%= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
+    </button>
+  <% end %>
+</div>
