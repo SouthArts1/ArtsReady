@@ -1,5 +1,7 @@
 Artsready::Application.routes.draw do
   
+  resources :resources
+
   get "buddies/get_help"
   get "buddies/lend_a_hand"
   get "buddies/index"

@@ -34,40 +34,30 @@
   <section>
     <h3 class="buddy">Our Resources</h3>
     <div class="grid_4 alpha">
+      <% current_org.resources.each do |r| %>
       <div class="resource offer">
-        <h3 class="name plain nopad"><%= link_to_function 'Prop Storage' %></h3>
+        <h3 class="name plain nopad"><%= link_to r.name, resource_path(r) %></h3>
         <div class="details">
-          <p>We've got about 4"x5" free in our storage locker. We've also got a pickup if you need help moving anything...</p>
+          <p><%= r.details %></p>
         </div>
       </div>
-      
-      <div class="resource offer">
-        <h3 class="name plain nopad"><%= link_to_function 'Personnel' %></h3>
-        <div class="details">
-          <p>Our expert accountant, Sarah, is available for a few hours of consulting over the phone. She has tons of experience...</p>
-        </div>
-      </div>
-
-      <div class="resource offer">
-        <h3 class="name plain nopad"><%= link_to_function 'Office Space' %></h3>
-        <div class="details">
-          <p>We've got 2 extra desks at our office on Peach Tree Street. We can provide internet and phone ac...</p>
-        </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="grid_4 omega">
       <div class="resource-form rounded">
+        <%= form_for(@resource) do |f| %>
         <h3 class="buddy">Add a Resource</h3>
         <div class="field">
           <label>Resource Type</label>
-          <%= select_tag :resource, options_for_select(['Office Space', 'Personnel', 'Prop Storage']) %>
+          <%= f.text_field :name %>
         </div>
         <div class="field">
           <label>Details</label>
-          <%= text_area_tag :details, '', :style => 'width:95%' %>
+          <%= f.text_area :details, :style => 'width:95%' %>
         </div>
-        <a class="button">Add</a>
+        <%= f.submit "Add" %>
+        <% end %>
       </div>
     </div>
   </section>

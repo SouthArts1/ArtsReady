@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_one :assessment
 
   has_many :articles
+  has_many :resources
   has_many :todos
   has_many :users
   
