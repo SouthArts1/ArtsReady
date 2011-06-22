@@ -235,6 +235,8 @@ time {
 label {
   display: block;
   margin-left: 5px; }
+  label, label.label {
+    font-weight: bold; }
 
 .f-left {
   float: left; }
@@ -1339,7 +1341,7 @@ table#messages {
   #distress-switch span#distress-status {
     font-weight: bold; }
 
-#distress-confirm #some-buddies {
+#some-buddies {
   background: #ccc;
   padding: 10px; }
 

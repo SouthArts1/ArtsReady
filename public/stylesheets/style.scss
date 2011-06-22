@@ -245,7 +245,9 @@ time {
 
 label {
   display: block;
-  margin-left: 5px; }
+  margin-left: 5px; 
+  &, &.label {
+    font-weight: bold; } }
 
 .f-left {
   float: left; }
@@ -1404,11 +1406,9 @@ table#messages {
   }
 }
 
-#distress-confirm {
-  #some-buddies {
-    background: #ccc;
-    padding: 10px;
-  }
+#some-buddies {
+  background: #ccc;
+  padding: 10px;
 }
 
 /*Library (knowledgebase)*/
