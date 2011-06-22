@@ -10,4 +10,5 @@ describe Article do
   it { should validate_presence_of(:content) }
 
   it { subject.is_public.should be_false}
+  it { subject.critical_list.should be_false}
 end
