@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
+  skip_before_filter :authenticate!
+  
   def index
     @featured_articles = Article.featured
     @public_articles = Article.for_public.limit(3)

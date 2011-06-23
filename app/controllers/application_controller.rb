@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :authenticate!
   
   helper_method :current_user, :user_signed_in?, :current_org
     
   def authenticate!(*args)
-    redirect_to :sign_in unless user_signed_in?
+    redirect_to :sign_in, :notice => 'You must sign in to access that part of the application.' unless user_signed_in?
   end
   
   private  
