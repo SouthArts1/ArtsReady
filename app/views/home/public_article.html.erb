@@ -26,12 +26,12 @@
 <div class="grid_4">
   <div class="library-sidebar">
     <h5>Author</h5>
-    <p>Jack Jimson (<%= link_to '3 other articles' %>)</p>
+    <p><%= link_to @article.user_name %> (<%= pluralize(@article.user.articles.for_public.count, 'other article') %>)</p>
 
     <h5>Created</h5>
     <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
 
-    <h5>Topic</h5>
+    <h5>Critical Function</h5>
     <p><%= link_to "Finances &amp; Insurance".html_safe %></p>
 
     <h5>Tags</h5>

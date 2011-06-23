@@ -8,6 +8,7 @@ class Article < ActiveRecord::Base
   before_create :set_organization
   
 #  attr_accessible :title, :body, :tags, :link, :user, :visibility
+  delegate :name, :to => :user, :allow_nil => true, :prefix => true
   
   validates_presence_of :title
   validates_presence_of :body
