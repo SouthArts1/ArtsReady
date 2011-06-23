@@ -1,11 +1,12 @@
-<h2>Article</h2>
+<div class="grid_12">
+  <hgroup>
+    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' %>
+    <h1><%= @article.title %></h1>
+  </hgroup>
+</div>
 
 <div class="grid_8">
   <article>
-    <hgroup>
-      <%= link_to 'submit article', new_article_path, :class => 'button', :style => 'float:right;' %>
-      <h1><%= @article.title %></h1>
-    </hgroup>
     <% if @article.link.present? %>
     <div><%= link_to "Link", @article.link %></div>
     <% end %>
@@ -48,23 +49,22 @@
     </div>
   </section>
 </div>
-
 <div class="grid_4">
-  <ul class="tag-cloud">
-    <li><a href="#" class="size-1">this</a></li>
-    <li><a href="#" class="size-4">is a</a></li>
-    <li><a href="#" class="size-3">tag cloud</a></li>
-    <li><a href="#" class="size-6">crisis</a></li>
-    <li><a href="#" class="size-3">flooding</a></li>
-    <li><a href="#" class="size-2">fire</a></li>
-    <li><a href="#" class="size-1">tornado</a></li>
-    <li><a href="#" class="size-5">hurricane</a></li>
-    <li><a href="#" class="size-3">fraud</a></li>
-    <li><a href="#" class="size-6">riot</a></li>
-    <li><a href="#" class="size-5">act of god</a></li>
-    <li><a href="#" class="size-6">rodentia</a></li>
-    <li><a href="#" class="size-3">labor</a></li>
-  </ul>
-  <p><img src="/images/sample-1.png" alt="Image of Readiness"></p>
-  <p><img src="/images/sample-2.png" alt="Image of Readiness"></p>
+  <div class="library-sidebar">
+    <h5>Author</h5>
+    <p><%= link_to @article.user_name %> (<%= pluralize(@article.user.articles.for_public.count, 'other article') %>)</p>
+
+    <h5>Created</h5>
+    <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
+
+    <h5>Critical Function</h5>
+    <p><%= link_to @article.critical_function %></p>
+
+    <h5>Tags</h5>
+    <p><%= %w(here are the articles tags).collect {|t| link_to t }.join(', ').html_safe %></p>
+
+    <h5>Stats</h5>
+    <p>3 Comments | 25 Views</p>
+  </div>
 </div>
+

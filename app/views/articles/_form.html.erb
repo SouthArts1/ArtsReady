@@ -1,5 +1,5 @@
+<%= form_for @article, :html => { :multipart => true } do |f| %>
 <div class="grid_8">
-  <%= form_for @article do |f| %>
   <%= f.error_messages %>
   <section>
     <div class="field">
@@ -66,6 +66,6 @@
   <div class="actions">
     <%= f.submit 'Save', :class => 'button' %>
   </div>
-  <% end %>
   
 </div>
+<% end %>
