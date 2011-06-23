@@ -11,12 +11,22 @@
       <%= f.label :description, 'Short Description' %>
       <%= f.text_field :description %>
     </div>
-
-    <div class="field">
-      <%= f.label :body %>
-      <%= f.text_area :body, :class => 'tall' %>
-    </div>
     
+  </section>
+  <section>
+  <p>You can attach a file or link to this article, or simply enter the content directly in the body field below.</p>
+  <div class="field">
+    <%= f.label :document, 'Upload a file' %>
+    <%= f.file_field :document %>
+  </div>
+  <div class="field">
+    <%= f.label :link, 'Or assign a link' %>
+    <%= f.text_field :link, :placeholder => 'http://...' %>
+  </div>
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
   </section>
 </div>  
 <div class="grid_4">
@@ -29,9 +39,15 @@
   <section>
     <div class="field">
       <label>Visibility</label>
-      <%= f.radio_button :visibility, 'private' %> Private <br />
-      <%= f.radio_button :visibility, 'executive' %> Executive <br />
-      <%= f.radio_button :visibility, 'public' %> Public <br />
+      <hr />
+      <p>Share with Everyone Who Visits ArtsReady</p>
+      <%= f.radio_button :visibility, 'public' %> Public (visitors and other organizations) <br />
+      <hr />
+      <p>Share only within My Organization</p>
+      <%= f.radio_button :visibility, 'private' %> Private (this entire organization)<br />
+      <%= f.radio_button :visibility, 'executive' %> Executive (only those assigned executive permission by the administrator)<br />
+      <hr />
+      <p>Share within My Battle Buddies Network</p>
       <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />
       <%= f.radio_button :visibility, 'some-buddies' %> Specific Battle Buddies <br />
       <div id="some-buddies" style="display:none;">
@@ -47,21 +63,12 @@
         });
       </script>
     </div>
-    <%= f.check_box :on_critical_list %>
-    <%= f.label :on_critical_list, 'Include in Our Critical Stuff?' %>
-
+    <div class="field">    
+    <%= f.label :on_critical_list, 'Our Critical Stuff' %>  
+    <%= f.check_box :on_critical_list %> Include in Our Critical Stuff?
+    </div>
   </section>
 
-  <section>
-  <div class="field">
-    <%= f.label :document, 'Upload a file' %>
-    <%= f.file_field :document %>
-  </div>
-  <div class="field">
-    <%= f.label :link, 'Or assign a link' %>
-    <%= f.text_field :link, :placeholder => 'http://...' %>
-  </div>
-  </section>
 
   <div class="actions">
     <%= f.submit 'Save', :class => 'button' %>
