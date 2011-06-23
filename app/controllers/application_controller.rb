@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
   
   def user_signed_in?  
-    current_user.present? && current_org.active?
+    (current_user.present? && current_org.active?) rescue false
   end
   
   
