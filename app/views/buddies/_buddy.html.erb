@@ -1,6 +1,6 @@
 <div class="buddy">
   <div class="badge">
-    <% if buddy.active? %>
+    <% if buddy.is_my_buddy? %>
       <%= image_tag('buddy_marker.png') %>
     <% else %>
       <%= image_tag('map_marker.png') %>
@@ -13,7 +13,7 @@
   <div class="requested-help">
     Available Resources: <%= link_to_function 'Prop storage' %> and <%= link_to_function 'personnel' %>
   </div>
-  <% unless buddy %>
+  <% unless buddy.is_my_buddy? %>
     <button class="button" style="padding:5px 10px;">
       <%= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
     </button>

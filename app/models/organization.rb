@@ -12,7 +12,8 @@ class Organization < ActiveRecord::Base
   validates_presence_of :name, :address, :city, :state, :zipcode
   
   after_validation :geocode
-    
+  
+  scope :in_buddy_network, where(:battle_buddy_enabled => true)  
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
   end
@@ -31,6 +32,10 @@ class Organization < ActiveRecord::Base
   
   def todo_completion
     0
+  end
+  
+  def is_my_buddy?
+    false
   end
   
 end
