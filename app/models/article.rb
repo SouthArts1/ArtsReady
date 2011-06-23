@@ -7,10 +7,10 @@ class Article < ActiveRecord::Base
   
   before_create :set_organization
   
-  attr_accessible :title, :content, :tags, :link, :user
+#  attr_accessible :title, :body, :tags, :link, :user, :visibility
   
   validates_presence_of :title
-  validates_presence_of :content
+  validates_presence_of :body
 
   scope :on_critical_list, where(:on_critical_list => true)
   scope :for_public, where(:visibility => 'public')
