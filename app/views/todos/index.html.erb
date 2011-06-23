@@ -19,6 +19,7 @@
     <section>
       <table class="actionitems">
         <thead>
+          <tr>
           <td><p>Item</p></td>
           <td><p>Assigned To</p></td>
           <td><p>Updated</p></td>
@@ -26,11 +27,12 @@
           <td><p>Status</p></td>
           <td><p>Priority</p></td>
           <td></td>
+          </tr>
         </thead>
         <tbody>
           <% @todos.each do |todo| %>
           <tr>
-            <%= form_for todo do |f| %>
+            <%= form_for todo, :remote => true do |f| %>
               <td class="item"><p contenteditable="true" class="editable"><%= todo.description %></p></td>
               <td class="assigned">
                 <p>
@@ -54,7 +56,7 @@
      <%= form_for(@todo) do |f|%>
       <table class="add-actionitem">
         <thead>
-          <td colspan="7"><p>Add another item</p></td>
+          <tr><td colspan="7"><p>Add another item</p></td></tr>
         </thead>
         <tbody>
             <tr>
