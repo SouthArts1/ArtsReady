@@ -8,8 +8,8 @@ org = Organization.create!(:name => 'Test Organization', :address => '1500 Broad
 member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org)
 
 puts "Adding some articles"
-member.articles.create(:title => 'First Article', :content => 'This is my article')
-member.articles.create(:title => 'Another Article', :content => 'This is another article')
+member.articles.create(:title => 'First Article is Public and Feature', :body => 'This is my article', :visibility => 'public')
+member.articles.create(:title => 'Another Public Article', :body => 'This is another article', :visibility => 'public')
 
 puts "Creating battle buddies"
 org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :active => true, :battle_buddy_enabled => true)
