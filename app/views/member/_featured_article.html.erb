@@ -3,7 +3,7 @@
   <article>
     <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
     <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
-    <p><%= article.content %></p>
+    <p><%= article.body %></p>
   </article>
   <% end %>
 </section>
