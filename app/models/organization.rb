@@ -14,6 +14,8 @@ class Organization < ActiveRecord::Base
   after_validation :geocode
   
   scope :in_buddy_network, where(:battle_buddy_enabled => true)  
+  scope :to_approve, where(:active => false)  
+
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
   end

@@ -1,7 +1,7 @@
 class Admin::OrganizationsController < Admin::AdminController
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.to_approve
   end
 
   def update
