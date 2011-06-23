@@ -13,6 +13,7 @@ class Article < ActiveRecord::Base
   validates_presence_of :content
 
   scope :on_critical_list, where(:on_critical_list => true)
+  scope :for_public, where(:visibility => 'public')
 
   def self.featured
     Article.limit(1)
@@ -22,8 +23,8 @@ class Article < ActiveRecord::Base
     Article.all
   end
 
-  def self.for_public
-    where(:is_public => true)
+  def is_public?
+    visibility == 'public'
   end
   
   def published_on

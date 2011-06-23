@@ -12,8 +12,7 @@ class HomeController < ApplicationController
   def public_article
     @article = Article.find(params[:id])
     if !@article.is_public?
-      render :text => 'Not a public record!'
-    else
+      redirect_to :library, :notice => 'That is not a public document.'
     end
   end
   
