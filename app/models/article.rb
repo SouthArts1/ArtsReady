@@ -11,7 +11,7 @@ class Article < ActiveRecord::Base
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
   
   validates_presence_of :title
-  validates_presence_of :body
+  validates_presence_of :description
 
   scope :on_critical_list, where(:on_critical_list => true)
   scope :for_public, where(:visibility => 'public')
