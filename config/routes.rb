@@ -42,7 +42,7 @@ Artsready::Application.routes.draw do
   get "tour" => "home#tour", :as => "tour"
 
   get "library" => "home#library", :as => "library"
-  get "public_article" => "home#public_article", :as => "public_article"
+  get "home/public_article(/:id)" => "home#public_article", :as => "public_article"
   
   get "tbd" => "home#tbd", :as => "tbd"
   root :to => "home#index"

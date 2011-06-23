@@ -1,0 +1,43 @@
+<div class="grid_12">
+  <hgroup>
+    <h1><%= @article.title %></h1>
+  </hgroup>
+</div>
+
+<div class="grid_8">
+  <article>
+    <% if @article.link.present? %>
+    <div><%= link_to "Link", @article.link %></div>
+    <% end %>
+    <% if @article.document.present? %>
+    <div><%= link_to "Download", @article.document.url %></div>
+    <% end %>    
+    <div><%= @article.body %></div>
+  </article>
+
+  <ul class="article-tools clearfix">
+    <li><a class="icon-print" href="#">Print</a></li>
+    <li><a class="icon-email" href="#">Email</a></li>
+    <li><a class="icon-share" href="#">Share</a></li>
+  </ul>
+
+</div>
+
+<div class="grid_4">
+  <div class="library-sidebar">
+    <h5>Author</h5>
+    <p>Jack Jimson (<%= link_to '3 other articles' %>)</p>
+
+    <h5>Created</h5>
+    <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
+
+    <h5>Topic</h5>
+    <p><%= link_to "Finances &amp; Insurance".html_safe %></p>
+
+    <h5>Tags</h5>
+    <p><%= %w(here are the articles tags).collect {|t| link_to t }.join(', ').html_safe %></p>
+
+    <h5>Stats</h5>
+    <p>3 Comments | 25 Views</p>
+  </div>
+</div>
