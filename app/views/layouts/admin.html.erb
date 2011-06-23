@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ArtsReady</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag "modernizr-2.0.4.custom.89556", "jquery-1.6.1.min", "jquery.uniform.min", "jquery-ui-1.8.10.custom.min", "tablesorter.min.js", "application" %>
+  <%= csrf_meta_tag %>
+  <%= yield :head %>
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif<]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body lang="en">  <!--<![endif]-->
+  <div class="wrapper">
+    <header>
+      <div class="container container_12 clearfix">
+        <h1 class="logo f-left">
+          <a href="/" title="Home">ArtsReady</a>
+        </h1>
+        <div class="user-nav">
+          <ul>
+            <% if admin_signed_in? %>
+            <li><a href="">Settings</a></li>
+            <li><a href="">Admin</a></li>
+            <li><%= link_to "Logout", sign_out_path %></li>
+            <% else %>
+            <li><%= link_to "Login", sign_in_path %></li>
+            <% end %>
+          </ul>
+          <% if admin_signed_in? %>
+            <div id="logged-in-status">
+              <%= current_user.name %>
+            </div>
+          <% end %>
+        </div>
+        <nav>
+          <ul>
+            <li><%= link_to 'Dashboard', admin_dashboard_path %></li>
+            <li><%= link_to 'Organizations', admin_organizations_path %></li>
+          </ul>
+        </nav>
+      </div>    
+    </header>
+    <div class="content">
+      <div class="container container_12 clearfix">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, :class => "flash-#{name}" do %>
+            <%= content_tag :p, msg %>
+          <% end %>  
+        <% end %>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  <div class="logos container_12 clearfix">
+    <div class="grid_3">
+      <h5>ArtsReady is a project of:</h5>
+      <%= image_tag('south.png') %>
+    </div>
+    <div class="grid_9">
+      <h5>ArtsReady is a supported by:</h5>
+      <%= image_tag('flagler.png') %>
+      <%= image_tag('nea.png') %>
+      <%= image_tag('mellon.png') %>
+    </div>
+  </div>
+  <footer class="container container_12 clearfix">
+    
+    <p class="f-left">
+      Copyright 2011
+    </p>
+    <nav class="f-right">
+      <ul>
+        <li><%= link_to 'Sitemap', sitemap_path %></li>
+        <li><%= link_to 'Support', support_path %></li>
+        <li><%= link_to 'Contact Us', contact_path %></li>
+      </ul>
+    </nav>
+  </footer>
+
+
+  <!--[if lt IE 7 ]>
+    <script src="javascripts/dd_belatedpng.js"></script>
+    <script> DD_belatedPNG.fix('img, .png_bg'); </script>
+  <![endif]-->
+  <%= yield :scripts %>
+</body>
+</html>
