@@ -18,6 +18,9 @@ class HomeController < ApplicationController
     end
   end
   
+  def welcome
+  end
+  
   def tbd
   end
   

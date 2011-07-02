@@ -6,4 +6,5 @@ Factory.define :organization do |f|
   f.city "New York"
   f.state "NY"
   f.zipcode "10001"
+  f.active true
 end

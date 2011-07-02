@@ -1,4 +1,4 @@
-Feature: New member 
+Feature: New organization registration
   In order to become a member
   As a visitor  
   I want to register with the site
@@ -17,5 +17,6 @@ Feature: New member
     And I fill in "user[organization_attributes][state]" with "NY"
     And I fill in "user[organization_attributes][zipcode]" with "10001"
     And I press "user_submit"
-    Then I should be on the dashboard page
+    Then I should be on the welcome page
+    And I should see "organization has been registered and is awaiting approval"
   

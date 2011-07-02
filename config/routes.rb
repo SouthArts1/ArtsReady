@@ -40,10 +40,10 @@ Artsready::Application.routes.draw do
   get "sitemap" => "home#sitemap", :as => "sitemap"
   get "support" => "home#support", :as => "support"
   get "tour" => "home#tour", :as => "tour"
+  get "welcome" => "home#welcome", :as => "welcome"
 
   get "library" => "home#library", :as => "library"
   get "home/public_article(/:id)" => "home#public_article", :as => "public_article"
-  
   get "tbd" => "home#tbd", :as => "tbd"
   root :to => "home#index"
 

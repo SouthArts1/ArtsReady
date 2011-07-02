@@ -48,3 +48,5 @@ end
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
+#TODO Get rid of this when Rails 3.0x supports rack 1.3
+$VERBOSE = nil

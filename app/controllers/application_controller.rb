@@ -5,7 +5,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?, :current_org
     
   def authenticate!(*args)
-    redirect_to :sign_in, :notice => 'You must sign in to access that part of the application.' unless user_signed_in?
+
+    unless user_signed_in?
+      msg = 'You must sign in to access that page'
+      if (current_user.present? && !current_org.active?) then msg = 'Your organization has not been approved' end
+      if (current_user.present? && !current_user.active?) then msg = 'Your user account is inactive' end
+      redirect_to :sign_in, :notice => msg
+    end
+      
   end
   
   private  
@@ -20,6 +27,5 @@ class ApplicationController < ActionController::Base
   def user_signed_in?  
     (current_user.present? && current_org.active?) rescue false
   end
-  
   
 end
