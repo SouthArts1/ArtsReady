@@ -19,14 +19,14 @@ org = Organization.create!(:name => 'Whitney Museum of American Art', :address =
 member = User.create!(:email=>'wmaa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Whitney', :last_name => 'Museum', :organization => org)
 
 org = Organization.create!(:name => 'The Museum of Modern Art', :address => '11 West 53rd Street', :city => 'New York', :state => 'NY', :zipcode => '10019', :active => true, :battle_buddy_enabled => true)
-member = User.create!(:email=>'queens@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Queens', :last_name => 'Alliance', :organization => org)
+member = User.create!(:email=>'moma@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Moma', :last_name => 'Museum', :organization => org)
 
 org = Organization.create!(:name => 'Fractured Atlas', :address => '248 West 35th Street', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true, :battle_buddy_enabled => false)
 member = User.create!(:email=>'fa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Fractured', :last_name => 'Atlas', :organization => org)
 
 puts "Adding unapproved organization"
 org = Organization.create!(:name => 'Unapproved Org', :address => '1505 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => false, :battle_buddy_enabled => false)
-member = User.create!(:email=>'fa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org)
+member = User.create!(:email=>'unapproved@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org)
 
 puts "Loading the questions"
 questions = <<END
