@@ -10,6 +10,11 @@ Factory.define :user do |f|
   f.organization Factory(:organization)
 end
 
+Factory.define :new_user, :parent => :user do |f|
+  f.organization Factory(:new_organization)
+end
+
 Factory.define :admin, :parent => :user do |f|
   f.admin true
 end
+
