@@ -1,8 +1,8 @@
 Artsready::Application.routes.draw do
 
-  get "buddies/get_help"
-  get "buddies/lend_a_hand"
-  get "buddies/index"
+  get "get_help" => "buddies#get_help", :as => "get_help"
+  get "lend_a_hand" => "buddies#lend_a_hand", :as => "lend_a_hand"
+  get "buddies" => "buddies#index", :as => "buddies"
   get "buddies/profile"
 
   namespace :admin do
