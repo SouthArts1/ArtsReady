@@ -7,6 +7,9 @@ Factory.define :organization do |f|
   f.state "NY"
   f.zipcode "10001"
   f.active true
+  f.latitude 33.8039 
+  f.longitude -84.3933 
+  f.gmaps true
 end
 
 Factory.define :new_organization, :parent => :organization do |f|
