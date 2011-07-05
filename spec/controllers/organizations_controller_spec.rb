@@ -24,7 +24,6 @@ describe OrganizationsController do
     before(:each) do
       controller.stubs :authenticate!
       controller.stub(:current_org).and_return(organization)
-      subject()
     end
 
     describe "GET 'edit'" do
