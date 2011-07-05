@@ -16,7 +16,7 @@
     <div><%= @article.body %></div>
   </article>
   <%= render 'share' %>
-  <section>
+  <section>`
     <h4>Comments</h4>
     <ul class="comments">
       <li>
@@ -52,7 +52,7 @@
 <div class="grid_4">
   <div class="library-sidebar">
     <h5>Author</h5>
-    <p><%= link_to @article.user_name %> (<%= pluralize(@article.user.articles.for_public.count, 'other article') %>)</p>
+    <p><%= link_to @article.user_name %> (<%#= pluralize(@article.user.articles.for_public.count, 'other article') %>)</p>
 
     <h5>Created</h5>
     <p><%= @article.created_at.to_formatted_s(:slashed) %></p>

@@ -1,7 +1,5 @@
 Artsready::Application.routes.draw do
 
-  resources :resources
-
   get "buddies/get_help"
   get "buddies/lend_a_hand"
   get "buddies/index"
@@ -17,6 +15,7 @@ Artsready::Application.routes.draw do
     get 'critical_list', :on => :collection
   end
 
+  resources :resources
   resources :organizations, :only => [:edit, :update, :show]
   resources :assessments
   resources :answers
