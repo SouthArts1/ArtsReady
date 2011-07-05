@@ -41,7 +41,7 @@ module Artsready
 
     config.generators do |g|
       g.stylesheets false
-      g.test_framework :rspec, :fixtures => false, :view_specs => false, :helper_specs => false 
+      g.test_framework :rspec, :fixtures => false, :view_specs => false, :helper_specs => false
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
   end

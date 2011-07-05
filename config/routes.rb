@@ -1,5 +1,5 @@
 Artsready::Application.routes.draw do
-  
+
   resources :resources
 
   get "buddies/get_help"
@@ -16,19 +16,19 @@ Artsready::Application.routes.draw do
   resources :articles do
     get 'critical_list', :on => :collection
   end
-  
+
   resources :organizations, :only => [:edit, :update, :show]
   resources :assessments
   resources :answers
   resources :todos
 
-  get "sign_up" => "users#new", :as => "sign_up"  
-  get "sign_in" => "sessions#new", :as => "sign_in"  
+  get "sign_up" => "users#new", :as => "sign_up"
+  get "sign_in" => "sessions#new", :as => "sign_in"
   post "sign_in" => "sessions#create"
-  get "sign_out" => "sessions#destroy", :as => "sign_out"  
-  
+  get "sign_out" => "sessions#destroy", :as => "sign_out"
+
   resources :users
-  
+
   get "member/index", :as => "dashboard"
 
   # public pages
