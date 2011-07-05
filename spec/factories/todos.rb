@@ -5,5 +5,5 @@ Factory.define :todo do |f|
   f.answer_id 1
   f.due_on "2011-06-16"
   f.user_id 1
-  f.note "MyString"
+  f.details "MyString"
 end
