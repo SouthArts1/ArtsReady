@@ -22,5 +22,9 @@ Artsready::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  config.slowgrowl.warn = 1000    # growl any action which takes > 1000ms (1s)
+  config.slowgrowl.sticky = true  # make really slow (2x warn) alerts sticky
+  
 end
 

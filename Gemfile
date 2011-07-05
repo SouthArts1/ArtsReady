@@ -22,6 +22,7 @@ group :test, :development do
   gem 'guard-cucumber'
   gem 'guard-bundler'
   gem 'guard-pow'
+  # gem 'guard-livreload'
 end
 
 group :development do
@@ -31,6 +32,7 @@ group :development do
   gem 'hirb'
   gem 'console_update'
   gem 'rails-footnotes', '>= 3.7'
+  gem 'slowgrowl'
 end
 
 group :test do
