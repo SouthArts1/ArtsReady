@@ -1,0 +1,1 @@
+Geocoder::Configuration.cache = Hash.new
