@@ -8,13 +8,13 @@ class Organization < ActiveRecord::Base
   has_many :resources
   has_many :todos
   has_many :users
-  
+
   validates_presence_of :name, :address, :city, :state, :zipcode
-  
+
   after_validation :geocode
-  
-  scope :in_buddy_network, where(:battle_buddy_enabled => true)  
-  scope :to_approve, where(:active => false)  
+
+  scope :in_buddy_network, where(:battle_buddy_enabled => true)
+  scope :to_approve, where(:active => false)
 
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
@@ -23,21 +23,21 @@ class Organization < ActiveRecord::Base
   def gmaps4rails_address
     [address, city, state, zipcode].compact.join(', ')
   end
-  
+
   def assessment_in_progress?
     false
   end
-  
+
   def assessment_completion
     0
   end
-  
+
   def todo_completion
     0
   end
-  
+
   def is_my_buddy?
     false
   end
-  
+
 end
