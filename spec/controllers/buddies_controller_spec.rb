@@ -10,18 +10,22 @@ describe BuddiesController do
   end
 
   context "logged in" do
-    before(:each) { controller.stubs :authenticate! }
+    let(:organization) { Factory(:organization)}
+    before(:each) do
+      controller.stubs :authenticate!
+      controller.stub(:current_org).and_return(organization)
+    end
 
     describe "GET 'help'" do
       it "should be successful" do
-        get 'help'
+        get 'get_help'
         response.should be_success
       end
     end
 
     describe "GET 'offer'" do
       it "should be successful" do
-        get 'offer'
+        get 'lend_a_hand'
         response.should be_success
       end
     end
