@@ -1,5 +1,4 @@
 require 'bundler/capistrano'
-
 # runtime dependencies
 depend :remote, :gem, "bundler"
 
@@ -25,8 +24,16 @@ role :web, "50.19.225.94"                          # Your HTTP server, Apache/et
 role :app, "50.19.225.94"                          # This may be the same as your `Web` server
 role :db,  "50.19.225.94", :primary => true # This is where Rails migrations will run
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+# add email addresses for people who should receive deployment notifications
+set :notify_emails, ["johnpaul@transitionpoint.com", "kirsten.nordine@fracturedatlas.org", "justin.karr@fracturedatlas.org", "gary.moore@fracturedatlas.org"]
+
+# Create task to send a notification
+namespace :deploy do
+  desc "Send email notification"
+  task :send_notification do
+    Notifier.deploy_notification(self).deliver 
+  end
+end
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -45,6 +52,7 @@ namespace :deploy do
 end
 
 after "deploy:symlink", "deploy:common_symlinks"
+after :deploy, 'deploy:send_notification'
 
 namespace :deploy do
   desc "Symlink to common files "
@@ -54,5 +62,7 @@ namespace :deploy do
   end
 end
 
-        require './config/boot'
-        require 'hoptoad_notifier/capistrano'
+require './config/boot'
+require 'hoptoad_notifier/capistrano'
+require './config/deploy/cap_notify.rb'
+
