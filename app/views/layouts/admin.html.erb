@@ -40,14 +40,14 @@
             <li><%= link_to 'Organizations', admin_organizations_path %></li>
           </ul>
         </nav>
-      </div>    
+      </div>
     </header>
     <div class="content">
       <div class="container container_12 clearfix">
         <% flash.each do |name, msg| %>
           <%= content_tag :div, :class => "flash-#{name}" do %>
             <%= content_tag :p, msg %>
-          <% end %>  
+          <% end %>
         <% end %>
         <%= yield %>
       </div>
@@ -66,7 +66,6 @@
     </div>
   </div>
   <footer class="container container_12 clearfix">
-    
     <p class="f-left">
       Copyright 2011
     </p>
@@ -78,8 +77,6 @@
       </ul>
     </nav>
   </footer>
-
-
   <!--[if lt IE 7 ]>
     <script src="javascripts/dd_belatedpng.js"></script>
     <script> DD_belatedPNG.fix('img, .png_bg'); </script>

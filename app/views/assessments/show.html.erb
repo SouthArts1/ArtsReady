@@ -15,7 +15,7 @@
   <div class="critical-function-toggle">
   </div>
   <div class="questions">
-    <% @assessment.answers.each do |a| %>    
+    <% @assessment.answers.each do |a| %>
     <div class="section">
       <%= render :partial => 'assessment_question', :locals => {:answer => a, :learn_more => 'Learn more'} %>
     </div>

@@ -11,7 +11,7 @@
       <%= f.label :description, 'Short Description' %>
       <%= f.text_field :description %>
     </div>
-    
+
   </section>
   <section>
   <p>You can attach a file or link to this article, or simply enter the content directly in the body field below.</p>
@@ -28,14 +28,14 @@
     <%= f.text_area :body %>
   </div>
   </section>
-</div>  
+</div>
 <div class="grid_4">
-  
+
   <div class="field">
     <%= f.label :critical_function %>
     <%= f.select :critical_function, Assessment::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] } %>
   </div>
-  
+
   <section>
     <div class="field">
       <label>Visibility</label>
@@ -63,16 +63,14 @@
         });
       </script>
     </div>
-    <div class="field">    
-    <%= f.label :on_critical_list, 'Our Critical Stuff' %>  
+    <div class="field">
+    <%= f.label :on_critical_list, 'Our Critical Stuff' %>
     <%= f.check_box :on_critical_list %> Include in Our Critical Stuff?
     </div>
   </section>
 
-
   <div class="actions">
     <%= f.submit 'Save', :class => 'button' %>
   </div>
-  
 </div>
 <% end %>

@@ -58,14 +58,14 @@
             <% end %>
           </ul>
         </nav>
-      </div>    
+      </div>
     </header>
     <div class="content">
       <div class="container container_12 clearfix">
         <% flash.each do |name, msg| %>
           <%= content_tag :div, :class => "flash-#{name}" do %>
             <%= content_tag :p, msg %>
-          <% end %>  
+          <% end %>
         <% end %>
         <%= yield %>
       </div>
@@ -84,7 +84,6 @@
     </div>
   </div>
   <footer class="container container_12 clearfix">
-    
     <p class="f-left">
       Copyright 2011
     </p>

@@ -9,12 +9,10 @@
   </ul>
 </div>
 
-
 <div class="grid_4">
-  <%= gmaps( 
-  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => false}, 
+  <%= gmaps(
+  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => false},
   "markers" => { "data" => @buddies.to_gmaps4rails}) %>
-  
 </div>
 <div class="grid_8">
   <section>
@@ -22,7 +20,7 @@
     <div class="buddy-filter">
       Show buddies within <%= text_field_tag :miles, 50, :style => 'width: 40px;' %> miles offering
       <%= select_tag :resource, options_for_select(['Any Help', 'Office Space', 'Personnel', 'Prop Storage']) %>
-      &nbsp; 
+      &nbsp;
       <%= link_to_function 'Filter', '', :class => 'button' %>
     </div>
     <div class="buddies">
@@ -39,4 +37,3 @@
     </div>
   </section>
 </div>
-
