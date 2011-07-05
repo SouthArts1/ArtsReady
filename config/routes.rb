@@ -26,7 +26,7 @@ Artsready::Application.routes.draw do
   post "sign_in" => "sessions#create"
   get "sign_out" => "sessions#destroy", :as => "sign_out"
 
-  resources :users
+  resources :users, :only => [:new, :create]
 
   get "member/index", :as => "dashboard"
 
