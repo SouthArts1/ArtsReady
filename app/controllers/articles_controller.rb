@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
     @featured_articles = Article.featured
     @articles = Article.recent
   end
-  
+
   def critical_list
     @critical_list = current_org.articles.on_critical_list
   end
@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_org.articles.new(params[:article].merge({:user => current_user}))
-    
+
     if @article.save
       redirect_to @article, :notice => "Successfully created article."
     else

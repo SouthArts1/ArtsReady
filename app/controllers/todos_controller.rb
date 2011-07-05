@@ -1,10 +1,10 @@
 class TodosController < ApplicationController
-  
+
   def index
     @todos = current_org.todos
     @todo = current_org.todos.new
   end
-  
+
   def show
     @todo = current_org.todos.find(params[:id])
   end
@@ -12,7 +12,7 @@ class TodosController < ApplicationController
   def edit
     @todo = current_org.todos.find(params[:id])
   end
-  
+
   def create
     @todo = current_org.todos.new(params[:todo])
 
@@ -23,7 +23,7 @@ class TodosController < ApplicationController
     end
 
   end
-  
+
   def update
     @todo = current_org.todos.find(params[:id])
 
@@ -32,7 +32,7 @@ class TodosController < ApplicationController
     else
       render :action => "edit"
     end
-    
+
   end
-  
+
 end

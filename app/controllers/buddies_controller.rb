@@ -1,4 +1,5 @@
 class BuddiesController < ApplicationController
+
   def get_help
     @buddies = current_org.nearbys(50).in_buddy_network
     @pending_buddies = []
@@ -13,4 +14,5 @@ class BuddiesController < ApplicationController
   def profile
     @resource = current_org.resources.new
   end
+
 end
