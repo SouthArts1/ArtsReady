@@ -11,7 +11,6 @@ gem 'gmaps4rails'
 # deploy
 gem 'newrelic_rpm'
 gem 'capistrano'
-gem 'hoptoad_notifier'
 
 group :test, :development do
   gem 'rspec-rails'
