@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110702134555) do
+ActiveRecord::Schema.define(:version => 20110705140732) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -21,15 +21,21 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.datetime "updated_at"
   end
 
+  add_index "action_items", ["import_id"], :name => "index_action_items_on_import_id"
+  add_index "action_items", ["question_id"], :name => "index_action_items_on_question_id"
+
   create_table "answers", :force => true do |t|
     t.integer  "assessment_id"
     t.integer  "question_id"
     t.string   "preparedness"
     t.string   "priority"
-    t.boolean  "was_skipped",   :default => false
+    t.boolean  "was_skipped"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "answers", ["assessment_id"], :name => "index_answers_on_assessment_id"
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -47,6 +53,9 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.boolean  "on_critical_list",  :default => false
   end
 
+  add_index "articles", ["organization_id"], :name => "index_articles_on_organization_id"
+  add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
+
   create_table "assessments", :force => true do |t|
     t.integer  "organization_id"
     t.boolean  "has_performances"
@@ -58,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
@@ -82,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.datetime "updated_at"
   end
 
+  add_index "questions", ["import_id"], :name => "index_questions_on_import_id"
+
   create_table "resources", :force => true do |t|
     t.string   "name"
     t.string   "details"
@@ -89,6 +102,8 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "resources", ["organization_id"], :name => "index_resources_on_organization_id"
 
   create_table "todos", :force => true do |t|
     t.integer  "action_item_id"
@@ -106,6 +121,11 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.string   "critical_function"
   end
 
+  add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"
+  add_index "todos", ["answer_id"], :name => "index_todos_on_answer_id"
+  add_index "todos", ["organization_id"], :name => "index_todos_on_organization_id"
+  add_index "todos", ["user_id"], :name => "index_todos_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -117,5 +137,7 @@ ActiveRecord::Schema.define(:version => 20110702134555) do
     t.boolean  "admin",              :default => false
     t.boolean  "active",             :default => false
   end
+
+  add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
 
 end
