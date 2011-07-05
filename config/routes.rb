@@ -17,7 +17,7 @@ Artsready::Application.routes.draw do
 
   resources :resources
   resources :organizations, :only => [:edit, :update, :show]
-  resources :assessments
+  resources :assessments, :only => [:new, :create, :show]
   resources :answers, :only => [:update]
   resources :todos
 
