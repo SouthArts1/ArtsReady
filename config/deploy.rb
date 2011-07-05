@@ -31,7 +31,7 @@ set :notify_emails, ["johnpaul@transitionpoint.com", "kirsten.nordine@fractureda
 namespace :deploy do
   desc "Send email notification"
   task :send_notification do
-    Notifier.deploy_notification(self).deliver 
+    Notifier.deploy_notification(self).deliver
   end
 end
 
