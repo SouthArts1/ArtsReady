@@ -10,7 +10,7 @@ class OrganizationsController < ApplicationController
     if @organization.update_attributes(params[:organization])
       redirect_to dashboard_path, :notice => 'Organization was successfully updated.'
     else
-      render :action => "edit"
+      render 'edit'
     end
 
   end

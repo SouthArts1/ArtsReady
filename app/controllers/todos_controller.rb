@@ -30,7 +30,7 @@ class TodosController < ApplicationController
     if @todo.update_attributes(params[:todo])
       redirect_to(todo_path(@todo), :notice => 'Todo was successfully updated.')
     else
-      render :action => "edit"
+      render 'edit'
     end
 
   end

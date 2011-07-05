@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article, :notice => "Successfully created article."
     else
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
     if @article.update_attributes(params[:article])
       redirect_to @article, :notice  => "Successfully updated article."
     else
-      render :action => 'edit'
+      render 'edit'
     end
   end
 

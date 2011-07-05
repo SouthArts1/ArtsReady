@@ -21,7 +21,7 @@ class ResourcesController < ApplicationController
     if @resource.save
       redirect_to(buddies_profile_path, :notice => 'Resource was successfully created.')
     else
-      render :action => "new"
+      render 'new'
     end
   end
 
@@ -31,7 +31,7 @@ class ResourcesController < ApplicationController
     if @resource.update_attributes(params[:resource])
       redirect_to(buddies_profile_path, :notice => 'Resource was successfully updated.')
     else
-      render :action => "edit"
+      render 'edit'
     end
 
   end
