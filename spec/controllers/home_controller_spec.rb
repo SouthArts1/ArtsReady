@@ -7,7 +7,6 @@ describe HomeController do
       article = Factory(:article)
       controller.stub(:featured_articles).and_return([article])
       get 'index'
-      assigns(:featured_articles).should eq([article])
       response.should be_success
     end
   end
