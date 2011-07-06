@@ -9,7 +9,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 
 # deploy
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 gem 'capistrano'
 
 group :test, :development do
