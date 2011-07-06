@@ -21,6 +21,7 @@ group :test, :development do
   gem 'guard-cucumber'
   gem 'guard-bundler'
   gem 'guard-pow'
+  gem 'forgery'
 end
 
 group :development do
