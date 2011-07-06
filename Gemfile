@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'http://rubygems.dev'
 
 gem 'rails', '3.0.9'
 gem 'mysql2', '0.2.6'
@@ -21,11 +21,9 @@ group :test, :development do
   gem 'guard-cucumber'
   gem 'guard-bundler'
   gem 'guard-pow'
-  # gem 'guard-livreload'
 end
 
 group :development do
-  gem "nifty-generators"
   gem 'rails3-generators'
   gem 'awesome_print'
   gem 'hirb'
@@ -35,6 +33,7 @@ group :development do
 end
 
 group :test do
+  gem 'mocha'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'spork'
@@ -43,4 +42,4 @@ group :test do
   gem 'capybara'
   gem 'shoulda'
 end
-gem "mocha", :group => :test
+
