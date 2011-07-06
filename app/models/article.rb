@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
   belongs_to :organization
   belongs_to :user
 
-  before_create :set_organization
+  #before_create :set_organization
 
 #  attr_accessible :title, :body, :tags, :link, :user, :visibility
   delegate :name, :to => :user, :allow_nil => true, :prefix => true

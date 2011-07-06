@@ -6,6 +6,8 @@ class Assessment < ActiveRecord::Base
 
   attr_accessor :critical_functions
 
+  validates_presence_of :organization
+
   after_create :populate_empty_answers
 
   CRITICAL_FUNCTIONS = [
