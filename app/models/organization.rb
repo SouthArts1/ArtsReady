@@ -11,7 +11,7 @@ class Organization < ActiveRecord::Base
 
   validates_presence_of :name, :address, :city, :state, :zipcode
 
-  after_validation :geocode
+  after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
@@ -21,7 +21,7 @@ class Organization < ActiveRecord::Base
   end
 
   def gmaps4rails_address
-    [address, city, state, zipcode].compact.join(', ')
+    full_street_address
   end
 
   def assessment_in_progress?
