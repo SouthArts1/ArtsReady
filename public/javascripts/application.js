@@ -15,6 +15,15 @@ $(function(){
 	
 });
 
+
+$("#crisis-activate").live('click', function(event) {
+	// alert('Crisis Activated!');
+});
+
+$("#crisis-dectivate").live('click', function(event) {
+	// alert('Crisis De-activated!');
+});
+
 // Resources navigation toggle
 $(".side-nav li a").live('click', function(event) {
 	// Keeps the link from actually doing anything

@@ -14,8 +14,8 @@ module HtmlSelectorsHelpers
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
-    #  when /^the (notice|error|info) flash$/
-    #    ".flash.#{$1}"
+   when /^the (notice|error|info) flash$/
+     ".flash.#{$1}"
 
     # You can also return an array to use a different selector
     # type, like:

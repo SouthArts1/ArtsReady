@@ -16,7 +16,10 @@ Artsready::Application.routes.draw do
   end
 
   resources :resources
-  resources :organizations, :only => [:edit, :update, :show]
+  resources :organizations, :only => [:edit, :update, :show] do
+    put 'declare_crisis', :on => :member
+    put 'resolve_crisis', :on => :member
+  end
   resources :assessments, :only => [:new, :create, :show]
   resources :answers, :only => [:update]
   resources :todos
