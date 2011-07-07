@@ -10,7 +10,6 @@ describe ArticlesController do
       :description => 'Description'
     }
   end
-  
 
   context "when not logged in" do
     it "requires authentication" do
