@@ -1,3 +1,6 @@
+Given /^a visitor$/ do
+end
+
 Given /^a member with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
   Factory(:user, :email => email, :password => password)
 end

@@ -3,12 +3,25 @@ Feature: Homepage
   As a visitor
   I want to learn more about the site
   
-  Scenario: featured library content
-    Given I am on the home page
-    Then I should see "Library"
+  Scenario: home/index for visitors
+    Given a visitor
+    When I go to the root page
+    Then I should be on the home page
     
-  Scenario: join
-    Given I am on the home page
+  Scenario: A visitor can see featured library content
+    Given a visitor
+    When I go to the root page
+    Then I should see "Library"
+    # And I should see at least one featured article
+    
+  Scenario: A visitor can register
+    Given a visitor
+    When I go to the root page
     Then I should see "Join Today"
+    
+  Scenario: redirect to member home if logged in
+    Given an authenticated user
+    When I go to the root page
+    Then I should be on the dashboard page
   
   
