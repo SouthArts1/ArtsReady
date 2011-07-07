@@ -1,4 +1,15 @@
-<div class="in-distress rounded" style="float:<%= defined?(float) ? float : 'right' %>;padding:15px;background:#C31D29;color:#fff;">
-  Crisis Mode: <strong>ON</strong> &nbsp;
-  <%= button_to_function 'De-activate', "", :class => 'button white' %>
+<% if current_org.declared_crisis? %>
+<div id="distress-switch" class="on" style="float:left;">
+  <div class="rounded">
+    Crisis Mode: <span id="distress-status">ON</span> &nbsp;
+    <%= button_to_function 'De-activate', "", :class => 'button white' %>
+  </div>
 </div>
+<% else %>
+<div id="distress-switch">
+  <div class="rounded">
+    Crisis Mode: <strong>OFF</strong> &nbsp;
+    <%= button_to_function 'Activate', "", :class => 'button' %>
+  </div>
+</div>
+<% end %>
