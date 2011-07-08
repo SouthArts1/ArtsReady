@@ -17,7 +17,7 @@
       <% end %>
     </ul>
     <section>
-      <table class="actionitems">
+      <table>
         <thead>
           <tr>
           <td><p>Item</p></td>
@@ -33,19 +33,19 @@
           <% @todos.each do |todo| %>
           <tr>
             <%= form_for todo, :remote => true do |f| %>
-              <td class="item"><p contenteditable="true" class="editable"><%= todo.description %></p></td>
-              <td class="assigned">
+              <td><p contenteditable="true" class="editable"><%= todo.description %></p></td>
+              <td>
                 <p>
                   <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
                 </p>
               </td>
-              <td class="updated"><p><%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
-              <td class="due">
+              <td><p><%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
+              <td>
                 <p><%= todo.due_on.to_formatted_s(:slashed) unless todo.due_on.nil? %> <%#= f.text_field :due_on, :class => 'datepicker' %></p>
               </td>
-              <td class="status"><p>In progress</p></td>
-              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
-              <td><p><%= link_to 'details', todo_path(todo), :class => 'button' %></p></td>
+              <td><p>In progress</p></td>
+              <td><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
+              <td><p><%= link_to 'details', todo_path(todo), :class => 'button' %> <%= f.submit "Update", :class => 'update' %></p></td>
             <% end %>
           </tr>
           <% end %>
