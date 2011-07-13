@@ -4,6 +4,8 @@ Artsready::Application.routes.draw do
   get "lend_a_hand" => "buddies#lend_a_hand", :as => "lend_a_hand"
   get "buddies" => "buddies#index", :as => "buddies"
   get "buddies/profile"
+  
+  get "crisis_console" => "crisis_console#index", :as => "crisis_console"
 
   namespace :admin do
     resources :users, :only => [:index, :edit, :update]
@@ -28,6 +30,8 @@ Artsready::Application.routes.draw do
   get "sign_in" => "sessions#new", :as => "sign_in"
   post "sign_in" => "sessions#create"
   get "sign_out" => "sessions#destroy", :as => "sign_out"
+
+  get "crisis_console" => "crisis_console#index"
 
   resources :users, :only => [:new, :create]
 

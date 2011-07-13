@@ -1,0 +1,2 @@
+class CrisisConsoleController < ApplicationController
+end

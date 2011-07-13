@@ -23,5 +23,8 @@ Feature: Homepage
     Given an authenticated user
     When I go to the root page
     Then I should be on the dashboard page
-  
-  
+    
+  Scenario: crisis user is redirected to crisis console
+    Given a crisis user
+    When I go to the root page
+    Then I should be on the crisis_console page

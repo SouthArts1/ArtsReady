@@ -4,10 +4,11 @@ Feature: Crisis
   I want to manage a crisis
   
   Background:
-    Given an authenticated user
-    And I am on the dashboard page
   
   Scenario: Admin declares a crisis
+    Given an authenticated user
+    And I am on the dashboard page
+    Then show me the page
     And I am not in crisis mode
     When I declare a crisis
     Then I should be in crisis mode
