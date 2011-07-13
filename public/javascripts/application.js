@@ -20,9 +20,9 @@ $(function(){
 $("#crisis-activate").live('click', function(event) {
 	// alert('Crisis Activated!');
 });
-
-$("#crisis-dectivate").live('click', function(event) {
-	// alert('Crisis De-activated!');
+$("#crisis-deactivate").live('click', function(event) {
+	return confirm('Are you sure?');
+	
 });
 
 // Resources navigation toggle
