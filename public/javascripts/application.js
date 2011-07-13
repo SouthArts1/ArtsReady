@@ -1,5 +1,6 @@
 $(function(){
-	$("select, input[type='checkbox'], input[type='radio'], input:file").uniform();
+	// $("select, input[type='checkbox'], input[type='radio'], input:file").uniform();
+	$("input[type='checkbox'], input[type='radio'], input:file").uniform();
 	
 	$(".questionnaire tbody, .resource tbody").hide().eq(0).show();
 	
@@ -19,9 +20,9 @@ $(function(){
 $("#crisis-activate").live('click', function(event) {
 	// alert('Crisis Activated!');
 });
-
-$("#crisis-dectivate").live('click', function(event) {
-	// alert('Crisis De-activated!');
+$("#crisis-deactivate").live('click', function(event) {
+	return confirm('Are you sure?');
+	
 });
 
 // Resources navigation toggle

@@ -6,4 +6,5 @@ Factory.define :todo do |f|
   f.due_on "2011-06-16"
   f.user_id 1
   f.details "MyString"
+  f.priority "critical"
 end

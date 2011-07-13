@@ -12,9 +12,14 @@ describe Todo do
   end
   
   it "should allow its user to be changed" do
-    todo = Factory.build(:todo)
+    todo = Factory.create(:todo)
     todo.user_id = 2
     todo.save.should be_true
+  end
+  
+  it "should allow its priority to be changed" do
+    todo = Factory.create(:todo)
+    todo.update_attribute(:priority, "non-critical").should be_true
   end
   
 end

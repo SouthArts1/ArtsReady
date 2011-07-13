@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
 gem 'mysql2', '0.2.6'
+gem 'pg'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
 gem 'carrierwave'
@@ -10,7 +11,7 @@ gem 'gmaps4rails'
 
 # deploy
 # gem 'newrelic_rpm'
-gem 'capistrano'
+# gem 'capistrano'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -43,4 +44,3 @@ group :test do
   gem 'capybara'
   gem 'shoulda'
 end
-
