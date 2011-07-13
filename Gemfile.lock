@@ -101,7 +101,6 @@ GEM
     mocha (0.9.12)
     mysql2 (0.2.6)
     nokogiri (1.5.0)
-    pg (0.11.0)
     polyglot (0.3.1)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -185,7 +184,6 @@ DEPENDENCIES
   launchy
   mocha
   mysql2 (= 0.2.6)
-  pg
   rails (= 3.0.9)
   rails-footnotes (>= 3.7)
   rails3-generators
