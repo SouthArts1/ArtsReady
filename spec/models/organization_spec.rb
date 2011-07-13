@@ -17,7 +17,7 @@ describe Organization do
   it {subject.assessment_in_progress?.should be_false} 
   it {subject.assessment_completion.should be_zero} 
   it {subject.todo_completion.should be_zero} 
-  it {subject.declared_crisis.should be_false}
+  # it {subject.declared_crisis.should be_false}
   
   context "geocoding address" do
     it "should geocode address when created" do

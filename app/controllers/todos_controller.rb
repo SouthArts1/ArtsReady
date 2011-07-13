@@ -28,7 +28,9 @@ class TodosController < ApplicationController
     @todo = current_org.todos.find(params[:id])
     logger.debug("Params::: #{params.inspect}")
     if @todo.update_attributes(params[:todo])
-      redirect_to(todo_path(@todo), :notice => 'Todo was successfully updated.')
+      logger.debug(params[:todo][:priority])
+      logger.debug(@todo.inspect)
+      redirect_to(todos_path, :notice => 'Todo was successfully updated.')
     else
       render 'edit'
     end
