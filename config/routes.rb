@@ -19,7 +19,9 @@ Artsready::Application.routes.draw do
 
   resources :resources
   resources :organizations, :only => [:edit, :update, :show]
-  resources :crises#, :path_names => { :new => 'declare', :destroy => 'resolve', :show => 'console' }
+  resources :crises do#, :path_names => { :new => 'declare', :destroy => 'resolve', :show => 'console' }
+    resources :updates
+  end
   
   resources :assessments, :only => [:new, :create, :show]
   resources :answers, :only => [:update]

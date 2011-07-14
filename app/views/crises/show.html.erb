@@ -17,14 +17,17 @@
         <textarea placeholder="Send crisis update..."></textarea>
       </div>
       <div class="grid_2 omega">
-        <%= button_to_function 'Report', "$('#crisis-update textarea').val('')", :class => 'button blue' %>
+        <%= form_for([current_org.crisis,Update.new]) do |f| %>
+          <%= f.text_area :message %>
+          <%= f.submit %>
+          <%#= button_to_function 'Reply', "$(this).parent('form').html('&raquo; ' + $(this).prev('textarea').val())", :class => 'button' %>
+        <% end %>
+        <#%= button_to_function 'Report', "$('#crisis-update textarea').val('')", :class => 'button blue' %>
       </div>
       <div class="clear"></div>
     </div>
     <table id="messages">
-      <% 5.times do %>
-        <%= render :partial => 'message' %>
-      <% end %>
+      <%= render :partial => 'update', :collection => current_org.crisis.updates %>
     </table>
     <div id="messages-nav">
       <%= link_to '&raquo; more'.html_safe, "", :class => 'button white' %>

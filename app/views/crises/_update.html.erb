@@ -1,0 +1,26 @@
+<tr>
+  <td class="badge">
+    <%= image_tag('unread.png') if true %><br />
+    <span class="date"><%= update.created_at.strftime("%D") %></span>
+  </td>
+  <td class="from">
+    <h5><%#= update.user.name %></h5>
+    <%= image_tag('buddy.png', :title => 'Your Battle Buddy') if rand(3).odd? %> <%= link_to organization_path(update.organization) %>
+  </td>
+  <td class="body">
+    <h5><%= update.title %></h5>
+    <div class="less">
+      <%= truncate(update.message) %> <%= link_to_function '(more)', "$(this).parent().hide(); $(this).parent().next('.more').show();" %>
+    </div>
+    <div class="more" style="display:none;">
+      <p>
+        <%= update.message %>
+      </p>
+      <%= form_for([current_org.crisis,Update.new]) do |f| %>
+        <%= f.text_area :message %>
+        <%= f.submit %>
+        <%#= button_to_function 'Reply', "$(this).parent('form').html('&raquo; ' + $(this).prev('textarea').val())", :class => 'button' %>
+      <% end %>
+    </div>
+  </td>
+</tr>
