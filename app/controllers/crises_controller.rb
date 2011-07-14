@@ -13,12 +13,11 @@ class CrisesController < ApplicationController
   end
 
   def destroy
-    render 'yay'
-    # if current_org.crisis.resolve_crisis!
-    #   redirect_to dashboard_path, :notice => 'Crisis resolved!'
-    # else
-    #   redirect_to dashboard_path, :notice => 'Crisis could not be resolved'
-    # end
+    if current_org.crisis.resolve_crisis!
+      redirect_to dashboard_path, :notice => 'Crisis resolved!'
+    else
+      redirect_to dashboard_path, :notice => 'Crisis could not be resolved'
+    end
   end
   
 end

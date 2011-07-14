@@ -1,2 +1,0 @@
-class CrisisConsoleController < ApplicationController
-end
