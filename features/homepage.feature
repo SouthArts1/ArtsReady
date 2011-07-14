@@ -27,4 +27,5 @@ Feature: Homepage
   Scenario: crisis user is redirected to crisis console
     Given a crisis user
     When I go to the root page
-    Then I should be on the crisis page
+    Then I should see "Crisis Console"
+    #Then I should be on the crisis console

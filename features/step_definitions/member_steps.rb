@@ -19,7 +19,7 @@ end
 Given /^a crisis user$/ do
   email = 'user@test.host'
   password = 'password'
-  Factory(:crisis_user, :email => email, :password => password)
+  @crisis_user = Factory(:crisis_user, :email => email, :password => password)
   And %{I am on the sign_in page}
   And %{I fill in "email" with "#{email}"}
   And %{I fill in "password" with "#{password}"}
