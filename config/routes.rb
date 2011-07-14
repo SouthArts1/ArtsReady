@@ -18,10 +18,9 @@ Artsready::Application.routes.draw do
   end
 
   resources :resources
-  resources :organizations, :only => [:edit, :update, :show] do
-    put 'declare_crisis', :on => :member
-    put 'resolve_crisis', :on => :member
-  end
+  resources :organizations, :only => [:edit, :update, :show]
+  resources :crises#, :path_names => { :new => 'declare', :destroy => 'resolve', :show => 'console' }
+  
   resources :assessments, :only => [:new, :create, :show]
   resources :answers, :only => [:update]
   resources :todos
@@ -30,8 +29,6 @@ Artsready::Application.routes.draw do
   get "sign_in" => "sessions#new", :as => "sign_in"
   post "sign_in" => "sessions#create"
   get "sign_out" => "sessions#destroy", :as => "sign_out"
-
-  get "crisis_console" => "crisis_console#index"
 
   resources :users, :only => [:new, :create]
 

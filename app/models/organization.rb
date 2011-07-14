@@ -3,8 +3,9 @@ class Organization < ActiveRecord::Base
   geocoded_by :full_street_address
 
   has_one :assessment
-
+  has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
+  has_many :crises
   has_many :resources
   has_many :todos
   has_many :users
@@ -39,5 +40,9 @@ class Organization < ActiveRecord::Base
   def is_my_buddy?
     false
   end
-
+  
+  def declared_crisis?
+    crises.where(:resolved_on => nil).count == 1 ? true : false
+  end
+  
 end

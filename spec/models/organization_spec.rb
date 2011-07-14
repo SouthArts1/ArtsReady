@@ -7,6 +7,7 @@ describe Organization do
   it { should have_many(:articles) }
   it { should have_many(:todos) }
   it { should have_many(:resources) }
+  it { should have_many(:crises) }
   
   it { should validate_presence_of(:name)} 
   it { should validate_presence_of(:address)} 

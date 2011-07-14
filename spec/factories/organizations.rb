@@ -10,7 +10,6 @@ Factory.define :organization do |f|
   f.latitude 33.8039 
   f.longitude -84.3933 
   f.gmaps true
-  f.declared_crisis false
 end
 
 Factory.define :new_organization, :parent => :organization do |f|
@@ -20,5 +19,5 @@ end
 
 Factory.define :crisis_organization, :parent => :organization do |f|
   f.name "Crisis Organization"
-  f.declared_crisis true
+  f.crises {[Factory(:crisis)]}
 end

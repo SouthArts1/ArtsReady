@@ -21,8 +21,7 @@ $("#crisis-activate").live('click', function(event) {
 	// alert('Crisis Activated!');
 });
 $("#crisis-deactivate").live('click', function(event) {
-	return confirm('Are you sure?');
-	
+	//return confirm('Are you sure?');	
 });
 
 // Resources navigation toggle

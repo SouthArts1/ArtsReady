@@ -10,12 +10,12 @@ Feature: Crisis
     And I am on the dashboard page
     And I am not in crisis mode
     When I declare a crisis
-    Then I should be in crisis mode
+    Then I am in crisis mode
   
   Scenario: Admin resolves a crisis
     Given a crisis user
     And I am on the dashboard page
-    Then I should be in crisis mode
+    And I am in crisis mode
     # And I should be on the crisis_console page
     When I resolve a crisis
-    Then I should not be in crisis mode
+    Then I am not in crisis mode

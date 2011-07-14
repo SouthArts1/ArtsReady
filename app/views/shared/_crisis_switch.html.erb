@@ -1,14 +1,14 @@
   <% if current_org.declared_crisis? %>
 <div id="distress-switch" class="on" style="float:left;">
   <span style="float:left;">Crisis Mode: <span id="distress-status">ON</span> &nbsp;</span>
-  <%= form_for(current_org, :url => resolve_crisis_organization_path(current_org), :html => { :style => 'float:right;' }) do |f| %>
+  <%= form_for(current_org.crisis, :html => {:method => :delete}) do |f| %>
   <%= f.submit 'De-activate', :class => 'button white', :id => 'crisis-deactivate' %>
   <% end %>
 </div>
 <% else %>
 <div id="distress-switch" style="float:left;">
   <span style="float:left;">Crisis Mode: <span id="distress-status">OFF</span> &nbsp;</span>
-  <%= form_for(current_org, :url => declare_crisis_organization_path(current_org), :html => { :style => 'float:left;' }) do |f| %>
+  <%= form_for(Crisis.new, :html => { :style => 'float:left;' }) do |f| %>
   <%= f.submit 'Activate', :class => 'button', :id => 'crisis-activate' %>
   <% end %>
 </div>
