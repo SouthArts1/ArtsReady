@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20110714181246) do
     t.integer  "question_id"
     t.string   "preparedness"
     t.string   "priority"
-    t.boolean  "was_skipped"
+    t.boolean  "was_skipped",   :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
