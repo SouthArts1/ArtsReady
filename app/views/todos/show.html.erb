@@ -29,19 +29,14 @@
 
   <h3>Related Articles</h3>
   <section class="list-kb">
-    <article>
-      <h5><a href="/wireframe/kb">Library Article Title</a></h5>
-      <p><time>February 26, 2011</time></p>
-    </article>
-    <article>
-      <h5><a href="/wireframe/kb">Another Library Article Title</a></h5>
-      <p><time>February 19, 2011</time></p>
-    </article>
-    <article>
-      <h5><a href="/wireframe/kb">And Yet Another Library Article Title Goes Here</a></h5>
-      <p><time>February 12, 2011</time></p>
-    </article>
-  </section>
+		<% @todo.articles.each do |article| %>
+			<article>
+	      <h5><%= link_to article.title, article_path(article) %> </h5>
+	      <p><time><%= article.created_at.strftime("%B %e, %Y") %></time></p>
+	    </article>
+		<% end %>
+	</section>
+	<%= link_to "Add a new article", new_article_path, :class => "button" %>
 </div>
 
 <div class="grid_6 todo-logs">

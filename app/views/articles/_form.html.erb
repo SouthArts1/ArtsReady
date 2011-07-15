@@ -55,6 +55,7 @@
         <%= check_box_tag :buddy %> Act II Playhouse <br />
         <%= check_box_tag :buddy %> Amaryllis Theatre Company <br />
       </div>
+			<hr />
       <script type="text/javascript">
         $(document).ready(function() {
           $('#visibility_some-buddies').click(function() {
@@ -64,9 +65,15 @@
       </script>
     </div>
     <div class="field">
-    <%= f.label :on_critical_list, 'Our Critical Stuff' %>
-    <%= f.check_box :on_critical_list %> Include in Our Critical Stuff?
-    </div>
+    	<label>Our Critical Stuff</label>
+			<hr />
+    	<p><%= f.check_box :on_critical_list %> Include in Our Critical Stuff?</p>
+			<p>
+				Assign to a To Do item?<br />
+				<%= f.select :todo_id, current_org.todos.collect{|t| [t.description, t.id] }, :include_blank => true %>
+			</p>
+		</div>
+		<hr />
   </section>
 
   <div class="actions">

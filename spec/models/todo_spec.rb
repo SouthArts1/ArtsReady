@@ -6,6 +6,7 @@ describe Todo do
   it { should belong_to(:organization) }
   it { should belong_to(:user) }
   it { should have_many(:todo_notes) }
+  it { should have_many(:articles) }
 
   subject { Factory(:todo) }
   it {subject.complete?.should be_false}

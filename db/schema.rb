@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110714181246) do
+ActiveRecord::Schema.define(:version => 20110715203657) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20110714181246) do
     t.string   "visibility",        :default => "private"
     t.string   "critical_function"
     t.boolean  "on_critical_list",  :default => false
+    t.integer  "todo_id"
   end
 
   add_index "articles", ["organization_id"], :name => "index_articles_on_organization_id"
@@ -125,9 +126,6 @@ ActiveRecord::Schema.define(:version => 20110714181246) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "todo_notes", ["todo_id"], :name => "index_todo_notes_on_todo_id"
-  add_index "todo_notes", ["user_id"], :name => "index_todo_notes_on_user_id"
 
   create_table "todos", :force => true do |t|
     t.integer  "action_item_id"

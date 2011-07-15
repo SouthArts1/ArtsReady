@@ -5,6 +5,7 @@ describe Article do
   
   it { should belong_to(:user) }
   it { should belong_to(:organization) }
+  it { should belong_to(:todo) }
   
   it { should validate_presence_of(:title) } 
   it { should validate_presence_of(:description) }

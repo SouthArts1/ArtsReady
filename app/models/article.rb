@@ -4,6 +4,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :organization
   belongs_to :user
+  belongs_to :todo
 
   #before_create :set_organization
 
