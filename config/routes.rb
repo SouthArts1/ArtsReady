@@ -4,6 +4,8 @@ Artsready::Application.routes.draw do
   get "lend_a_hand" => "buddies#lend_a_hand", :as => "lend_a_hand"
   get "buddies" => "buddies#index", :as => "buddies"
   get "buddies/profile"
+  
+  get "crisis_console" => "crisis_console#index", :as => "crisis_console"
 
   namespace :admin do
     resources :users, :only => [:index, :edit, :update]
@@ -16,10 +18,11 @@ Artsready::Application.routes.draw do
   end
 
   resources :resources
-  resources :organizations, :only => [:edit, :update, :show] do
-    put 'declare_crisis', :on => :member
-    put 'resolve_crisis', :on => :member
+  resources :organizations, :only => [:edit, :update, :show]
+  resources :crises do#, :path_names => { :new => 'declare', :destroy => 'resolve', :show => 'console' }
+    resources :updates
   end
+  
   resources :assessments, :only => [:new, :create, :show]
   resources :answers, :only => [:update]
   resources :todos

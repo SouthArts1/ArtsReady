@@ -13,10 +13,11 @@ Factory.define :organization do |f|
 end
 
 Factory.define :new_organization, :parent => :organization do |f|
-  f.name "Test Organization"
-  f.address "100 Test St"
-  f.city "New York"
-  f.state "NY"
-  f.zipcode "10001"
+  f.name "New Organization"
   f.active false
+end
+
+Factory.define :crisis_organization, :parent => :organization do |f|
+  f.name "Crisis Organization"
+  f.crises {[Factory(:crisis)]}
 end

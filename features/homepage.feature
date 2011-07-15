@@ -7,7 +7,8 @@ Feature: Homepage
     Given a visitor
     When I go to the root page
     Then I should be on the home page
-    
+
+  @todo    
   Scenario: A visitor can see featured library content
     Given a visitor
     When I go to the root page
@@ -23,5 +24,9 @@ Feature: Homepage
     Given an authenticated user
     When I go to the root page
     Then I should be on the dashboard page
-  
-  
+    
+  Scenario: crisis user is redirected to crisis console
+    Given a crisis user
+    When I go to the root page
+    Then I should see "Crisis Console"
+    #Then I should be on the crisis console

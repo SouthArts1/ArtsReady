@@ -12,6 +12,10 @@ module NavigationHelpers
       '/'
     when /^the dashboard page$/
       '/member/index'
+    when /^the crisis console$/
+      crisis_path(Crisis.first)
+    when /^the profile page$/
+      buddies_profile_path
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

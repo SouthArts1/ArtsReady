@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110713133616) do
+ActiveRecord::Schema.define(:version => 20110714181246) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -70,6 +70,19 @@ ActiveRecord::Schema.define(:version => 20110713133616) do
 
   add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"
 
+  create_table "crises", :force => true do |t|
+    t.integer  "organization_id"
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "declared_on"
+    t.date     "resolved_on"
+    t.text     "resolution"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.string   "address"
@@ -83,7 +96,6 @@ ActiveRecord::Schema.define(:version => 20110713133616) do
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "gmaps"
-    t.boolean  "declared_crisis",      :default => false
   end
 
   create_table "questions", :force => true do |t|
@@ -135,6 +147,20 @@ ActiveRecord::Schema.define(:version => 20110713133616) do
   add_index "todos", ["answer_id"], :name => "index_todos_on_answer_id"
   add_index "todos", ["organization_id"], :name => "index_todos_on_organization_id"
   add_index "todos", ["user_id"], :name => "index_todos_on_user_id"
+
+  create_table "updates", :force => true do |t|
+    t.string   "title"
+    t.text     "message"
+    t.integer  "user_id"
+    t.integer  "crisis_id"
+    t.integer  "organization_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "updates", ["crisis_id"], :name => "index_updates_on_crisis_id"
+  add_index "updates", ["organization_id"], :name => "index_updates_on_organization_id"
+  add_index "updates", ["user_id"], :name => "index_updates_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

@@ -1,0 +1,14 @@
+<tr>
+  <td class="badge">
+    <span class="date"><%= update.created_at.strftime("%D") %></span>
+  </td>
+  <td class="from">
+    <h5><%= update.user_name %></h5>
+    <%= image_tag('buddy.png', :title => 'Your Battle Buddy') if rand(3).odd? %> <%= link_to update.organization_name, organization_path(update.organization) %>
+  </td>
+  <td class="body">
+    <div class="less">
+      <%= update.message %>
+    </div>
+  </td>
+</tr>
