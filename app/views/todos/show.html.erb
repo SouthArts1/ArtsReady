@@ -46,10 +46,13 @@
 
 <div class="grid_6 todo-logs">
   <h3 style="">Log</h3>
-  <% 5.times do |i| %>
+  <% @todo.todo_notes.each do |note| %>
     <div class="log">
-      <div>Something happened! (Todo was created, or edited, or completed)</div>
-      <time><%= time_ago_in_words(i.days.ago) %> ago by Jake Johnson</time>
+      <div>
+				<%= note.message %>
+			</div>
+      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user.name %></time>
     </div>
   <% end %>
+
 </div>

@@ -7,4 +7,5 @@ Factory.define :todo do |f|
   f.user_id 1
   f.details "MyString"
   f.priority "critical"
+  f.complete false
 end
