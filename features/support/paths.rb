@@ -13,8 +13,7 @@ module NavigationHelpers
     when /^the dashboard page$/
       '/member/index'
     when /^the crisis console$/
-      puts @crisis_user.inspect
-      crises_path(Organization.first.crisis)
+      crisis_path(Crisis.first)
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
