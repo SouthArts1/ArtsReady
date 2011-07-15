@@ -14,8 +14,8 @@
     <ul class="top-nav">
       <% Assessment::CRITICAL_FUNCTIONS.each_with_index do |function, i| %>
         <li id="<%= function[:name].parameterize('_') %>" class="<%= params[:tab] == function[:name] ? 'active' : nil %>">
-					<%= link_to function[:name], :tab => i %>
-				</li>
+          <%= link_to function[:name], :tab => i %>
+        </li>
       <% end %>
     </ul>
     <section>

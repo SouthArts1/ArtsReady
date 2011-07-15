@@ -1,9 +1,9 @@
 class CrisesController < ApplicationController
-  
+
   def show
     @crisis = Crisis.find(params[:id])
   end
-  
+
   def create
     if current_org.crises.create
       redirect_to dashboard_path, :notice => 'Crisis declared!'
@@ -19,5 +19,5 @@ class CrisesController < ApplicationController
       redirect_to dashboard_path, :notice => 'Crisis could not be resolved'
     end
   end
-  
+
 end
