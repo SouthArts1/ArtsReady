@@ -4,7 +4,7 @@ class Todo < ActiveRecord::Base
   belongs_to :action_item
   belongs_to :user
   has_many :todo_notes
-  
+
   delegate :recurrence, :to => :action_item, :allow_nil => true, :prefix => false
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
 

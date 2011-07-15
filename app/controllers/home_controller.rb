@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
   def index
     redirect_to dashboard_path if session[:user_id]
-    
+
     @featured_articles = Article.featured
     @public_articles = Article.for_public.limit(3)
   end
