@@ -126,6 +126,9 @@ ActiveRecord::Schema.define(:version => 20110714181246) do
     t.datetime "updated_at"
   end
 
+  add_index "todo_notes", ["todo_id"], :name => "index_todo_notes_on_todo_id"
+  add_index "todo_notes", ["user_id"], :name => "index_todo_notes_on_user_id"
+
   create_table "todos", :force => true do |t|
     t.integer  "action_item_id"
     t.integer  "answer_id"

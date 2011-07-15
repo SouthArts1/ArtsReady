@@ -7,6 +7,8 @@ class CreateTodoNotes < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :todo_notes, :todo_id
+    add_index :todo_notes, :user_id
   end
 
   def self.down
