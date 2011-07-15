@@ -1,0 +1,22 @@
+<tr class="show">
+  <td class="resource">
+    <p><%= need.resource %></p>
+  </td>
+  <td class="description">
+    <p><%= need.description %></p>
+  </td>
+  <td class="status">
+    <p>Needed</p>
+  </td>
+  <td class="provider">
+    <p>Arg Arts Alliance</p>
+  </td>
+  <td class="activity">
+    <p><%= need.updated_at %></p>
+  </td>
+  <td>
+    <p>
+      <%= button_to_function 'edit', "$(this).parents('tr.show').toggle(); $(this).parents('tr.show').next('tr.edit').toggle();", :class => 'button white' %>
+    </p>
+  </td>
+</tr>

@@ -84,6 +84,23 @@ ActiveRecord::Schema.define(:version => 20110715203657) do
 
   add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"
 
+  create_table "needs", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "crisis_id"
+    t.integer  "user_id"
+    t.string   "resource"
+    t.text     "description"
+    t.boolean  "provided"
+    t.string   "provider"
+    t.date     "last_updated_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "needs", ["crisis_id"], :name => "index_needs_on_crisis_id"
+  add_index "needs", ["organization_id"], :name => "index_needs_on_organization_id"
+  add_index "needs", ["user_id"], :name => "index_needs_on_user_id"
+
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.string   "address"
