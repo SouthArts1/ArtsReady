@@ -29,56 +29,7 @@
         <td><p></p></td>
       </thead>
       <tbody>
-        <% 4.times do |i| %>
-          <tr class="show">
-            <td class="resource">
-              <p>Prop Storage</p>
-            </td>
-            <td class="description">
-              <p>
-                200 cubic feet props, costumes
-              </p>
-            </td>
-            <td class="status">
-              <p>Provided</p>
-            </td>
-            <td class="provider">
-              <p>
-                Arg Arts Alliance
-              </p>
-            </td>
-            <td class="activity">
-              <p><%= rand(30).days.ago.strftime("%D") %> updated</p>
-            </td>
-            <td>
-              <p>
-                <%= button_to_function 'edit', "$(this).parents('tr.show').toggle(); $(this).parents('tr.show').next('tr.edit').toggle();", :class => 'button white' %>
-              </p>
-            </td>
-          </tr>
-          <tr class="edit" style="display:none;">
-            <td class="resource">
-              <p><input type="text" value="Prop Storage"></p>
-            </td>
-            <td class="description">
-              <p><input type="text" value="200 cubic feet props, costumes"></p>
-            </td>
-            <td class="status">
-              <p><input type="radio" checked="checked"> Provided<br />
-                <input type="radio"> Needed<br />
-              </p>
-            </td>
-            <td class="provider">
-              <p><input type="text" value="Arg Arts Alliance"></p>
-            </td>
-            <td></td>
-            <td>
-              <p>
-                <%= button_to_function 'save', "$(this).parents('tr.edit').toggle(); $(this).parents('tr.edit').prev('tr.show').toggle();", :class => 'button blue' %>
-              </p>
-            </td>
-          </tr>
-        <% end %>
+        <%= render :partial => 'need', :collection => current_org.crisis.needs %>
       </tbody>
     </table>
   </section>
@@ -88,22 +39,13 @@
           <td colspan="7"><p>Add another need</p></td>
         </thead>
         <tbody>
+        <%= form_for([current_org.crisis,Need.new]) do |f| %>
             <tr>
-              <td class="critical-function">
-                <p>
-                  <select>
-                    <option>Critical Function</option>
-                    <option>People Resources</option>
-                    <option>Finances & Insurance</option>
-                    <option>Technology</option>
-                    <option>...</option>
-                  </select>
-                </p>
-              </td>
-              <td class="resource"><p><input type="text" placeholder="Resource"></p></td>
-              <td class="description"><p><input type="text" placeholder="Description"></p></td>
-              <td class="add-button"><p><a class="button add-need-button">Add</a></p></td>
+              <td class="resource"><p><%= f.text_field :resource, :placeholder => 'Resource' %></p></td>
+              <td class="description"><p><%= f.text_field :description, :placeholder => 'Description' %></td>
+              <td class="add-button"><p><%= f.submit 'Add', :class => 'button add-need-button' %></p></td>
             </tr>
+        <% end %>
         </tbody>
       </table>
   </section>
