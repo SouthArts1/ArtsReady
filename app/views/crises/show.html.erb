@@ -18,24 +18,6 @@
 
 <div class="grid_12">
   <section>
-    <h2 class="buddy">Crisis Log</h2>
-    <div id="crisis-update" style="margin-bottom: 20px;">
-      <%= form_for([current_org.crisis,Update.new]) do |f| %>
-      <div class="grid_10 alpha">
-        <%= f.text_area :message, :rows => 2, :placeholder => 'Send crisis update' %>
-      </div>
-      <div class="grid_2 omega">
-        <%= f.submit 'Report', :class => 'button blue' %>
-      </div>
-      <% end %>
-      <div class="clear"></div>
-    </div>
-    <table id="messages">
-      <%= render :partial => 'update', :collection => current_org.crisis.updates.order("created_at DESC") %>
-    </table>
-  </section>
-
-  <section>
     <h2 class="buddy">Your Needs</h2>
     <table class="needs">
       <thead>
@@ -125,4 +107,22 @@
         </tbody>
       </table>
   </section>
+  <section>
+    <h2 class="buddy">Crisis Log</h2>
+    <div id="crisis-update" style="margin-bottom: 20px;">
+      <%= form_for([current_org.crisis,Update.new]) do |f| %>
+      <div class="grid_10 alpha">
+        <%= f.text_area :message, :rows => 2, :placeholder => 'Send crisis update' %>
+      </div>
+      <div class="grid_2 omega">
+        <%= f.submit 'Report', :class => 'button blue' %>
+      </div>
+      <% end %>
+      <div class="clear"></div>
+    </div>
+    <table id="messages">
+      <%= render :partial => 'update', :collection => current_org.crisis.updates.order("created_at DESC") %>
+    </table>
+  </section>
+
 </div>
