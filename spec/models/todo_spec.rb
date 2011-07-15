@@ -5,6 +5,10 @@ describe Todo do
   it { should belong_to(:action_item) }
   it { should belong_to(:organization) }
   it { should belong_to(:user) }
+  it { should have_many(:todo_notes) }
+
+  subject { Factory(:todo) }
+  it {subject.complete?.should be_false}
   
   it "should accept a due date" do
     todo = Factory.build(:todo)
@@ -20,6 +24,11 @@ describe Todo do
   it "should allow its priority to be changed" do
     todo = Factory.create(:todo)
     todo.update_attribute(:priority, "non-critical").should be_true
+  end
+  
+  it "should accept being set to complete" do
+    todo = Factory.create(:todo)
+    todo.update_attribute(:complete, false).should be_true
   end
   
 end

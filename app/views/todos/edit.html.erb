@@ -5,52 +5,56 @@
 </div>
 
 <%= form_for @todo do |f| %>
-<div class="grid_8">
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+	<div class="grid_8">
+	  <div class="field">
+	    <%= f.label :title %>
+	    <%= f.text_field :title %>
+	  </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
+	  <div class="field">
+	    <%= f.label :description %>
+	    <%= f.text_field :description %>
+	  </div>
 
-  <div class="field">
-    <%= f.label :critical_function %>
-    <%= f.select :critical_function, Assessment::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] } %>
-  </div>
+	  <div class="field">
+	    <%= f.label :critical_function %>
+	    <%= f.select :critical_function, Assessment::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] } %>
+	  </div>
 
-  <div class="field">
-    <label>Related Library Articles</label>
-    <%= select_tag :critical_function, options_for_select(['Articles...']) %> &nbsp; <%= link_to_function image_tag('remove.png', :style => 'vertical-align: middle;'), "" %><br />
-    <%= link_to_function image_tag('add.png', :style => 'vertical-align: middle;') + ' add another', "" %>
-  </div>
+	  <div class="field">
+	    <label>Related Library Articles</label>
+	    <%= select_tag :critical_function, options_for_select(['Articles...']) %> &nbsp; <%= link_to_function image_tag('remove.png', :style => 'vertical-align: middle;'), "" %><br />
+	    <%= link_to_function image_tag('add.png', :style => 'vertical-align: middle;') + ' add another', "" %>
+	  </div>
 
-  <div class="actions">
-    <%= f.submit 'Save', :class => 'button' %>
-  </div>
-</div>
+	  <div class="actions">
+	    <%= f.submit 'Save', :class => 'button' %>
+	  </div>
+	</div>
 
-<div class="grid_4">
-  <div class="field">
-    <%= f.label :due_on, "Due Date" %>
-    <%= f.text_field :due_on, :class => 'datepicker' %>
-  </div>
+	<div class="grid_4">
+	  <div class="field">
+	    <%= f.label :due_on, "Due Date" %>
+	    <%= f.text_field :due_on, :class => 'datepicker' %>
+	  </div>
 
-  <div class="field">
-    <%= f.label :review_on, "Review Date" %>
-    <%= text_field_tag :review_on, 1.year.from_now.to_date, :class => 'datepicker' %>
-  </div>
+	  <div class="field">
+	    <%= f.label :review_on, "Review Date" %>
+	    <%= text_field_tag :review_on, 1.year.from_now.to_date, :class => 'datepicker' %>
+	  </div>
 
-  <div class="field">
-    <%= f.label :user_id, "Assigned To" %>
-    <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
-  </div>
+	  <div class="field">
+	    <%= f.label :user_id, "Assigned To" %>
+	    <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
+	  </div>
 
-  <div class="field">
-    <%= f.label :priority, "Priority" %>
-    <%= f.select :priority, options_for_select(Todo::PRIORITY) %>
-  </div>
-</div>
+	  <div class="field">
+	    <%= f.label :priority, "Priority" %>
+	    <%= f.select :priority, options_for_select(Todo::PRIORITY) %>
+	  </div>
+		<div class="field">
+	    <%= f.label :complete, "Completed?" %>
+	    <%= f.select :complete, ['true', 'false'] %>
+	  </div>
+	</div>
 <% end %>

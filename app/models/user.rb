@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :organization
   has_many :articles
   has_many :todos
-
+  has_many :todo_notes
   before_save :encrypt_password
 
   validates_presence_of :first_name
