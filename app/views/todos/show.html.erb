@@ -23,7 +23,7 @@
     </div>
     <div class="grid_3 omega">
       <h3>Review Date</h3>
-      <%= @todo.recurrence  %>
+      <%= @todo.review_on  %>
     </div>
   </section>
 
@@ -45,13 +45,27 @@
 </div>
 
 <div class="grid_6 todo-logs">
-  <h3 style="">Log</h3>
-  <% @todo.todo_notes.each do |note| %>
-    <div class="log">
-      <div>
-        <%= note.message %>
-      </div>
-      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user.name %></time>
-    </div>
-    <% end %>
+	<section>
+	  <h3 style="">Log</h3>
+	  <% @todo.todo_notes.each do |note| %>
+	    <div class="log">
+	      <div>
+					<%= note.message %>
+				</div>
+	      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user.name %></time>
+	    </div>
+	  <% end %>
+		<%= form_for TodoNote.new do |f| %>
+				<h3 style="">Add a new note</h3>
+			  <div class="field" style="width:400px;">
+			    <%= f.text_field :message, :html => "style='width:200px" %>
+			  </div>
+				<%= f.hidden_field :user_id, :value => current_user.id %>
+				<%= f.hidden_field :todo_id, :value => @todo.id %>
+			  <div class="actions">
+			    <%= f.submit 'Save note', :class => 'button' %>
+			  </div>
+		<% end %>
+	</section>
+
 </div>

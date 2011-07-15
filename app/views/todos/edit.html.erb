@@ -40,7 +40,7 @@
 
     <div class="field">
       <%= f.label :review_on, "Review Date" %>
-      <%= text_field_tag :review_on, 1.year.from_now.to_date, :class => 'datepicker' %>
+      <%= f.text_field :review_on, :class => 'datepicker' %>
     </div>
 
     <div class="field">

@@ -1,0 +1,18 @@
+<div class="grid_12">
+  <hgroup>
+    <h1>Add a note</h1>
+  </hgroup>
+</div>
+
+<%= form_for @todo_note do |f| %>
+	<div class="grid_8">
+	  <div class="field">
+	    <%= f.label :message %>
+	    <%= f.text_area :message %>
+	  </div>
+
+	  <div class="actions">
+	    <%= f.submit 'Save', :class => 'button' %>
+	  </div>
+	</div>
+<% end %>
