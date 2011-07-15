@@ -49,10 +49,9 @@
   <% @todo.todo_notes.each do |note| %>
     <div class="log">
       <div>
-				<%= note.message %>
-			</div>
+        <%= note.message %>
+      </div>
       <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user.name %></time>
     </div>
-  <% end %>
-
+    <% end %>
 </div>
