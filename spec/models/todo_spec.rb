@@ -31,4 +31,9 @@ describe Todo do
     todo.update_attribute(:complete, false).should be_true
   end
   
+  it "should accept a review date" do
+    todo = Factory.build(:todo)
+    todo.update_attribute(:review_on, Date.new).should be_true
+  end
+  
 end
