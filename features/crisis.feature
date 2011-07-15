@@ -3,8 +3,6 @@ Feature: Crisis
   As an admin
   I want to manage a crisis
   
-  Background:
-  
   Scenario: Admin declares a crisis
     Given an authenticated user
     And I am on the dashboard page
@@ -12,6 +10,7 @@ Feature: Crisis
     When I declare a crisis
     Then I am in crisis mode
   
+  @todo
   Scenario: Admin resolves a crisis
     Given a crisis user
     And I am on the dashboard page
