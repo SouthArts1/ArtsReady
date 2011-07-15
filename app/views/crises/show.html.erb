@@ -1,6 +1,13 @@
-<div class="grid_12 alpha">
-  <%= render '/shared/crisis_switch' %>
+<div class="grid_8" style="margin-bottom:20px;">
   <h1>Battle Buddy Network</h1>
+</div>
+<div class="grid_4 alpha">
+  <div style="margin-left:20px">
+  <%= render :partial => '/shared/crisis_switch', :locals => {:float => 'left'} %>
+  </div>
+</div>
+
+<div class="grid_12 alpha">
   <ul class="top-nav battle">
     <li><%= link_to "Lend a Hand", lend_a_hand_path %></li>
     <li><%= link_to "Get Help", get_help_path %></li>

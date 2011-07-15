@@ -1,4 +1,4 @@
-  <% if current_org.declared_crisis? %>
+ <% if current_org.declared_crisis? %>
 <div id="distress-switch" class="on" style="float:left;">
   <span style="float:left;">Crisis Mode: <span id="distress-status">ON</span> &nbsp;</span>
   <%= form_for(current_org.crisis, :html => {:method => :delete}) do |f| %>
