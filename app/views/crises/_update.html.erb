@@ -1,11 +1,11 @@
 <tr>
   <td class="badge">
-    <%= image_tag('unread.png') if true %><br />
+    <%= image_tag('unread.png') if false %><br />
     <span class="date"><%= update.created_at.strftime("%D") %></span>
   </td>
   <td class="from">
-    <h5><%#= update.user.name %></h5>
-    <%= image_tag('buddy.png', :title => 'Your Battle Buddy') if rand(3).odd? %> <%= link_to organization_path(update.organization) %>
+    <h5><%= update.user_name %></h5>
+    <%= image_tag('buddy.png', :title => 'Your Battle Buddy') if rand(3).odd? %> <%= link_to update.organization_name, organization_path(update.organization) %>
   </td>
   <td class="body">
     <h5><%= update.title %></h5>
