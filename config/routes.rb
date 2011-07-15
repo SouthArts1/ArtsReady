@@ -26,6 +26,7 @@ Artsready::Application.routes.draw do
   resources :assessments, :only => [:new, :create, :show]
   resources :answers, :only => [:update]
   resources :todos
+  resources :todo_notes
 
   get "sign_up" => "users#new", :as => "sign_up"
   get "sign_in" => "sessions#new", :as => "sign_in"
