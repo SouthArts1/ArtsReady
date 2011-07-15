@@ -7,7 +7,8 @@ Feature: Homepage
     Given a visitor
     When I go to the root page
     Then I should be on the home page
-    
+
+  @todo    
   Scenario: A visitor can see featured library content
     Given a visitor
     When I go to the root page
