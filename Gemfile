@@ -1,13 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
-gem 'mysql2', '0.2.6'
+gem 'pg'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
 gem 'carrierwave'
 gem 'geocoder'
 gem 'gmaps4rails'
 
+gem 'heroku'
 # deploy
 # gem 'newrelic_rpm'
 # gem 'capistrano'
