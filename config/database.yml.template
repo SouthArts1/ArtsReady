@@ -30,3 +30,12 @@ production:
 
 cucumber:
   <<: *test
+  
+  
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: artsready_development
+  pool: 5
+  username: rails
+  password:
