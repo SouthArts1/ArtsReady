@@ -1,11 +1,11 @@
-Given /^a visitor$/ do
+  Given /^a visitor$/ do
 end
 
 Given /^a member with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
   Factory(:user, :email => email, :password => password)
 end
 
-Given /^an authenticated user$/ do
+Given /^a user$/ do
   email = 'user@test.host'
   password = 'password'
   Factory(:user, :email => email, :password => password)

@@ -21,7 +21,7 @@ Feature: Homepage
     Then I should see "Join Today"
     
   Scenario: redirect to member home if logged in
-    Given an authenticated user
+    Given a user
     When I go to the root page
     Then I should be on the dashboard page
     
