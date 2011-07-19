@@ -1,9 +1,20 @@
-<div class="question">
+<% if answer.answered? %>
+  <div class="question answered">
+    <div class="response answered">
+      <div class="answers">
+        <%= answer.priority %> <br/> <%= answer.preparedness %>
+      </div>
+    </div>
+    <h3 class="prompt plain"><%= answer.question_description %></h3>
+  </div>
+<% elsif answer.was_skipped? %>
+<div class="question not-applicable">
   <div class="response">
-    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
-    <%= link_to_function 'not applicable', '', :class => 'does-not-apply', :style => 'color:#666;text-decoration:underline;' %>
     <div class="answers">
     </div>
+      Reconsider
+    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
+    <%= link_to_function 'not applicable', '', :class => 'does-not-apply', :style => 'color:#666;text-decoration:underline;' %>
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
   <div class="answer" style="display:none;">
@@ -55,3 +66,63 @@
   </div>
   <div style="clear: both;"></div>
 </div>
+<% else %>
+<div class="question">
+  <div class="response">
+    <div class="answers">
+    </div>
+    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
+    <%= link_to_function 'not applicable', '', :class => 'does-not-apply', :style => 'color:#666;text-decoration:underline;' %>
+  </div>
+  <h3 class="prompt plain"><%= answer.question_description %></h3>
+  <div class="answer" style="display:none;">
+    <%= form_for answer do |a| %>
+    <table>
+      <tr>
+        <td>
+          <strong>Preparedness:</strong>
+        </td>
+        <td>
+          <label><%= a.radio_button :preparedness, 'not ready' %> not ready</label>
+        </td>
+        <td>
+          <label><%= a.radio_button :preparedness, 'needs work' %> needs work</label>
+        </td>
+        <td>
+          <label><%= a.radio_button :preparedness, 'ready' %> ready</label>
+        </td>
+        <td>
+          <label><%= a.radio_button :preparedness, 'unknown' %> unknown</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Priority:</strong>
+        </td>
+        <td>
+          <label><%= a.radio_button :priority, 'critical' %> critical</label>
+        </td>
+        <td>
+          <label><%= a.radio_button :priority, 'non-critical' %> non-critical</label>
+        </td>
+      </tr>
+    </table>
+    <%= a.submit 'save answer', :class => 'button blue save-response' %>
+    <% end %>
+    <%#= link_to_function 'save answer', '', :class => 'button blue save-response' %>
+  </div>
+  <div class="explain" style="display:none;">
+    <p>Please rate the priority and preparedness of this topic for your organization.</p>
+    <p class="info-bubble">
+      <%= link_to 'Learn more about this topic', '', :class => 'button weak info-bubble-trigger' %>
+      <span class="info-bubble-text">
+        <%= raw(learn_more) %>
+        <br /><br />
+        <a href="#">See how others answered this question.</a>
+      </span>
+    </p>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+
+<% end %>

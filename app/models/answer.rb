@@ -19,7 +19,11 @@ class Answer < ActiveRecord::Base
   after_update :add_todo_items
 
   def ready?
-    self.preparedness=='ready'
+    preparedness=='ready'
+  end
+  
+  def answered?
+    preparedness.present? && priority.present?
   end
 
   def add_todo_items
