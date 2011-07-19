@@ -19,6 +19,7 @@ class Organization < ActiveRecord::Base
 
 
   delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
+  delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')

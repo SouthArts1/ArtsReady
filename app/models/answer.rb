@@ -17,6 +17,7 @@ class Answer < ActiveRecord::Base
 
 
   after_update :add_todo_items
+  after_update :answered_count
 
   def ready?
     preparedness=='ready'
@@ -31,7 +32,10 @@ class Answer < ActiveRecord::Base
       todos.create(:action_item => i, :organization => assessment.organization, :description => i.description) unless ready?
       logger.debug("Adding todo #{i.description} for question #{question.description}") unless ready?
     end
-    
+  end
+  
+  def answered_count
+    Assessment.increment_counter(:completed_answers_count,assessment.id) if answered?
   end
 
 end

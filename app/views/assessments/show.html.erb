@@ -1,9 +1,6 @@
 <div class="grid_12">
   <div class="progress-container">
-    <p class="progress">
-      <span class="progress-complete" style="right:63%"></span>
-      <span class="progress-percent">Assessment is 37% complete</span>
-    </p>
+    <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.assessment_percentage_complete, :message => 'Assessment is'} %>
     <p class="progress-sub"><%= rand(10) %>/10 answered in section</p>
   </div>
   <h1>Readiness Assessment</h1>
