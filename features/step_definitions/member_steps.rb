@@ -8,7 +8,7 @@ end
 Given /^a user$/ do
   email = 'user@test.host'
   password = 'password'
-  Factory(:user, :email => email, :password => password)
+  @current_user = Factory(:user, :email => email, :password => password)
 
   And %{I am on the sign_in page}
   And %{I fill in "email" with "#{email}"}

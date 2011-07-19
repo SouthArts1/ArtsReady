@@ -3,7 +3,7 @@
   <div class="grid_6 alpha">
     <h2>A couple things before we start:</h2>
     <p>Please un-check any areas that don't apply to your organization.</p>
-    <%= form_for @assessment do |f| %>
+    <%= form_for @assessment, :url => assessment_path do |f| %>
     <ul class="checklist">
       <li><label><%= f.check_box :has_performances, {:checked => true} %> We put on performances</label></li>
       <li><label><%= f.check_box :has_tickets, {:checked => true} %> We manage ticket sales</label></li>
