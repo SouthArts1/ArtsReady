@@ -8,11 +8,11 @@ describe AssessmentsController do
     end
 
     it "routes to #new" do
-      get("/assessments/new").should route_to("assessments#new")
+      get("/assessment/new").should route_to("assessments#new")
     end
 
     it "routes to #show" do
-      get("/assessments/1").should route_to("assessments#show", :id => "1")
+      get("/assessment").should route_to("assessments#show")
     end
 
     it "does not route to #edit" do
@@ -20,15 +20,15 @@ describe AssessmentsController do
     end
 
     it "routes to #create" do
-      post("/assessments").should route_to("assessments#create")
+      post("/assessment").should route_to("assessments#create")
     end
 
     it "does not route to #update" do
-      put("/assessments/1").should_not be_routable
+      put("/assessment/1").should_not be_routable
     end
 
     it "does not route to #destroy" do
-      delete("/assessments/1").should_not be_routable
+      delete("/assessment/1").should_not be_routable
     end
 
   end

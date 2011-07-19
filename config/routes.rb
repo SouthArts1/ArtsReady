@@ -24,7 +24,7 @@ Artsready::Application.routes.draw do
     resources :needs
   end
 
-  resources :assessments, :only => [:new, :create, :show]
+  resource :assessment, :only => [:new, :create, :show]
   resources :answers, :only => [:update]
   resources :todos
   resources :todo_notes
