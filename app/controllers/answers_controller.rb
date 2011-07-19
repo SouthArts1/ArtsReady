@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'All fields are required for your answer'
     end
-    redirect_to assessment_path(current_org.assessment)
+    redirect_to assessment_path
   end
 
 end
