@@ -17,16 +17,15 @@ class Organization < ActiveRecord::Base
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
 
+
+  delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
+
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
   end
 
   def gmaps4rails_address
     full_street_address
-  end
-
-  def assessment_in_progress?
-    false
   end
 
   def assessment_completion
