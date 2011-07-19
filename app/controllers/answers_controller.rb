@@ -11,7 +11,8 @@ class AnswersController < ApplicationController
         current_org.todos.create(:action_item => i)
         logger.debug("Adding todo #{i.description} for question #{@answer.question.description}")
       end
-
+    else
+      flash.notice = 'All fields are required for your answer'
     end
     redirect_to assessment_path(current_org.assessment)
   end

@@ -8,8 +8,8 @@ describe Answer do
   
   it { should validate_presence_of(:assessment)}
   it { should validate_presence_of(:question)}
-  it { should validate_presence_of(:preparedness)}
-  it { should validate_presence_of(:priority)}
+  # it { should validate_presence_of(:preparedness)}
+  # it { should validate_presence_of(:priority)}
   
   
   context "with no action items" do

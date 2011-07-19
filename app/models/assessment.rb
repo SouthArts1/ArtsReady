@@ -24,7 +24,7 @@ class Assessment < ActiveRecord::Base
 
   def populate_empty_answers
     Question.all.each do |q|
-      answers.create(:question => q)
+      self.answers.create(:question => q)
     end
   end
 

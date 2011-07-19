@@ -1,5 +1,7 @@
 class Answer < ActiveRecord::Base
 
+  PREPAREDNESS = %w{unknown not_ready needs_work ready}
+  PRIORITY = %w{critical non-critical}
   belongs_to :assessment
   belongs_to :question
   belongs_to :organization
@@ -10,8 +12,8 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :assessment
   validates_presence_of :question
-  validates_presence_of :preparedness
-  validates_presence_of :priority
+  validates_presence_of :preparedness, :on => :update, :unless => "was_skipped?"
+  validates_presence_of :priority, :on => :update, :unless => "was_skipped?"
 
 
   after_update :add_todo_items
@@ -25,6 +27,7 @@ class Answer < ActiveRecord::Base
       todos.create(:action_item => i, :organization => assessment.organization, :description => i.description) unless ready?
       logger.debug("Adding todo #{i.description} for question #{question.description}") unless ready?
     end
+    
   end
 
 end
