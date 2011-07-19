@@ -21,6 +21,14 @@ class Assessment < ActiveRecord::Base
     {:name => 'grants', :title => 'Grantmaking', :optional => 'We provide grants'},
     {:name => 'exhibits', :title => 'Exhibits', :optional => 'We put on exhibits'}
   ]
+  
+  def is_complete?
+    false
+  end
+  
+  def percentage_complete
+    0
+  end
 
   def populate_empty_answers
     Question.all.each do |q|

@@ -15,3 +15,9 @@ Feature: Assessment
     And I am on the home page
     When I follow "Get Started"
     Then I should be on the assessment page
+    
+  Scenario: Finished assessment
+    Given a user
+    And I have finished an assessment
+    And I am on the home page
+    Then I should not see "Get Started"
