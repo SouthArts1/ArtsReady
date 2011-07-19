@@ -2,7 +2,7 @@ class Answer < ActiveRecord::Base
 
   PREPAREDNESS = %w{unknown not_ready needs_work ready}
   PRIORITY = %w{critical non-critical}
-  belongs_to :assessment
+  belongs_to :assessment, :counter_cache => true
   belongs_to :question
   belongs_to :organization
   has_many :todos

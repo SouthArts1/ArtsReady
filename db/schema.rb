@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110715203657) do
+ActiveRecord::Schema.define(:version => 20110719180048) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -67,6 +67,9 @@ ActiveRecord::Schema.define(:version => 20110715203657) do
     t.boolean  "has_exhibits"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "complete",                :default => false
+    t.integer  "answers_count",           :default => 0
+    t.integer  "completed_answers_count", :default => 0
   end
 
   add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"

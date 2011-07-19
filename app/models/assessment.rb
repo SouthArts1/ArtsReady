@@ -23,11 +23,11 @@ class Assessment < ActiveRecord::Base
   ]
   
   def is_complete?
-    false
+    complete
   end
   
   def percentage_complete
-    0
+    completed_answers_count/answers_count rescue 0
   end
 
   def populate_empty_answers
