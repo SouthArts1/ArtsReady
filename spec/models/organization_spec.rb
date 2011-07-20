@@ -15,10 +15,10 @@ describe Organization do
   it { should validate_presence_of(:state)} 
   it { should validate_presence_of(:zipcode)}
   
-  it {subject.assessment_in_progress?.should be_false} 
-  it {subject.assessment_completion.should be_zero} 
+  it {subject.assessment_is_complete?.should be_false} 
+  it {subject.assessment_percentage_complete.should be_nil}
   it {subject.todo_completion.should be_zero} 
-  # it {subject.declared_crisis.should be_false}
+  it {subject.declared_crisis?.should be_false}
   
   context "geocoding address" do
     it "should geocode address when created" do

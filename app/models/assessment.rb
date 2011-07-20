@@ -28,7 +28,7 @@ class Assessment < ActiveRecord::Base
   
   def percentage_complete
     # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
-    ((completed_answers_count.to_f / answers_count.to_f)*100).to_i
+    ((completed_answers_count.to_f / answers_count.to_f)*100).to_i rescue 0
   end
 
   def populate_empty_answers

@@ -29,10 +29,6 @@ class Organization < ActiveRecord::Base
     full_street_address
   end
 
-  def assessment_completion
-    0
-  end
-
   def todo_completion
     0
   end
