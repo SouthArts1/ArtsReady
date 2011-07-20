@@ -33,7 +33,7 @@ class Assessment < ActiveRecord::Base
 
   def populate_empty_answers
     Question.all.each do |q|
-      self.answers.create(:question => q)
+      self.answers.create(:question => q, :critical_function => q.critical_function)
     end
   end
 

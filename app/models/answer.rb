@@ -18,6 +18,8 @@ class Answer < ActiveRecord::Base
 
   after_update :add_todo_items
   after_update :answered_count
+  
+  scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
 
   def ready?
     preparedness=='ready'

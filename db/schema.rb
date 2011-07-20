@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110719180048) do
+ActiveRecord::Schema.define(:version => 20110720183804) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(:version => 20110719180048) do
     t.boolean  "was_skipped"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "critical_function"
   end
 
   add_index "answers", ["assessment_id"], :name => "index_answers_on_assessment_id"
+  add_index "answers", ["critical_function"], :name => "index_answers_on_critical_function"
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
   create_table "articles", :force => true do |t|
