@@ -15,6 +15,8 @@ class Todo < ActiveRecord::Base
   
   before_save :set_status
   
+  scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
+  
   PRIORITY = ['critical', 'non-critical']
   PREPAREDNESS = ['not-ready', 'needs work', 'ready', 'unknown']
   
