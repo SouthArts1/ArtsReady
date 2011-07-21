@@ -8,9 +8,27 @@ describe Answer do
   
   it { should validate_presence_of(:assessment)}
   it { should validate_presence_of(:question)}
-  # it { should validate_presence_of(:preparedness)}
-  # it { should validate_presence_of(:priority)}
   
+  context "after initial creation" do
+    subject { Factory(:answer) }
+    
+    specify {subject.assessment_id.should_not be_nil}
+    specify {subject.question_id.should_not be_nil}
+    specify {subject.critical_function.should_not be_blank}
+    specify {subject.preparedness.should be_blank}
+    specify {subject.priority.should be_blank}
+    specify {subject.was_skipped.should be_false}
+  end
+  
+  context "valid answer" do
+    it "should be valid" do
+      pending
+      answer = Factory(:answer)
+      answer.priority='critical'
+      answer.preparedness='ready'
+      answer.should be_valid
+    end
+  end
   
   context "with no action items" do
     let(:question) { Factory(:question) }
@@ -28,3 +46,4 @@ describe Answer do
   end
   
 end
+  

@@ -12,9 +12,10 @@
   <div class="response">
     <div class="answers">
     </div>
-      Reconsider
-    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
-    <%= link_to_function 'not applicable', '', :class => 'does-not-apply', :style => 'color:#666;text-decoration:underline;' %>
+    <%= form_for(answer, :url => reconsider_answer_path(answer), :html => {:method => :put}) do |a| %>
+    <%= a.hidden_field :was_skipped, :value => false %>
+    <%= link_to 'reconsider', '#', :class => 'does-not-apply reconsider-question', :style => 'color:#666;text-decoration:underline;', :onclick => "this.submit()"%>
+    <% end %>
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
   <div class="answer" style="display:none;">
@@ -72,7 +73,10 @@
     <div class="answers">
     </div>
     &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
-    <%= link_to_function 'not applicable', '', :class => 'does-not-apply', :style => 'color:#666;text-decoration:underline;' %>
+    <%= form_for(answer, :url => skip_answer_path(answer), :html => {:method => :put}) do |a| %>
+    <%= a.hidden_field :was_skipped, :value => true %>
+    <%= link_to 'not applicable', '#', :class => 'does-not-apply skip-question', :style => 'color:#666;text-decoration:underline;' %>
+    <% end %>
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
   <div class="answer" style="display:none;">
