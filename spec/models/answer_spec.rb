@@ -45,5 +45,42 @@ describe Answer do
     end
   end
   
+  context "status" do
+
+    context "adhoc todo item" do
+      # Action Item Created by User: "Not Started"
+      it "should have 'not started' status" do
+        Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority').status.should == "Not Started"
+      end
+    end
+    
+    context "todo from answer" do
+
+      it "should have 'not started' if answer preparedness was unknown" do
+        answer = mock_model(Answer, :preparedness => 'unknown')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "Not Started"
+      end
+
+      it "should have 'in progress' status if preparedness was ready" do
+        answer = mock_model(Answer, :preparedness => 'ready')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "In Progress"
+      end
+
+      it "should have 'in progress' status if preparedness was not ready" do
+        answer = mock_model(Answer, :preparedness => 'not ready')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "In Progress"
+      end
+
+      it "should have 'in progress' status if preparedness was needs work" do
+        answer = mock_model(Answer, :preparedness => 'needs work')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "In Progress"
+      end
+    end
+  end
+  
 end
   

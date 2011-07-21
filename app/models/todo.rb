@@ -12,7 +12,20 @@ class Todo < ActiveRecord::Base
   
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
   delegate :recurrence, :to => :action_item, :allow_nil => true, :prefix => false
-
+  
+  before_save :set_status
+  
   PRIORITY = ['critical', 'non-critical']
   PREPAREDNESS = ['not-ready', 'needs work', 'ready', 'unknown']
+  
+  def set_status
+    if answer.nil?
+      self.status = 'Not Started'
+    elsif answer.present? && answer.preparedness.downcase=='unknown'
+      self.status = 'Not Started'
+    else
+      self.status = 'In Progress'
+    end
+  end
+
 end
