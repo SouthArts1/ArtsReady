@@ -5,7 +5,7 @@
     <div class="grid_6 omega">
 			  <div class="progress-container">
 			    <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.todo_percentage_complete, :message => 'Todos are'} %>
-			    <p class="progress-sub"><%#= @answers.reject {|q| !q.answered?}.count %>/<%#= @answers.count %> answered in section</p>
+			    <p class="progress-sub"><%= @todos.reject {|q| !q.complete?}.count %>/<%= @todos.count %> answered in section</p>
 			  </div>
 			</div>
 
