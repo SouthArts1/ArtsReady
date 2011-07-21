@@ -41,4 +41,9 @@ class Organization < ActiveRecord::Base
     crises.where(:resolved_on => nil).count == 1 ? true : false
   end
 
+  def todo_percentage_complete
+    # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
+    ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
+  end
+
 end
