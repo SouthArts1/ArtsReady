@@ -26,6 +26,8 @@ class Todo < ActiveRecord::Base
     else
       self.status = 'In Progress'
     end
+
+    self.status = 'Complete' if complete?
   end
 
 end
