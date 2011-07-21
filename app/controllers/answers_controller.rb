@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
 
   def update
-    @answer = Answer.find(params[:id])
+    @answer = current_org.assessment.answers.find(params[:id])
 
     if @answer.update_attributes(params[:answer])
       flash.notice = 'Answer was successfully updated.'
