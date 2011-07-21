@@ -4,6 +4,8 @@ puts "South Arts"
 org = Organization.create!(:name => 'South Arts', :address => '1800 Peachtree St., NW', :city => 'Atlanta', :state => 'GA', :zipcode => '30309', :active => true)
 admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true, :organization => org)
 
+article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'What is ArtsReady?', :body => 'Prepare for the unexpected', :description => 'Introduction ArtsReady')
+
 puts "Creating Fractured Atlas"
 org = Organization.create!(:name => 'Fractured Atlas', :address => '248 W. 35th Street', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true)
 member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org)
