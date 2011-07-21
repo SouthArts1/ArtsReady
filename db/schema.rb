@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110720183804) do
+ActiveRecord::Schema.define(:version => 20110721190407) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20110720183804) do
     t.integer  "question_id"
     t.string   "preparedness"
     t.string   "priority"
-    t.boolean  "was_skipped",       :default => false
+    t.boolean  "was_skipped"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "critical_function"
@@ -158,13 +158,11 @@ ActiveRecord::Schema.define(:version => 20110720183804) do
     t.integer  "organization_id"
     t.date     "due_on"
     t.integer  "user_id"
-    t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
     t.string   "priority"
     t.date     "review_on"
-    t.string   "title"
     t.string   "critical_function"
     t.boolean  "complete",          :default => false, :null => false
   end

@@ -5,9 +5,13 @@ describe Todo do
   it { should belong_to(:action_item) }
   it { should belong_to(:organization) }
   it { should belong_to(:user) }
-  it { should have_many(:todo_notes) }
   it { should have_many(:articles) }
+  it { should have_many(:todo_notes) }
 
+  it { should validate_presence_of(:critical_function)}
+  it { should validate_presence_of(:description)}
+  it { should validate_presence_of(:priority)}
+  
   subject { Factory(:todo) }
   it {subject.complete?.should be_false}
   

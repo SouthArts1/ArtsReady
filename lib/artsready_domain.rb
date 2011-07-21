@@ -15,5 +15,16 @@ module ArtsreadyDomain
   PREPAREDNESS = %w{unknown not_ready needs_work ready}
 
   PRIORITY = %w{critical non-critical}
+  
+  # Statuses:
+  # Not Started
+  # In Progress
+  # Complete
+  # 
+  # Default Statuses:
+  # Action Item Created by Assessment:
+  # ...if Question status marked as "ready", "not ready" or "needs work": "In Progress"
+  # ...if Question status marked as "unknown": "Not Started"
+  # Action Item Created by User: "Not Started"
 
 end
