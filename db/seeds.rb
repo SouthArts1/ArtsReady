@@ -33,6 +33,12 @@ puts "Adding unapproved organization"
 org = Organization.create!(:name => 'Unapproved Org', :address => '1505 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => false, :battle_buddy_enabled => false)
 member = User.create!(:email=>'unapproved@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org)
 
+puts "Adding crisis organization"
+org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true, :battle_buddy_enabled => false)
+member = User.create!(:email=>'crisis@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Crisis', :last_name => 'Org', :organization => org)
+org.crises.create
+org.crises.first.updates.create(:message => 'we are really having some trouble here')
+
 puts "Loading the questions"
 questions = <<END
 1,"Ready means you keep your organizational chart in such a way that it can be accessed, no matter what happens.",people
