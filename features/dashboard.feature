@@ -8,8 +8,7 @@ Feature: Dashboard
 		And I am on the dashboard page
 		Then I should see urgent to dos area
 
-	@todo
 	Scenario: See urgent To-Dos
 		Given a user with an urgent to do
 		And I am on the dashboard page
-		# Then I should see "todo"
+		Then I should see "Due" within ".urgent"
