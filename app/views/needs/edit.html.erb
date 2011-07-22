@@ -1,0 +1,32 @@
+<div class="grid_12">
+  <hgroup>
+    <h1>Edit Need</h1>
+  </hgroup>
+</div>
+
+<%= form_for [current_org.crisis, @need] do |f| %>
+  <div class="grid_8">
+
+    <div class="field">
+      <%= f.label :resource %>
+      <%= f.text_field :resource %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Save', :class => 'button' %>
+    </div>
+  </div>
+
+  <div class="grid_4">
+
+    <div class="field">
+      <%= f.label :provided, "Provided?" %>
+      <%= f.select :provided, ['true', 'false'] %>
+    </div>
+  </div>
+<% end %>
