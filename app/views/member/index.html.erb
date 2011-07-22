@@ -15,7 +15,7 @@
       <h3 class="icon-action">Our Most Urgent To-Dos</h3>
       <ul class="list-actionitems">
         <% @todos.each do |todo| %>
-        <li><span class="urgent">Due</span><%= link_to todo.description, todo_path(todo) %></li>
+        <li class="urgent-todo"><span class="urgent">Due</span><%= link_to todo.description, todo_path(todo) %></li>
         <% end %>
       </ul>
     </section>

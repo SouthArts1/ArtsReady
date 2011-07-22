@@ -6,7 +6,10 @@ Feature: Dashboard
 	Scenario: On the dashboard
 		Given a user
 		And I am on the dashboard page
-		Then I should see "Urgent To-Dos"
+		Then I should see urgent to dos area
 
+	@todo
 	Scenario: See urgent To-Dos
-		Given a user with an urgent todo
+		Given a user with an urgent to do
+		And I am on the dashboard page
+		# Then I should see "todo"

@@ -7,15 +7,16 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-
-    when /^the home\s?page$/
-      '/'
-    when /^the dashboard page$/
-      '/member/index'
-    when /^the crisis console$/
-      crisis_path(Crisis.first)
-    when /^the profile page$/
-      buddies_profile_path
+      when /^the home\s?page$/
+        '/'
+      when /^the dashboard page$/
+        '/member/index'
+      when /^the crisis console$/
+        crisis_path(Crisis.first)
+      when /^the profile page$/
+        buddies_profile_path
+      
+      
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
