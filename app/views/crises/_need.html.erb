@@ -6,7 +6,7 @@
     <p><%= need.description %></p>
   </td>
   <td class="status">
-    <p>Needed</p>
+    <p><%= need.status %></p>
   </td>
   <td class="provider">
     <p>Arg Arts Alliance</p>
@@ -16,7 +16,8 @@
   </td>
   <td>
     <p>
-      <%= button_to_function 'edit', "$(this).parents('tr.show').toggle(); $(this).parents('tr.show').next('tr.edit').toggle();", :class => 'button white' %>
+      <%= link_to "Edit", edit_crisis_need_path(current_org.crisis,need) %>
+      <%#= button_to_function 'edit', "$(this).parents('tr.show').toggle(); $(this).parents('tr.show').next('tr.edit').toggle();", :class => 'button white' %>
     </p>
   </td>
 </tr>
