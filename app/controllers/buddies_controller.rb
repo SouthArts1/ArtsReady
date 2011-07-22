@@ -6,6 +6,8 @@ class BuddiesController < ApplicationController
   end
 
   def lend_a_hand
+    @buddies = current_org.nearbys(50).in_buddy_network
+    @crises = current_org.nearbys(50).in_crisis
   end
 
   def index
