@@ -36,11 +36,13 @@ class Todo < ActiveRecord::Base
   end
   
   def check_user_change
-    old_todo = Todo.find(self.id)
-    if old_todo
-      if old_todo.user != self.user
-        old_todo.send_reassignment_email
-        self.send_assignment_email
+    if self.id
+      old_todo = Todo.find(self.id)
+      if old_todo
+        if old_todo.user != self.user
+          old_todo.send_reassignment_email
+          self.send_assignment_email
+        end
       end
     end
   end
