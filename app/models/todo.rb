@@ -39,13 +39,25 @@ class Todo < ActiveRecord::Base
     old_todo = Todo.find(self.id)
     if old_todo
       if old_todo.user != self.user
+        old_todo.send_reassignment_email
         self.send_assignment_email
       end
     end
   end
   
+  def send_reassignment_email
+    begin !self.user.nil?
+      TodoMailer.todo_reassigned_mailer(self.user, self).deliver
+    rescue Exception => exc
+      if self.user.nil?
+        logger.debug("Mail could not be sent because user was nil.")
+      else
+        logger.debug("General Mailer error: #{exc.message}")
+      end
+    end
+  end
+  
   def send_assignment_email
-    logger.debug("Firing email")
     begin !self.user.nil?
       TodoMailer.todo_mailer(self.user, self).deliver
     rescue Exception => exc
