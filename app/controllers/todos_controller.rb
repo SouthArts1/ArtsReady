@@ -1,7 +1,8 @@
 class TodosController < ApplicationController
 
   def index
-    @todos = current_org.todos
+    critical_function = (params[:tab] ||= 'people')
+    @todos = current_org.todos.for_critical_function(critical_function)
     @todo = current_org.todos.new
   end
 

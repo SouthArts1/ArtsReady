@@ -1,23 +1,23 @@
-<div class="grid_12">
+	<div class="grid_12">
     <div class="grid_6 alpha">
       <h1>To Do List</h1>
     </div>
     <div class="grid_6 omega">
-      <div class="progress-container">
-        <p class="progress">
-          <span class="progress-complete" style="right:63%"></span>
-          <span class="progress-percent">Todos are 37% complete</span>
-        </p>
-        <p class="progress-sub"><%= rand(10) + 1 %>/10 done in SECTION</p>
-      </div>
+			  <div class="progress-container">
+			    <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.todo_percentage_complete, :message => 'Todos are'} %>
+			    <p class="progress-sub"><%= @todos.reject {|q| !q.complete?}.count %>/<%= @todos.count %> answered in section</p>
+			  </div>
+			</div>
+
+
     </div>
-    <ul class="top-nav">
-      <% Assessment::CRITICAL_FUNCTIONS.each_with_index do |function, i| %>
-        <li id="<%= function[:name].parameterize('_') %>" class="<%= params[:tab] == function[:name] ? 'active' : nil %>">
-          <%= link_to function[:name], :tab => i %>
-        </li>
-      <% end %>
-    </ul>
+
+	  <ul class="top-nav">
+	    <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
+	      <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], todos_path(:tab => critical_function[:name]) %></li>
+	    <% end %>
+	  </ul>
+
     <section>
       <table class="actionitems">
         <thead>
@@ -63,7 +63,7 @@
         <tbody>
             <tr>
               <td><p><%= f.text_field :description, :placeholder => 'Action Item' %></p></td>
-              <td class="critical_function"><%= f.select(:critical_function, Assessment::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, { :include_blank => 'Choose a Critical Function'}) %></td>
+              <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => params[:tab]) %></td>
               <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
               <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
               <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>

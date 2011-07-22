@@ -14,6 +14,7 @@ describe Todo do
   
   subject { Factory(:todo) }
   it {subject.complete?.should be_false}
+  it {subject.status.should_not == 'Complete'}
   
   it "should accept a due date" do
     todo = Factory.build(:todo)
@@ -34,6 +35,13 @@ describe Todo do
   it "should accept being set to complete" do
     todo = Factory.create(:todo)
     todo.update_attribute(:complete, false).should be_true
+  end
+
+  it "should set status to 'Complete' when completed" do
+    todo = Factory.create(:todo)
+    todo.complete = true
+    todo.save
+    todo.status.should == 'Complete'
   end
   
   it "should accept a review date" do

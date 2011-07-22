@@ -42,14 +42,16 @@
   <section>
     <h3 class="buddy">Our Resources</h3>
     <div class="grid_4 alpha">
-      <% current_org.resources.each do |r| %>
-      <div class="resource offer">
-        <h3 class="name plain nopad"><%= link_to r.name, resource_path(r) %></h3>
-        <div class="details">
-          <p><%= r.details %></p>
-        </div>
-      </div>
+			<div id="resources">
+      <% @resources.each do |r| %>
+	      <div class="resource offer">
+	        <h3 class="name plain nopad"><%= link_to r.name, resource_path(r) %></h3>
+	        <div class="details">
+	          <p><%= r.details %></p>
+	        </div>
+	      </div>
       <% end %>
+			</div>
     </div>
 
     <div class="grid_4 omega">
@@ -62,7 +64,7 @@
         </div>
         <div class="field">
           <label>Details</label>
-          <%= f.text_area :details, :style => 'width:95%' %>
+          <%= f.text_area :details, :size => '36x2', :style => 'width:95%' %>
         </div>
         <%= f.submit "Add" %>
         <% end %>
