@@ -2,7 +2,7 @@ class AssessmentsController < ApplicationController
 
   def new
     if current_org.assessment.present?
-      redirect_to assessment_path(current_org.assessment)
+      redirect_to assessment_path
     else
       @assessment = Assessment.new
     end
@@ -10,12 +10,14 @@ class AssessmentsController < ApplicationController
 
   def create
     @assessment = current_org.create_assessment(params[:assessment]) #unless current_org.assessment.present?
-    redirect_to assessment_path(@assessment)
+    redirect_to assessment_path
   end
 
   def show
     redirect_to new_assessment_path unless current_org.assessment.present?
     @assessment = current_org.assessment
+    critical_function = (params[:tab] ||= 'people')
+    @answers = @assessment.answers.includes(:question).for_critical_function(critical_function)
   end
 
 end

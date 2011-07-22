@@ -3,9 +3,10 @@
 Factory.define :todo do |f|
   f.action_item_id 1
   f.answer_id 1
-  f.due_on "2011-06-16"
   f.user_id 1
-  f.details "MyString"
+  f.critical_function 'test'
+  f.due_on "2011-06-16"
+  f.description "MyString"
   f.priority "critical"
   f.complete false
 end

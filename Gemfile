@@ -5,9 +5,11 @@ gem 'mysql2', '0.2.6'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
 gem 'carrierwave'
+gem 'fog'
 gem 'geocoder'
 gem 'gmaps4rails'
 
+gem 'heroku'
 # deploy
 # gem 'newrelic_rpm'
 # gem 'capistrano'

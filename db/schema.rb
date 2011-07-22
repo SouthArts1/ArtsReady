@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110715203657) do
+ActiveRecord::Schema.define(:version => 20110721193608) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -32,9 +32,11 @@ ActiveRecord::Schema.define(:version => 20110715203657) do
     t.boolean  "was_skipped"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "critical_function"
   end
 
   add_index "answers", ["assessment_id"], :name => "index_answers_on_assessment_id"
+  add_index "answers", ["critical_function"], :name => "index_answers_on_critical_function"
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
   create_table "articles", :force => true do |t|
@@ -67,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20110715203657) do
     t.boolean  "has_exhibits"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "complete",                :default => false
+    t.integer  "answers_count",           :default => 0
+    t.integer  "completed_answers_count", :default => 0
   end
 
   add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"
@@ -144,21 +149,23 @@ ActiveRecord::Schema.define(:version => 20110715203657) do
     t.datetime "updated_at"
   end
 
+  add_index "todo_notes", ["todo_id"], :name => "index_todo_notes_on_todo_id"
+  add_index "todo_notes", ["user_id"], :name => "index_todo_notes_on_user_id"
+
   create_table "todos", :force => true do |t|
     t.integer  "action_item_id"
     t.integer  "answer_id"
     t.integer  "organization_id"
     t.date     "due_on"
     t.integer  "user_id"
-    t.string   "details"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
     t.string   "priority"
     t.date     "review_on"
-    t.string   "title"
     t.string   "critical_function"
     t.boolean  "complete",          :default => false, :null => false
+    t.string   "status"
   end
 
   add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"

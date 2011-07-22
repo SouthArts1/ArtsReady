@@ -21,7 +21,7 @@ Feature: Homepage
     Then I should see "Join Today"
     
   Scenario: redirect to member home if logged in
-    Given an authenticated user
+    Given a user
     When I go to the root page
     Then I should be on the dashboard page
     
@@ -30,3 +30,22 @@ Feature: Homepage
     When I go to the root page
     Then I should see "Crisis Console"
     #Then I should be on the crisis console
+    
+  Scenario: Create assessment
+    Given a user
+    And I am on the home page
+    When I follow "Get Started"
+    Then I should be on the new assessment page
+
+  Scenario: Continue assessment
+    Given a user
+    And I have started an assessment
+    And I am on the home page
+    When I follow "Get Started"
+    Then I should be on the assessment page
+
+  Scenario: Finished assessment
+    Given a user
+    And I have finished an assessment
+    And I am on the home page
+    Then I should not see "Get Started"

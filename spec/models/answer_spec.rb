@@ -8,9 +8,27 @@ describe Answer do
   
   it { should validate_presence_of(:assessment)}
   it { should validate_presence_of(:question)}
-  it { should validate_presence_of(:preparedness)}
-  it { should validate_presence_of(:priority)}
   
+  context "after initial creation" do
+    subject { Factory(:answer) }
+    
+    specify {subject.assessment_id.should_not be_nil}
+    specify {subject.question_id.should_not be_nil}
+    specify {subject.critical_function.should_not be_blank}
+    specify {subject.preparedness.should be_blank}
+    specify {subject.priority.should be_blank}
+    specify {subject.was_skipped.should be_false}
+  end
+  
+  context "valid answer" do
+    it "should be valid" do
+      pending
+      answer = Factory(:answer)
+      answer.priority='critical'
+      answer.preparedness='ready'
+      answer.should be_valid
+    end
+  end
   
   context "with no action items" do
     let(:question) { Factory(:question) }
@@ -27,4 +45,42 @@ describe Answer do
     end
   end
   
+  context "status" do
+
+    context "adhoc todo item" do
+      # Action Item Created by User: "Not Started"
+      it "should have 'not started' status" do
+        Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority').status.should == "Not Started"
+      end
+    end
+    
+    context "todo from answer" do
+
+      it "should have 'not started' if answer preparedness was unknown" do
+        answer = mock_model(Answer, :preparedness => 'unknown')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "Not Started"
+      end
+
+      it "should have 'in progress' status if preparedness was ready" do
+        answer = mock_model(Answer, :preparedness => 'ready')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "In Progress"
+      end
+
+      it "should have 'in progress' status if preparedness was not ready" do
+        answer = mock_model(Answer, :preparedness => 'not ready')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "In Progress"
+      end
+
+      it "should have 'in progress' status if preparedness was needs work" do
+        answer = mock_model(Answer, :preparedness => 'needs work')
+        todo=Todo.create(:description => 'desc', :critical_function => 'crit', :priority => 'priority', :answer => answer)
+        todo.status.should == "In Progress"
+      end
+    end
+  end
+  
 end
+  

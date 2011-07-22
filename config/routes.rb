@@ -24,8 +24,14 @@ Artsready::Application.routes.draw do
     resources :needs
   end
 
-  resources :assessments, :only => [:new, :create, :show]
-  resources :answers, :only => [:update]
+  resource :assessment, :only => [:new, :create, :show]
+  resources :answers, :only => [:update] do
+    member do
+      put 'skip'
+      put 'reconsider'
+    end
+  end
+  
   resources :todos
   resources :todo_notes
 

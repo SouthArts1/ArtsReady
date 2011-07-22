@@ -24,6 +24,16 @@ $("#crisis-deactivate").live('click', function(event) {
 	return confirm('Are you sure?');	
 });
 
+$(".skip-question").live('click', function(event) {
+	$(this).closest('form').submit();
+  return false;
+});
+
+$(".reconsider-question").live('click', function(event) {
+  $(this).closest('form').submit();
+  return false;
+});
+
 // Resources navigation toggle
 $(".side-nav li a").live('click', function(event) {
 	// Keeps the link from actually doing anything
