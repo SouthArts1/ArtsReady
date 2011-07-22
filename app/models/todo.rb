@@ -14,6 +14,7 @@ class Todo < ActiveRecord::Base
   delegate :recurrence, :to => :action_item, :allow_nil => true, :prefix => false
   
   before_save :set_status
+  after_create :send_assignment_email
   
   scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
   scope :completed, where(:complete => true)
@@ -31,6 +32,19 @@ class Todo < ActiveRecord::Base
     end
 
     self.status = 'Complete' if complete?
+  end
+  
+  def send_assignment_email
+    logger.debug("Firing email")
+    begin !self.user.nil?
+      TodoMailer.todo_mailer(self.user, self).deliver
+    rescue Exception => exc
+      if self.user.nil?
+        logger.debug("Mail could not be sent because user was nil.")
+      else
+        logger.debug("General Mailer error: #{exc.message}")
+      end
+    end
   end
 
 end
