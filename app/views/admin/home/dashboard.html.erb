@@ -1,6 +1,39 @@
-<h3>Dashboard</h3>
+<div class="grid_8">
+  <h1>Admin Dashboard</h1>
+</div>
+<div class="grid_4">
+  <section>
+    <p class="progress" style="float:left;">
+      <span class="progress-complete" style="right:26%"></span>
+      <span class="progress-percent">74% Orgs Active This Week</span>
+    </p>
+  </section>
+</div>
 
-<h3>Options</h3>
-<ul>
-  <li><%= link_to "Organizations that Need Approval", admin_organizations_path %></li>
-</ul>
+<div class="grid_4">
+  <section>
+    <p><%= link_to 'Manage Todos', "#", :class => 'button' %></p>
+    <p><%= link_to 'Manage Assessment', "#", :class => 'button' %></p>
+    <p><%= link_to 'Manage Organizations', admin_organizations_path, :class => 'button' %></p>
+  </section>
+</div>
+<div class="grid_4">
+  <section>
+    <h3><%= pluralize(@crises.count,'Organization') %> in Crisis</h3>
+    <ul class="list-actionitems">
+      <% @crises.each do |org| %>
+      <li><%= link_to_function 'Act II Playhouse: Atlanta, GA' %></li>
+      <% end %>
+    </ul>
+  </section>
+</div>
+<div class="grid_4">
+  <section>
+    <h3><%= pluralize(@expiring.count, 'Account') %> Expiring</h3>
+    <ul class="list-resources">
+      <% @expiring.each do |org| %>
+      <li><%= link_to_function 'Stump City Players: Austin, TX' %></li>
+      <% end %>
+    </ul>
+  </section>
+</div>

@@ -1,0 +1,67 @@
+
+<% params[:tab] = 'Organization' unless params[:tab] %>
+<h1>Admin: <%= params[:tab] %></h1>
+
+<%= form_for([:admin, @organization]) do |f| %>
+<%= f.hidden_field :active, :value => true %>
+<%= f.submit "Approve" %>
+<% end %>
+
+<ul class="top-nav settings">
+  <% ['Organization', 'Users'].each do |tab| %>
+    <li class="<%= 'active' if params[:tab] == tab%>">
+      <%= link_to tab, :tab => tab %>
+    </li>
+  <% end %>
+</ul>
+<% params[:tab] = 'Our Team' if params[:tab] == 'Users'%>
+<div class="grid_8">
+  <section>
+    <%= form_for([:admin, @organization]) do |f| %>
+    <p>
+      <label>Organization Name</label>
+      <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <label>Address</label>
+      <%= f.text_field :address %><br />
+      <%#= f.text_field :address_2 %>
+    </p>
+
+    <p>
+      <label>City</label>
+      <%= f.text_field :city %>
+    </p>
+  <div class="grid_4 alpha">
+    <p>
+      <label>State</label>
+      <%= f.text_field :state %>
+    </p>
+  </div>
+  <div class="grid_4 omega">
+    <p>
+      <label>Zip</label>
+      <%= f.text_field :zipcode %>
+    </p>
+  </div>
+    <p>
+      <label>Website</label>
+      <%#= f.text_field :website %>
+    </p>
+
+    <p>
+      <label>Phone</label>
+      <%#= f.text_field :phone %>
+    </p>
+
+    <p>
+      <label>Fax</label>
+      <%#= f.text_field :fax %>
+    </p>
+
+      <%= f.submit 'Save Settings' %>
+    </p>
+    <% end %>
+  </section>
+</div>
