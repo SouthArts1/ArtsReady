@@ -15,6 +15,9 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    if params[:id]
+      @article.todo_id = params[:id]
+    end
   end
 
   def create
