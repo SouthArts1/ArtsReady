@@ -1,0 +1,54 @@
+<div class="grid_12">
+  <section>
+    <table class="users">
+      <thead>
+        <td><p>First Name</p></td>
+        <td><p>Last Name</p></td>
+        <td><p>Email</p></td>
+        <td><p>Last Login</p></td>
+        <td><p>Role</p></td>
+        <td><p></p></td>
+      </thead>
+      <tbody>
+        <% 4.times do %>
+          <tr>
+            <td class="name"><p>Samuel</p></td>
+            <td class="name"><p>Smith</p></td>
+            <td class="email"><p>ssmith@something.org</p></td>
+            <td class="login"><p><%= time_ago_in_words(rand(10).days.ago) %> ago</p></td>
+            <td class="role"><p>Executive</p></td>
+            <td class="actions"><p>
+              <%= link_to 'edit', "", :class => 'button blue' %>
+              <%= link_to 'reset password', "", :class => 'button blue' %>
+              <%= link_to 'disable', "", :class => 'button white' %>
+            </p></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>  
+  <section> 
+    <table class="add-user">
+      <thead>
+        <td colspan="5"><p>Add another user</p></td>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name"><p><%= text_field_tag :first_name, "", :placeholder => 'First Name'%></p></td>
+          <td class="name"><p><%= text_field_tag :first_name, "", :placeholder => 'Last Name'%></p></td>
+          <td class="email"><p><%= text_field_tag :first_name, "", :placeholder => 'Email'%></p></td>
+          <td class="role">
+            <p>
+              <select>
+                <option>Select Role...</option>
+                <option>Editor</option>
+                <option>Executive</option>
+              </select>
+            </p>
+          </td>
+          <td class="add"><p><%= link_to 'Add', "", :class => 'button green'%></p></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

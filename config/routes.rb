@@ -20,7 +20,10 @@ Artsready::Application.routes.draw do
   match "/articles/new/(:id)" => "articles#new"
 
   resources :resources
-  resources :organizations, :only => [:edit, :update, :show]
+  resources :organizations, :only => [:edit, :update, :show] do
+    resources :users
+  end
+  
   resources :crises do
     resources :updates
     resources :needs, :only => [:create, :edit, :update]
@@ -42,7 +45,7 @@ Artsready::Application.routes.draw do
   post "sign_in" => "sessions#create"
   get "sign_out" => "sessions#destroy", :as => "sign_out"
 
-  resources :users, :only => [:new, :create]
+  resources :users, :only => [:new, :create, :edit, :update]
 
   get "member/index", :as => "dashboard"
 
