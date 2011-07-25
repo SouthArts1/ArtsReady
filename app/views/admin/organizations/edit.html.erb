@@ -5,7 +5,7 @@
 <%= form_for([:admin, @organization]) do |f| %>
 <%= f.hidden_field :active, :value => true %>
 <%= f.submit "Approve" %>
-<% end %>
+<% end unless @organization.active?%>
 
 <ul class="top-nav settings">
   <% ['Organization', 'Users'].each do |tab| %>
