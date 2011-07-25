@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = current_user
+    @user = current_org.users.find(params[:id])
   end
   
   def index

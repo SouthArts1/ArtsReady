@@ -1,9 +1,9 @@
-<h1>My Info</h1>
+<h1>Organization</h1>
 
 <ul class="top-nav settings">
     <li class=""><%= link_to 'My Info', edit_user_path(current_user) %></li>
     <li class="active"><%= link_to "Organization", edit_organization_path(current_org) %></li>
-    <li class=""><%= link_to "Our Team", '#' %></li>
+    <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
 </ul>
 
 <div class="grid_8">

@@ -1,3 +1,11 @@
+<h1>Our Team</h1>
+
+<ul class="top-nav settings">
+    <li class=""><%= link_to 'My Info', edit_user_path(current_user) %></li>
+    <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
+    <li class="active"><%= link_to "Our Team", organization_users_path(current_org) %></li>
+</ul>
+
 <div class="grid_12">
   <section>
     <table class="users">
@@ -10,15 +18,15 @@
         <td><p></p></td>
       </thead>
       <tbody>
-        <% 4.times do %>
+        <% current_org.users.each do |user| %>
           <tr>
-            <td class="name"><p>Samuel</p></td>
-            <td class="name"><p>Smith</p></td>
-            <td class="email"><p>ssmith@something.org</p></td>
-            <td class="login"><p><%= time_ago_in_words(rand(10).days.ago) %> ago</p></td>
-            <td class="role"><p>Executive</p></td>
+            <td class="name"><p><%= user.first_name %></p></td>
+            <td class="name"><p><%= user.last_name %></p></td>
+            <td class="email"><p><%= user.email %></p></td>
+            <td class="login"><p><%= user.last_login_at %></p></td>
+            <td class="role"><p><%= user.role %></p></td>
             <td class="actions"><p>
-              <%= link_to 'edit', "", :class => 'button blue' %>
+              <%= link_to 'edit', edit_user_path(user), :class => 'button blue' if user.is_admin?%>
               <%= link_to 'reset password', "", :class => 'button blue' %>
               <%= link_to 'disable', "", :class => 'button white' %>
             </p></td>

@@ -32,6 +32,18 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".strip
   end
 
+  def last_login_at
+    Time.now
+  end
+  
+  def is_admin?
+    true
+  end
+  
+  def role
+    "Executive"
+  end
+  
   def encrypt_password
     if password.present?
       self.encrypted_password = BCrypt::Password.create(password)
