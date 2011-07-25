@@ -22,7 +22,9 @@
           <ul>
             <% if user_signed_in? %>
             <li><a href="">Settings</a></li>
-            <li><a href="">Admin</a></li>
+            <% if current_user.admin? %>
+            <li><%= link_to "Admin", admin_dashboard_path %></li>
+            <% end %>
             <li><%= link_to "Logout", sign_out_path %></li>
             <% else %>
             <li><%= link_to "Login", sign_in_path %></li>
