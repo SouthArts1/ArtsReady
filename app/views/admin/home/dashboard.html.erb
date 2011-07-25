@@ -22,7 +22,7 @@
     <h3><%= pluralize(@crises.count,'Organization') %> in Crisis</h3>
     <ul class="list-actionitems">
       <% @crises.each do |org| %>
-      <li><%= link_to_function 'Act II Playhouse: Atlanta, GA' %></li>
+      <li><%= link_to org.name, edit_admin_organization_path(org) %></li>
       <% end %>
     </ul>
   </section>
@@ -32,7 +32,7 @@
     <h3><%= pluralize(@expiring.count, 'Account') %> Expiring</h3>
     <ul class="list-resources">
       <% @expiring.each do |org| %>
-      <li><%= link_to_function 'Stump City Players: Austin, TX' %></li>
+      <li><%= link_to org.name, edit_admin_organization_path(org) %></li>
       <% end %>
     </ul>
   </section>
