@@ -9,6 +9,8 @@ class Organization < ActiveRecord::Base
   has_many :resources
   has_many :todos
   has_many :users
+  
+  accepts_nested_attributes_for :users
 
   validates_presence_of :name, :address, :city, :state, :zipcode
 

@@ -41,21 +41,18 @@
         <td colspan="5"><p>Add another user</p></td>
       </thead>
       <tbody>
+        <%= form_for(current_org) do |org_form| %>
         <tr>
-          <td class="name"><p><%= text_field_tag :first_name, "", :placeholder => 'First Name'%></p></td>
-          <td class="name"><p><%= text_field_tag :first_name, "", :placeholder => 'Last Name'%></p></td>
-          <td class="email"><p><%= text_field_tag :first_name, "", :placeholder => 'Email'%></p></td>
+          <%= org_form.fields_for(:users,current_org.users.build) do |f| %>
+          <td class="name"><p><%= f.text_field:first_name, :placeholder => 'First Name'%></p></td>
+          <td class="name"><p><%= f.text_field:last_name, :placeholder => 'Last Name'%></p></td>
+          <td class="email"><p><%= f.text_field :email, :placeholder => 'Email'%></p></td>
           <td class="role">
-            <p>
-              <select>
-                <option>Select Role...</option>
-                <option>Editor</option>
-                <option>Executive</option>
-              </select>
-            </p>
           </td>
-          <td class="add"><p><%= link_to 'Add', "", :class => 'button green'%></p></td>
+          <td class="add"><p><%= f.submit 'Add', :class => 'button green'%></p></td>
+          <% end %>
         </tr>
+        <% end %>
       </tbody>
     </table>
   </section>
