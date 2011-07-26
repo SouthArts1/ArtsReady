@@ -40,10 +40,6 @@ class User < ActiveRecord::Base
     true
   end
   
-  def role
-    "Executive"
-  end
-  
   def encrypt_password
     if password.present?
       self.encrypted_password = BCrypt::Password.create(password)

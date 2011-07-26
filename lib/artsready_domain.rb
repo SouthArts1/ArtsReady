@@ -15,7 +15,7 @@ module ArtsreadyDomain
   PREPAREDNESS = %w{unknown not_ready needs_work ready}
   PRIORITY = %w{critical non-critical}
   TODO_STATUS = ['Not Started', 'In Progress', 'Complete']
-  
+  ROLES = %w{reader editor executive owner}
   # Statuses:
   # Not Started
   # In Progress

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110721193608) do
+ActiveRecord::Schema.define(:version => 20110726194815) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -149,6 +149,9 @@ ActiveRecord::Schema.define(:version => 20110721193608) do
     t.datetime "updated_at"
   end
 
+  add_index "todo_notes", ["todo_id"], :name => "index_todo_notes_on_todo_id"
+  add_index "todo_notes", ["user_id"], :name => "index_todo_notes_on_user_id"
+
   create_table "todos", :force => true do |t|
     t.integer  "action_item_id"
     t.integer  "answer_id"
@@ -194,6 +197,8 @@ ActiveRecord::Schema.define(:version => 20110721193608) do
     t.integer  "organization_id"
     t.boolean  "admin",              :default => false
     t.boolean  "active",             :default => false
+    t.string   "role"
+    t.datetime "last_login_at"
   end
 
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
