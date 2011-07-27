@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
+  before_save :set_default_role
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && BCrypt::Password.new(user.encrypted_password) == password
@@ -44,4 +46,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  def set_default_role
+    self.role ||= 'reader'
+  end
 end

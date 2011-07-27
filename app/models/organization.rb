@@ -11,7 +11,6 @@ class Organization < ActiveRecord::Base
   has_many :users
   
   accepts_nested_attributes_for :users
-  after_create :assign_owner_to_first_user
   
   validates_presence_of :name, :address, :city, :state, :zipcode
 
@@ -54,7 +53,4 @@ class Organization < ActiveRecord::Base
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
   end
 
-  def assign_owner_to_first_user
-    self.users.first.update_attribute(:role,'Owner')
-  end
 end
