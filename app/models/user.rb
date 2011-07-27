@@ -15,8 +15,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
-  accepts_nested_attributes_for :organization
-
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
   def self.authenticate(email, password)

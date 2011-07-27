@@ -41,17 +41,13 @@
         <td colspan="5"><p>Add another user</p></td>
       </thead>
       <tbody>
-        <%= form_for(current_org) do |org_form| %>
+        <%= form_for(current_org.users.new) do |f| %>
         <tr>
-          <%= org_form.fields_for(:users,current_org.users.build) do |f| %>
           <td class="name"><p><%= f.text_field:first_name, :placeholder => 'First Name'%></p></td>
           <td class="name"><p><%= f.text_field:last_name, :placeholder => 'Last Name'%></p></td>
           <td class="email"><p><%= f.text_field :email, :placeholder => 'Email'%></p></td>
-          <td class="role">
-            <%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| r.humanize} %>
-          </td>
+          <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| r.humanize} %></td>
           <td class="add"><p><%= f.submit 'Add', :class => 'button green'%></p></td>
-          <% end %>
         </tr>
         <% end %>
       </tbody>

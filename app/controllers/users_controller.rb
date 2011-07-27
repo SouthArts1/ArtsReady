@@ -1,19 +1,11 @@
 class UsersController < ApplicationController
 
-  skip_before_filter :authenticate!, :only => [:new, :create]
-
-  def new
-    @user = User.new
-    @user.build_organization
-  end
-
   def create
-    @user = User.new(params[:user])
+    @user = current_org.users.new(params[:user])
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to welcome_path, :notice => "Signed up!"
+      redirect_to organization_users_path(current_org), :notice => "User created"
     else
-      render "new"
+      redirect_to organization_users_path(current_org), :notice => "Problem creating user"
     end
   end
   
