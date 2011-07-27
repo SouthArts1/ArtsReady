@@ -1,5 +1,20 @@
 class OrganizationsController < ApplicationController
 
+  skip_before_filter :authenticate!, :only => [:new, :create]
+
+  def new
+    @organization = Organization.new
+  end
+  
+  def create
+    @organization = Organization.new(params[:organization])
+    if @organization.save
+      redirect_to welcome_path, :notice => "Signed up!"
+    else
+      render "new"
+    end    
+  end
+  
   def edit
     @organization = current_org
   end
@@ -8,7 +23,7 @@ class OrganizationsController < ApplicationController
     @organization = current_org
 
     if @organization.update_attributes(params[:organization])
-      redirect_to dashboard_path, :notice => 'Organization was successfully updated.'
+      redirect_to edit_organization_path(current_org), :notice => 'Organization was successfully updated.'
     else
       render 'edit'
     end

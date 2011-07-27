@@ -24,7 +24,7 @@ describe OrganizationsController do
     end
 
     it "routes to #create" do
-      post("/organizations").should_not be_routable
+      post("/organizations").should be_routable
     end
 
     it "routes to #destroy" do

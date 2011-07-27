@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
-  accepts_nested_attributes_for :organization
-
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
+
+  before_save :set_default_role
 
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -32,10 +32,21 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".strip
   end
 
+  def last_login_at
+    Time.now
+  end
+  
+  def is_admin?
+    true
+  end
+  
   def encrypt_password
     if password.present?
       self.encrypted_password = BCrypt::Password.create(password)
     end
   end
 
+  def set_default_role
+    self.role ||= 'reader'
+  end
 end

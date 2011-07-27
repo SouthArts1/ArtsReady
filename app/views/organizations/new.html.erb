@@ -2,48 +2,19 @@
   <h1>Join ArtsReady</h1>
   <div class="grid_8 alpha">
     <section>
-      <%= form_for @user do |f| %>
-      <% if @user.errors.any? %>
+      <% if @organization.errors.any? %>
       <div class="error_messages">
           <h2>Form is invalid</h2>
           <ul>
-            <% for message in @user.errors.full_messages %>
+            <% for message in @organization.errors.full_messages %>
               <li><%= message %></li>
             <% end %>
           </ul>
         </div>
       <% end %>
       <fieldset>
-        <legend>User Information</legend>
-        <div class="grid_4 alpha">
-          <p>
-            <%= f.label :first_name %>
-            <%= f.text_field :first_name %>
-          </p>
-        </div>
-        <div class="grid_4 omega">
-          <p>
-            <%= f.label :last_name %>
-            <%= f.text_field :last_name %>
-          </p>
-        </div>
-        <div class="clear"></div>
-        <p>
-          <%= f.label :email %>
-          <%= f.text_field :email %>
-        </p>
-        <p>
-          <%= f.label :password %>
-          <%= f.password_field :password %>
-        </p>
-        <p>
-          <%= f.label :password_confirmation, 'Confirm Password' %>
-          <%= f.password_field :password_confirmation %>
-        </p>
-        </fieldset>
-        <fieldset>
-          <legend>Organization Information</legend>
-        <%= f.fields_for :organization do |org| %>
+        <legend>Organization Information</legend>
+        <%= form_for(@organization) do |org| %>
         <p>
           <%= org.label :name %>
           <%= org.text_field :name %>
@@ -70,13 +41,43 @@
           <%= org.text_field :zipcode %>
         </p>
         </div>
-        <% end %>
       </fieldset>
+      <%= org.fields_for(:users,@organization.users.build) do |user| %>
+      <fieldset>
+        <legend>User Information</legend>
+        <div class="grid_4 alpha">
+          <p>
+            <%= user.label :first_name %>
+            <%= user.text_field :first_name %>
+          </p>
+        </div>
+        <div class="grid_4 omega">
+          <p>
+            <%= user.label :last_name %>
+            <%= user.text_field :last_name %>
+          </p>
+        </div>
+        <div class="clear"></div> 
+        <p>
+          <%= user.label :email %>
+          <%= user.text_field :email %>
+        </p>
+        <p>
+          <%= user.label :password %>
+          <%= user.password_field :password %>
+        </p>
+        <p>
+          <%= user.label :password_confirmation, 'Confirm Password' %>
+          <%= user.password_field :password_confirmation %>
+        </p>
+        </fieldset>
+        <% end %>
         <p></p>
-        <p class="button"><%= f.submit %></p>
+        <p class="button"><%= org.submit %></p>
         <% end %>
     </section>
   </div>
+  
   <div class="grid_4 omega">
     <div class="blue-box">
       <p>Many arts funders and service organizations are sponsors of ArtsReady, offering discounted memberships for their constituents.</p>

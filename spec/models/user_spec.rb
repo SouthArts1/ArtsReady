@@ -15,6 +15,10 @@ describe User do
 
 #  it { should_not allow_mass_assignment_of(:password) }
 
+  it "should have a default role" do
+    subject.role.should == 'reader'
+  end
+  
   context "#authenticate" do
     before do
       @member = Factory(:user, :email => 'member@test.host', :password => 'secret')
@@ -33,7 +37,7 @@ describe User do
   end
   
   
-  context ".name" do
+  context "#name" do
 
     it "should be composed of first_name and last_name" do
       member=Factory.build(:user, :first_name => 'First', :last_name => 'Last')
@@ -52,7 +56,7 @@ describe User do
     end
   end
 
-  context ".admin?" do
+  context "#admin?" do
     it "should not be an admin by default" do
       @member = Factory(:user, :email => 'member@test.host', :password => 'secret')
       @member.admin?.should be_false

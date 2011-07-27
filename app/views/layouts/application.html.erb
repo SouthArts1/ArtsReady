@@ -21,7 +21,7 @@
         <div class="user-nav">
           <ul>
             <% if user_signed_in? %>
-            <li><a href="">Settings</a></li>
+            <li><%= link_to "Settings", edit_user_path(current_user) %></li>
             <% if current_user.admin? %>
             <li><%= link_to "Admin", admin_dashboard_path %></li>
             <% end %>

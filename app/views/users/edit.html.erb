@@ -1,0 +1,42 @@
+<h1>My Info</h1>
+
+<ul class="top-nav settings">
+    <li class="active"><%= link_to 'My Info', edit_user_path(current_user) %></li>
+    <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
+    <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
+</ul>
+
+<div class="grid_8">
+  <section>
+    <%= form_for(@user) do |f| %>
+    <div class="grid_4 alpha">
+      <p>
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name %>
+      </p>
+    </div>
+    <div class="grid_4 omega">
+      <p>
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name %>
+      </p>
+    </div>
+    <div class="clear"></div>
+    <p>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </p>
+    <p>
+      <%= f.label :password %>
+      <%= f.text_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation %>
+      <%= f.text_field :password_confirmation %>
+    </p>
+    <p>
+      <%= f.submit 'Save Settings' %>
+    </p>
+    <% end %>
+  </section>
+</div>

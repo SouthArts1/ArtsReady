@@ -47,7 +47,7 @@ describe OrganizationsController do
 
         it "redirects to the dashboard" do
           put :update, :id => organization.id, :organization => valid_attributes
-          response.should redirect_to dashboard_path
+          response.should redirect_to edit_organization_path(organization.id)
         end
       end
 
