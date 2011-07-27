@@ -20,11 +20,11 @@ describe UsersController do
     end
 
     it "does not route to #edit" do
-      get("/users/1/edit").should_not be_routable
+      get("/users/1/edit").should be_routable
     end
 
     it "does not route to #update" do
-      put("/users/1").should_not be_routable
+      put("/users/1").should be_routable
     end
 
     it "does not route to #destroy" do
