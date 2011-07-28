@@ -16,6 +16,9 @@ class Organization < ActiveRecord::Base
 
   after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
+  after_create :send_sign_up_email
+  after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
+  
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
   scope :in_crisis, joins(:crises).where('crises.resolved_on IS NULL')
@@ -53,4 +56,14 @@ class Organization < ActiveRecord::Base
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
   end
 
+  def send_sign_up_email
+    logger.debug("Sending sign_up email for organization #{name}")
+    OrganizationMailer.sign_up(self) rescue logger.debug("send sign_up email failed")
+  end
+  
+  def send_approval_email
+    logger.debug("Sending approval email for organization #{name}")
+    OrganizationMailer.welcome(self) rescue logger.debug("send approval email failed")
+  end
+  
 end

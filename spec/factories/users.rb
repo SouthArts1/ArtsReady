@@ -7,7 +7,13 @@ Factory.define :user do |f|
   f.password "password"
   f.password_confirmation {|p| p.password}
   f.active true
+  f.role 'reader'
+  f.admin false
   f.organization Factory(:organization)
+end
+
+Factory.define :owner, :parent => :user do |f|
+  f.role 'owner'
 end
 
 Factory.define :new_user, :parent => :user do |f|
@@ -21,4 +27,3 @@ end
 Factory.define :sysadmin, :parent => :user do |f|
   f.admin true
 end
-
