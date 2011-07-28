@@ -23,6 +23,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   # config.use_transactional_fixtures = true
+  config.include(MailerMacros)
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -31,10 +32,11 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    reset_email
   end
 
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
+  
 end

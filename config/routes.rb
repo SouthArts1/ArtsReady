@@ -48,7 +48,7 @@ Artsready::Application.routes.draw do
   get "sign_out" => "sessions#destroy", :as => "sign_out"
 
   resources :users, :only => [:new, :create, :edit, :update]
-
+  resources :password_resets, :only => [:new, :create, :edit, :update]
   get "member/index", :as => "dashboard"
 
   # public pages

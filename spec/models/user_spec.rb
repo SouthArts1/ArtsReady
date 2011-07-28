@@ -35,8 +35,7 @@ describe User do
     it "should not authenticate if the password is blank"
     
   end
-  
-  
+    
   context "#name" do
 
     it "should be composed of first_name and last_name" do
@@ -64,6 +63,22 @@ describe User do
     it "should be an admin if set" do
       @member = Factory(:user, :email => 'member@test.host', :password => 'secret', :admin => true)
       @member.admin?.should be_true
+    end
+  end
+
+  describe "#send_password_reset" do
+    let(:user) { Factory(:user) }
+
+    it "generates a unique password_reset_token each time" do
+      user.send_password_reset
+      last_token = user.password_reset_token
+      user.send_password_reset
+      user.password_reset_token.should_not eq(last_token)
+    end
+
+    it "saves the time the password reset was sent" do
+      user.send_password_reset
+      user.reload.password_reset_sent_at.should be_present
     end
   end
 end
