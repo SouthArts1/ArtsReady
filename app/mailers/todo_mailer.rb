@@ -1,17 +1,18 @@
 class TodoMailer < ActionMailer::Base
   default :from => "no-reply@artsready.com"
+  layout 'email'
   
-  def todo_mailer(user, todo)
+  def assign_to(user, todo)
     @user = user
-    @url = "http://artsready.com#{todo_path(todo)}"
+    @url = todo_url(todo)
     @todo = todo
     mail(:to => user.email,
          :subject => "You have a new To Do item at ArtsReady!")
   end
   
-  def todo_reassigned_mailer(user, todo)
+  def reassigned_todo(user, todo)
     @user = user
-    @url = "http://artsready.com#{todo_path(todo)}"
+    @url = todo_url(todo)
     @todo = todo
     mail(:to => user.email,
          :subject => "You have a new To Do item at ArtsReady!")
