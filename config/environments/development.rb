@@ -25,4 +25,5 @@ Artsready::Application.configure do
   config.slowgrowl.warn = 1000    # growl any action which takes > 1000ms (1s)
   config.slowgrowl.sticky = true  # make really slow (2x warn) alerts sticky
 
+  config.action_mailer.default_url_options = { :host => 'artsready.dev' }
 end
