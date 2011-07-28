@@ -5,18 +5,19 @@ Feature: New organization registration
 
   Scenario: A visitor registers their organization
     Given I am on the home page
-    And I follow "Join Today"
-    When I fill in "user[first_name]" with "New"
-    And I fill in "user[last_name]" with "User"
-    And I fill in "user[email]" with "newuser@test.host"
-    And I fill in "user[password]" with "password"
-    And I fill in "user[password_confirmation]" with "password"
-    And I fill in "user[organization_attributes][name]" with "My Org"
-    And I fill in "user[organization_attributes][address]" with "100 Test St"
-    And I fill in "user[organization_attributes][city]" with "New York"
-    And I fill in "user[organization_attributes][state]" with "NY"
-    And I fill in "user[organization_attributes][zipcode]" with "10001"
-    And I press "user_submit"
+    When I follow "Join Today"
+    And I fill in "organization[name]" with "My Org"
+    And I fill in "organization[address]" with "100 Test St"
+    And I fill in "organization[city]" with "New York"
+    And I fill in "organization[state]" with "NY"
+    And I fill in "organization[zipcode]" with "10001"
+    And I fill in "organization[users_attributes][0][first_name]" with "New"
+    And I fill in "organization[users_attributes][0][last_name]" with "User"
+    And I fill in "organization[users_attributes][0][email]" with "newuser@test.host"
+    And I fill in "organization[users_attributes][0][password]" with "password"
+    And I fill in "organization[users_attributes][0][password_confirmation]" with "password"
+    And show me the page
+    And I press "Create Organization"
     Then I should be on the welcome page
     And I should see "organization has been registered and is awaiting approval"
   
