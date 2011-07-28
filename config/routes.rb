@@ -12,6 +12,7 @@ Artsready::Application.routes.draw do
     resources :organizations, :only => [:index, :edit, :update] do
       resources :users, :only => [:index, :create]
     end
+    root :to => 'home#dashboard', :as => "dashboard"
   end
 
   resources :articles do
