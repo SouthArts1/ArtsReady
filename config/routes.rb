@@ -8,9 +8,10 @@ Artsready::Application.routes.draw do
   get "buddies/profile"
 
   namespace :admin do
-    resources :users, :only => [:index, :edit, :update]
-    resources :organizations, :only => [:index, :edit, :update]
     get 'home/dashboard', :as => "dashboard"
+    resources :organizations, :only => [:index, :edit, :update] do
+      resources :users, :only => [:index, :create]
+    end
   end
 
   resources :articles do

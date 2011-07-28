@@ -1,20 +1,14 @@
-
-<% params[:tab] = 'Organization' unless params[:tab] %>
-<h1>Admin: <%= params[:tab] %></h1>
-
+<h1>Admin: Organization</h1>
+<h2><%= @organization.name %></h2>
 <%= form_for([:admin, @organization]) do |f| %>
 <%= f.hidden_field :active, :value => true %>
 <%= f.submit "Approve" %>
 <% end unless @organization.active?%>
 
 <ul class="top-nav settings">
-  <% ['Organization', 'Users'].each do |tab| %>
-    <li class="<%= 'active' if params[:tab] == tab%>">
-      <%= link_to tab, :tab => tab %>
-    </li>
-  <% end %>
+  <li class="active"><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
+  <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
 </ul>
-<% params[:tab] = 'Our Team' if params[:tab] == 'Users'%>
 <div class="grid_8">
   <section>
     <%= form_for([:admin, @organization]) do |f| %>
