@@ -16,7 +16,6 @@ Feature: New organization registration
     And I fill in "organization[users_attributes][0][email]" with "newuser@test.host"
     And I fill in "organization[users_attributes][0][password]" with "password"
     And I fill in "organization[users_attributes][0][password_confirmation]" with "password"
-    And show me the page
     And I press "Create Organization"
     Then I should be on the welcome page
     And I should see "organization has been registered and is awaiting approval"
