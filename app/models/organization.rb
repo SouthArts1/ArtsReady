@@ -43,6 +43,10 @@ class Organization < ActiveRecord::Base
     false
   end
 
+  def last_activity
+    users.order('last_login_at DESC').first.last_activity
+  end
+  
   def declared_crisis?
     crises.where(:resolved_on => nil).count == 1 ? true : false
   end

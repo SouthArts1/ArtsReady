@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && BCrypt::Password.new(user.encrypted_password) == password
+      user.update_attribute(:last_login_at,Time.now)
       user
     else
       nil
@@ -32,8 +33,8 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".strip
   end
 
-  def last_login_at
-    Time.now
+  def last_activity
+    last_login_at.nil? ? 'Never' : last_login_at
   end
   
   def is_admin?
