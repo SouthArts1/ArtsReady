@@ -10,6 +10,7 @@ class UserMailer < ActionMailer::Base
   def welcome(user)
     @greeting = "Hi"
     @user = user
+    @link = root_url
     mail :to => user.email
   end
 end

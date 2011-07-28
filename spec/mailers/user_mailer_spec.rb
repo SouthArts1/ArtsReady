@@ -12,7 +12,7 @@ describe UserMailer do
     end
 
     it "renders the body" do
-      mail.body.encoded.should match("Hi")
+      mail.body.encoded.should include("Welcome")
     end
   end
 
