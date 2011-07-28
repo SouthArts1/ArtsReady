@@ -12,9 +12,9 @@
           </ul>
         </div>
       <% end %>
+      <%= form_for(@organization) do |org| %>
       <fieldset>
         <legend>Organization Information</legend>
-        <%= form_for(@organization) do |org| %>
         <p>
           <%= org.label :name %>
           <%= org.text_field :name %>
