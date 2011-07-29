@@ -10,10 +10,11 @@ class Ability
 
      if user.admin?
        can :manage, :all  
-     elsif user.role == (:manager)
-     elsif user.role == (:executive)
-     elsif user.role == (:editor)
-     elsif user.role == (:reader)
+     elsif user.role == 'manager'
+       can :manage, User #restrict to this org
+     elsif user.role == 'executive'
+     elsif user.role == 'editor'
+     elsif user.role == 'reader'
      else
        # unknown role
        Rails.logger.debug("User is in role that we don't recognize: #{user.inspect}")
