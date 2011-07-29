@@ -1,4 +1,4 @@
-  Given /^a visitor$/ do
+Given /^a visitor$/ do
 end
 
 Given /^a member with email "([^"]*)" and password "([^"]*)"$/ do |email, password|

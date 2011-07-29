@@ -11,4 +11,3 @@ Feature: Admin dashboard
     And I press "Sign In"
     Then I should be on the admin dashboard page
     
-    
