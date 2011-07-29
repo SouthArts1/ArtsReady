@@ -4,8 +4,11 @@ gem 'rails', '3.0.9'
 gem 'mysql2', '0.2.6'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
+gem 'cancan'
+
 gem 'carrierwave'
 gem 'fog'
+
 gem 'geocoder'
 gem 'gmaps4rails'
 
