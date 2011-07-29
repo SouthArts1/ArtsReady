@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
   before_save :set_default_role
-
+  before_create :set_first_password, :if => "password.nil?"
+  after_create :send_welcome_email
+  
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && BCrypt::Password.new(user.encrypted_password) == password
@@ -62,5 +64,17 @@ class User < ActiveRecord::Base
   
   def set_default_role
     self.role ||= 'reader'
+  end
+  
+  def set_first_password
+    logger.debug('no password so setting first password to random value')
+    self.password = SecureRandom.urlsafe_base64
+    encrypt_password
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+  end
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver
   end
 end

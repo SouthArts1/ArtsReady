@@ -3,15 +3,13 @@ class UserMailer < ActionMailer::Base
   layout 'email'
 
   def welcome(user)
-    @greeting = "Hi"
     @user = user
-    @link = root_url
-    mail :to => user.email
+    mail :to => user.email, :subject => "Welcome to ArtsReady"
   end
   
   def password_reset(user)
     @user = user
-    mail :to => user.email, :subject => "Password Reset"
+    mail :to => user.email, :subject => "ArtsReady Password Reset"
   end
   
 end
