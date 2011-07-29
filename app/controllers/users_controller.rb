@@ -13,6 +13,18 @@ class UsersController < ApplicationController
     @user = current_org.users.find(params[:id])
   end
   
+  def update
+    @user = current_org.users.find(params[:id])
+
+    if @user.update_attributes(params[:user])
+      redirect_to edit_organization_user_path(current_org,@user), :notice => "User updated"
+    else
+      redirect_to edit_organization_user_path(current_org,@user), :notice => "Problem updating user"
+    end
+
+  end
+  
+  
   def index
     @users = current_org.users
   end
