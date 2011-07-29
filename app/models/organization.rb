@@ -9,21 +9,21 @@ class Organization < ActiveRecord::Base
   has_many :resources
   has_many :todos
   has_many :users
-  
+
   accepts_nested_attributes_for :users
-  
+
   validates_presence_of :name, :address, :city, :state, :zipcode
 
   after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
   after_create :send_sign_up_email
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
-  
+
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
   scope :in_crisis, joins(:crises).where('crises.resolved_on IS NULL')
   scope :nearing_expiration, where('0=1')
-  
+
   delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
@@ -46,15 +46,15 @@ class Organization < ActiveRecord::Base
   def last_activity
     users.order('last_login_at DESC').first.last_activity
   end
-  
+
   def declared_crisis?
     crises.where(:resolved_on => nil).count == 1 ? true : false
   end
-  
+
   def last_activity_at
     users.order('created_at DESC').first.created_at
   end
-  
+
   def todo_percentage_complete
     # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
@@ -64,10 +64,10 @@ class Organization < ActiveRecord::Base
     logger.debug("Sending sign_up email for organization #{name}")
     OrganizationMailer.sign_up(self) rescue logger.debug("send sign_up email failed")
   end
-  
+
   def send_approval_email
     logger.debug("Sending approval email for organization #{name}")
     OrganizationMailer.welcome(self) rescue logger.debug("send approval email failed")
   end
-  
+
 end

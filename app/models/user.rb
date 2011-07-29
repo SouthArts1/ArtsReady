@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   before_save :set_default_role
   before_create :set_first_password, :if => "password.nil?"
   after_create :send_welcome_email
-  
+
   def self.authenticate(email, password)
     user = find_by_email(email)
     if user && BCrypt::Password.new(user.encrypted_password) == password
@@ -38,11 +38,11 @@ class User < ActiveRecord::Base
   def last_activity
     last_login_at.nil? ? 'Never' : last_login_at
   end
-  
+
   def is_admin?
     true
   end
-  
+
   def encrypt_password
     if password.present?
       self.encrypted_password = BCrypt::Password.create(password)
@@ -61,11 +61,11 @@ class User < ActiveRecord::Base
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
-  
+
   def set_default_role
     self.role ||= 'reader'
   end
-  
+
   def set_first_password
     logger.debug('no password so setting first password to random value')
     self.password = SecureRandom.urlsafe_base64
@@ -77,4 +77,5 @@ class User < ActiveRecord::Base
   def send_welcome_email
     UserMailer.welcome(self).deliver
   end
+
 end

@@ -18,13 +18,13 @@ class Answer < ActiveRecord::Base
 
   after_update :add_todo_items#, :unless => "was_skipped == true"
   after_update :answered_count
-  
+
   scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
 
   def ready?
     preparedness=='ready'
   end
-  
+
   def answered?
     preparedness.present? && priority.present?
   end
@@ -35,7 +35,7 @@ class Answer < ActiveRecord::Base
       logger.debug("Added todo for question #{question}")
     end
   end
-  
+
   def answered_count
     Assessment.increment_counter(:completed_answers_count,assessment.id) if answered?
   end

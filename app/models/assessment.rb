@@ -21,11 +21,11 @@ class Assessment < ActiveRecord::Base
     {:name => 'grants', :title => 'Grantmaking', :optional => 'We provide grants'},
     {:name => 'exhibits', :title => 'Exhibits', :optional => 'We put on exhibits'}
   ]
-  
+
   def is_complete?
     complete
   end
-  
+
   def percentage_complete
     # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
     ((completed_answers_count.to_f / answers_count.to_f)*100).to_i rescue 0

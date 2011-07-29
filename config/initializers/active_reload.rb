@@ -1,5 +1,5 @@
 if defined?(ActiveReload) && Rails.env.development?
-  
+
   puts Rails.logger.debug("Registering notifications for ActiveReload gem")
 
   ActiveSupport::Notifications.subscribe("active_reload.set_clear_dependencies_hook_replaced") do |*args|
