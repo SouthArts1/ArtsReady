@@ -6,7 +6,6 @@ Factory.define :user do |f|
   f.sequence(:email) {|n| "person#{n}@example.com" }
   f.password "password"
   f.password_confirmation {|p| p.password}
-  f.active true
   f.role 'reader'
   f.admin false
   f.organization Factory(:organization)
@@ -18,6 +17,10 @@ end
 
 Factory.define :new_user, :parent => :user do |f|
   f.organization Factory(:new_organization)
+end
+
+Factory.define :disabled_user, :parent => :user do |f|
+  f.disabled true
 end
 
 Factory.define :crisis_user, :parent => :user do |f|

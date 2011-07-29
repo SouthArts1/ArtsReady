@@ -31,7 +31,8 @@
                 <%= hidden_field_tag :user_id, user.id %>
                 <%= submit_tag 'reset password', :class => 'button blue' %>
               <% end %>
-              <%= link_to 'disable', "", :class => 'button white' %>
+              <%= button_to 'disable', admin_organization_user_path(@organization,user), :method => :delete, :class => 'button white' unless user.disabled? %>
+              <%= link_to 'edit', edit_admin_organization_user_path(@organization,user), :class => 'button blue' unless user == current_user %>
             </p></td>
           </tr>
         <% end %>
