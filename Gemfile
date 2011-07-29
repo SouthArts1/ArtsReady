@@ -28,9 +28,6 @@ end
 
 group :development do
   gem 'rails3-generators'
-  gem 'awesome_print'
-  gem 'hirb'
-  gem 'console_update'
   gem 'rails-footnotes', '>= 3.7'
   gem 'slowgrowl'
   gem 'active_reload'
