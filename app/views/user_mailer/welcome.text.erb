@@ -6,5 +6,5 @@ Your organization, <%= @user.organization.name %> is using ArtsReady to plan for
 
 Your login is your email address: <%= @user.email %>
 
-Click here to get started! <%= edit_password_reset_url(@user.password_reset_token) %>
+Click here to get started! <%= confirmation_url(@user.password_reset_token) %>
 

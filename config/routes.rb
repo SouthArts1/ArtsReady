@@ -47,6 +47,8 @@ Artsready::Application.routes.draw do
   post "sign_in" => "sessions#create"
   get "sign_out" => "sessions#destroy", :as => "sign_out"
 
+  match 'confirm(/:id)' => 'password_resets#edit', :as => :confirmation
+  
   resources :users, :only => [:new, :create, :edit, :update]
   resources :password_resets, :only => [:new, :create, :edit, :update]
   get "member/index", :as => "dashboard"
