@@ -10,3 +10,10 @@ CarrierWave.configure do |config|
   config.fog_public     = true
   config.fog_attributes = {'Cache-Control' => 'max-age=315576000'}
 end
+
+# ashenfelterj/ba12AEy6SjgJ
+# AKIAJLDW35SNDYIRVVWA
+# bP6EFpiAvXo4eYlyYgaJJLwO/mVXLLDri8TxKcgB
+
+# fracturedatlas-artsready-dev
+# fracturedatlas-artsready
