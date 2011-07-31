@@ -18,6 +18,29 @@ describe User do
   it "should have a default role" do
     subject.role.should == 'reader'
   end
+
+  context "#can_set_executive_permission_for_article?" do
+    it "should be false for user" do
+      @member = Factory(:user)
+      @member.can_set_executive_permission_for_article?.should be_false
+    end
+    it "should be false for reader" do
+      @member = Factory(:reader)
+      @member.can_set_executive_permission_for_article?.should be_false
+    end
+    it "should be false for editor" do
+      @member = Factory(:editor)
+      @member.can_set_executive_permission_for_article?.should be_false
+    end
+    it "should be true for executive" do
+      @member = Factory(:executive)
+      @member.can_set_executive_permission_for_article?.should be_true
+    end
+    it "should be true for manager" do
+      @member = Factory(:manager)
+      @member.can_set_executive_permission_for_article?.should be_true
+    end
+  end
   
   context "#authenticate" do
     before do
@@ -65,8 +88,8 @@ describe User do
       @member.admin?.should be_true
     end
   end
-
-  describe "#send_password_reset" do
+  
+  context "#send_password_reset" do
     let(:user) { Factory(:user) }
 
     it "generates a unique password_reset_token each time" do

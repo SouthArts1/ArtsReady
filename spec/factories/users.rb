@@ -11,8 +11,19 @@ Factory.define :user do |f|
   f.organization Factory(:organization)
 end
 
-Factory.define :owner, :parent => :user do |f|
-  f.role 'owner'
+Factory.define :reader, :parent => :user do |f|
+end
+
+Factory.define :manager, :parent => :user do |f|
+  f.role 'manager'
+end
+
+Factory.define :editor, :parent => :user do |f|
+  f.role 'editor'
+end
+
+Factory.define :executive, :parent => :user do |f|
+  f.role 'executive'
 end
 
 Factory.define :new_user, :parent => :user do |f|

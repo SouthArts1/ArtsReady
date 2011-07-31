@@ -45,7 +45,9 @@
       <hr />
       <p>Share only within My Organization</p>
       <%= f.radio_button :visibility, 'private' %> Private (this entire organization)<br />
+			<% if current_user.can_set_executive_permission_for_article? %>
       <%= f.radio_button :visibility, 'executive' %> Executive (only those assigned executive permission by the administrator)<br />
+			<% end %>
       <hr />
       <p>Share within My Battle Buddies Network</p>
       <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />

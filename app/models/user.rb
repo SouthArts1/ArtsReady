@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
   def set_default_role
     self.role ||= 'reader'
   end
+  
+  def can_set_executive_permission_for_article?
+    (role == 'executive' || role == 'manager')
+  end
 
   def set_first_password
     logger.debug('no password so setting first password to random value')

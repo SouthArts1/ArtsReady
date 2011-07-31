@@ -15,6 +15,8 @@ module NavigationHelpers
         crisis_path(Crisis.first)
       when /^the profile page$/
         buddies_profile_path
+      when /^the new article page$/
+        new_article_path
       
       
     # Add more mappings here.
