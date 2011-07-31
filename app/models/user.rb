@@ -4,19 +4,20 @@ class User < ActiveRecord::Base
   has_many :articles
   has_many :todos
   has_many :todo_notes
-  before_save :encrypt_password
 
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
+  validates_presence_of :password, :on => :create
 
-  validates_confirmation_of :password, :on => :create
+  validates_confirmation_of :password
   validates_uniqueness_of :email
 
   attr_accessor :password
 
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
+  before_save :encrypt_password
   before_save :set_default_role
   before_create :set_first_password, :if => "password.nil?"
   after_create :send_welcome_email
