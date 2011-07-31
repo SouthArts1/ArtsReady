@@ -35,7 +35,7 @@ describe "PasswordResets" do
   end
 
   it "reports when password token has expired" do
-    user = Factory(:user, :password_reset_token => "something", :password_reset_sent_at => 5.hour.ago)
+    user = Factory(:user, :password_reset_token => "something", :password_reset_sent_at => 5.days.ago)
     visit edit_password_reset_path(user.password_reset_token)
     fill_in "Password", :with => "foobar"
     fill_in "Password confirmation", :with => "foobar"
