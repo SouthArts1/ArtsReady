@@ -6,7 +6,7 @@ describe UserMailer do
     let(:mail) { UserMailer.welcome(user) }
 
     it "renders the headers" do
-      mail.subject.should eq("Welcome")
+      mail.subject.should eq("Welcome to ArtsReady")
       mail.to.should eq([user.email])
       mail.from.should eq(["no-reply@artsready.org"])
     end
@@ -21,7 +21,7 @@ describe UserMailer do
      let(:mail) { UserMailer.password_reset(user) }
 
      it "send user password reset url" do
-       mail.subject.should eq("Password Reset")
+       mail.subject.should eq("ArtsReady Password Reset")
        mail.to.should eq([user.email])
        mail.from.should eq(["no-reply@artsready.org"])
        mail.body.encoded.should match(edit_password_reset_path(user.password_reset_token))
