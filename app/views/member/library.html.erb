@@ -18,7 +18,7 @@
     <h3>Topics</h3>
     <ul class="library categories">
       <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |function| %>
-        <li><%= link_to "#{function[:title]} (#{rand(100) + 10})" %></li>
+        <li><%= link_to "#{function[:title]} (#{rand(100) + 10})", organization_articles_path(current_org, :critical_function => function[:name]) %></li>
       <% end %>
     </ul>
   </div>

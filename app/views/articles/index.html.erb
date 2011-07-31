@@ -1,42 +1,70 @@
-<div class="grid_8">
-  <hgroup><h2>ArtsReady Library</h2></hgroup>
-  <%= link_to 'submit article', new_article_path, :class => 'button', :style => 'float:right;' %>
+<div class="grid_12">
   <section>
-    <% @featured_articles.each do |article| %>
-    <article>
-        <h3><%= link_to article.title, article_path(article) %></h3>
-        <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
-      <p><%= article.body %></p>
-    </article>
-    <% end %>
+    <div class="grid_8 alpha">
+      <h1>Readiness Library</h1>
+      <%= text_field_tag :search, '', :class => 'library-search', :placeholder => 'Search articles by title, topic, or tag' %>
+      <%= link_to 'search library', "", :class => 'button green' %>
+    </div>
+    <div class="grid_4 omega">
+      <h3>About the Library</h3>
+      <p>
+        <%= image_tag('library-video.png', :style => 'float: left; margin-right: 10px; margin-bottom: 10px; border: 1px solid #ccc;') %>
+        This is a collection of resources (articles, documents, uploads) that can be useful when planning your organization's readiness...
+      </p>
+    </div>
+    <div class="clear"></div>
   </section>
-  <section class="list-kb">
-    <% @articles.each do |article| %>
-    <article>
-      <h3><%= link_to article.title, article_path(article) %></h3>
-      <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
-    </article>
-    <% end %>
-  </section>
-</div>
+  <div class="grid_4 alpha">
+    <h3>Topics</h3>
+    <ul class="library categories">
+      <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |function| %>
+        <li><%= link_to "#{function[:title]} (#{rand(100) + 10})" %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="grid_4">
+    <h3>Popular Articles</h3>
+    <ul class="library popular">
+      <% Article.featured.each do |article| %>
+        <li>
+          <h4><%= link_to article.title, article_path(article) %></h4>
+          Added by Jim Johnson on <%= article.published_on.to_formatted_s(:long) %>
+        </li>
+      <% end %>
+    </ul>
 
-
-<div class="grid_4">
-  <ul class="tag-cloud">
-    <li><a href="#" class="size-1">this</a></li>
-    <li><a href="#" class="size-4">is a</a></li>
-    <li><a href="#" class="size-3">tag cloud</a></li>
-    <li><a href="#" class="size-6">crisis</a></li>
-    <li><a href="#" class="size-3">flooding</a></li>
-    <li><a href="#" class="size-2">fire</a></li>
-    <li><a href="#" class="size-1">tornado</a></li>
-    <li><a href="#" class="size-5">hurricane</a></li>
-    <li><a href="#" class="size-3">fraud</a></li>
-    <li><a href="#" class="size-6">riot</a></li>
-    <li><a href="#" class="size-5">act of god</a></li>
-    <li><a href="#" class="size-6">rodentia</a></li>
-    <li><a href="#" class="size-3">labor</a></li>
-  </ul>
-  <p><img src="/images/sample-1.png" alt="Image of Readiness"></p>
-  <p><img src="/images/sample-2.png" alt="Image of Readiness"></p>
+    <ul class="tag-cloud">
+      <li><a href="#" class="size-1">this</a></li>
+      <li><a href="#" class="size-4">is a</a></li>
+      <li><a href="#" class="size-3">tag cloud</a></li>
+      <li><a href="#" class="size-6">crisis</a></li>
+      <li><a href="#" class="size-3">flooding</a></li>
+      <li><a href="#" class="size-2">fire</a></li>
+      <li><a href="#" class="size-1">tornado</a></li>
+      <li><a href="#" class="size-5">hurricane</a></li>
+      <li><a href="#" class="size-3">fraud</a></li>
+      <li><a href="#" class="size-6">riot</a></li>
+      <li><a href="#" class="size-5">act of god</a></li>
+      <li><a href="#" class="size-6">rodentia</a></li>
+      <li><a href="#" class="size-3">labor</a></li>
+    </ul>
+  </div>
+  <div class="grid_4 omega">
+    <section>
+      <h3>Recent Comments</h3>
+      <ul class="library">
+        <% 3.times do %>
+          <li>
+            <i><%= image_tag('library-comment.png', :style => 'float: left; margin-right: 10px; margin-bottom: 10px;') %>
+            Thanks so much for this! I do have a question about...</i><br />
+            <%= link_to "An article's title", '/wireframe/kb' %> <%= pluralize(rand(4) + 1, 'hour') %> ago
+          </li>
+        <% end %>
+      </ul>
+    </section>
+    <section>
+      <h3>Share Your Knowledge</h3>
+      <p style="padding:10px; margin:0;"><%= link_to 'submit article', new_article_path, :class => 'button' %></p>
+    </section>
+  </div>
 </div>

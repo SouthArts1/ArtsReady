@@ -25,6 +25,9 @@ Artsready::Application.routes.draw do
   resources :resources
   resources :organizations, :only => [:edit, :update, :show, :new, :create] do
     resources :users
+    resources :articles do
+      get 'critical_list', :on => :collection
+    end
   end
   
   resources :crises do
@@ -53,6 +56,7 @@ Artsready::Application.routes.draw do
   resources :users, :only => [:new, :create, :edit, :update]
   resources :password_resets, :only => [:new, :create, :edit, :update]
   get "member/index", :as => "dashboard"
+  get "member/library", :as => "library"
 
   # public pages
   get "home/index"
@@ -65,7 +69,8 @@ Artsready::Application.routes.draw do
   get "tour" => "home#tour", :as => "tour"
   get "welcome" => "home#welcome", :as => "welcome"
 
-  get "library" => "home#library", :as => "library"
+  get "readiness_library" => "home#readiness_library", :as => "readiness_library"
+  get "home/public_articles" => "home#public_articles", :as => "public_articles"
   get "home/public_article(/:id)" => "home#public_article", :as => "public_article"
   get "tbd" => "home#tbd", :as => "tbd"
   root :to => "home#index"

@@ -9,7 +9,8 @@ class HomeController < ApplicationController
     @public_articles = Article.for_public.limit(3)
   end
 
-  def library
+  def readiness_library
+    @critical_function_counts = Article.group(:critical_function).count
     @public_articles = Article.for_public
   end
 
