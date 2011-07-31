@@ -13,6 +13,7 @@ Feature: Create articles
 		Then I should see "created article"
 		And I should see "this is a test"
 		
+	#TODO most of these should probably be view tests	
 	Scenario: User cannot set executive visibility
 	  Given a user
 	  When I go to the new article page
@@ -36,20 +37,20 @@ Feature: Create articles
 	Scenario: User cannot set battle buddy visibility
 	  Given a user
 	  When I go to the new article page
-		Then I should not see "Share within My Battle Buddies Network"
-
+		Then I should not see "All Battle Buddies"
+		And I should not see "#battle-buddies"
+		
 	Scenario: Editor can set battle buddy visibility
 	  Given a editor
 	  When I go to the new article page
-		Then I should see "Share within My Battle Buddies Network"
+		Then I should see "All Battle Buddies" within "#battle-buddies"
 
 	Scenario: Manager can set battle buddy visibility
 		Given a manager
 	  When I go to the new article page
-		Then I should see "Share within My Battle Buddies Network"
+		Then I should see "All Battle Buddies" within "#battle-buddies"
 
 	Scenario: Executive can set battle buddy visibility
 	  Given an executive
 	  When I go to the new article page
-		Then I should see "Share within My Battle Buddies Network"
-
+		Then I should see "All Battle Buddies" within "#battle-buddies"

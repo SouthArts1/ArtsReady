@@ -49,6 +49,8 @@
       <%= f.radio_button :visibility, 'executive' %> Executive (only those assigned executive permission by the administrator)<br />
 			<% end %>
       <hr />
+			<% if current_user.can_set_battlebuddy_permission_for_article? %>
+			<div id="battle-buddies">
       <p>Share within My Battle Buddies Network</p>
       <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />
       <%= f.radio_button :visibility, 'some-buddies' %> Specific Battle Buddies <br />
@@ -65,6 +67,8 @@
           });
         });
       </script>
+			<% end %>
+			</div>
     </div>
     <div class="field">
     	<label>Our Critical Stuff</label>
