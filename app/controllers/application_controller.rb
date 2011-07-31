@@ -14,6 +14,11 @@ class ApplicationController < ActionController::Base
     end
 
   end
+  
+  rescue_from CanCan::AccessDenied do |exception|  
+    flash[:error] = "Access denied! #{@current_user.inspect}"  
+    redirect_to root_url  
+  end
 
   private
   def current_user
