@@ -22,17 +22,17 @@ Feature: Create articles
 	Scenario: Editor cannot set executive visibility
 	  Given a editor
 	  When I go to the new article page
-		Then I should not see "Executive"
+		Then I should not see "Executive" within "#organization"
 
 	Scenario: Manager can set executive visibility
 		Given a manager
 	  When I go to the new article page
-		Then I should see "Executive"
+		Then I should see "Executive" within "#organization"
 
 	Scenario: Executive can set executive visibility
 	  Given an executive
 	  When I go to the new article page
-		Then I should see "Executive"
+		Then I should see "Executive" within "#organization"
 
 	Scenario: User cannot set battle buddy visibility
 	  Given a user

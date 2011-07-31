@@ -43,12 +43,14 @@
       <p>Share with Everyone Who Visits ArtsReady</p>
       <%= f.radio_button :visibility, 'public' %> Public (visitors and other organizations) <br />
       <hr />
+			<div id="organization">
       <p>Share only within My Organization</p>
       <%= f.radio_button :visibility, 'private' %> Private (this entire organization)<br />
 			<% if current_user.can_set_executive_permission_for_article? %>
       <%= f.radio_button :visibility, 'executive' %> Executive (only those assigned executive permission by the administrator)<br />
 			<% end %>
       <hr />
+			</div>
 			<% if current_user.can_set_battlebuddy_permission_for_article? %>
 			<div id="battle-buddies">
       <p>Share within My Battle Buddies Network</p>
