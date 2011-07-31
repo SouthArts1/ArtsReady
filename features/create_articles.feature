@@ -13,18 +13,43 @@ Feature: Create articles
 		Then I should see "created article"
 		And I should see "this is a test"
 		
-	Scenario: User cannot set executive role
+	Scenario: User cannot set executive visibility
 	  Given a user
 	  When I go to the new article page
 		Then I should not see "Executive"
 	
-	Scenario: Executive can set executive role
-	  Given an executive
+	Scenario: Editor cannot set executive visibility
+	  Given a editor
 	  When I go to the new article page
 		Then I should not see "Executive"
-	
-	Scenario: Manager can set executive role
+
+	Scenario: Manager can set executive visibility
 		Given a manager
 	  When I go to the new article page
-		Then I should not see "Executive"
-  
+		Then I should see "Executive"
+
+	Scenario: Executive can set executive visibility
+	  Given an executive
+	  When I go to the new article page
+		Then I should see "Executive"
+
+	Scenario: User cannot set battle buddy visibility
+	  Given a user
+	  When I go to the new article page
+		Then I should not see "Share within My Battle Buddies Network"
+
+	Scenario: Editor can set battle buddy visibility
+	  Given a editor
+	  When I go to the new article page
+		Then I should see "Share within My Battle Buddies Network"
+
+	Scenario: Manager can set battle buddy visibility
+		Given a manager
+	  When I go to the new article page
+		Then I should see "Share within My Battle Buddies Network"
+
+	Scenario: Executive can set battle buddy visibility
+	  Given an executive
+	  When I go to the new article page
+		Then I should see "Share within My Battle Buddies Network"
+

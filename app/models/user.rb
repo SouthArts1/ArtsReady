@@ -69,6 +69,10 @@ class User < ActiveRecord::Base
   def can_set_executive_permission_for_article?
     (role == 'executive' || role == 'manager')
   end
+  
+  def can_set_battlebuddy_permission_for_article?
+    (role == 'executive' || role == 'manager' || role == 'editor')
+  end
 
   def set_first_password
     logger.debug('no password so setting first password to random value')
