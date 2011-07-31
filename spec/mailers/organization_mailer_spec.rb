@@ -2,13 +2,13 @@ require "spec_helper"
 
 describe OrganizationMailer do
   describe "sign_up" do
-    let(:organization) { Factory(:organization) }
+    let(:organization) { Factory(:new_organization, :users => [Factory(:new_user)]) }
     let(:mail) { OrganizationMailer.sign_up(organization) }
 
     it "renders the headers" do
-      mail.subject.should eq("Sign up")
-      mail.to.should eq(["to@example.org"])
-      mail.from.should eq(["from@example.com"])
+      mail.subject.should eq("Thank you for joining ArtsReady")
+      mail.to.should eq([organization.users.first.email])
+      mail.from.should eq(["no-reply@artsready.org"])
     end
 
     it "renders the body" do
@@ -16,13 +16,13 @@ describe OrganizationMailer do
   end
 
   describe "approved" do
-    let(:organization) { Factory(:organization) }
+    let(:organization) { Factory(:organization, :users => [Factory(:user)]) }
     let(:mail) { OrganizationMailer.approved(organization) }
 
     it "renders the headers" do
-      mail.subject.should eq("Approved")
-      mail.to.should eq(["to@example.org"])
-      mail.from.should eq(["from@example.com"])
+      mail.subject.should eq("Your ArtsReady membership has been approved!")
+      mail.to.should eq([organization.users.first.email])
+      mail.from.should eq(["no-reply@artsready.org"])
     end
 
     it "renders the body" do
