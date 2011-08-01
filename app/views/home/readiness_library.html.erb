@@ -2,9 +2,8 @@
   <section>
     <div class="grid_8 alpha">
       <h1>Readiness Library</h1>
-      <%= text_field_tag :search, '', :class => 'library-search', :placeholder => 'Search articles by title, topic, or tag' %>
-      <%= link_to 'search library', "", :class => 'button green' %>
-    </div>
+			<%= render 'shared/search_articles' %>    
+		</div>
     <div class="grid_4 omega">
       <h3>About the Library</h3>
       <p>

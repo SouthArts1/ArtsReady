@@ -14,6 +14,10 @@ class HomeController < ApplicationController
     @public_articles = Article.for_public
   end
 
+  def public_articles
+    @public_articles = Article.for_public
+  end
+
   def public_article
     @article = Article.find(params[:id])
     if !@article.is_public?
