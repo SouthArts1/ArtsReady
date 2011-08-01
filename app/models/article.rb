@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
 
+  acts_as_taggable
   mount_uploader :document, DocumentUploader
 
   belongs_to :organization

@@ -30,6 +30,7 @@ GEM
       activemodel (= 3.0.9)
       activesupport (= 3.0.9)
     activesupport (3.0.9)
+    acts-as-taggable-on (2.0.6)
     arel (2.0.10)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
@@ -187,6 +188,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   active_reload
+  acts-as-taggable-on
   bcrypt-ruby
   cancan
   capybara
