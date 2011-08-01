@@ -13,6 +13,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 
 gem 'RedCloth'
+gem 'acts-as-taggable-on'
 
 gem 'heroku'
 # deploy

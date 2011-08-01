@@ -61,7 +61,7 @@
     <p><%= link_to @article.critical_function %></p>
 
     <h5>Tags</h5>
-    <p><%= %w(here are the articles tags).collect {|t| link_to t }.join(', ').html_safe %></p>
+    <p><%= @article.tag_list.collect {|t| link_to t }.join(', ').html_safe %></p>
 
     <h5>Stats</h5>
     <p>3 Comments | 25 Views</p>
