@@ -12,7 +12,7 @@
     <% if @article.document.present? %>
     <div><%= link_to "Download", @article.document.url %></div>
     <% end %>
-    <div><%= @article.body %></div>
+    <div><%= @article.to_html %></div>
   </article>
 
   <ul class="article-tools clearfix">

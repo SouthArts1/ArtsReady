@@ -33,7 +33,12 @@ class Article < ActiveRecord::Base
     created_at.to_date rescue nil
   end
 
+  def to_html
+    RedCloth.new(body).to_html.html_safe
+  end
+
   def set_organization
     self.organization = user.organization
   end
+  
 end

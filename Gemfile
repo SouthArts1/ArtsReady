@@ -12,6 +12,8 @@ gem 'fog'
 gem 'geocoder'
 gem 'gmaps4rails'
 
+gem 'RedCloth'
+
 gem 'heroku'
 # deploy
 # gem 'newrelic_rpm'
