@@ -6,6 +6,7 @@ class MemberController < ApplicationController
   end
   
   def library
+    @critical_function_counts = Article.group(:critical_function).count
     @public_articles = Article.for_public
   end
 
