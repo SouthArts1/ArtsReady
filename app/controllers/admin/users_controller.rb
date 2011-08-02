@@ -3,6 +3,7 @@ class Admin::UsersController < Admin::AdminController
   def index
     @organization = Organization.find(params[:organization_id])
     @users = @organization.users
+    @user = @users.new
   end
   
   def create
@@ -12,7 +13,8 @@ class Admin::UsersController < Admin::AdminController
       UserMailer.welcome(@user).deliver
       redirect_to admin_organization_users_path(@organization), :notice => "User created"
     else
-      redirect_to admin_organization_users_path(@organization), :notice => "Problem creating user"
+      @users = @organization.users
+      render :index
     end
   end
 

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
-  validates_presence_of :password, :on => :create
+  validates_presence_of :password
 
   validates_confirmation_of :password
   validates_uniqueness_of :email
@@ -17,9 +17,11 @@ class User < ActiveRecord::Base
 
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
+  before_validation :set_first_password, :if => "password.nil?"
+
   before_save :encrypt_password
   before_save :set_default_role
-  before_create :set_first_password, :if => "password.nil?"
+  
   after_create :send_welcome_email
 
   def self.authenticate(email, password)
