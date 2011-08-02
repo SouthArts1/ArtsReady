@@ -18,7 +18,7 @@
           <tr>
             <td class="name"><p><%= org.name %></p></td>
             <td class="members"><p><%= link_to pluralize(org.users.count, 'member'), admin_organization_users_path(org) %> </p></td>
-            <td class="activity"><p><%= time_ago_in_words(org.last_activity_at) %> ago</p></td>
+            <td class="activity"><p><%= org.last_activity %></p></td>
             <td class="actions"><p>
               <%= "Needs Approval" unless org.active?%>
               <%= link_to 'edit', edit_admin_organization_path(org), :class => 'button' %>
