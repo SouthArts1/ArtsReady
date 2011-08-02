@@ -5,6 +5,16 @@
   <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
   <li class="active"><%= link_to "Users", admin_organization_users_path(@organization) %></li>
 </ul>
+<% if @user.errors.any? %>
+<div class="error_messages">
+    <h2>Form is invalid</h2>
+    <ul>
+      <% for message in @user.errors.full_messages %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <div class="grid_12">
   <section>
@@ -45,7 +55,7 @@
         <td colspan="5"><p>Add another user</p></td>
       </thead>
       <tbody>
-        <%= form_for([:admin,@organization, User.new]) do |f| %>
+        <%= form_for([:admin,@organization, @user]) do |f| %>
         <tr>
           <td class="name"><p><%= f.text_field:first_name, :placeholder => 'First Name'%></p></td>
           <td class="name"><p><%= f.text_field:last_name, :placeholder => 'Last Name'%></p></td>
