@@ -1,12 +1,14 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :assessment do |f|
-  f.organization { Factory(:organization)}
-end
+  factory :assessment do
+    organization { Factory(:organization)}
+    
+    factory :completed_assessment do
+      complete true
+      answers_count 10
+      completed_answers_count 10
+    end
+    
+  end
 
-Factory.define :completed_assessment, :parent => :assessment do |f|
-  f.organization { Factory(:organization)}
-  f.complete true
-  f.answers_count 10
-  f.completed_answers_count 10
 end

@@ -1,22 +1,27 @@
-Factory.define :article do |f|
-  f.title 'My Article'
-  f.description Forgery::LoremIpsum.sentence
-  f.body Forgery::LoremIpsum.paragraphs(3)
-  f.visibility 'private'
-end
+FactoryGirl.define do
 
-Factory.define :public_article, :parent => :article do |f|
-  f.visibility 'public'
-end
+  factory :article, :aliases => [:article_with_body] do
+    title 'My Article'
+    description Forgery::LoremIpsum.sentence
+    body Forgery::LoremIpsum.paragraphs(3)
+    visibility 'private'
+    
+    factory :public_article do
+      visibility 'public'
+    end
+    
+    factory :featured_article do
+      visibility 'public'
+      featured true
+    end
+    
+    factory :article_with_link do
+      link "http://www.test.host"
+    end
+    
+    factory :article_with_file do
+    end
+    
+  end
 
-Factory.define :featured, :parent => :article do |f|
-  f.visibility 'public'
-  f.featured true
-end
-
-Factory.define :article_with_link, :parent => :article do |f|
-  f.link "http://www.test.host"
-end
-
-Factory.define :article_with_file, :parent => :article do |f|
 end

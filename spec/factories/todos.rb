@@ -1,12 +1,14 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :todo do |f|
-  f.action_item_id 1
-  f.answer_id 1
-  f.user_id 1
-  f.critical_function 'test'
-  f.due_on "2011-06-16"
-  f.description "Urgent Todo"
-  f.priority "critical"
-  f.complete false
+  factory :todo do
+    action_item_id 1
+    answer_id 1
+    user_id 1
+    critical_function 'test'
+    due_on "2011-06-16"
+    description "Urgent Todo"
+    priority "critical"
+    complete false
+  end
+
 end

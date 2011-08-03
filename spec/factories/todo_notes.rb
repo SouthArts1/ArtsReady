@@ -1,7 +1,9 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :todo_note do |f|
-  f.todo_id 1
-  f.user_id 1
-  f.message "MyText"
+  factory :todo_note do
+    todo_id 1
+    user_id 1
+    message "MyText"
+  end
+
 end
