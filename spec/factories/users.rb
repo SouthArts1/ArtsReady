@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :user, :aliases => [:reader] do
+  factory :user, :aliases => [:reader, :member] do
     first_name "First"
     last_name "Last"
     sequence(:email) {|n| "person#{n}@example.com" }
@@ -39,5 +39,5 @@ FactoryGirl.define do
     end
   
   end
- 
+
 end
