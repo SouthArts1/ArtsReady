@@ -1,6 +1,8 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :question do |f|
-  f.description Forgery::LoremIpsum.sentence
-  f.critical_function "test"
+  factory :question do
+    description Forgery::LoremIpsum.sentence
+    critical_function "test"
+  end
+
 end

@@ -1,11 +1,13 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :need do |f|
-  f.organization_id 1
-  f.crisis_id 1
-  f.resource "MyString"
-  f.description "MyText"
-  f.provided false
-  f.provider "MyString"
-  f.last_updated_on "2011-07-15"
+  factory :need do
+    organization_id 1
+    crisis_id 1
+    resource "MyString"
+    description "MyText"
+    provided false
+    provider "MyString"
+    last_updated_on "2011-07-15"
+  end
+
 end

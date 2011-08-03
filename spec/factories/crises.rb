@@ -1,7 +1,9 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :crisis do |f|
-  f.name "MyString"
-  f.description "MyText"
-  f.resolution "MyText"
+  factory :crisis do
+    name "MyString"
+    description "MyText"
+    resolution "MyText"
+  end
+
 end

@@ -1,23 +1,26 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
 
-Factory.define :organization do |f|
-  f.name "Test Organization"
-  f.address "100 Test St"
-  f.city "New York"
-  f.state "NY"
-  f.zipcode "10001"
-  f.active true
-  f.latitude 33.8039 
-  f.longitude -84.3933 
-  f.gmaps true
-end
-
-Factory.define :new_organization, :parent => :organization do |f|
-  f.name "New Organization"
-  f.active false
-end
-
-Factory.define :crisis_organization, :parent => :organization do |f|
-  f.name "Crisis Organization"
-  f.crises {[Factory(:crisis)]}
+  factory :organization do
+    name "Test Organization"
+    address "100 Test St"
+    city "New York"
+    state "NY"
+    zipcode "10001"
+    active true
+    latitude 33.8039 
+    longitude -84.3933 
+    gmaps true
+    
+    factory :new_organization do
+      name "New Organization"
+      active false
+    end
+    
+    factory :crisis_organization do
+      name "Crisis Organization"
+      crises { [Factory(:crisis)] }
+    end
+    
+  end
+  
 end
