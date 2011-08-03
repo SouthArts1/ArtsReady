@@ -25,7 +25,6 @@ Feature: New organization registration
     And I press "Create Organization"
     Then I should see error messages
 
-
   Scenario: A visitor tries to sign up with partial information
     When I go to the sign up page
     And I fill in the following:
