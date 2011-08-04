@@ -1,4 +1,4 @@
-class Admin::PasswordResetsController < ApplicationController
+class Admin::PasswordResetsController < Admin::AdminController
 
   def create
     user = User.find(params[:user_id])
