@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110804215409) do
+ActiveRecord::Schema.define(:version => 20110804223312) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20110804215409) do
     t.boolean  "on_critical_list",  :default => false
     t.integer  "todo_id"
     t.boolean  "featured",          :default => false
+    t.boolean  "disabled",          :default => false
   end
 
   add_index "articles", ["organization_id"], :name => "index_articles_on_organization_id"
