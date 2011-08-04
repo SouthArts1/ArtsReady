@@ -18,6 +18,16 @@ class Article < ActiveRecord::Base
   scope :on_critical_list, where(:on_critical_list => true)
   scope :for_public, where(:visibility => 'public')
 
+  def self.search_public(phrase)
+    term = "%#{phrase}%"
+    Article.for_public.where("title LIKE ? OR body LIKE ?",term,term) + Article.for_public.tagged_with(term)
+  end
+
+  def self.search(phrase)
+    term = "%#{phrase}%"
+    Article.where("title LIKE ? OR body LIKE ?",term,term) + Article.tagged_with(term)
+  end
+  
   def self.featured
     Article.limit(1)
   end
