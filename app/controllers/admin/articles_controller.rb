@@ -5,6 +5,7 @@ class Admin::ArticlesController < Admin::AdminController
        
     if ["featured", "disabled"].include?(params[:toggle])
       @article.toggle(params[:toggle])
+      # TODO Email user?
       @article.save
       redirect_to article_path(@article), :notice => "Article updated"
     else
@@ -15,8 +16,8 @@ class Admin::ArticlesController < Admin::AdminController
   def destroy
     @article = Article.find(params[:id])
     @article.update_attribute(:disabled, true)
-    redirect_to articles_url, :notice => "Successfully disabled article."
-    
+    # TODO Email user?
+    redirect_to articles_url, :notice => "Successfully disabled article."  
   end
   
 end
