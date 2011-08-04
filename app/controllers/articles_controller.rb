@@ -2,7 +2,11 @@ class ArticlesController < ApplicationController
 
   def index
     @featured_articles = Article.featured
-    @articles = current_org.articles.recent
+    if params[:term]
+      @articles = current_org.articles.search(params[:term])
+    else
+      @articles = current_org.articles.recent
+    end
   end
 
   def critical_list

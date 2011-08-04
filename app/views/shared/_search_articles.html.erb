@@ -1,6 +1,6 @@
 <div id="search-form">
-	<%= form_tag do %>
-  <%= text_field_tag :search, '', :class => 'library-search', :placeholder => 'Search articles by title, topic, or tag' %>
+	<%= form_tag articles_path, :method => :get  do %>
+  <%= text_field_tag :term, '', :class => 'library-search', :placeholder => 'Search articles by title, topic, or tag' %>
   <%= submit_tag 'search library', :class => 'button green' %>
 	<% end %>
 </div>
