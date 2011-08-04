@@ -64,7 +64,17 @@
     <p><%= @article.tag_list.collect {|t| link_to t }.join(', ').html_safe %></p>
 
     <h5>Stats</h5>
-    <p>3 Comments | 25 Views</p>
+    <p>3 Comments</p>
   </div>
+  <% if current_user.admin? && @article.is_public?%>
+  <div id="article-admin">
+    <p><%= button_to 'Feature Article?', admin_article_path(@article, :toggle => 'featured'), :method => :put, :class => 'button white' unless @article.is_featured? %></p>
+    <p><%= button_to 'Un-Feature Article?', admin_article_path(@article, :toggle => 'featured'), :method => :put, :class => 'button white' if @article.is_featured? %></p>
+    <h5>Disable article?</h5>
+    <p><%#= button_to 'disable', admin_article_path(@article), :method => :delete, :class => 'button white' unless @article.disabled? %></p>
+    
+
+  </div>
+  <% end %>
 </div>
 

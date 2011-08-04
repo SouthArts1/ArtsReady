@@ -40,6 +40,10 @@ class Article < ActiveRecord::Base
     visibility == 'public'
   end
 
+  def is_featured?
+    featured
+  end
+
   def published_on
     created_at.to_date rescue nil
   end

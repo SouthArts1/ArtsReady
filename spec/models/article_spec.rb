@@ -11,5 +11,6 @@ describe Article do
   it { should validate_presence_of(:description) }
 
   it { subject.is_public?.should be_false}
+  it { subject.is_featured?.should be_false}
   it { subject.on_critical_list?.should be_false}
 end

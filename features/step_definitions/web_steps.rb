@@ -208,3 +208,6 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+# ^I click the (\d+)\w\w button labelled "([^"]*)"$
+# ^Given I have found an? (\w+ \w+)$
