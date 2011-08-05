@@ -11,8 +11,8 @@ describe HomeController do
       get("/home/index").should route_to("home#index")
     end
 
-    it "routes to #library" do
-      get("/library").should route_to("home#library")
+    it "routes to #readiness_library" do
+      get("/readiness_library").should route_to("home#readiness_library")
     end
     
     it "routes to #public_article(/:id)" do
