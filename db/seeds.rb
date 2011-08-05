@@ -4,7 +4,8 @@ puts "Creating South Arts (Admin)"
 org = Organization.create!(:name => 'South Arts', :address => '1800 Peachtree St., NW', :city => 'Atlanta', :state => 'GA', :zipcode => '30309', :active => true)
 admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true, :organization => org, :role => 'manager')
 
-article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'What is ArtsReady?', :body => 'Prepare for the unexpected', :description => 'Introduction ArtsReady')
+article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'Featuring ArtsReady', :body => 'Prepare for the unexpected', :description => 'Featured Introduction ArtsReady', :critical_function => 'technology', :featured => true)
+article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'Paying for ArtsReady?', :body => 'Paying', :description => 'Paying for Preparedness', :critical_function => 'finances')
 
 puts "Creating Fractured Atlas"
 org = Organization.create!(:name => 'Fractured Atlas', :address => '248 W. 35th Street', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true)
@@ -13,8 +14,8 @@ member = User.create!(:email=>'kirsten.nordine@fracturedatlas.org', :password =>
 member = User.create!(:email=>'justin.karr@fracturedatlas.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Justin', :last_name => 'Karr', :organization => org)
 
 puts "Adding some public articles"
-member.articles.create(:title => 'First Article is Public and Feature', :body => 'This is my article', :visibility => 'public')
-member.articles.create(:title => 'Another Public Article', :body => 'This is another article', :visibility => 'public')
+member.articles.create(:title => 'First Article is Public and Feature', :body => 'This is my article', :visibility => 'public', :featured => true, :critical_function => 'people')
+member.articles.create(:title => 'Another Public Article', :body => 'This is another article', :visibility => 'public', :critical_function => 'exhibits')
 
 puts "Creating battle buddies"
 org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :battle_buddy_enabled => true, :active => true)
