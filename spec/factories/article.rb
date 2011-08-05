@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :article, :aliases => [:article_with_body] do
+  factory :article, :aliases => [:private_article,:article_with_body] do
     title 'My Article'
     description Forgery::LoremIpsum.sentence
     body Forgery::LoremIpsum.paragraphs(3)
@@ -13,6 +13,10 @@ FactoryGirl.define do
     factory :featured_article do
       visibility 'public'
       featured true
+    end
+
+    factory :disabled_article do
+      disabled true
     end
     
     factory :article_with_link do
