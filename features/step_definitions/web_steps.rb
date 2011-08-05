@@ -209,5 +209,13 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
+Then /^I should see the button "([^"]*)"$/ do |text|
+  if page.respond_to? :should
+    page.should have_button(text)
+  else
+    assert page.has_button?(text)
+  end
+end
+
 # ^I click the (\d+)\w\w button labelled "([^"]*)"$
 # ^Given I have found an? (\w+ \w+)$
