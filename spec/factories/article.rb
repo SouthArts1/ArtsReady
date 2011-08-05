@@ -16,6 +16,7 @@ FactoryGirl.define do
     end
 
     factory :disabled_article do
+      visibility 'public'
       disabled true
     end
     

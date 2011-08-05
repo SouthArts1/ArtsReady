@@ -17,7 +17,7 @@ class Admin::ArticlesController < Admin::AdminController
     @article = Article.find(params[:id])
     @article.update_attribute(:disabled, true)
     # TODO Email user?
-    redirect_to articles_url, :notice => "Successfully disabled article."  
+    redirect_to article_path(@article), :notice => "Successfully disabled article."  
   end
   
 end

@@ -2,6 +2,6 @@
   <p><%= button_to 'Feature Article?', admin_article_path(@article, :toggle => 'featured'), :method => :put, :class => 'button white' unless @article.is_featured? %></p>
   <p><%= button_to 'Un-Feature Article?', admin_article_path(@article, :toggle => 'featured'), :method => :put, :class => 'button white' if @article.is_featured? %></p>
 
-  <p><%= button_to 'Disable Article', admin_article_path(@article), :method => :delete, :class => 'button white' unless @article.disabled? %></p>
-  <p><%= button_to 'Enable Article', admin_article_path(@article, :toggle => 'disabled'), :method => :put, :class => 'button white' if @article.disabled? %></p>
+  <p><%= button_to 'Disable Article?', admin_article_path(@article), :method => :delete, :class => 'button white' unless @article.disabled? %></p>
+  <p><%= button_to 'Enable Article?', admin_article_path(@article, :toggle => 'disabled'), :method => :put, :class => 'button white' if @article.disabled? %></p>
 </div>
