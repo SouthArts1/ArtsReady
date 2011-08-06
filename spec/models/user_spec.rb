@@ -18,6 +18,10 @@ describe User do
   it "should have a default role" do
     subject.role.should == 'reader'
   end
+  
+  it "should not be an admin" do
+    subject.admin.should be_false
+  end
 
   context "#can_set_battlebuddy_permission_for_article?" do
     it "should be false for user" do
@@ -102,14 +106,25 @@ describe User do
   end
 
   context "#admin?" do
+    let(:member) {Factory(:user, :email => 'member@test.host', :password => 'secret')}
+    let(:admin) {Factory(:user, :email => 'admin@test.host', :password => 'secret', :admin => true)}
+
     it "should not be an admin by default" do
-      @member = Factory(:user, :email => 'member@test.host', :password => 'secret')
-      @member.admin?.should be_false
+      member.admin?.should be_false
     end
+
     it "should be an admin if set" do
-      @member = Factory(:user, :email => 'member@test.host', :password => 'secret', :admin => true)
-      @member.admin?.should be_true
+      admin.admin?.should be_true
     end
+
+    it "should not have member in the .admins scope" do
+      User.admins.should_not include(@ember)
+    end
+
+    it "should have an admin in the .admins scope" do
+      User.admins.should include(admin)
+    end
+
   end
   
   context "#send_password_reset" do

@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
+  scope :admins, where(:admin => true)
+  
   before_validation :set_first_password, :if => "password.nil?"
 
   before_save :encrypt_password
@@ -26,7 +28,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = find_by_email(email)
-    if user && BCrypt::Password.new(user.encrypted_password) == password
+    if user && BCrypt::Password.new(user.encrypted_password) == password && user.disabled != true
       user.update_attribute(:last_login_at,Time.now)
       user
     else
