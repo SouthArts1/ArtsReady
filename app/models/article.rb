@@ -18,6 +18,8 @@ class Article < ActiveRecord::Base
   scope :featured, where(:featured => true)
   scope :recent, order("created_at DESC")
   
+  after_save :notify_admin, :if => "is_public?"
+
   def self.search_public(phrase)
     term = "%#{phrase}%"
     Article.for_public.where("title LIKE ? OR body LIKE ?",term,term) + Article.for_public.tagged_with(term)
@@ -46,6 +48,10 @@ class Article < ActiveRecord::Base
 
   def to_html
     RedCloth.new(body).to_html.html_safe
+  end
+  
+  def notify_admin
+    AdminMailer.review_public(self).deliver
   end
   
 end
