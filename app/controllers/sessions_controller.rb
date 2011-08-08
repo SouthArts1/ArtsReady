@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate(params[:email], params[:password])
-    if user
+    if user && !user.disabled?
       session[:user_id] = user.id
       logger.debug(user.inspect)
       if user.admin?
@@ -15,6 +15,9 @@ class SessionsController < ApplicationController
       else
         redirect_to dashboard_path, :notice => "Logged in!"
       end
+    elsif user && user.disabled?
+      flash[:warning] = "Account has been disabled by an administrator"
+      render "new"
     else
       flash[:warning] = "Invalid email or password"
       render "new"

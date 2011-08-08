@@ -35,6 +35,11 @@ Feature: Sign in
     And I should be signed out
 
   Scenario: A disabled user tries to sign in
+    Given a disabled user exists with an email of "disabled@test.host"
+    When I go to the sign in page
+    And I sign in as "disabled@test.host/password"
+    Then I should see "Account has been disabled by an administrator"
+    And I should be signed out
   
   Scenario: A just registered member tries to login
     Given I am a member of an unapproved organization with email "test@test.host" and password "password"

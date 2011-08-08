@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = find_by_email(email)
-    if user && BCrypt::Password.new(user.encrypted_password) == password && user.disabled != true
+    if user && BCrypt::Password.new(user.encrypted_password) == password
       user.update_attribute(:last_login_at,Time.now)
       user
     else
