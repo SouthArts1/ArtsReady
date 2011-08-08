@@ -11,9 +11,15 @@ CarrierWave.configure do |config|
   config.fog_attributes = {'Cache-Control' => 'max-age=315576000'}
 end
 
+# FA credentials
 # ashenfelterj/ba12AEy6SjgJ
 # AKIAJLDW35SNDYIRVVWA
 # bP6EFpiAvXo4eYlyYgaJJLwO/mVXLLDri8TxKcgB
 
 # fracturedatlas-artsready-dev
 # fracturedatlas-artsready
+
+# TP credentials
+# AKIAIRE5ALCOTXCXK6YQ
+# e9OaMIFYzNXcLKM5hSOl3PJRL0YVpprY4YA2DYVp
+# artsready-staging
