@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    true
+    admin
   end
 
   def encrypt_password

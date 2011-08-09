@@ -21,6 +21,7 @@ describe User do
   
   it "should not be an admin" do
     subject.admin.should be_false
+    subject.is_admin?.should be_false
   end
 
   context "#can_set_battlebuddy_permission_for_article?" do
