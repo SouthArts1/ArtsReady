@@ -13,17 +13,10 @@ describe User do
 
   it { should validate_uniqueness_of(:email)}
 
-#  it { should_not allow_mass_assignment_of(:password) }
-
-  it "should have a default role" do
-    subject.role.should == 'reader'
-  end
+  specify {subject.role.should == 'reader'}
+  specify {subject.admin.should be_false}
+  specify {subject.is_admin?.should be_false}
   
-  it "should not be an admin" do
-    subject.admin.should be_false
-    subject.is_admin?.should be_false
-  end
-
   context "#can_set_battlebuddy_permission_for_article?" do
     it "should be false for user" do
       @member = Factory(:user)
@@ -118,6 +111,10 @@ describe User do
       admin.admin?.should be_true
     end
 
+    it "should be an admin if set" do
+      admin.is_admin?.should be_true
+    end
+
     it "should not have member in the .admins scope" do
       User.admins.should_not include(@ember)
     end
@@ -141,6 +138,13 @@ describe User do
     it "saves the time the password reset was sent" do
       user.send_password_reset
       user.reload.password_reset_sent_at.should be_present
+    end
+    
+    it "sends an password reset email" do
+      # TODO This sends the intro email on the create and then the reset. Probably a better way to do
+      expect {user.send_password_reset}.to change{ActionMailer::Base.deliveries.count}
+      last_email.subject.should eq("ArtsReady Password Reset")
+      last_email.to.should eq([user.email])
     end
   end
 end
