@@ -1,5 +1,7 @@
 Artsready::Application.routes.draw do
 
+  get "pages/(:slug)" => "pages#show"
+
   get "needs/create"
 
   get "get_help" => "buddies#get_help", :as => "get_help"
