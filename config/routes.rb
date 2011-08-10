@@ -14,6 +14,7 @@ Artsready::Application.routes.draw do
     end
     resources :password_resets, :only => [:create]
     resources :articles, :only => [:update, :destroy]
+    resources :pages, :only => [:index, :edit, :update]
     root :to => 'home#dashboard', :as => "dashboard"
   end
 
