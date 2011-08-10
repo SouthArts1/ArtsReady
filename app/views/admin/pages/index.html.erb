@@ -11,7 +11,7 @@
         <tbody>
           <% @pages.each do |page| %>
             <tr>
-              <td class="title"><p><%= link_to page.title, admin_page_path(page) %></p></td>
+              <td class="title"><p><%= link_to page.title, edit_admin_page_path(page) %></p></td>
               <td class="description"><p><%= truncate(page.body) %></p></td>
               <td class="source"><p><%= page.updated_at %></p></td>
             </tr>

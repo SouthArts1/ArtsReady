@@ -1,0 +1,23 @@
+<hgroup>
+  <h1>Edit Public Page</h1>
+</hgroup>
+
+<%= form_for([:admin, @page]) do |f| %>
+  <%= f.error_messages %>
+  <section>
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Save', :class => 'button' %>
+    </div>
+  </section>
+<% end %>
+<p>
+  <%= link_to "View All", admin_pages_path %>
+</p>
