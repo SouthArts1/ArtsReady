@@ -3,6 +3,7 @@ require 'csv'
 puts "Creating South Arts (Admin)"
 org = Organization.create!(:name => 'South Arts', :address => '1800 Peachtree St., NW', :city => 'Atlanta', :state => 'GA', :zipcode => '30309', :active => true)
 admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true, :organization => org, :role => 'manager')
+admin = User.create!(:email=>'jlk@storiedfuture.com', :password => 'password', :password_confirmation => 'password', :first_name => 'JLK', :last_name => 'Test', :admin => true, :organization => org, :role => 'manager')
 admin = User.create!(:email=>'kmalone@southarts.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Katy', :last_name => 'Malone', :admin => true, :organization => org, :role => 'manager')
 
 article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'Featuring ArtsReady', :body => 'Prepare for the unexpected', :description => 'Featured Introduction ArtsReady', :critical_function => 'technology', :featured => true)
