@@ -1,6 +1,5 @@
 Artsready::Application.routes.draw do
 
-  get "pages/(:slug)" => "pages#show"
 
   get "needs/create"
 
@@ -63,21 +62,14 @@ Artsready::Application.routes.draw do
   get "member/library", :as => "library"
 
   # public pages
-  get "home/index"
-  get "about" => "home#about", :as => "about"
-  get "contact" => "home#contact", :as => "contact"
-  get "faq" => "home#faq", :as => "faq"
-  get "links" => "home#links", :as => "links"
-  get "sitemap" => "home#sitemap", :as => "sitemap"
-  get "support" => "home#support", :as => "support"
-  get "tour" => "home#tour", :as => "tour"
+  get "page/:slug" => "pages#show", :as => "page"
+
   get "welcome" => "home#welcome", :as => "welcome"
 
   get "readiness_library" => "home#readiness_library", :as => "readiness_library"
   get "home/public_articles" => "home#public_articles", :as => "public_articles"
   get "home/public_article(/:id)" => "home#public_article", :as => "public_article"
-  get "tbd" => "home#tbd", :as => "tbd"
+
   root :to => "home#index"
 
-  # match ':controller(/:action(/:id(.:format)))'
 end

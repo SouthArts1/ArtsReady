@@ -49,11 +49,11 @@
               <li><%= link_to 'Library', library_path %></li>
               <li><input type="text" placeholder=""/></li>
             <% else %>
-              <li><%= link_to 'About', about_path %></li>
-              <li><%= link_to 'Tour', tour_path %></li>
-              <li><%= link_to 'FAQ', faq_path %></li>
-              <li><%= link_to 'Links', links_path %></li>
-              <li><%= link_to 'Contact', contact_path %></li>
+              <li><%= link_to 'About', page_path('about') %></li>
+              <li><%= link_to 'Tour', page_path('tour') %></li>
+              <li><%= link_to 'FAQ', page_path('faq') %></li>
+              <li><%= link_to 'Links', page_path('useful_links') %></li>
+              <li><%= link_to 'Contact', page_path('contact_us') %></li>
               <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
               <li><%= link_to 'Library', readiness_library_path %></li>
               <li><input type="text" placeholder=""/></li>
@@ -91,11 +91,11 @@
     </p>
     <nav class="f-right">
       <ul>
-        <li><%= link_to 'Sitemap', '/pages/site_map' %></li>
-        <li><%= link_to 'Support Arts Ready', '/pages/support_arts_ready' %></li>
-        <li><%= link_to 'Contact Us', '/pages/contact_us' %></li>
-        <li><%= link_to 'Press Center', '/pages/press_center' %></li>
-        <li><%= link_to 'ArtsReady How to', '/pages/arts_ready_how_to' %></li>
+        <li><%= link_to 'Sitemap', page_path('site_map') %></li>
+        <li><%= link_to 'Support Arts Ready', page_path('support_arts_ready') %></li>
+        <li><%= link_to 'Contact Us', page_path('contact_us') %></li>
+        <li><%= link_to 'Press Center', page_path('press_center') %></li>
+        <li><%= link_to 'ArtsReady How to', page_path('arts_ready_how_to') %></li>
       </ul>
     </nav>
   </footer>
