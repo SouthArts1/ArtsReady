@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20110810145558) do
 
   create_table "pages", :force => true do |t|
     t.string   "title"
+    t.string   "slug"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"

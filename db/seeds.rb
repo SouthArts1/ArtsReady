@@ -154,7 +154,8 @@ CSV.parse(action_items) do |row|
   q.action_items.create(:description => row[0], :import_id => row[1], :recurrence => row[3])
 end
 
+puts "Creating pages"
 pages = ['About','Staff','Tour','FAQ','Get ArtsReady','Give ArtsReady','List of current subsidizers','Useful Links','Site Map','Support ArtsReady','Contact Us','Press Center','ArtsReady How To']
 pages.each do |page|
-  Page.create(:title => page, :body => "#{page} content")
+  Page.create(:title => page, :body => "#{page} content", :slug => page.gsub(' ','').underscore)
 end
