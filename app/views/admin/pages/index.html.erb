@@ -1,0 +1,22 @@
+<div class="grid_12">
+  <h1>Public Web Pages</h1>
+	<hr>
+    <section>
+      <table class="resource side-nav-panels">
+        <thead>
+          <td><p>Title</p></td>
+          <td><p>Extract</p></td>
+          <td><p>Last Update</p></td>
+        </thead>
+        <tbody>
+          <% @pages.each do |page| %>
+            <tr>
+              <td class="title"><p><%= link_to page.title, admin_page_path(page) %></p></td>
+              <td class="description"><p><%= truncate(page.body) %></p></td>
+              <td class="source"><p><%= page.updated_at %></p></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+</div>
