@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :page do
     title "Title"
     body "Some body"
+    slug "test"
   end
 end

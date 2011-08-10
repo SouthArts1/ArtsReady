@@ -7,10 +7,6 @@ describe HomeController do
       get("/").should route_to("home#index")
     end
 
-    it "routes to #index" do
-      get("/home/index").should route_to("home#index")
-    end
-
     it "routes to #readiness_library" do
       get("/readiness_library").should route_to("home#readiness_library")
     end

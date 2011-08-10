@@ -2,9 +2,11 @@ require 'spec_helper'
 
 describe PagesController do
 
+  let(:page) { Factory(:page) }
+  
   describe "GET 'show'" do
     it "should be successful" do
-      get 'show'
+      get 'show', :slug => page.slug
       response.should be_success
     end
   end
