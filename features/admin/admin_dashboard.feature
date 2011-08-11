@@ -10,4 +10,3 @@ Feature: Admin dashboard
     And fill in "password" with "password"
     And I press "Sign In"
     Then I should be on the admin dashboard page
-    
