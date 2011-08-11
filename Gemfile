@@ -37,6 +37,7 @@ group :development do
   gem 'rails-footnotes', '>= 3.7'
   gem 'slowgrowl'
   gem 'active_reload'
+  gem 'heroku_san'
 end
 
 group :test do
