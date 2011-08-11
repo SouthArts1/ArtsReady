@@ -21,6 +21,7 @@ if Rails.env.test? or Rails.env.cucumber?
 elsif Rails.env.production?
 
   CarrierWave.configure do |config|
+    config.cache_dir = "#{Rails.root}/tmp/uploads"
     config.fog_credentials = {
       :provider               => 'AWS',
       :aws_access_key_id      => 'AKIAJLDW35SNDYIRVVWA',
@@ -36,6 +37,7 @@ elsif Rails.env.production?
 elsif Rails.env.staging?
 
   CarrierWave.configure do |config|
+    config.cache_dir = "#{Rails.root}/tmp/uploads"
     config.fog_credentials = {
       :provider               => 'AWS',
       :aws_access_key_id      => 'AKIAJLDW35SNDYIRVVWA',
