@@ -27,3 +27,4 @@ Artsready::Application.configure do
 
   config.action_mailer.default_url_options = { :host => 'artsready.dev' }
 end
+CARRIERWAVE_S3_BUCKET = 'fracturedatlas-artsready-dev'
