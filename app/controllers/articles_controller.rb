@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   def index
     @featured_articles = Article.featured
     if params[:term]
-      @articles = current_org.articles.search(params[:term]) + Article.public_search(params[:term])
+      @articles = current_org.articles.search(params[:term]) + Article.search_public(params[:term])
     else
       @articles = current_org.articles + Article.for_public
     end
