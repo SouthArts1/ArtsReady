@@ -19,14 +19,19 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to edit_organization_user_path(current_org,@user), :notice => "User updated"
     else
+      logger.debug(@user.errors.inspect)
       redirect_to edit_organization_user_path(current_org,@user), :notice => "Problem updating user"
     end
 
   end
   
-  
   def index
     @users = current_org.users
+  end
+  
+  def profile
+    @user = current_user
+    render :edit
   end
 
 end

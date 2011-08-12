@@ -1,13 +1,28 @@
 <h1>My Info</h1>
 
 <ul class="top-nav settings">
-    <li class="active"><%= link_to 'My Info', edit_user_path(current_user) %></li>
+    <% if @user == current_user %>
+    <li class="active"><%= link_to 'My Info', profile_path %></li>
+    <% end %>
     <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
     <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
+    <% if @user != current_user %>
+    <li class="active"><%= link_to "Edit User", edit_organization_user_path(@user) %></li>
+    <% end %>
 </ul>
 
 <div class="grid_8">
   <section>
+    <% if @user.errors.any? %>
+    <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @user.errors.full_messages %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= form_for(@user) do |f| %>
     <div class="grid_4 alpha">
       <p>
