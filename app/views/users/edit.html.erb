@@ -3,6 +3,8 @@
 <ul class="top-nav settings">
     <% if @user == current_user %>
     <li class="active"><%= link_to 'My Info', profile_path %></li>
+    <% else %>
+    <li><%= link_to 'My Info', profile_path %></li>    
     <% end %>
     <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
     <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
@@ -41,6 +43,11 @@
       <%= f.label :email %>
       <%= f.text_field :email %>
     </p>
+    <% if current_user.role == 'manager' && current_user != @user %>
+    <p>
+      <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| r.humanize} %></td>
+    </p>
+    <% end %>
     <p>
       <%= f.label :password %>
       <%= f.password_field :password %>
