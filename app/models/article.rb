@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
 
   validates_presence_of :title
   validates_presence_of :description
+  validates_presence_of :critical_function
 
   scope :on_critical_list, where(:on_critical_list => true)
   scope :only_public, where("visibility = 'public' AND disabled = false AND featured = false")

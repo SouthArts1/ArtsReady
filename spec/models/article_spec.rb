@@ -9,6 +9,7 @@ describe Article do
   
   it { should validate_presence_of(:title) } 
   it { should validate_presence_of(:description) }
+  it { should validate_presence_of(:critical_function) }
 
   it { subject.is_public?.should be_false}
   it { subject.is_featured?.should be_false}
