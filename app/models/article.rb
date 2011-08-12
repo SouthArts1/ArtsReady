@@ -14,6 +14,7 @@ class Article < ActiveRecord::Base
   validates_presence_of :description
 
   scope :on_critical_list, where(:on_critical_list => true)
+  scope :only_public, where("visibility = 'public' AND disabled = false AND featured = false")
   scope :for_public, where("visibility = 'public' AND disabled = false")
   scope :featured, where(:featured => true)
   scope :recent, order("created_at DESC")
