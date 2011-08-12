@@ -7,7 +7,6 @@ describe AdminMailer do
 
     it "renders the headers" do
       admin = Factory(:sysadmin)
-      puts User.admins.inspect
       mail.subject.should eq("There is a new public article to review.")
       mail.to.should eq([admin.email])
       mail.from.should eq(["no-reply@artsready.org"])
