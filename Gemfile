@@ -23,7 +23,7 @@ gem 'heroku'
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'
-  gem 'growl'
+  gem 'growl_notify'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
