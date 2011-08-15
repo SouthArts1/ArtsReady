@@ -9,6 +9,7 @@ Feature: Create articles
 		And I fill in "article[title]" with "this is a test"
 		And I fill in "article[description]" with "this is only a test"
 		And I fill in "article[body]" with "this is not an actual emergency"
+		And I select "People" from "article[critical_function]"
 		And I press "Save"
 		Then I should see "created article"
 		And I should see "this is a test"

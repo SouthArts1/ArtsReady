@@ -5,6 +5,7 @@ FactoryGirl.define do
     description Forgery::LoremIpsum.sentence
     body Forgery::LoremIpsum.paragraphs(3)
     visibility 'private'
+    critical_function 'test'
     
     factory :public_article do
       visibility 'public'
