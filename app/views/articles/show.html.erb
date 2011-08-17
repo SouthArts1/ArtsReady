@@ -1,6 +1,6 @@
 <div class="grid_12">
   <hgroup>
-    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' %>
+    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' if @article.organization == current_org %>
     <h1><%= @article.title %></h1>
   </hgroup>
 </div>
@@ -52,19 +52,17 @@
 <div class="grid_4">
   <div class="library-sidebar">
     <h5>Author</h5>
-    <p><%= link_to @article.user_name %> (<%#= pluralize(@article.user.articles.for_public.count, 'other article') %>)</p>
+    <p><%= @article.user_name %> <%#= pluralize(@article.user.articles.for_public.count, 'other article') %></p>
 
     <h5>Created</h5>
     <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
 
     <h5>Critical Function</h5>
-    <p><%= link_to @article.critical_function %></p>
+    <p><%= @article.critical_function %></p>
 
     <h5>Tags</h5>
-    <p><%= @article.tag_list.collect {|t| link_to t }.join(', ').html_safe %></p>
+    <p><%= @article.tag_list.to_s %></p>
 
-    <h5>Stats</h5>
-    <p>3 Comments</p>
   </div>
   <%= render 'admin/articles/admin_toolbar', :locals => {:article => @article} if current_user.admin? && @article.is_public?  %>
 </div>
