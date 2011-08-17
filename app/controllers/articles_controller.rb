@@ -6,7 +6,6 @@ class ArticlesController < ApplicationController
     else
       @articles = current_org.articles.only_private + Article.for_public
     end
-    @articles.uniq
   end
 
   def critical_list
