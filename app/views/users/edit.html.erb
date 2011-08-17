@@ -45,7 +45,7 @@
     </p>
     <% if current_user.role == 'manager' && current_user != @user %>
     <p>
-      <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| r.humanize} %></td>
+      <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| [r.humanize, r]} %></td>
     </p>
     <% end %>
     <p>

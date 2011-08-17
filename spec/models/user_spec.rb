@@ -17,12 +17,28 @@ describe User do
   specify {subject.admin.should be_false}
   specify {subject.is_admin?.should be_false}
   
+  context "roles should only be chosen from the list in the Artsready domain" do
+    it { should allow_value('reader').for(:role)}
+    it { should allow_value('editor').for(:role)}
+    it { should allow_value('executive').for(:role)}
+    it { should allow_value('manager').for(:role)}
+
+    it { should_not allow_value('Reader').for(:role)}
+    it { should_not allow_value('Editor').for(:role)}
+    it { should_not allow_value('Executive').for(:role)}
+    it { should_not allow_value('Manager').for(:role)}
+
+    it { should_not allow_value('').for(:role)}  
+    it { should_not allow_value('admin').for(:role)}  
+    it { should_not allow_value('bOb').for(:role)}  
+  end
+  
+  
   context "first user for an organization should be a manager" do
     let(:organization) {Factory(:new_organization)}
     
     it "should set the first user for an organization to a manager" do
       u=organization.users.create(:first_name => 'First', :last_name => 'Last', :email => 'first_user@test.host')
-      u.should be_valid
       u.role.should eq('manager')
     end
     

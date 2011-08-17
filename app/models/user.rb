@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
   validates_uniqueness_of :email
+  
+  validates_inclusion_of :role, :in => ArtsreadyDomain::ROLES
 
   attr_accessor :password
 
@@ -20,9 +22,9 @@ class User < ActiveRecord::Base
   scope :admins, where(:admin => true)
   
   before_validation :set_first_password, :if => "password.nil?"
+  before_validation :set_default_role
 
   before_save :encrypt_password
-  before_save :set_default_role
   
   after_create :send_welcome_email
 
@@ -68,7 +70,7 @@ class User < ActiveRecord::Base
   end
 
   def set_default_role
-    self.role = 'manager' unless organization.is_approved?
+    self.role = 'manager' unless organization && organization.is_approved?
     self.role ||= 'reader'
   end
   
