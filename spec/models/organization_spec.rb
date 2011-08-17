@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Organization do
 
-  subject { Factory(:organization) }
+  subject { Organization.new }
   
   it { should have_many(:articles) }
   it { should have_many(:todos) }
@@ -19,6 +19,8 @@ describe Organization do
   it {subject.assessment_percentage_complete.should be_nil}
   it {subject.todo_completion.should be_zero} 
   it {subject.declared_crisis?.should be_false}
+  it {subject.active?.should be_false}
+  it {subject.is_approved?.should be_false}
   
   context "geocoding address" do
     it "should geocode address when created" do

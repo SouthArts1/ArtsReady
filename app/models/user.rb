@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def set_default_role
+    self.role = 'manager' unless organization.is_approved?
     self.role ||= 'reader'
   end
   

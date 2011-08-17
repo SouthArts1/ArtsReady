@@ -59,7 +59,13 @@ class Organization < ActiveRecord::Base
     # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
   end
+  
+  def is_approved?
+    active
+  end
 
+  private 
+   
   def send_sign_up_email
     logger.debug("Sending sign_up email for organization #{name}")
     OrganizationMailer.sign_up(self) rescue logger.debug("send sign_up email failed")
