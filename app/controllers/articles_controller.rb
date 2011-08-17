@@ -1,11 +1,10 @@
 class ArticlesController < ApplicationController
 
   def index
-    @featured_articles = Article.featured
     if params[:term]
-      @articles = current_org.articles.search(params[:term]) + Article.search_public(params[:term])
+      @articles = current_org.articles.search(params[:term]) + Article.search_other_public(current_org,params[:term])
     else
-      @articles = current_org.articles + Article.for_public
+      @articles = current_org.articles + Article.where('organization_id !=?', current_org).for_public
     end
     @articles.uniq
   end

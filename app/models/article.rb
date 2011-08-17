@@ -24,12 +24,17 @@ class Article < ActiveRecord::Base
 
   def self.search_public(phrase)
     term = "%#{phrase}%"
-    Article.for_public.where("title LIKE ? OR body LIKE ?",term,term) + Article.for_public.tagged_with(term)
+    Article.for_public.where("title LIKE ? OR body LIKE ?",term,term)# + Article.for_public.tagged_with(term)
+  end
+
+  def self.search_other_public(org,phrase)
+    term = "%#{phrase}%"
+    Article.where('organization_id !=?',org).for_public.where("title LIKE ? OR body LIKE ?",term,term)# + Article.where('organization_id !=?',org).for_public.tagged_with(term)
   end
 
   def self.search(phrase)
     term = "%#{phrase}%"
-    Article.where("title LIKE ? OR body LIKE ?",term,term) + Article.tagged_with(term)
+    Article.where("title LIKE ? OR body LIKE ?",term,term)# + Article.tagged_with(term)
   end
   
   def is_public?
