@@ -87,8 +87,9 @@ describe Admin::PagesController do
 
     describe "PUT 'edit'" do
       it "should succeed" do
-        page.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => page.id, :page => {'these' => 'params'}
+        pending
+        page.should_receive(:update_attributes).with(:page => {'body' => 'params'})
+        put :update, :id => page.id, :page => {'body' => 'params'}
         response.should redirect_to admin_pages_path
       end
     end
