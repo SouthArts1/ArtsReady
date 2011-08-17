@@ -19,32 +19,26 @@
   <section>`
     <h4>Comments</h4>
     <ul class="comments">
+      <% @article.comments.each do |comment| %>
       <li>
         <div class="comments-meta clearfix">
-          <p class="comments-author f-left">Hannah Hero, Ohno Opera Company</p>
-          <p class="comments-time f-right">January 10, 2011</p>
+          <p class="comments-author f-left"><%= comment.user.name %>, <%= comment.user.organization.name %></p>
+          <p class="comments-time f-right"><%= comment.created_at.to_date.to_formatted_s(:long) %></p>
         </div>
-        <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+        <p><%= comment.comment %></p>
       </li>
+      <% end %>
     </ul>
   </section>
   <section>
     <h4>Leave your comment</h4>
     <div class="create-comment">
-      <div class="grid_4 alpha">
-        <p>
-          <input type="text" placeholder="Name"/>
-        </p>
-      </div>
-      <div class="grid_4 omega">
-        <p>
-          <input type="text" placeholder="Company"/>
-        </p>
-      </div>
       <div class="grid_8">
-        <textarea placeholder="Comment"></textarea>
+        <%= form_for([@article,@article.comments.new]) do |f| %>
+        <%= f.text_area :comment, :placeholder => "Comment" %>
         <br><br>
-        <input type="submit" value="Submit" class="button">
+        <%= f.submit :class => "button" %>
+        <% end %>
       </div>
     </div>
   </section>

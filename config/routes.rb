@@ -21,10 +21,9 @@ Artsready::Application.routes.draw do
 
   resources :articles do
     get 'critical_list', :on => :collection
+    resources :comments, :only => [:create]
   end
   
-  match "/articles/new/(:id)" => "articles#new"
-
   resources :resources
   resources :organizations, :only => [:edit, :update, :show, :new, :create] do
     resources :users

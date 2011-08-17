@@ -7,7 +7,10 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :todo
 
+  has_many :comments
+  
 #  attr_accessible :title, :body, :tags, :link, :user, :visibility
+
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
 
   validates_presence_of :title
