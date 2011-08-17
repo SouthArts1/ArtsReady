@@ -17,6 +17,17 @@ describe User do
   specify {subject.admin.should be_false}
   specify {subject.is_admin?.should be_false}
   
+  context "first user for an organization should be a manager" do
+    let(:organization) {Factory(:new_organization)}
+    
+    it "should set the first user for an organization to a manager" do
+      u=organization.users.create(:first_name => 'First', :last_name => 'Last', :email => 'first_user@test.host')
+      u.should be_valid
+      u.role.should eq('manager')
+    end
+    
+  end
+  
   context "#can_set_battlebuddy_permission_for_article?" do
     it "should be false for user" do
       @member = Factory(:user)
