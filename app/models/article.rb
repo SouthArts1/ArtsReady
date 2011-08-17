@@ -18,13 +18,15 @@ class Article < ActiveRecord::Base
   scope :only_public, where("visibility = 'public' AND disabled = false AND featured = false")
   scope :for_public, where("visibility = 'public' AND disabled = false")
   scope :featured, where(:featured => true)
+  scope :only_private, where(:visibility => 'private')
   scope :recent, order("created_at DESC")
+  scope :matching, lambda { |term| where("title LIKE ? OR body LIKE ?","%#{term}%","%#{term}%") }  
   
   after_save :notify_admin, :if => "is_public?"
 
   def self.search_public(phrase)
     term = "%#{phrase}%"
-    Article.for_public.where("title LIKE ? OR body LIKE ?",term,term)# + Article.for_public.tagged_with(term)
+    Article.for_public.where("title LIKE '%?%' OR body LIKE %?%",term,term)# + Article.for_public.tagged_with(term)
   end
 
   def self.search_other_public(org,phrase)

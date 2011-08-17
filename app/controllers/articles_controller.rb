@@ -2,9 +2,9 @@ class ArticlesController < ApplicationController
 
   def index
     if params[:term]
-      @articles = current_org.articles.search(params[:term]) + Article.search_other_public(current_org,params[:term])
+      @articles = current_org.articles.only_private.matching(params[:term]) + Article.for_public.matching(params[:term])
     else
-      @articles = current_org.articles + Article.where('organization_id !=?', current_org).for_public
+      @articles = current_org.articles.only_private + Article.for_public
     end
     @articles.uniq
   end
