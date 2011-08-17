@@ -7,6 +7,7 @@ class ArticlesController < ApplicationController
     else
       @articles = current_org.articles + Article.for_public
     end
+    @articles.uniq
   end
 
   def critical_list
