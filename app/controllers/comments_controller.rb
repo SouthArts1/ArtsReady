@@ -2,8 +2,8 @@ class CommentsController < ApplicationController
 
   def create
     @article = Article.find(params[:article_id])
+    params[:comment] = params[:comment].merge({"user_id" => current_user.id})
     @comment = @article.comments.create(params[:comment])
-    @comment.user = current_user
     if @comment.save
       redirect_to article_path(@article), :notice => "Comment added"
     else

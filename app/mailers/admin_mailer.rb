@@ -12,4 +12,9 @@ class AdminMailer < ActionMailer::Base
     mail :to => admin.email, :subject => "There is a new public article to review."
   end
   
+  def review_comment(comment,admin)
+    @comment = comment
+    mail :to => admin.email, :subject => "There is a new comment to review."
+  end
+  
 end
