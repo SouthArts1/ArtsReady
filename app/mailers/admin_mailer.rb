@@ -7,11 +7,9 @@ class AdminMailer < ActionMailer::Base
   #
   #   en.admin.review_public.subject
   #
-  def review_public(article)
+  def review_public(article,admin)
     @article = article
-    User.admins.each do |admin|
-      mail :to => admin.email, :subject => "There is a new public article to review."
-    end
+    mail :to => admin.email, :subject => "There is a new public article to review."
   end
   
 end

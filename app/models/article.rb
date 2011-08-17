@@ -53,7 +53,9 @@ class Article < ActiveRecord::Base
   end
   
   def notify_admin
-    AdminMailer.review_public(self).deliver
+    User.admins.each do |admin|
+      AdminMailer.review_public(self,admin).deliver
+    end    
   end
   
 end
