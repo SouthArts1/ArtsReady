@@ -47,16 +47,14 @@
               <li><%= link_to 'Lend a Hand', lend_a_hand_path %></li>
               <li><%= link_to 'Get Help', get_help_path %></li>
               <li><%= link_to 'Library', library_path %></li>
-              <li><input type="text" placeholder=""/></li>
             <% else %>
               <li><%= link_to 'About', page_path('about') %></li>
               <li><%= link_to 'Tour', page_path('tour') %></li>
               <li><%= link_to 'FAQ', page_path('faq') %></li>
-              <li><%= link_to 'Links', page_path('useful_links') %></li>
-              <li><%= link_to 'Contact', page_path('contact_us') %></li>
               <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
+              <li><%= link_to 'Give ArtsReady', page_path('support_arts_ready') %></li>
+              <li><%= link_to 'Useful Links', page_path('useful_links') %></li>
               <li><%= link_to 'Library', readiness_library_path %></li>
-              <li><input type="text" placeholder=""/></li>
             <% end %>
           </ul>
         </nav>
