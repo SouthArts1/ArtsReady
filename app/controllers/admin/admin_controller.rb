@@ -3,8 +3,6 @@ class Admin::AdminController < ApplicationController
   skip_before_filter :authenticate!
   before_filter :authenticate_admin!
 
-  layout "admin"
-
   helper_method :admin_signed_in?
 
   def authenticate_admin!(*args)

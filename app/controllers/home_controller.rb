@@ -28,7 +28,4 @@ class HomeController < ApplicationController
   def welcome
   end
 
-  def tbd
-  end
-
 end
