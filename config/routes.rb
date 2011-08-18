@@ -26,10 +26,11 @@ Artsready::Application.routes.draw do
   
   resources :resources
   resources :organizations, :only => [:edit, :update, :show, :new, :create] do
-    resources :users
     resources :articles do
       get 'critical_list', :on => :collection
     end
+    resources :battle_buddy_requests, :only => [:create, :show]
+    resources :users
   end
   
   resources :crises do
