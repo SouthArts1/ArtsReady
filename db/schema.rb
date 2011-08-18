@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817202321) do
+ActiveRecord::Schema.define(:version => 20110818000908) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(:version => 20110817202321) do
     t.integer  "organization_id"
     t.integer  "buddy_id"
     t.boolean  "accepted",        :default => false
-    t.date     "requested_on"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,9 +5,10 @@ describe Organization do
   subject { Organization.new }
   
   it { should have_many(:articles) }
-  it { should have_many(:todos) }
-  it { should have_many(:resources) }
+  it { should have_many(:battle_buddy_requests) }
   it { should have_many(:crises) }
+  it { should have_many(:resources) }
+  it { should have_many(:todos) }
   
   it { should validate_presence_of(:name)} 
   it { should validate_presence_of(:address)} 

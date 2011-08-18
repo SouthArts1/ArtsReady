@@ -14,8 +14,10 @@
     Available Resources: <%= link_to_function 'Prop storage' %> and <%= link_to_function 'personnel' %>
   </div>
   <% unless buddy.is_my_buddy? %>
-    <button class="button" style="padding:5px 10px;">
-      <%= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
-    </button>
+      <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
+      <%= f.hidden_field :buddy_id, :value => buddy.id %>
+      <%= f.submit 'Add as Battle Buddy' %>
+      <% end %>
+      <%#= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
   <% end %>
 </div>
