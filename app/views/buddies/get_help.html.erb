@@ -41,7 +41,12 @@
     <h2 class="buddy"><%= pluralize(@pending_buddies.size, "Pending Battle Buddy") %></h2>
     <div class="buddies">
       <% @pending_buddies.each do |buddy| %>
-      <%#= render :partial => 'buddy', :object => buddy   %>
+      <div class="buddy">
+      <div class="badge"><%= image_tag('map_marker.png') %></div>
+      <h3 class="name plain"><%= link_to buddy.name, "/wireframe/battlebuddies_buddy?title=#{buddy.name}" %></h3>
+      <div class="address"><%= link_to buddy.full_street_address %></div>
+      <div class="requested-help">Available Resources:</div>
+      </div>
       <% end %>
     </div>
   </section>

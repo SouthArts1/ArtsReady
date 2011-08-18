@@ -6,8 +6,8 @@ class Organization < ActiveRecord::Base
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
   has_many :battle_buddy_requests
-  has_many :battle_buddies, :through => :battle_buddy_requests, :source => :organization, :conditions => ["battle_buddy_requests.accepted IS true"]
-  has_many :pending_battle_buddies, :through => :battle_buddy_requests, :source => :organization, :conditions => ["battle_buddy_requests.accepted IS NOT true"]
+  has_many :battle_buddies, :through => :battle_buddy_requests, :conditions => ["battle_buddy_requests.accepted IS true"]
+  has_many :pending_battle_buddies, :through => :battle_buddy_requests, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :source => :battle_buddy
   has_many :crises
   has_many :resources
   has_many :todos
