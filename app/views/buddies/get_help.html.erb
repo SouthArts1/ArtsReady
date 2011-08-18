@@ -23,7 +23,7 @@
 </div>
 <div class="grid_8">
   <section>
-    <h2 class="buddy"><%= pluralize(@buddies.size, "Nearby Organization") %> Who Can Help</h2>
+    <h2 class="buddy"><%= pluralize(@available_buddies.size, "Nearby Organization") %> Who Can Help</h2>
     <div class="buddy-filter">
       Show buddies within <%= text_field_tag :miles, 50, :style => 'width: 40px;' %> miles offering
       <%= select_tag :resource, options_for_select(['Any Help', 'Office Space', 'Personnel', 'Prop Storage']) %>
@@ -31,7 +31,7 @@
       <%= link_to_function 'Filter', '', :class => 'button' %>
     </div>
     <div class="buddies">
-      <% @buddies.each do |buddy| %>
+      <% @available_buddies.each do |buddy| %>
       <%= render :partial => 'buddy', :object => buddy   %>
       <% end %>
     </div>
