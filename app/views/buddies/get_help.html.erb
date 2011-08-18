@@ -40,7 +40,9 @@
   <section>
     <h2 class="buddy"><%= pluralize(@pending_buddies.size, "Pending Battle Buddy") %></h2>
     <div class="buddies">
-      <%#= render :partial => 'buddy', :locals => {:title => 'Amaryllis Theatre Company: The Playground at the Adrienne', :buddy => false} %>
+      <% @pending_buddies.each do |buddy| %>
+      <%#= render :partial => 'buddy', :object => buddy   %>
+      <% end %>
     </div>
   </section>
 </div>

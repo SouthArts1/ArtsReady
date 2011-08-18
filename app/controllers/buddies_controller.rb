@@ -2,7 +2,7 @@ class BuddiesController < ApplicationController
 
   def get_help
     @buddies = current_org.nearbys(50).in_buddy_network
-    @pending_buddies = []
+    @pending_buddies = current_org.battle_buddy_requests.pending
   end
 
   def lend_a_hand
