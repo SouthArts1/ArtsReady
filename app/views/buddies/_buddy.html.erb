@@ -6,7 +6,7 @@
       <%= image_tag('map_marker.png') %>
     <% end %>
   </div>
-  <h3 class="name plain"><%= link_to buddy.name, "/wireframe/battlebuddies_buddy?title=#{buddy.name}" %></h3>
+  <h3 class="name plain"><%= link_to buddy.name, buddy_path(buddy) %></h3>
   <div class="address">
     <%= buddy.distance.round %> miles away: <%= link_to buddy.full_street_address %>
   </div>

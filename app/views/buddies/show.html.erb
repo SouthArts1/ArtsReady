@@ -1,0 +1,79 @@
+<div class="grid_8" style="margin-bottom:20px;">
+  <h1>Battle Buddy Network</h1>
+</div>
+<div class="grid_4 alpha">
+  <div style="margin-left:20px">
+  <%= render :partial => '/shared/crisis_switch', :locals => {:float => 'left'} %>
+  </div>
+</div>
+
+<div class="grid_12 alpha">
+  <ul class="top-nav battle">
+    <li><%= link_to "Lend a Hand", lend_a_hand_path %></li>
+    <li><%= link_to "Find a Buddy", get_help_path %></li>
+    <li><%= link_to "Crisis Console", crisis_path(current_org.crisis) if current_org.declared_crisis?%></li>
+    <li><%= link_to "Our Profile", buddies_profile_path %></li>
+  </ul>
+</div>
+
+<div class="grid_4">
+  <%= gmaps(
+  "map_options" => { "id" => "map_canvas", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => false},
+  "markers" => { "data" => @buddy.to_gmaps4rails}) %>
+  <div class="map-address">
+    <p>
+      <%= @buddy.name %><br />
+      <%= @buddy.full_street_address %>
+    </p>
+  </div>
+</div>
+<div class="grid_8">
+  <section>
+    <div class="grid_4 alpha">
+      <h2 class="buddy"><%= params[:title] %></h2>
+      <div>
+        Jim Johnson (Director)<br />
+        (404) 330-6000<br />
+        info@somewhere.org<br />
+      </div>
+    </div>
+    <div class="grid_4 omega">
+      <% unless current_org.battle_buddies.include?(@buddy) %>
+        <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
+        <%= f.hidden_field :battle_buddy_id, :value => @buddy.id %>
+        <%= f.submit 'Add as Battle Buddy' %>
+        <% end %>
+        <%#= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
+      <% end %><br />
+      <%= link_to_function 'Message', "", :class => 'button white buddy-action' %><br />
+      <%= link_to_function 'Block', "", :class => 'button weak buddy-action' %><br />
+    </div>
+  </section>
+  <section>
+    <h3 class="buddy">What They Can Offer</h3>
+    <div class="grid_4 alpha">
+      <div class="resource offer">
+        <h3 class="name plain nopad"><%= link_to_function 'Prop Storage' %></h3>
+        <div class="details">
+          <p>We've got about 4"x5" free in our storage locker. We've also got a pickup if you need help moving anything...</p>
+        </div>
+      </div>
+      
+      <div class="resource offer">
+        <h3 class="name plain nopad"><%= link_to_function 'Personnel' %></h3>
+        <div class="details">
+          <p>Our expert accountant, Sarah, is available for a few hours of consulting over the phone. She has tons of experience...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid_4 omega">
+      <div class="resource offer">
+        <h3 class="name plain nopad"><%= link_to_function 'Office Space' %></h3>
+        <div class="details">
+          <p>We've got 2 extra desks at our office on Peach Tree Street. We can provide internet and phone ac...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
