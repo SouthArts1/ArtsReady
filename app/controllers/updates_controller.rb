@@ -1,7 +1,10 @@
 class UpdatesController < ApplicationController
 
   def create
-    @update = current_org.crisis.updates.create(params[:update])
+    @crisis = Crisis.find(params[:crisis_id])
+    @update = @crisis.updates.create(params[:update])
+    @update.user = current_user
+    @update.organization = current_org
     if @update.save
       redirect_to crisis_path(current_org.crisis), :notice => "Message sent"
     else

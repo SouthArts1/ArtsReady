@@ -12,6 +12,7 @@ class Organization < ActiveRecord::Base
   has_many :crises
   has_many :resources
   has_many :todos
+  has_many :updates
   has_many :users
 
   accepts_nested_attributes_for :users
