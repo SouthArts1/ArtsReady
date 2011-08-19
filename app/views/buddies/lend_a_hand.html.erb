@@ -20,9 +20,7 @@
   <section>
     <h2 class="buddy">Organizations in Need</h2>
     <div class="buddies">
-			<% @crises.each do |crisis| %>
-        <%= render :partial => 'crisis', :object => crisis %>
-			<% end %>
+      <%= render :partial => 'crisis', :collection => @crises %>
     </div>
   </section>
 </div>
@@ -31,10 +29,19 @@
   <section>
     <% @crises.each do |crisis| %>
     <h2 class="buddy">Crisis Log (<%= crisis.organization.name %>)</h2>
-    <table id="messages">
-      <% crisis.updates.each do |update| %>
-        <%= render 'crises/update', :update => update %>
+    <div id="crisis-update" style="margin-bottom: 20px;">
+      <%= form_for([crisis,Update.new]) do |f| %>
+      <div class="grid_10 alpha">
+        <%= f.text_area :message, :rows => 2, :placeholder => 'Send crisis update' %>
+      </div>
+      <div class="grid_2 omega">
+        <%= f.submit 'Report', :class => 'button blue' %>
+      </div>
       <% end %>
+      <div class="clear"></div>
+    </div>
+    <table id="messages">
+      <%= render :partial => 'crises/update', :collection => crisis.updates.order("created_at DESC") %>
     </table>
     <% end %>
   </section>

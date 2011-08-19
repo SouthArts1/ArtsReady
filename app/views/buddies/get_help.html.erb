@@ -30,9 +30,7 @@
       <% end %>
     </div>
     <div class="buddies">
-      <% @buddies.each do |buddy| %>
-      <%= render :partial => 'buddy', :object => buddy   %>
-      <% end %>
+      <%= render :partial => 'buddy', :collection => @buddies %>
     </div>
   </section>
 </div>

@@ -6,9 +6,9 @@ class UpdatesController < ApplicationController
     @update.user = current_user
     @update.organization = current_org
     if @update.save
-      redirect_to crisis_path(current_org.crisis), :notice => "Message sent"
+      redirect_to :back, :notice => "Message sent"
     else
-      redirect_to crisis_path(current_org.crisis), :notice => "Problem saving your update"
+      redirect_to :back, :notice => "Problem saving your update"
     end
   end
 
