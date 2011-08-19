@@ -38,6 +38,7 @@ group :development do
   gem 'slowgrowl'
   gem 'active_reload'
   gem 'heroku_san'
+  gem 'ruby-debug19'
 end
 
 group :test do
