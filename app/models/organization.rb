@@ -26,12 +26,13 @@ class Organization < ActiveRecord::Base
 
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
-  scope :in_crisis, joins(:crises).where('crises.resolved_on IS NULL')
   scope :nearing_expiration, where('0=1')
-
+  scope :in_crisis, includes(:crisis).where('crises.resolved_on IS NULL')
+  
   delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
+  
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
   end

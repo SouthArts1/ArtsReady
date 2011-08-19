@@ -16,37 +16,27 @@
   </ul>
 </div>
 
-<div class="grid_4">
-  <%= gmaps(
-  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => false},
-  "markers" => { "data" => @buddies.to_gmaps4rails}) %>
-</div>
-
-<div class="grid_8">
+<div class="grid_5">
   <section>
-    <h2 class="buddy">Messages</h2>
-    <table id="messages">
-      <% 5.times do %>
-        <%#= render 'crises/update' %>
-      <% end %>
-    </table>
-    <div id="messages-nav">
-      <%= link_to '&raquo; more'.html_safe, "", :class => 'button white' %>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="buddy"><%= @crises.count %> Nearby Organizations in Need</h2>
-    <div class="buddy-filter">
-      Show buddies within <%= text_field_tag :miles, 50, :style => 'width: 40px;' %> miles looking for
-      <%= select_tag :resource, options_for_select(['Any Help', 'Office Space', 'Personnel', 'Prop Storage']) %>
-      &nbsp; 
-      <%= link_to_function 'Filter', '', :class => 'button' %>
-    </div>
+    <h2 class="buddy">Organizations in Need</h2>
     <div class="buddies">
 			<% @crises.each do |crisis| %>
-      <%= render :partial => 'buddy', :object => crisis   %>
+        <%= render :partial => 'crisis', :object => crisis %>
 			<% end %>
     </div>
   </section>
+</div>
+
+<div class="grid_7">
+  <section>
+    <% @crises.each do |crisis| %>
+    <h2 class="buddy">Crisis Log (<%= crisis.organization.name %>)</h2>
+    <table id="messages">
+      <% crisis.updates.each do |update| %>
+        <%= render 'crises/update', :update => update %>
+      <% end %>
+    </table>
+    <% end %>
+  </section>
+
 </div>
