@@ -6,6 +6,7 @@ Artsready::Application.routes.draw do
   get "get_help" => "buddies#get_help", :as => "get_help"
   get "lend_a_hand" => "buddies#lend_a_hand", :as => "lend_a_hand"
   get "buddies" => "buddies#index", :as => "buddies"
+  get "buddy(/:id)" => "buddies#show", :as => "buddy"
   get "buddies/profile"
 
   namespace :admin do
@@ -29,7 +30,7 @@ Artsready::Application.routes.draw do
     resources :articles do
       get 'critical_list', :on => :collection
     end
-    resources :battle_buddy_requests, :only => [:create, :show]
+    resources :battle_buddy_requests, :only => [:create, :show, :update]
     resources :users
   end
   

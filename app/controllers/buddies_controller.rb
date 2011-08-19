@@ -2,8 +2,6 @@ class BuddiesController < ApplicationController
 
   def get_help
     @buddies = current_org.nearbys(50).in_buddy_network
-    @pending_buddies = current_org.pending_battle_buddies
-    @available_buddies = @buddies - @pending_buddies
   end
 
   def lend_a_hand
@@ -14,6 +12,10 @@ class BuddiesController < ApplicationController
   def index
   end
 
+  def show
+    @buddy = Organization.find(params[:id])
+  end
+  
   def profile
     @resource = current_org.resources.new
     @resources = current_org.resources

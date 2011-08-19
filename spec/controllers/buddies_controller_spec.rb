@@ -5,7 +5,7 @@ describe BuddiesController do
   context "when not logged in" do
     it "requires authentication" do
       controller.expects :authenticate!
-      get 'index'
+      get 'get_help'
     end
   end
 
@@ -30,12 +30,6 @@ describe BuddiesController do
       end
     end
 
-    describe "GET 'index'" do
-      it "should be successful" do
-        get 'index'
-        response.should be_success
-      end
-    end
   end
 
 end

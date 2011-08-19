@@ -23,7 +23,7 @@
 </div>
 <div class="grid_8">
   <section>
-    <h2 class="buddy"><%= pluralize(@available_buddies.size, "Nearby Organization") %> Who Can Help</h2>
+    <h2 class="buddy"><%= pluralize(@buddies.size, "Nearby Organization") %> Who Can Help</h2>
     <div class="buddy-filter">
       Show buddies within <%= text_field_tag :miles, 50, :style => 'width: 40px;' %> miles offering
       <%= select_tag :resource, options_for_select(['Any Help', 'Office Space', 'Personnel', 'Prop Storage']) %>
@@ -31,22 +31,8 @@
       <%= link_to_function 'Filter', '', :class => 'button' %>
     </div>
     <div class="buddies">
-      <% @available_buddies.each do |buddy| %>
+      <% @buddies.each do |buddy| %>
       <%= render :partial => 'buddy', :object => buddy   %>
-      <% end %>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="buddy"><%= pluralize(@pending_buddies.size, "Pending Battle Buddy") %></h2>
-    <div class="buddies">
-      <% @pending_buddies.each do |buddy| %>
-      <div class="buddy">
-      <div class="badge"><%= image_tag('map_marker.png') %></div>
-      <h3 class="name plain"><%= link_to buddy.name, "/wireframe/battlebuddies_buddy?title=#{buddy.name}" %></h3>
-      <div class="address"><%= link_to buddy.full_street_address %></div>
-      <div class="requested-help">Available Resources:</div>
-      </div>
       <% end %>
     </div>
   </section>
