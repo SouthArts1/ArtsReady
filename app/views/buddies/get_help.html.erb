@@ -18,17 +18,17 @@
 
 <div class="grid_4">
   <%= gmaps(
-  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => false},
+  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => true},
   "markers" => { "data" => @buddies.to_gmaps4rails}) %>
 </div>
 <div class="grid_8">
   <section>
     <h2 class="buddy"><%= pluralize(@buddies.size, "Nearby Organization") %> Who Can Help</h2>
     <div class="buddy-filter">
-      Show buddies within <%= text_field_tag :miles, 50, :style => 'width: 40px;' %> miles offering
-      <%= select_tag :resource, options_for_select(['Any Help', 'Office Space', 'Personnel', 'Prop Storage']) %>
-      &nbsp;
-      <%= link_to_function 'Filter', '', :class => 'button' %>
+      <%= form_tag get_help_path, :method => :get do %>
+      Show buddies within <%= text_field_tag :miles, params[:miles], :style => 'width: 40px;' %> miles
+      <%= submit_tag 'Find', :class => 'button' %>
+      <% end %>
     </div>
     <div class="buddies">
       <% @buddies.each do |buddy| %>
