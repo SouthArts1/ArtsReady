@@ -30,7 +30,7 @@ Artsready::Application.routes.draw do
     resources :articles do
       get 'critical_list', :on => :collection
     end
-    resources :battle_buddy_requests, :only => [:create, :show]
+    resources :battle_buddy_requests, :only => [:create, :show, :update]
     resources :users
   end
   

@@ -13,11 +13,17 @@
   <div class="requested-help">
     Available Resources:
   </div>
-  <% unless current_org.battle_buddies.include?(buddy) %>
+  <% if current_org.battle_buddies.collect(&:id).include?(buddy.id) %>
+  BUDDY approved on <%= current_org.battle_buddies.find(buddy.id).updated_at.to_date %>
+  <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(buddy.id) %>
+  RECEIVED on <%= current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id).created_at.to_date %>
+  <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)) , :method => :put%>
+  <% elsif current_org.battle_buddy_requests_sent.collect(&:battle_buddy_id).include?(buddy.id) %>
+  SENT on <%= current_org.battle_buddy_requests_sent.find_by_battle_buddy_id(buddy.id).created_at.to_date %>
+  <% else %>
     <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
     <%= f.hidden_field :battle_buddy_id, :value => buddy.id %>
     <%= f.submit 'Add as Battle Buddy' %>
     <% end %>
-    <%#= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
   <% end %>
 </div>
