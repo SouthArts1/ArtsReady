@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818000908) do
+ActiveRecord::Schema.define(:version => 20110819155929) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -101,13 +101,11 @@ ActiveRecord::Schema.define(:version => 20110818000908) do
 
   create_table "crises", :force => true do |t|
     t.integer  "organization_id"
-    t.string   "name"
-    t.text     "description"
-    t.boolean  "declared_on"
     t.date     "resolved_on"
     t.text     "resolution"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "visibility",      :default => "private"
   end
 
   add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"
@@ -118,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20110818000908) do
     t.integer  "user_id"
     t.string   "resource"
     t.text     "description"
-    t.boolean  "provided"
+    t.boolean  "provided",        :default => false
     t.string   "provider"
     t.date     "last_updated_on"
     t.datetime "created_at"
@@ -222,7 +220,6 @@ ActiveRecord::Schema.define(:version => 20110818000908) do
   add_index "todos", ["user_id"], :name => "index_todos_on_user_id"
 
   create_table "updates", :force => true do |t|
-    t.string   "title"
     t.text     "message"
     t.integer  "user_id"
     t.integer  "crisis_id"
