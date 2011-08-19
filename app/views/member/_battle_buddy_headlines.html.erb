@@ -1,6 +1,12 @@
-<article>
-  <h3><%= link_to '1 Battle Buddy in Need', 'wireframe/battlebuddies_help' %></h3>
-  <p><br /><strong><%= link_to '954 Dance Movement Collective', "/wireframe/battlebuddies_buddy?title=954 Dance Movement Collective" %></strong><br />
-  "Thanks so much for everyone's response..."</p>
-  <p><time>Yesterday</time></p>
-</article>
+<div>
+  <% if @crises.count == 0 %>
+  All ArtsReady memebrs are doing great!
+  <% else %>
+  <h3><%= link_to pluralize(@crises.count, 'Active Crisis'), lend_a_hand_path %></h3>
+  <br/>
+    <% @crises.each do |crisis| %>
+    <p><strong><%= link_to crisis.organization.name, lend_a_hand_path %></strong><br />
+    <%= crisis.updates.last.message %><br><%= crisis.updates.last.created_at.to_formatted_s(:short) %></p>
+    <% end %>
+  <% end %>
+</div>
