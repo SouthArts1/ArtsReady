@@ -8,7 +8,7 @@
   </div>
   <h3 class="name plain"><%= link_to buddy.name, buddy_path(buddy) %></h3>
   <div class="address">
-    <%= buddy.distance.round %> miles away: <%= link_to buddy.full_street_address %>
+    <%= buddy.distance.round %> miles away: <%= buddy.full_street_address %>
   </div>
   <div class="requested-help">
     Available Resources:
