@@ -2,7 +2,7 @@ class UpdatesController < ApplicationController
 
   def create
     @crisis = Crisis.find(params[:crisis_id])
-    @update = @crisis.updates.create(params[:update])
+    @update = @crisis.updates.build(params[:update])
     @update.user = current_user
     @update.organization = current_org
     if @update.save
