@@ -5,7 +5,7 @@ class CrisesController < ApplicationController
   end
 
   def create
-    if current_org.crises.create
+    if current_org.crises.create(:user_id => current_user.id)
       redirect_to dashboard_path, :notice => 'Crisis declared!'
     else
       redirect_to dashboard_path, :notice => 'Crisis could not be declared'
