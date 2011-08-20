@@ -2,17 +2,17 @@ class CrisisNotifications < ActionMailer::Base
   default :from => "admin@artsready.org"
   layout 'email'
   
-  def announce(crisis,user)
+  def announce(user,crisis)
     @crisis = crisis
     mail :to => user.email, :subject => "#{@crisis.organization.name} declared a crisis!"
   end
 
-  def resolved(crisis,user)
+  def resolved(user,crisis)
     @crisis = crisis
     mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
   end
 
-  def update(crisis,user,update)
+  def update(user,crisis,update)
     @crisis = crisis
     @update = update
     mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."
