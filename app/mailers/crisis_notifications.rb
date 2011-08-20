@@ -12,7 +12,7 @@ class CrisisNotifications < ActionMailer::Base
     mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
   end
 
-  def update(user,crisis,update)
+  def latest_update(user,crisis,update)
     @crisis = crisis
     @update = update
     mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."

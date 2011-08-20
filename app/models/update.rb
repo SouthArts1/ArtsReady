@@ -16,7 +16,7 @@ class Update < ActiveRecord::Base
   private
   
   def send_crisis_update_email
-    CrisisNotifications.update(user,self.crisis,self)
+    self.crisis.crisis_participants.each {|user| CrisisNotifications.latest_update(user,self.crisis,self).deliver }
   end
   
 end
