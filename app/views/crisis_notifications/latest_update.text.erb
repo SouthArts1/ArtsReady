@@ -1,0 +1,8 @@
+<%= @crisis.organization.name %> is in crisis!
+
+Here's the latest update:
+
+<%= @update.message %>
+
+- From: <%= @update.user.name %> (<%= @update.user.organization_name %>)
+- <%= @update.created_at %>
