@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110819155929) do
+ActiveRecord::Schema.define(:version => 20110820171836) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -106,9 +106,11 @@ ActiveRecord::Schema.define(:version => 20110819155929) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "visibility",      :default => "private"
+    t.integer  "user_id"
   end
 
   add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"
+  add_index "crises", ["user_id"], :name => "index_crises_on_user_id"
 
   create_table "needs", :force => true do |t|
     t.integer  "organization_id"

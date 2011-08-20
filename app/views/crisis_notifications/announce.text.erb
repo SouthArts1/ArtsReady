@@ -1,0 +1,5 @@
+<%= @crisis.organization.name %> is in crisis!
+
+- <%= @crisis.user.name %> <%= @crisis.created_at %>
+
+Can you <%= link_to "lend a hand?", lend_a_hand_url %>

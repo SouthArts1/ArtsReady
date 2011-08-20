@@ -1,5 +1,5 @@
 class TodoMailer < ActionMailer::Base
-  default :from => "no-reply@artsready.com"
+  default :from => "admin@artsready.org"
   layout 'email'
   
   def assign_to(user, todo)
