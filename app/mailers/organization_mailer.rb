@@ -1,5 +1,5 @@
 class OrganizationMailer < ActionMailer::Base
-  default :from => "no-reply@artsready.org"
+  default :from => "admin@artsready.org"
   layout 'email'
 
   def sign_up(organization)
