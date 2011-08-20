@@ -1,0 +1,38 @@
+Attachment D
+Scenario 3
+
+Lone Wolf needs a Pack (Swine Palace Focused)
+
+DATE: September 2, 2011
+
+Roles-	Troubled Venue (Swine Palace)
+	Super Buddy (Ferst Center)
+Quiet Observer 
+
+
+All Users: Confirm visibility of documents loaded into the public Library by the other users.
+
+Troubled Venue: You are having a crisis! Activate the Crisis Mode and select Public notification 
+Troubled Venue: Add a description of your crisis to the Crisis Console. 
+Troubled Venue: Log the needed people resources. 
+
+Super Buddy: Log into ArtsReady and go to the “Lend a Hand” page
+Super Buddy: Confirm visibility of Troubled Venue’s crisis
+Super Buddy: Offer to become Troubled Venue’s Battle Buddy
+
+Troubled Venue: Accept the offer and become Battle Buddies
+
+Super Buddy: Confirm new Battle Buddy status 
+Super Buddy: Log back into ArtsReady and go to the “Lend a Hand” page; respond to the crisis description written by Troubled Venue
+Super Buddy: Offer a resource listed by Troubled Venue
+
+Quiet Observer: Observe activity through the Battle Buddies system and confirm changes in visibility
+
+Troubled Venue: Close out the crisis. 
+
+Later! Troubled Venue: Log back into ArtsReady; go to User settings; view the crisis in your backlog.
+
+NOTES:
+
+No way to indicate provider. This is holdover from comps?
+No crisis backlog yet, but it is stored
