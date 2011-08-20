@@ -9,12 +9,12 @@ class AdminMailer < ActionMailer::Base
   #
   def review_public(article,admin)
     @article = article
-    mail :to => admin.email, :subject => "There is a new public article to review."
+    mail :to => admin.email, :subject => "There is a new public article to review.", :bcc => 'john.paul.ashenfelter@gmail.com'
   end
   
   def review_comment(comment,admin)
     @comment = comment
-    mail :to => admin.email, :subject => "There is a new comment to review."
+    mail :to => admin.email, :subject => "There is a new comment to review.", :bcc => 'john.paul.ashenfelter@gmail.com'
   end
   
 end
