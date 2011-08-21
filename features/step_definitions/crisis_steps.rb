@@ -11,5 +11,6 @@ When /^I resolve a crisis$/ do
 end
 
 When /^I declare a crisis$/ do
-  click_button 'crisis-activate'
+  click_link 'Activate'
+  #click_button 'crisis-activate'
 end
