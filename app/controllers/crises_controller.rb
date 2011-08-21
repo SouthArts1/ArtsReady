@@ -13,6 +13,11 @@ class CrisesController < ApplicationController
   end
 
   def update
+    #TODO fix this hack
+    if params[:buddy_list].present?
+      buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
+      params[:crisis].merge!(:buddy_list => buddy_list)
+    end
     if @current_org.crisis.update_attributes(params[:crisis])
       redirect_to crisis_path(current_org.crisis), :notice => "Crisis updated"
     else
@@ -21,6 +26,11 @@ class CrisesController < ApplicationController
   end
   
   def create
+    #TODO fix this hack
+    if params[:buddy_list].present?
+      buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
+      params[:crisis].merge!(:buddy_list => buddy_list)
+    end
     @crisis=current_org.crises.create(params[:crisis])
     @crisis.user = current_user
     if @crisis.save

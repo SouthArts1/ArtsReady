@@ -6,12 +6,12 @@
     <%= f.text_area :description, :size => '20x5' %>
     <div id="crisis-visibility">
     <%= f.label :visibility, 'Crisis Visibility' %>
-    <%= f.radio_button :visibility, 'public' %> Public <br />
-    <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />
-    <%= f.radio_button :visibility, 'private'%> Private/Allow Specific Battle Buddies<br />
+    <%= f.radio_button :visibility, 'public', :onclick => "$('#battle-buddies-list').hide();" %> Public <br />
+    <%= f.radio_button :visibility, 'buddies', :onclick => "$('#battle-buddies-list').hide();" %> All Battle Buddies <br />
+    <%= f.radio_button :visibility, 'private', :onclick => "$('#battle-buddies-list').show();"%> Private/Allow Specific Battle Buddies<br />
     <div id="battle-buddies-list">
       <% current_org.battle_buddies.each do |buddy| %>
-      <%= check_box_tag :battle_buddy, buddy.id %><%= buddy.name %><br />
+      <%= check_box_tag "buddy_list[]", buddy.id, false %><%= buddy.name %><br />
       <% end %>
     </div>
     </div>
