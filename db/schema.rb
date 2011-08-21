@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820171836) do
+ActiveRecord::Schema.define(:version => 20110821155757) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20110820171836) do
     t.datetime "updated_at"
     t.string   "visibility",      :default => "private"
     t.integer  "user_id"
+    t.string   "description"
+    t.string   "buddy_list"
   end
 
   add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"

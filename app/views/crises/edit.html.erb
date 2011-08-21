@@ -1,0 +1,19 @@
+<div class="grid_6">
+  <div id="declare-crisis-form">
+    <h3>Edit a Crisis</h3>
+    <%= form_for(@crisis) do |f|%>
+    <div id="crisis-visibility">
+    <%= f.label :visibility, 'Crisis Visibility' %>
+    <%= f.radio_button :visibility, 'public' %> Public <br />
+    <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />
+    <%= f.radio_button :visibility, 'private'%> Private/Allow Specific Battle Buddies<br />
+    <div id="battle-buddies-list">
+      <% current_org.battle_buddies.each do |buddy| %>
+      <%= check_box_tag :battle_buddy, buddy.id %><%= buddy.name %><br />
+      <% end %>
+    </div>
+    </div>
+    <%= f.submit "Update Crisis" %> 
+    <% end %>
+  </div>
+</div>
