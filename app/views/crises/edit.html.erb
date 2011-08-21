@@ -9,7 +9,6 @@
     <%= f.radio_button :visibility, 'private', :onclick => "$('#battle-buddies-list').show();"%> Private/Allow Specific Battle Buddies<br />
     <div id="battle-buddies-list" style="display:none;">
       <% current_org.battle_buddies.each do |buddy| %>
-      <%= @crisis.buddy_list.split(',') %>
       <%= check_box_tag "buddy_list[]", buddy.id, @crisis.buddy_list.split(',').include?(buddy.id.to_s) ? true : false %><%= buddy.name %><br />
       <% end %>
     </div>
