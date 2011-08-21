@@ -1,0 +1,24 @@
+<div class="grid_6">
+  <div id="declare-crisis-form">
+    <h3>Edit a Crisis</h3>
+    <%= form_for(@crisis) do |f|%>
+    <div id="crisis-visibility">
+    <%= f.label :visibility, 'Crisis Visibility' %>
+    <%= f.radio_button :visibility, 'public', :onclick => "$('#battle-buddies-list').hide();" %> Public <br />
+    <%= f.radio_button :visibility, 'buddies', :onclick => "$('#battle-buddies-list').hide();" %> All Battle Buddies <br />
+    <%= f.radio_button :visibility, 'private', :onclick => "$('#battle-buddies-list').show();"%> Private/Allow Specific Battle Buddies<br />
+    <div id="battle-buddies-list" style="display:none;">
+      <% current_org.battle_buddies.each do |buddy| %>
+      <%= check_box_tag "buddy_list[]", buddy.id, @crisis.buddy_list.split(',').include?(buddy.id.to_s) ? true : false %><%= buddy.name %><br />
+      <% end %>
+    </div>
+    </div>
+    <%= f.submit "Update Crisis" %> 
+    <% end %>
+  </div>
+</div>
+<% if @crisis.visibility == 'private' %>
+<script type="text/javascript">
+$('#battle-buddies-list').show();
+</script>
+<% end %>

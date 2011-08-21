@@ -11,5 +11,7 @@ When /^I resolve a crisis$/ do
 end
 
 When /^I declare a crisis$/ do
-  click_button 'crisis-activate'
+  When %{I follow "Activate"}
+  And %{I choose "crisis_visibility_public"}
+  And %{I press "Declare Crisis"}
 end

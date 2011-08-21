@@ -7,7 +7,7 @@ Feature: Crisis console
   Scenario: Admin declares a crisis
     Given a user
     And I am on the dashboard page
-    And I am not in crisis mode
+    And I am not in crisis mode    
     When I declare a crisis
     Then I am in crisis mode
   

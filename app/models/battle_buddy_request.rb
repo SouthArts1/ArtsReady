@@ -5,4 +5,10 @@ class BattleBuddyRequest < ActiveRecord::Base
 
   scope :pending, where('accepted IS NULL')
   
+  def accept!
+    self.accepted = true
+    # create a reciprocal relationship
+    BattleBuddyRequest.create(:organization => battle_buddy, :battle_buddy => organization, :accepted => true)
+  end
+  
 end

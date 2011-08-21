@@ -38,7 +38,7 @@ class Crisis < ActiveRecord::Base
   private 
   
   def send_crisis_announcement
-    crisis_participants.each {|user| CrisisNotifications.announce(user,self).deliver }
+    crisis_participants.each {|user| CrisisNotifications.announcement(user,self).deliver }
   end
 
   def send_crisis_resolution

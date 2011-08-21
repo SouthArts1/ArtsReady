@@ -6,7 +6,7 @@
   <br/>
     <% @crises.each do |crisis| %>
     <p><strong><%= link_to crisis.organization.name, lend_a_hand_path %></strong><br />
-    <%= crisis.updates.last.message %><br><%= crisis.updates.last.created_at.to_formatted_s(:short) %></p>
+    <%= crisis.description %><br><%= crisis.created_at.to_formatted_s(:short) %></p>
     <% end %>
   <% end %>
 </div>
