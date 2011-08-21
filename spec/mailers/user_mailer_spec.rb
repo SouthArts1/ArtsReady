@@ -8,7 +8,7 @@ describe UserMailer do
     it "renders the headers" do
       mail.subject.should eq("Welcome to ArtsReady")
       mail.to.should eq([user.email])
-      mail.from.should eq(["no-reply@artsready.org"])
+      mail.from.should eq(["admin@artsready.org"])
     end
 
     it "renders the body" do
@@ -23,7 +23,7 @@ describe UserMailer do
      it "send user password reset url" do
        mail.subject.should eq("ArtsReady Password Reset")
        mail.to.should eq([user.email])
-       mail.from.should eq(["no-reply@artsready.org"])
+       mail.from.should eq(["admin@artsready.org"])
        mail.body.encoded.should match(edit_password_reset_path(user.password_reset_token))
      end
    end

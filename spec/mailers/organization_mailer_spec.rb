@@ -8,7 +8,7 @@ describe OrganizationMailer do
     it "renders the headers" do
       mail.subject.should eq("Thank you for joining ArtsReady")
       mail.to.should eq([organization.users.first.email])
-      mail.from.should eq(["no-reply@artsready.org"])
+      mail.from.should eq(["admin@artsready.org"])
     end
 
     it "renders the body" do
@@ -22,7 +22,7 @@ describe OrganizationMailer do
     it "renders the headers" do
       mail.subject.should eq("Your ArtsReady membership has been approved!")
       mail.to.should eq([organization.users.first.email])
-      mail.from.should eq(["no-reply@artsready.org"])
+      mail.from.should eq(["admin@artsready.org"])
     end
 
     it "renders the body" do

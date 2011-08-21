@@ -1,9 +1,10 @@
 FactoryGirl.define do
 
   factory :crisis do
-    name "MyString"
     description "MyText"
     resolution "MyText"
+    organization { Factory(:organization) }
+    user { Factory(:user) }
   end
 
 end
