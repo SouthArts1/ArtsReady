@@ -29,15 +29,16 @@ member = User.create!(:email=>'wmaa@test.host', :password => 'password', :passwo
 org = Organization.create!(:name => 'The Museum of Modern Art', :address => '11 West 53rd Street', :city => 'New York', :state => 'NY', :zipcode => '10019', :battle_buddy_enabled => true, :active => true)
 member = User.create!(:email=>'moma@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Moma', :last_name => 'Museum', :organization => org, :role => 'manager')
 
-puts "Adding unapproved organization"
-org = Organization.create!(:name => 'Unapproved Org', :address => '1505 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => false, :battle_buddy_enabled => false)
-member = User.create!(:email=>'unapproved@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org, :role => 'manager')
-
-puts "Adding crisis organization"
-org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :battle_buddy_enabled => false, :active => true)
-member = User.create!(:email=>'crisis@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Crisis', :last_name => 'Org', :organization => org)
-org.crises.create
-org.crises.first.updates.create(:message => 'we are really having some trouble here')
+# puts "Adding unapproved organization"
+# org = Organization.create!(:name => 'Unapproved Org', :address => '1505 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => false, :battle_buddy_enabled => false)
+# member = User.create!(:email=>'unapproved@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org, :role => 'manager')
+# 
+# puts "Adding crisis organization"
+# org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :battle_buddy_enabled => false, :active => true)
+# member = User.create!(:email=>'crisis@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Crisis', :last_name => 'Org', :organization => org)
+# org.crises.create
+# org.crises.first.updates.create(:message => 'we are really having some trouble here')
+# 
 
 puts "Loading the questions"
 questions = <<END
