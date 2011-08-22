@@ -20,14 +20,14 @@
   <section>
     <h2 class="buddy">Organizations in Need</h2>
     <div class="buddies">
-      <%= render :partial => 'crisis', :collection => @crises %>
+      <%= render :partial => 'crisis', :collection => @public_crises %>
     </div>
   </section>
 </div>
 
 <div class="grid_8">
   <section>
-    <% @crises.each do |crisis| %>
+    <% @public_crises.each do |crisis| %>
     <h2 class="buddy">Crisis Log (<%= crisis.organization.name %>)</h2>
     <div id="crisis-update" style="margin-bottom: 20px;">
       <%= form_for([crisis,Update.new]) do |f| %>

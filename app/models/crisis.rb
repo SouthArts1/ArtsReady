@@ -12,7 +12,10 @@ class Crisis < ActiveRecord::Base
   scope :public, where(:visibility => 'public')
   scope :private, where(:visibility => 'private')
   scope :battle_buddy_network, where(:visibility => 'buddies')
-  
+
+  scope :visible_to_all, where(:visibility => 'public')
+  scope :in_my_network, where('0=1')
+  scope :in_my_network, where('0=1')
   after_create :send_crisis_announcement
   
   def resolve_crisis!

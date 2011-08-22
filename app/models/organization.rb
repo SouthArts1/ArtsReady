@@ -24,6 +24,7 @@ class Organization < ActiveRecord::Base
   after_create :send_sign_up_email
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
+  scope :approved, where(:active => true)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
   scope :nearing_expiration, where('0=1')

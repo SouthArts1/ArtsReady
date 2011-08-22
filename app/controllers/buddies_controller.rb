@@ -6,7 +6,9 @@ class BuddiesController < ApplicationController
   end
 
   def lend_a_hand
-    @crises = Crisis.active
+    @public_crises = Crisis.active.visible_to_all
+    # @network_crises = Crisis.in_my_network(current_org)
+    # @private_crises = Crisis.privately_shared(current_org)
   end
 
   def index
