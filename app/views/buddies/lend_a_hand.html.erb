@@ -28,21 +28,7 @@
 <div class="grid_8">
   <section>
     <% @public_crises.each do |crisis| %>
-    <h2 class="buddy">Crisis Log (<%= crisis.organization.name %>)</h2>
-    <div id="crisis-update" style="margin-bottom: 20px;">
-      <%= form_for([crisis,Update.new]) do |f| %>
-      <div class="grid_10 alpha">
-        <%= f.text_area :message, :rows => 2, :placeholder => 'Send crisis update' %>
-      </div>
-      <div class="grid_2 omega">
-        <%= f.submit 'Report', :class => 'button blue' %>
-      </div>
-      <% end %>
-      <div class="clear"></div>
-    </div>
-    <table id="messages">
-      <%= render :partial => 'crises/update', :collection => crisis.updates.order("created_at DESC") %>
-    </table>
+      <%= render :partial => 'crisis_log', :collection => @public_crises %>
     <% end %>
   </section>
 
