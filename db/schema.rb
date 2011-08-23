@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110821155757) do
+ActiveRecord::Schema.define(:version => 20110823201845) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20110821155757) do
     t.integer  "todo_id"
     t.boolean  "featured",          :default => false
     t.boolean  "disabled",          :default => false
+    t.string   "buddy_list"
   end
 
   add_index "articles", ["organization_id"], :name => "index_articles_on_organization_id"

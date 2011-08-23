@@ -14,6 +14,9 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    if !@article.can_be_accessed_by?(current_user)
+      redirect_to library_path, :notice => 'You are not allowed to access that article'
+    end
   end
 
   def new
@@ -24,6 +27,12 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    #TODO fix this hack
+    if params[:buddy_list].present?
+      buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
+      params[:article].merge!(:buddy_list => buddy_list)
+    end
+    
     @article = current_org.articles.new(params[:article].merge({:user => current_user}))
 
     if @article.save
@@ -39,6 +48,11 @@ class ArticlesController < ApplicationController
 
   def update
     @article = current_org.articles.find(params[:id])
+    #TODO fix this hack
+    if params[:buddy_list].present?
+      buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
+      params[:article].merge!(:buddy_list => buddy_list)
+    end
     if @article.update_attributes(params[:article])
       redirect_to @article, :notice  => "Successfully updated article."
     else

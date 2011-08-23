@@ -24,6 +24,7 @@ class Article < ActiveRecord::Base
   scope :only_private, where(:visibility => 'private')
   scope :recent, order("created_at DESC")
   scope :matching, lambda { |term| includes(:tags).where("articles.title LIKE ? OR articles.body LIKE ? OR tags.name LIKE ?","%#{term}%","%#{term}%","%#{term}%") }  
+  scope :executive, where(:visibility => 'executive')
   
   after_save :notify_admin, :if => "is_public?"
 
@@ -52,6 +53,30 @@ class Article < ActiveRecord::Base
 
   def is_disabled?
     disabled
+  end
+
+  # Declarative security, but not very sexy. 
+  # TODO would be great to refactor this into multiple *types* of documents -- article is not best modelling for behavior
+  def can_be_accessed_by?(user)
+    if visibility == 'public'
+      logger.debug('allowed by public')
+      return true
+    elsif visibility == 'buddies' && organization.battle_buddy_list.include?(user.organization_id)
+      logger.debug('allowed by buddy network')
+      return true
+    elsif visibility == 'shared' && buddy_list.split(',').include?(user.organization_id)
+      logger.debug('allowed by shared')
+      return true
+    elsif visibility == 'executive' && user.is_executive? && organization.users.include?(user)
+      logger.debug('allowed by executive')
+      return true
+    elsif ['private','buddies','shared'].include?(visibility) && organization.users.include?(user)
+      logger.debug('allowed by private')
+      return true
+    else
+      logger.debug("access denied to #{user.inspect} to #{self.inspect}")
+      return false
+    end
   end
 
   def published_on
