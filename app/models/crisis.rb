@@ -43,9 +43,9 @@ class Crisis < ActiveRecord::Base
     when 'public'
       User.all
     when 'buddies'
-      organization.battle_buddies.collect {|buddy| buddy.users} rescue nil
+      organization.battle_buddies.collect {|buddy| buddy.users} rescue []
     when 'private'
-      User.admins
+      User.where("organization_id IN (?)", buddy_list.split(',').collect{|b| b.to_i}) rescue []
     else
       User.admins
     end
