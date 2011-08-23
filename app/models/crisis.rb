@@ -19,15 +19,15 @@ class Crisis < ActiveRecord::Base
 
   validates_presence_of :user_id
   validates_presence_of :organization_id
+  
+  # TODO validate buddy_list if permission is set to only my buddies
 
   after_create :send_crisis_announcement
   
   def self.shared_with_me(org)
     crises = []
     Crisis.shared_privately.each do |c|
-      logger.debug(c.inspect)
-      logger.debug(c.buddy_list.include?(org.id.to_s))
-      crises << c if c.buddy_list.include?(org.id.to_s)
+      crises << c if c.buddy_list.include?(org.id.to_s) unless c.buddy_list.nil?
     end
     crises
   end

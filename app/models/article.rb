@@ -64,14 +64,14 @@ class Article < ActiveRecord::Base
     elsif visibility == 'buddies' && organization.battle_buddy_list.include?(user.organization_id)
       logger.debug('allowed by buddy network')
       return true
-    elsif visibility == 'shared' && buddy_list.include?(user.organization_id)
+    elsif visibility == 'shared' && buddy_list.split(',').include?(user.organization_id)
       logger.debug('allowed by shared')
       return true
-    elsif visibility == 'private' && organization.users.include?(user)
-      logger.debug('allowed by private')
-      return true
-    elsif visibility == 'executive' && user.is_executive?
+    elsif visibility == 'executive' && user.is_executive? && organization.users.include?(user)
       logger.debug('allowed by executive')
+      return true
+    elsif ['private','buddies','shared'].include?(visibility) && organization.users.include?(user)
+      logger.debug('allowed by private')
       return true
     else
       logger.debug("access denied to #{user.inspect} to #{self.inspect}")
