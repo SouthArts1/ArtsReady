@@ -3,6 +3,11 @@ class Update < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization
 
+  validates_presence_of :crisis_id
+  validates_presence_of :user_id
+  validates_presence_of :organization_id
+  validates_presence_of :message
+  
   after_create :send_crisis_update_email
   
   def organization_name

@@ -17,6 +17,9 @@ class Crisis < ActiveRecord::Base
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
+  validates_presence_of :user_id
+  validates_presence_of :organization_id
+
   after_create :send_crisis_announcement
   
   def self.shared_with_me(org)
