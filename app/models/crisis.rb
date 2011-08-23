@@ -9,12 +9,26 @@ class Crisis < ActiveRecord::Base
   accepts_nested_attributes_for :needs
 
   scope :active, includes(:organization).where(:resolved_on => nil)
-  scope :public, where(:visibility => 'public')
-  scope :private, where(:visibility => 'private')
-  scope :battle_buddy_network, where(:visibility => 'buddies')
-  
+
+  scope :shared_with_the_community, active.where(:visibility => 'public')
+  scope :shared_with_my_battle_buddy_network, lambda {|list| where("visibility = 'buddies' AND organization_id IN (?)",list)}
+  scope :shared_privately, where(:visibility => 'private')
+
+  delegate :name, :to => :user, :allow_nil => true, :prefix => true
+  delegate :name, :to => :organization, :allow_nil => true, :prefix => true
+
   after_create :send_crisis_announcement
   
+  def self.shared_with_me(org)
+    crises = []
+    Crisis.shared_privately.each do |c|
+      logger.debug(c.inspect)
+      logger.debug(c.buddy_list.include?(org.id.to_s))
+      crises << c if c.buddy_list.include?(org.id.to_s)
+    end
+    crises
+  end
+
   def resolve_crisis!
     self.resolved_on= Time.now
     self.save
@@ -26,7 +40,7 @@ class Crisis < ActiveRecord::Base
     when 'public'
       User.all
     when 'buddies'
-      organization.battle_buddies.collect {|buddy| buddy.users}
+      organization.battle_buddies.collect {|buddy| buddy.users} rescue nil
     when 'private'
       User.admins
     else
@@ -38,7 +52,8 @@ class Crisis < ActiveRecord::Base
   private 
   
   def send_crisis_announcement
-    crisis_participants.each {|user| CrisisNotifications.announcement(user,self).deliver }
+    logger.debug(self.inspect)
+    crisis_participants.each {|user| puts CrisisNotifications.announcement(user,self).inspect }
   end
 
   def send_crisis_resolution
