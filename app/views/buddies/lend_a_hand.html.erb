@@ -30,7 +30,13 @@
 <div class="grid_8">
   <section>
     <% @public_crises.each do |crisis| %>
-      <%= render :partial => 'crisis_log', :collection => @public_crises %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
+    <% end %>
+    <% @network_crises.each do |crisis| %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
+    <% end %>
+    <% @private_crises.each do |crisis| %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
     <% end %>
   </section>
 
