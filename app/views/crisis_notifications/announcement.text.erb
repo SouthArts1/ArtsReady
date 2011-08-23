@@ -1,7 +1,7 @@
-<%= @crisis.organization.name %> is in crisis!
+<%= @crisis.organization_name %> is in crisis!
 
 <%= @crisis.description if @crisis.description.present? %>
 
-- <%= @crisis.user.name %> <%= @crisis.created_at %>
+- <%= @crisis.user_name %> <%= @crisis.created_at %>
 
 Can you <%= link_to "lend a hand?", lend_a_hand_url %>
