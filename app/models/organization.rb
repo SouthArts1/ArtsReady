@@ -49,6 +49,10 @@ class Organization < ActiveRecord::Base
   def is_my_buddy?
     false
   end
+  
+  def battle_buddy_list
+    battle_buddies.collect(&:id)
+  end
 
   def last_activity
     users.order('last_login_at DESC').first.last_activity

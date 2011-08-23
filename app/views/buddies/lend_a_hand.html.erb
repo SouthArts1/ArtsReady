@@ -21,6 +21,8 @@
     <h2 class="buddy">Organizations in Need</h2>
     <div class="buddies">
       <%= render :partial => 'crisis', :collection => @public_crises %>
+      <%= render :partial => 'crisis', :collection => @network_crises %>
+      <%= render :partial => 'crisis', :collection => @private_crises %>
     </div>
   </section>
 </div>
