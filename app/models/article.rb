@@ -68,6 +68,9 @@ class Article < ActiveRecord::Base
     elsif visibility == 'private' && organization.users.include?(user)
       logger.debug('allowed by private')
       return true
+    elsif visibility == 'executive' && user.is_executive?
+      logger.debug('allowed by executive')
+      return true
     else
       logger.debug("access denied to #{user.inspect} to #{self.inspect}")
       return false
