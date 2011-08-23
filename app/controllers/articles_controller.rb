@@ -14,7 +14,9 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    # check article permissions
+    if !@article.can_be_accessed_by?(current_user)
+      redirect_to library_path, :notice => 'You are not allowed to access that article'
+    end
   end
 
   def new

@@ -55,6 +55,25 @@ class Article < ActiveRecord::Base
     disabled
   end
 
+  def can_be_accessed_by?(user)
+    if visibility == 'public'
+      logger.debug('allowed by public')
+      return true
+    elsif visibility == 'buddies' && organization.battle_buddy_list.include?(user.organization_id)
+      logger.debug('allowed by buddy network')
+      return true
+    elsif visibility == 'shared' && buddy_list.include?(user.organization_id)
+      logger.debug('allowed by shared')
+      return true
+    elsif visibility == 'private' && organization.users.include?(user)
+      logger.debug('allowed by private')
+      return true
+    else
+      logger.debug("access denied to #{user.inspect} to #{self.inspect}")
+      return false
+    end
+  end
+
   def published_on
     created_at.to_date rescue nil
   end

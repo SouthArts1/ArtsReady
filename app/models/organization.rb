@@ -51,7 +51,7 @@ class Organization < ActiveRecord::Base
   end
   
   def battle_buddy_list
-    battle_buddies.collect(&:id)
+    battle_buddies.collect(&:id).uniq
   end
 
   def last_activity
