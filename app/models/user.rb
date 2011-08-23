@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
   def is_admin?
     admin
   end
+  
+  def is_executive?
+    ['manager','executive'].include?(role)
+  end
 
   def encrypt_password
     if password.present?

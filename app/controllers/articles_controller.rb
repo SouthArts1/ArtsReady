@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    # check article permissions
   end
 
   def new

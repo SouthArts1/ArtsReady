@@ -45,6 +45,9 @@
 </div>
 <div class="grid_4">
   <div class="library-sidebar">
+    <h5>Permissions</h5>
+    <p><%= @article.visibility.humanize %></p>
+
     <h5>Author</h5>
     <p><%= @article.user_name %> <%#= pluralize(@article.user.articles.for_public.count, 'other article') %></p>
 
