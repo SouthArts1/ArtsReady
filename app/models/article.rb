@@ -55,6 +55,8 @@ class Article < ActiveRecord::Base
     disabled
   end
 
+  # Declarative security, but not very sexy. 
+  # TODO would be great to refactor this into multiple *types* of documents -- article is not best modelling for behavior
   def can_be_accessed_by?(user)
     if visibility == 'public'
       logger.debug('allowed by public')
