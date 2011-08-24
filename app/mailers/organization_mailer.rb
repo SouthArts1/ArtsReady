@@ -9,6 +9,7 @@ class OrganizationMailer < ActionMailer::Base
 
   def approved(organization)
     @organization = organization
-    mail :to => organization.users.first.email, :subject => "Your ArtsReady membership has been approved!", :bcc => 'john.paul.ashenfelter@gmail.com'
+    @user = @organization.users.first
+    mail :to => @user.email, :subject => "#{organization.name} is now part of ArtsReady!", :bcc => 'john.paul.ashenfelter@gmail.com'
   end
 end
