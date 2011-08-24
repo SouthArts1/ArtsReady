@@ -18,4 +18,10 @@ class TodoMailer < ActionMailer::Base
          :subject => "You have a new To Do item at ArtsReady!", :bcc => 'john.paul.ashenfelter@gmail.com')
   end
   
+  def reminder(todo)
+    @todo = todo
+    mail(:to => todo.user.email,
+         :subject => "Your ArtsReady To-Do is Due!", :bcc => 'john.paul.ashenfelter@gmail.com')
+  end
+  
 end
