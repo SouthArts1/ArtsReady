@@ -63,6 +63,8 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    exceptional (2.0.32)
+      rack
     excon (0.6.5)
     factory_girl (2.0.4)
     factory_girl_rails (1.1.0)
@@ -214,6 +216,7 @@ DEPENDENCIES
   carrierwave
   cucumber-rails
   database_cleaner
+  exceptional
   factory_girl_rails
   fog
   forgery

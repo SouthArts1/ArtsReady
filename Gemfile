@@ -16,9 +16,7 @@ gem 'RedCloth'
 gem 'acts-as-taggable-on'
 
 gem 'heroku'
-# deploy
-# gem 'newrelic_rpm'
-# gem 'capistrano'
+gem 'exceptional'
 
 group :test, :development do
   gem 'rspec-rails'
