@@ -50,3 +50,4 @@ Artsready::Application.configure do
   config.action_mailer.default_url_options = { :host => 'artsready.heroku.com' }
   
 end
+S3_UPLOAD_BUCKET = 'fracturedatlas-artsready'

@@ -36,3 +36,5 @@ unless $rails_rake_task
   Debugger.settings[:reload_source_on_change] = true
   Debugger.start_remote
 end
+
+S3_UPLOAD_BUCKET = 'fracturedatlas-artsready-dev'
