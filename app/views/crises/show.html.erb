@@ -21,7 +21,7 @@
     <h2>Crisis Description</h2>
     <p>Privacy: <%= current_org.crisis.visibility.humanize %> <%= link_to "Edit", edit_crisis_path(current_org.crisis) %></p>
     <p><%= current_org.crisis.description %></p>
-    <p>Declared by <%= current_org.crisis.user.name %> on <%= current_org.crisis.created_at.to_date %></p>
+    <p>Declared by <%= current_org.crisis.user_name %> on <%= current_org.crisis.created_at.to_date %></p>
   </section>
   <section>
     <h2 class="buddy">Your Needs</h2>
