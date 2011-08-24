@@ -8,6 +8,7 @@ if Rails.env.test? or Rails.env.cucumber?
 else
 
   CarrierWave.configure do |config|
+    config.cache_dir = "#{Rails.root}/tmp/uploads"
     config.fog_credentials = {
       :provider               => 'AWS',
       :aws_access_key_id      => 'AKIAJLDW35SNDYIRVVWA',
