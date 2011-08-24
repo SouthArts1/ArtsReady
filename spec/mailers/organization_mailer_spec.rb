@@ -20,7 +20,7 @@ describe OrganizationMailer do
     let(:mail) { OrganizationMailer.approved(organization) }
 
     it "renders the headers" do
-      mail.subject.should eq("Your ArtsReady membership has been approved!")
+      mail.subject.should eq("#{organization.name} is now part of ArtsReady!")
       mail.to.should eq([organization.users.first.email])
       mail.from.should eq(["admin@artsready.org"])
     end

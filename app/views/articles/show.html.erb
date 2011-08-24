@@ -19,11 +19,11 @@
   <section>`
     <h4>Comments</h4>
     <ul class="comments">
-      <% @article.comments.each do |comment| %>
+      <% @article.comments.approved.each do |comment| %>
       <li>
         <div class="comments-meta clearfix">
           <p class="comments-author f-left"><%= comment.user.name %>, <%= comment.user.organization.name %></p>
-          <p class="comments-time f-right"><%= comment.created_at.to_date.to_formatted_s(:long) %></p>
+          <p class="comments-time f-right"><%= comment.created_at.to_date.to_formatted_s(:long) %> <%= button_to 'Remove Comment?', admin_comment_path(comment), :method => :delete, :confirm => 'Are you sure?', :class => 'button white' if current_user.is_admin? %></p>
         </div>
         <p><%= comment.comment %></p>
       </li>

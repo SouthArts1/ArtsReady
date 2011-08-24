@@ -6,7 +6,7 @@
     <%= form_for @assessment, :url => assessment_path do |f| %>
     <ul class="checklist">
       <li><label><%= f.check_box :has_performances, {:checked => true} %> We put on performances</label></li>
-      <li><label><%= f.check_box :has_tickets, {:checked => true} %> We manage ticket sales</label></li>
+      <li><label><%= f.check_box :has_tickets, {:checked => true} %> We manage ticket sales &amp messaging</label></li>
       <li><label><%= f.check_box :has_facilities, {:checked => true} %> We have our own space/facility</label></li>
       <li><label><%= f.check_box :has_programs, {:checked => true} %> We manage ongoing public programs</label></li>
       <li><label><%= f.check_box :has_grants, {:checked => true} %> We provide grants</label></li>

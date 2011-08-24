@@ -1,3 +1,18 @@
-OrganizationMailer#approved
+Dear <%= @user.first_name %> <%= @user.last_name %>,
 
-<%= @greeting %>, find me in app/views/app/views/organization_mailer/approved.text.erb
+Welcome to ArtsReady!
+
+Your organization, <%= @organization.name %>, is now fully engaged in the ArtsReady movement to make preparedness a priority at your organization and in the arts community. As a Premium Member your organization can develop and maintain a customized readiness strategy with the ArtsReady platform.
+
+Your login is your email address: <%= @user.email %>
+
+Go to your <%= link_to "Dashboard", dashboard_url %> and get started on your plan!
+
+If you have any questions, please contact us at admin@artsready.org.
+
+Happy Planning-
+The ArtsReady Team
+
+No matter what happens today, 
+be able to do tomorrow what you were doing yesterday.
+

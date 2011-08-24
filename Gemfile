@@ -16,9 +16,7 @@ gem 'RedCloth'
 gem 'acts-as-taggable-on'
 
 gem 'heroku'
-# deploy
-# gem 'newrelic_rpm'
-# gem 'capistrano'
+gem 'exceptional'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -36,7 +34,6 @@ group :development do
   gem 'rails3-generators'
   gem 'rails-footnotes', '>= 3.7'
   gem 'slowgrowl'
-  gem 'active_reload'
   gem 'heroku_san'
   gem 'ruby-debug19'
 end

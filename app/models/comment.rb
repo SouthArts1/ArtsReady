@@ -9,6 +9,7 @@ class Comment < ActiveRecord::Base
   after_create :notify_admins
   
   scope :recent, limit(3).order("created_at DESC")
+  scope :approved, where(:disabled => false)
   
   delegate :title, :to => :article, :prefix => true
   

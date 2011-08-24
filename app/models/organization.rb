@@ -15,6 +15,7 @@ class Organization < ActiveRecord::Base
   has_many :todos
   has_many :updates
   has_many :users
+  has_many :managers, :conditions => ["users.role = 'manager'"], :class_name => 'User'
 
   accepts_nested_attributes_for :users
 

@@ -19,6 +19,26 @@
     <% end %>
   </div>
   <section>
+    <%= form_for(current_org.todos.new) do |f|%>
+     <table class="add-actionitem">
+       <thead>
+         <tr><td colspan="6"><p>Add another item</p></td></tr>
+       </thead>
+       <tbody>
+           <tr>
+             <td><p><%= f.text_field :description, :placeholder => 'Action Item' %></p></td>
+             <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => params[:tab]) %></td>
+             <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
+             <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
+             <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
+             <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green" %></p></td>
+           </tr>
+       </tbody>
+     </table>
+     <% end %>
+
+  </section>
+  <section>
     <ul class="article-tools clearfix">
       <li><a class="icon-print" href="#">Print</a></li>
       <li><a class="icon-email" href="#">Email</a></li>

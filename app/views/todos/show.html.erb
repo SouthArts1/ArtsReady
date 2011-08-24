@@ -1,7 +1,8 @@
 <div class="grid_12">
   <hgroup>
     <%= link_to 'edit to do', edit_todo_path(@todo), :class => 'button', :style => 'float:right;' %>
-    <h1><%= @todo.description %></h1>
+    <h1>To Do Item</h1>
+    <p><%= @todo.description %></p>
   </hgroup>
 </div>
 
