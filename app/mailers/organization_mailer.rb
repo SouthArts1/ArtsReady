@@ -4,7 +4,8 @@ class OrganizationMailer < ActionMailer::Base
 
   def sign_up(organization)
     @organization = organization
-    mail :to => organization.users.first.email, :subject => "Thank you for joining ArtsReady", :bcc => 'john.paul.ashenfelter@gmail.com'
+    @user = @organization.users.first
+    mail :to => @user.email, :subject => "Welcome to #{organization.name}'s ArtsReady Team", :bcc => 'john.paul.ashenfelter@gmail.com'
   end
 
   def approved(organization)
