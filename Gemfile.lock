@@ -16,7 +16,6 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
-    active_reload (0.3.0)
     activemodel (3.0.10)
       activesupport (= 3.0.10)
       builder (~> 2.1.2)
@@ -208,7 +207,6 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  active_reload
   acts-as-taggable-on
   bcrypt-ruby
   cancan

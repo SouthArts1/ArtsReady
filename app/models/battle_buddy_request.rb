@@ -5,7 +5,7 @@ class BattleBuddyRequest < ActiveRecord::Base
 
   scope :pending, where('accepted IS NULL')
   
-  after_create :email_potential_buddy, :if => "accepted.nil?" #only email on the intial request, not the reciprocal one
+  after_create :email_potential_buddy, :unless => "accepted?" #only email on the intial request, not the reciprocal one
   
   def accept!
     self.accepted = true
@@ -13,8 +13,12 @@ class BattleBuddyRequest < ActiveRecord::Base
     BattleBuddyRequest.create(:organization => battle_buddy, :battle_buddy => organization, :accepted => true)
   end
   
+  private
+  
   def email_potential_buddy
-    
+    battle_buddy.managers.each do |manager|
+      OrganizationMailer.battle_buddy_invitation(manager,battle_buddy,organization).deliver
+    end
   end
   
 end
