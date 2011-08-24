@@ -1,14 +1,14 @@
 <div class="buddy">
   <h3 class="name plain"><%= link_to crisis.organization.name, buddy_path(crisis.organization) %></h3>
   <div class="address"><%= crisis.organization.full_street_address %></div>
-  <div class="requested-help"></div>
+  <div class="privacy">Privacy setting: <%= crisis.visibility.humanize %></div>
   <% if current_org.battle_buddies.collect(&:id).include?(crisis.id) %>
-  BUDDY approved on <%= current_org.battle_buddies.find(crisis.id).updated_at.to_date %>
+  Buddy since <%= current_org.battle_buddies.find(crisis.id).updated_at.to_date %>
   <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(crisis.id) %>
-  RECEIVED on <%= current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id).created_at.to_date %>
+  Buddy request received on <%= current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id).created_at.to_date %>
   <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id)) , :method => :put%>
   <% elsif current_org.battle_buddy_requests_sent.collect(&:battle_buddy_id).include?(crisis.id) %>
-  SENT on <%= current_org.battle_buddy_requests_sent.find_by_battle_buddy_id(crisis.id).created_at.to_date %>
+  Buddy request sent on <%= current_org.battle_buddy_requests_sent.find_by_battle_buddy_id(crisis.id).created_at.to_date %>
   <% else %>
     <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
     <%= f.hidden_field :battle_buddy_id, :value => crisis.id %>

@@ -46,34 +46,27 @@
       <label>Visibility</label>
       <hr />
       <p>Share with Everyone Who Visits ArtsReady</p>
-      <%= f.radio_button :visibility, 'public' %> Public (visitors and other organizations) <br />
+      <%= f.radio_button :visibility, 'public', :onclick => "$('#battle-buddies-list').hide();" %> Public (visitors and other organizations) <br />
       <hr />
 			<div id="organization">
       <p>Share only within My Organization</p>
-      <%= f.radio_button :visibility, 'private' %> Private (this entire organization)<br />
+      <%= f.radio_button :visibility, 'private', :onclick => "$('#battle-buddies-list').hide();" %> Private (this entire organization)<br />
 			<% if current_user.can_set_executive_permission_for_article? %>
-      <%= f.radio_button :visibility, 'executive' %> Executive (only those assigned executive permission by the administrator)<br />
+      <%= f.radio_button :visibility, 'executive', :onclick => "$('#battle-buddies-list').hide();" %> Executive (only those assigned executive permission by the administrator)<br />
 			<% end %>
       <hr />
 			</div>
 			<% if current_user.can_set_battlebuddy_permission_for_article? %>
 			<div id="battle-buddies">
       <p>Share within My Battle Buddies Network</p>
-      <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />
-      <%= f.radio_button :visibility, 'some-buddies' %> Specific Battle Buddies <br />
-      <div id="some-buddies" style="display:none;">
-        <%= check_box_tag :buddy %> Academy of Vocal Arts <br />
-        <%= check_box_tag :buddy %> Act II Playhouse <br />
-        <%= check_box_tag :buddy %> Amaryllis Theatre Company <br />
+      <%= f.radio_button :visibility, 'buddies', :onclick => "$('#battle-buddies-list').hide();" %> All Battle Buddies <br />
+      <%= f.radio_button :visibility, 'shared', :onclick => "$('#battle-buddies-list').show();" %> Specific Battle Buddies <br />
+      <div id="battle-buddies-list" style="display: none;">
+        <% current_org.battle_buddies.each do |buddy| %>
+        <%= check_box_tag "buddy_list[]", buddy.id, false %><%= buddy.name %><br />
+        <% end %>
       </div>
 			<hr />
-      <script type="text/javascript">
-        $(document).ready(function() {
-          $('#visibility_some-buddies').click(function() {
-            $('#some-buddies').toggle();
-          });
-        });
-      </script>
 			<% end %>
 			</div>
     </div>
@@ -93,4 +86,9 @@
     <%= f.submit 'Save', :class => 'button' %>
   </div>
 </div>
+<% end %>
+<% if @article.visibility == 'shared' %>
+<script type="text/javascript">
+$('#battle-buddies-list').show();
+</script>
 <% end %>

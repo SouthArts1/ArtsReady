@@ -27,12 +27,10 @@
       <% Article.featured.each do |article| %>
         <li>
           <h4><%= link_to article.title, public_article_path(article) %></h4>
-          Added by Jim Johnson on <%= article.published_on.to_formatted_s(:long) %>
+          Added by <%= article.user_name %> on <%= article.published_on.to_formatted_s(:long) %>
         </li>
       <% end %>
     </ul>
   </div>
-  <div class="grid_4 omega">
-	Maybe some marketing material here? Comps say no comments for the public (view or leave) and there's no point for an "submit article button here"
-  </div>
+  <div class="grid_4 omega"></div>
 </div>

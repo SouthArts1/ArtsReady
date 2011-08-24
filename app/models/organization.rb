@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_one :assessment
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
+  has_many :comments, :through => :articles
   has_many :battle_buddy_requests
   has_many :battle_buddies, :through => :battle_buddy_requests, :conditions => ["battle_buddy_requests.accepted IS true"]
   has_many :battle_buddy_requests_received, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
@@ -24,6 +25,7 @@ class Organization < ActiveRecord::Base
   after_create :send_sign_up_email
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
+  scope :approved, where(:active => true)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
   scope :nearing_expiration, where('0=1')
@@ -47,6 +49,10 @@ class Organization < ActiveRecord::Base
 
   def is_my_buddy?
     false
+  end
+  
+  def battle_buddy_list
+    battle_buddies.collect(&:id).uniq
   end
 
   def last_activity

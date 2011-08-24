@@ -35,7 +35,7 @@
     <div class="create-comment">
       <div class="grid_8">
         <%= form_for([@article,@article.comments.new]) do |f| %>
-        <%= f.text_area :comment, :placeholder => "Comment" %>
+        <%= f.text_area :comment, :placeholder => "Comment", :size => '40x4' %>
         <br><br>
         <%= f.submit :class => "button" %>
         <% end %>
@@ -45,6 +45,9 @@
 </div>
 <div class="grid_4">
   <div class="library-sidebar">
+    <h5>Permissions</h5>
+    <p><%= @article.visibility.humanize %></p>
+
     <h5>Author</h5>
     <p><%= @article.user_name %> <%#= pluralize(@article.user.articles.for_public.count, 'other article') %></p>
 
