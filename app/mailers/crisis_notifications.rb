@@ -4,7 +4,8 @@ class CrisisNotifications < ActionMailer::Base
   
   def announcement(user,crisis)
     @crisis = crisis
-    mail :to => user.email, :subject => "#{@crisis.organization.name} declared a crisis!"
+    @user = user
+    mail :to => user.email, :subject => "ALERT! #{@crisis.organization.name} has declared a crisis through ArtsReady!"
   end
 
   def resolved(user,crisis)

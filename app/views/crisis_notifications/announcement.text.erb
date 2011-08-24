@@ -1,7 +1,30 @@
-<%= @crisis.organization_name %> is in crisis!
+ is in crisis!
 
 <%= @crisis.description if @crisis.description.present? %>
 
 - <%= @crisis.user_name %> <%= @crisis.created_at %>
 
-Can you <%= link_to "lend a hand?", lend_a_hand_url %>
+Can you 
+
+
+
+
+
+Dear <%= @user.name %>
+
+<%= @crisis.organization_name %>, is facing a crisis!
+
+Here's what they have to say:
+
+<%= @crisis.description if @crisis.description.present? %>
+
+Please visit ArtsReady’s <%= link_to "Lend a Hand", lend_a_hand_url %> page to see what you can do to help.
+
+To contact <%= @crisis.organization_name %>'s ArtsReady administrator: 
+
+<%= @crisis.organization.contact_name %>
+<%= @crisis.organization.email %>
+<%= @crisis.organization.phone_number %>
+
+Best Regards-
+The ArtsReady Team
