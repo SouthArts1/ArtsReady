@@ -66,7 +66,7 @@ GEM
     exceptional (2.0.32)
       rack
     excon (0.6.5)
-    factory_girl (2.0.4)
+    factory_girl (2.0.5)
     factory_girl_rails (1.1.0)
       factory_girl (~> 2.0.0)
       railties (>= 3.0.0)
@@ -85,7 +85,7 @@ GEM
       nokogiri (~> 1.4)
     formatador (0.2.0)
     geocoder (1.0.2)
-    gherkin (2.4.11)
+    gherkin (2.4.15)
       json (>= 1.4.6)
     gmaps4rails (0.10.2)
       crack
