@@ -41,6 +41,18 @@
           <%= org.text_field :zipcode %>
         </p>
         </div>
+        <p>
+          <%= org.label :email %>
+          <%= org.text_field :email %>
+        </p>
+        <p>
+          <%= org.label :phone_number %>
+          <%= org.text_field :phone_number %>
+        </p>
+        <p>
+          <%= org.label :contact_name %>
+          <%= org.text_field :contact_name %>
+        </p>
       </fieldset>
       <%= org.fields_for(:users,@organization.users.build) do |user| %>
       <fieldset>

@@ -32,9 +32,9 @@
     <div class="grid_4 alpha">
       <h2 class="buddy"><%= params[:title] %></h2>
       <div>
-        Jim Johnson (Director)<br />
-        (404) 330-6000<br />
-        info@somewhere.org<br />
+        <%= current_org.contact_name %> <br />
+        <%= current_org.phone_number %><br />
+        <%= current_org.email %><br />
       </div>
     </div>
     <div class="grid_4 omega">

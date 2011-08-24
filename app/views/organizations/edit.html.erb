@@ -1,61 +1,54 @@
 <h1>Organization</h1>
 
 <ul class="top-nav settings">
-    <li class=""><%= link_to 'My Info', profile_path %></li>
-    <li class="active"><%= link_to "Organization", edit_organization_path(current_org) %></li>
-    <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
+  <li class=""><%= link_to 'My Info', profile_path %></li>
+  <li class="active"><%= link_to "Organization", edit_organization_path(current_org) %></li>
+  <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
 </ul>
 
 <div class="grid_8">
   <section>
     <%= form_for(current_org) do |f| %>
     <p>
-      <label>Organization Name</label>
+      <%= f.label :name, 'Organization Name' %>
       <%= f.text_field :name %>
     </p>
-
     <p>
-      <label>Address</label>
+      <%= f.label :address %>
       <%= f.text_field :address %><br />
-      <%#= f.text_field :address_2 %>
     </p>
-
     <p>
-      <label>City</label>
+      <%= f.label :city %>
       <%= f.text_field :city %>
     </p>
-  <div class="grid_4 alpha">
+    <div class="grid_4 alpha">
+      <p>
+        <%= f.label :state %>
+        <%= f.text_field :state %>
+      </p>
+    </div>
+    <div class="grid_4 omega">
+      <p>
+        <%= f.label :zipcode %>
+        <%= f.text_field :zipcode %>
+      </p>
+    </div>
     <p>
-      <label>State</label>
-      <%= f.text_field :state %>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
     </p>
-  </div>
-  <div class="grid_4 omega">
     <p>
-      <label>Zip</label>
-      <%= f.text_field :zipcode %>
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number %>
     </p>
-  </div>
     <p>
-      <label>Website</label>
-      <%#= f.text_field :website %>
+      <%= f.label :contact_name %>
+      <%= f.text_field :contact_name %>
     </p>
-
-    <p>
-      <label>Phone</label>
-      <%#= f.text_field :phone %>
-    </p>
-
-    <p>
-      <label>Fax</label>
-      <%#= f.text_field :fax %>
-    </p>
-
     <p>
       <label>Join Battle Buddy Network?</label>
       <%= f.check_box :battle_buddy_enabled %>
     </p>
-
     <p>
       <%= f.submit 'Save Settings' %>
     </p>
