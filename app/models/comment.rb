@@ -2,9 +2,15 @@ class Comment < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
   
-  validates_presence_of(:comment)
+  validates_presence_of :article_id
+  validates_presence_of :user_id
+  validates_presence_of :comment
   
   after_create :notify_admins
+  
+  scope :recent, limit(3).order("created_at DESC")
+  
+  delegate :title, :to => :article, :prefix => true
   
   private
   

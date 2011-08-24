@@ -5,6 +5,7 @@ class Organization < ActiveRecord::Base
   has_one :assessment
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
+  has_many :comments, :through => :articles
   has_many :battle_buddy_requests
   has_many :battle_buddies, :through => :battle_buddy_requests, :conditions => ["battle_buddy_requests.accepted IS true"]
   has_many :battle_buddy_requests_received, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
