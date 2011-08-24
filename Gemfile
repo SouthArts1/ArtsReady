@@ -36,7 +36,6 @@ group :development do
   gem 'rails3-generators'
   gem 'rails-footnotes', '>= 3.7'
   gem 'slowgrowl'
-  gem 'active_reload'
   gem 'heroku_san'
   gem 'ruby-debug19'
 end
