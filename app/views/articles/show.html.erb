@@ -35,7 +35,7 @@
     <div class="create-comment">
       <div class="grid_8">
         <%= form_for([@article,@article.comments.new]) do |f| %>
-        <%= f.text_area :comment, :placeholder => "Comment" %>
+        <%= f.text_area :comment, :placeholder => "Comment", :size => '40x4' %>
         <br><br>
         <%= f.submit :class => "button" %>
         <% end %>
