@@ -1,0 +1,15 @@
+Dear <%= @user.name %>,
+
+You were assigned an important To-Do item in ArtsReady to help organization prepare for the unexpected. We’ve noticed that the task is due, yet it is still designated as “status that is other than complete.”
+
+Your assignment: <%= @todo.description %>
+Due: <%= @todo.due_on %>
+
+<%= link_to "Please log in to see what else is required to complete the task.", @url %>
+
+This vital contribution will help organization stay on track to achieve its readiness goals, and your efforts are appreciated. If you have any questions, please contact organization’s ArtsReady administrator, <%= @user.organization.users.first.name %>, <%= @user.organization.users.first.email %>.
+
+Happy Planning-
+The ArtsReady Team
+
+Keep your doors open. No matter what.
