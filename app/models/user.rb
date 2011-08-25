@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   
   after_create :send_welcome_email
+  after_save :add_to_mailchimp
 
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -96,6 +97,21 @@ class User < ActiveRecord::Base
 
   def send_welcome_email
     UserMailer.welcome(self).deliver
+  end
+  
+  private 
+  
+  def add_to_mailchimp
+    puts "trying to add to mailing list"
+    begin
+      gb = Gibbon::API.new(MAILCHIMP_API_KEY)
+      response = gb.listSubscribe({:id => MAILCHIMP_LIST_ID, :email_address => email, :double_optin => false, :merge_vars => {:FNAME=>first_name}})
+      puts "Registered #{email} with mailchimp"
+      puts response.inspect
+    rescue
+      puts "Failed to register #{email} with mailchimp"
+    end
+    
   end
 
 end
