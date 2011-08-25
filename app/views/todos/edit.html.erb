@@ -14,7 +14,7 @@
 
     <div class="field">
       <%= f.label :critical_function %>
-      <%= f.select :critical_function, Assessment::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] } %>
+      <%= f.select :critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] } %>
     </div>
 
     <div class="field">
