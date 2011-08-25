@@ -3,6 +3,7 @@ class Todo < ActiveRecord::Base
   belongs_to :answer
   belongs_to :organization
   belongs_to :user
+  belongs_to :last_user, :class_name => 'User'
   has_many :articles
   has_many :todo_notes
 
@@ -82,7 +83,7 @@ class Todo < ActiveRecord::Base
     self.changes.each do |key, value|
       message += "#{key} changed from #{value[0]} to #{value[1]}\n" if TRACKED_ATTRIBUTES.include?(key)
     end
-    todo_notes.create(:user_id => user_id, :message => message) if message.present?
+    todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
   end
   
 end

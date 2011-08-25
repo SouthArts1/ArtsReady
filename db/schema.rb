@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824013413) do
+ActiveRecord::Schema.define(:version => 20110825015115) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -220,6 +220,8 @@ ActiveRecord::Schema.define(:version => 20110824013413) do
     t.string   "critical_function"
     t.boolean  "complete",          :default => false, :null => false
     t.string   "status"
+    t.integer  "last_updated_by"
+    t.integer  "last_user_id"
   end
 
   add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"

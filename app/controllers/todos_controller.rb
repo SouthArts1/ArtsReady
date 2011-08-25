@@ -15,7 +15,7 @@ class TodosController < ApplicationController
   end
 
   def create
-    @todo = current_org.todos.new(params[:todo])
+    @todo = current_org.todos.new(params[:todo].merge({:last_user => current_user}))
 
     if @todo.save
       redirect_to :back, :notice => 'Todo was successfully created.'
