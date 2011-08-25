@@ -1,3 +1,4 @@
+require 'rack/ssl'
 Artsready::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -48,8 +49,10 @@ Artsready::Application.configure do
   config.active_support.deprecation = :notify
   
   config.action_mailer.default_url_options = { :host => 'artsready.heroku.com' }
-  config.force_ssl = true
+    
+  config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
 end
+
 S3_UPLOAD_BUCKET = 'fracturedatlas-artsready'
 MAILCHIMP_API_KEY = 'not-required'
 MAILCHIMP_LIST_ID = 'not-required'

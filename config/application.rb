@@ -45,8 +45,5 @@ module Artsready
       g.test_framework :rspec, :fixtures => false, :view_specs => false, :helper_specs => false
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
-    
-    config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
-
   end
 end
