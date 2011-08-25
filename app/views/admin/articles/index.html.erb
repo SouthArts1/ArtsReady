@@ -1,0 +1,35 @@
+<section>
+  <table class="resource side-nav-panels">
+    <thead>
+      <td><p>Title</p></td>
+      <td><p>Description</p></td>
+      <td><p>Source</p></td>
+      <td><p>Critical Function</p></td>
+      <td><p>Tags</p></td>
+      <td><p>Enabled</p></td>
+    </thead>
+    <tbody>
+      <% @articles.each do |a| %>
+        <tr>
+          <td class="title"><p><%= link_to a.title, article_path(a) %></p></td>
+          <td class="description"><p><%= a.description %></p></td>
+          <td class="source"><p>
+            <% if a.link.present? %>
+            <%= link_to a.link, a.link %>
+            <% elsif a.document.present? %>
+            <%= link_to "Download", a.document.url %>
+            <% else %>
+            <%= truncate(a.body) %>
+            <% end %>
+          </p></td>
+          <td class="function"><p><a href="#"><%= a.critical_function %></a></p></td>
+          <td class="tags"><p><%= a.tag_list.to_s %></p></td>
+          <td>
+            <%= button_to 'Disable Article?', admin_article_path(a), :method => :delete, :class => 'button white' unless a.disabled? %>
+            <%= button_to 'Enable Article?', admin_article_path(a, :toggle => 'disabled'), :method => :put, :class => 'button white' if a.disabled? %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

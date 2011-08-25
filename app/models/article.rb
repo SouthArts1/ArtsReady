@@ -25,6 +25,7 @@ class Article < ActiveRecord::Base
   scope :recent, order("created_at DESC")
   scope :matching, lambda { |term| includes(:tags).where("articles.title LIKE ? OR articles.body LIKE ? OR tags.name LIKE ?","%#{term}%","%#{term}%","%#{term}%") }  
   scope :executive, where(:visibility => 'executive')
+  scope :disabled, where(:disabled => true)
   
   after_save :notify_admin, :if => "is_public?"
 

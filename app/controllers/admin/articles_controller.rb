@@ -1,5 +1,9 @@
 class Admin::ArticlesController < Admin::AdminController
 
+  def index
+    @articles = Article.disabled
+  end
+  
   def update
     @article = Article.find(params[:id])
        
