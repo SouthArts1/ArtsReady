@@ -1,0 +1,32 @@
+<div class="grid_12">
+  <h1>Crisis Summary</h1>
+  <section>
+    <h2>Crisis Description</h2>
+    <p>Resolved on <%= @crisis.resolved_on.to_date %></p>
+    <p>Privacy: <%= @crisis.visibility.humanize %></p>
+    <p><%= @crisis.description %></p>
+    <p>Declared by <%= @crisis.user_name %> on <%= @crisis.created_at.to_date %></p>
+  </section>
+  <section>
+    <h2 class="buddy">Your Needs</h2>
+    <table class="needs">
+      <thead>
+        <td><p>Resource</p></td>
+        <td><p>Description</p></td>
+        <td><p>Status</p></td>
+        <td><p>Provider</p></td>
+        <td><p>Activity</p></td>
+        <td><p></p></td>
+      </thead>
+      <tbody>
+        <%= render :partial => 'need', :collection => @crisis.needs %>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h2 class="buddy">Crisis Log</h2>
+    <table id="messages">
+      <%= render :partial => 'update', :collection => @crisis.updates.order("created_at DESC") %>
+    </table>
+  </section>
+</div>

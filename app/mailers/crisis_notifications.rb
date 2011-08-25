@@ -5,18 +5,31 @@ class CrisisNotifications < ActionMailer::Base
   def announcement(user,crisis)
     @crisis = crisis
     @user = user
-    mail :to => user.email, :subject => "ALERT! #{@crisis.organization.name} has declared a crisis through ArtsReady!"
+    logger.debug("Sending crisis announcement for crisis #{crisis.id} to #{user.inspect}")
+    begin
+      mail :to => user.email, :subject => "ALERT! #{@crisis.organization.name} has declared a crisis through ArtsReady!"
+    rescue
+      logger.debug("Failed to send crisis announcement to #{user.inspect}")
+    end
   end
 
   def resolved(user,crisis)
     @crisis = crisis
-    mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
+    begin
+      mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
+    rescue
+      logger.debug("Failed to send crisis resolution to #{user.inspect}")
+    end
   end
 
   def latest_update(user,crisis,update)
     @crisis = crisis
     @update = update
-    mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."
+    begin
+      mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."
+    rescue
+      logger.debug("Failed to send crisis update to #{user.inspect}")
+    end
   end
 
 end

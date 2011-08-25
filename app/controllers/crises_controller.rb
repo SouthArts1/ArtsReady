@@ -1,5 +1,9 @@
 class CrisesController < ApplicationController
 
+  def index
+    @crises = current_org.crises.resolved
+  end
+  
   def new
     @crisis = current_org.crises.build(:user_id => current_user.id)
   end
@@ -10,6 +14,10 @@ class CrisesController < ApplicationController
 
   def show
     @crisis = Crisis.find(params[:id])
+  end
+  
+  def summary
+    @crisis = current_org.crises.find(params[:id])
   end
 
   def update

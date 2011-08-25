@@ -1,0 +1,32 @@
+<div class="grid_12">
+  <h1>Previous Crises</h1>
+  <ul class="top-nav settings">
+      <li><%= link_to 'My Info', profile_path %></li>
+      <li><%= link_to "Organization", edit_organization_path(current_org) %></li>
+      <li><%= link_to "Our Team", organization_users_path(current_org) %></li>
+      <li class="active"><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
+  </ul>
+	<hr>
+    <section>
+      <table class="resource side-nav-panels">
+        <thead>
+          <td><p>Declared on</p></td>
+          <td><p>Resolved on</p></td>
+          <td><p>Privacy</p></td>
+          <td><p>Description</p></td>
+        </thead>
+        <tbody>
+          <% @crises.each do |crisis| %>
+            <tr>
+              <td class="title"><p><%= link_to crisis.created_at, summary_organization_crisis_path(current_org,crisis) %></p></td>
+              <td class="description"><p><%= crisis.resolved_on %></p></td>
+              <td class="function"><p><%= crisis.visibility.humanize %></p></td>
+              <td class="description"><p><%= crisis.description %></p></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+</div>
+
+<%= debug(@crises) %>
