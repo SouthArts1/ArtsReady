@@ -39,6 +39,10 @@ class Crisis < ActiveRecord::Base
     send_crisis_resolution
   end
 
+  def resolved?
+    resolved_on.present?
+  end
+  
   def crisis_participants
     case visibility
     when 'public'

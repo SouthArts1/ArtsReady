@@ -15,6 +15,10 @@ class CrisesController < ApplicationController
   def show
     @crisis = Crisis.find(params[:id])
   end
+  
+  def summary
+    @crisis = current_org.crises.find(params[:id])
+  end
 
   def update
     #TODO fix this hack

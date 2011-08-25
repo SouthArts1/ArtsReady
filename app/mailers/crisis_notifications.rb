@@ -15,13 +15,21 @@ class CrisisNotifications < ActionMailer::Base
 
   def resolved(user,crisis)
     @crisis = crisis
-    mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
+    begin
+      mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
+    rescue
+      logger.debug("Failed to send crisis resolution to #{user.inspect}")
+    end
   end
 
   def latest_update(user,crisis,update)
     @crisis = crisis
     @update = update
-    mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."
+    begin
+      mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."
+    rescue
+      logger.debug("Failed to send crisis update to #{user.inspect}")
+    end
   end
 
 end

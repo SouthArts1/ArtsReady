@@ -16,7 +16,7 @@
   </td>
   <td>
     <p>
-      <%= link_to "Edit", edit_crisis_need_path(current_org.crisis,need) %>
+      <%= link_to "Edit", edit_crisis_need_path(current_org.crisis,need) unless need.crisis.resolved?%>
       <%#= button_to_function 'edit', "$(this).parents('tr.show').toggle(); $(this).parents('tr.show').next('tr.edit').toggle();", :class => 'button white' %>
     </p>
   </td>
