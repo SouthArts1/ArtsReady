@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
   has_many :comments
   
 #  attr_accessible :title, :body, :tags, :link, :user, :visibility
-
+# Article.all.group_by(&:critical_function).each { |fn, x| puts "#{fn} #{x}"}
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
 
   validates_presence_of :title
