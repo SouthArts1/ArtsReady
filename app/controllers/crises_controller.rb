@@ -1,5 +1,9 @@
 class CrisesController < ApplicationController
 
+  def index
+    @crises = current_org.crises.resolved
+  end
+  
   def new
     @crisis = current_org.crises.build(:user_id => current_user.id)
   end

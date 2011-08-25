@@ -1,0 +1,10 @@
+<h1>Previous Crises</h1>
+
+<ul class="top-nav settings">
+    <li><%= link_to 'My Info', profile_path %></li>
+    <li><%= link_to "Organization", edit_organization_path(current_org) %></li>
+    <li><%= link_to "Our Team", organization_users_path(current_org) %></li>
+    <li class="active"><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
+</ul>
+
+<%= debug(@crises) %>
