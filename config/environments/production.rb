@@ -51,3 +51,5 @@ Artsready::Application.configure do
   
 end
 S3_UPLOAD_BUCKET = 'fracturedatlas-artsready'
+MAILCHIMP_API_KEY = 'not-required'
+MAILCHIMP_LIST_ID = 'not-required'

@@ -38,4 +38,4 @@ Artsready::Application.configure do
 end
 
 MAILCHIMP_API_KEY = 'not-required'
-MAILCHIMP_LIST = 'not-required'
+MAILCHIMP_LIST_ID = 'not-required'
