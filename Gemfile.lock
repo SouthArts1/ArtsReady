@@ -87,6 +87,10 @@ GEM
     geocoder (1.0.2)
     gherkin (2.4.15)
       json (>= 1.4.6)
+    gibbon (0.1.7)
+      activesupport (> 3.0.0)
+      httparty (> 0.6.0)
+      json (> 1.4.0)
     gmaps4rails (0.10.2)
       crack
     growl (1.0.3)
@@ -111,6 +115,8 @@ GEM
     heroku_san (1.2.3)
       heroku (>= 2)
       rails (>= 2)
+    httparty (0.7.8)
+      crack (= 0.1.8)
     i18n (0.5.0)
     json (1.5.3)
     json_pure (1.5.3)
@@ -221,6 +227,7 @@ DEPENDENCIES
   fog
   forgery
   geocoder
+  gibbon
   gmaps4rails
   growl_notify
   guard

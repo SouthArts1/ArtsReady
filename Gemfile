@@ -18,6 +18,8 @@ gem 'acts-as-taggable-on'
 gem 'heroku'
 gem 'exceptional'
 
+gem 'gibbon'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'

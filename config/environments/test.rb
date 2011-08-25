@@ -36,3 +36,6 @@ Artsready::Application.configure do
   config.action_mailer.default_url_options = { :host => 'artsready_test.local' }
   
 end
+
+MAILCHIMP_API_KEY = 'not-required'
+MAILCHIMP_LIST = 'not-required'

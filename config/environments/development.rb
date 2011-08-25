@@ -38,3 +38,5 @@ unless $rails_rake_task
 end
 
 S3_UPLOAD_BUCKET = 'fracturedatlas-artsready-dev'
+MAILCHIMP_API_KEY = '5f70b48cbd31f3cab0d4d24ca8d5acde-us2'
+MAILCHIMP_LIST = '91aa1b2d44'
