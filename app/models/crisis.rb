@@ -57,11 +57,11 @@ class Crisis < ActiveRecord::Base
   
   def send_crisis_announcement
     logger.debug(self.inspect)
-    crisis_participants.each {|user| puts CrisisNotifications.announcement(user,self).inspect }
+    crisis_participants.each {|u| puts CrisisNotifications.announcement(u,self).deliver }
   end
 
   def send_crisis_resolution
-    crisis_participants.each {|user| CrisisNotifications.resolved(user,self).deliver }
+    crisis_participants.each {|u| CrisisNotifications.resolved(u,self).deliver }
   end
 
 end
