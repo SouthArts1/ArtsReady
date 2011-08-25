@@ -34,6 +34,7 @@ Artsready::Application.configure do
   config.active_support.deprecation = :stderr
   
   config.action_mailer.default_url_options = { :host => 'artsready_test.local' }
+  config.force_ssl = false
   
 end
 

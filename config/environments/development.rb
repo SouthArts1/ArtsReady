@@ -26,6 +26,7 @@ Artsready::Application.configure do
   config.slowgrowl.sticky = true  # make really slow (2x warn) alerts sticky
 
   config.action_mailer.default_url_options = { :host => 'artsready.dev' }
+  config.force_ssl = false
 end
 
 unless $rails_rake_task

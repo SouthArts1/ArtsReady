@@ -48,7 +48,7 @@ Artsready::Application.configure do
   config.active_support.deprecation = :notify
   
   config.action_mailer.default_url_options = { :host => 'artsready-staging.heroku.com' }
-  
+  config.force_ssl = true
 end
 S3_UPLOAD_BUCKET = 'fracturedatlas-artsready-staging'
 MAILCHIMP_API_KEY = 'a3963e9328e7b6c91de7cfd14131b5f1-us2'

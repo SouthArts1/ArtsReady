@@ -20,6 +20,8 @@ gem 'exceptional'
 
 gem 'gibbon'
 
+gem 'rack-ssl', :require => 'rack/ssl'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'
