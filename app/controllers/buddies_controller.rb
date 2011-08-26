@@ -6,7 +6,7 @@ class BuddiesController < ApplicationController
   end
 
   def lend_a_hand
-    @messages = Message.for_organization(current_org).limit(30)
+    @messages = Message.for_organization(current_org)
     @public_crises = Crisis.shared_with_the_community
     @network_crises = Crisis.shared_with_my_battle_buddy_network(current_org.battle_buddy_list)
     @private_crises = Crisis.shared_with_me(current_org)
