@@ -7,11 +7,7 @@ Your organization, <%= @user.organization_name %>, is now fully engaged in the A
 
 You have been invited to be involved with this important initiative. Your login is your email address: <%= @user.email %>
 
-Go here to set up your password:
-
-<%= confirmation_url(@user.password_reset_token) %> 
-
-Then you can check out your organization's Dashboard to learn more about its readiness plan.
+<%= link_to "Go here to set up your password!", confirmation_url(@user.password_reset_token) %> Then you can check out your organization’s Dashboard to learn more about its readiness plan.
 
 Your organization's ArtsReady administrator, who manages your ArtsReady plan, is <%= @user.organization.users.first.name %>, <%= @user.organization.users.first.email %>
 
