@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110825015115) do
+ActiveRecord::Schema.define(:version => 20110826174849) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -114,6 +114,16 @@ ActiveRecord::Schema.define(:version => 20110825015115) do
 
   add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"
   add_index "crises", ["user_id"], :name => "index_crises_on_user_id"
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.string   "visibility"
+    t.string   "recipient_list"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "needs", :force => true do |t|
     t.integer  "organization_id"
