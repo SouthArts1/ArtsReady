@@ -27,7 +27,7 @@
   </section>
 </div>
 
-<div class="grid_8">
+<div class="grid_4">
   <section>
     <% @public_crises.each do |crisis| %>
       <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
@@ -40,4 +40,13 @@
     <% end %>
   </section>
 
+</div>
+
+<div class="grid_4">
+  <h2>Messages</h2>
+  <section>
+    <table id="messages">
+    <%= render :partial => 'message', :collection => @messages %>
+    </table>
+  </section>
 </div>

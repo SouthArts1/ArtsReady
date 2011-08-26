@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
   belongs_to :organization
   has_many :articles
+  has_many :messages
   has_many :todos
   has_many :todo_notes
 

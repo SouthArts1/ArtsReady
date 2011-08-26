@@ -1,0 +1,16 @@
+<tr>
+  <td class="badge">
+    <span class="date"><%= message.created_at.strftime("%D") %></span>
+  </td>
+  <td class="from">
+    <h5><%= message.user_name %></h5>
+    <%= link_to message.organization_name, buddy_path(message.organization) %>
+  </td>
+  <td class="body">
+    <div class="less">
+      <%= message.content %>
+    </div>
+  </td>
+</tr>
+
+<%#= debug(message) %>
