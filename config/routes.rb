@@ -1,6 +1,8 @@
 Artsready::Application.routes.draw do
 
 
+  get "messages/create"
+
   get "needs/create"
 
   get "get_help" => "buddies#get_help", :as => "get_help"
@@ -37,6 +39,7 @@ Artsready::Application.routes.draw do
       end
     end
     resources :battle_buddy_requests, :only => [:create, :show, :update]
+    resources :messages, :only => [:create]
     resources :users
   end
   

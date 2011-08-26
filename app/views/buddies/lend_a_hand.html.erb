@@ -45,6 +45,23 @@
 <div class="grid_4">
   <h2>Messages</h2>
   <section>
+    <div id="crisis-update" style="margin-bottom: 20px;">
+      <%= form_for([current_org,Message.new]) do |f| %>
+      <div class="grid_10 alpha">
+        <%= f.text_area :content, :rows => 2, :placeholder => 'Send message' %>
+      </div>
+      <div id="crisis-visibility">
+      <%= f.label :visibility, 'Crisis Visibility' %>
+      <%= f.radio_button :visibility, 'public', :onclick => "$('#battle-buddies-list').hide();" %> Public <br />
+      <%= f.radio_button :visibility, 'buddies', :onclick => "$('#battle-buddies-list').hide();" %> All Battle Buddies
+      </div>
+      <div class="grid_2 omega">
+        <%= f.submit 'Send', :class => 'button blue' %>
+      </div>
+      <% end %>
+      <div class="clear"></div>
+    </div>
+    
     <table id="messages">
     <%= render :partial => 'message', :collection => @messages %>
     </table>
