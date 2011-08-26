@@ -24,7 +24,7 @@ class Organization < ActiveRecord::Base
 
   after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
-  after_create :send_sign_up_email
+  after_create :send_sign_up_email, :send_admin_notification
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
   scope :approved, where(:active => true)
@@ -80,14 +80,22 @@ class Organization < ActiveRecord::Base
 
   private 
    
+  def send_admin_notification
+    logger.debug("Sending sign_up email for organization #{name}")
+    User.admins.each do |admin|
+      logger.debug("Trying to send to #{admin.email}")
+      AdminMailer.new_organization(self,admin).deliver rescue logger.debug("send org notification to admin email failed")
+    end
+  end
+
   def send_sign_up_email
     logger.debug("Sending sign_up email for organization #{name}")
-    OrganizationMailer.sign_up(self) rescue logger.debug("send sign_up email failed")
+    OrganizationMailer.sign_up(self).deliver rescue logger.debug("send sign_up email failed")
   end
 
   def send_approval_email
     logger.debug("Sending approval email for organization #{name}")
-    OrganizationMailer.welcome(self) rescue logger.debug("send approval email failed")
+    OrganizationMailer.welcome(self).deliver rescue logger.debug("send approval email failed")
   end
 
 end
