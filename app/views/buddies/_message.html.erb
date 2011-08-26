@@ -1,6 +1,7 @@
 <tr>
   <td class="badge">
-    <span class="date"><%= message.created_at.strftime("%D") %></span>
+    <span class="date"><%= message.created_at.strftime("%D") %></span><br>
+    <%= message.visibility.humanize %>
   </td>
   <td class="from">
     <h5><%= message.user_name %></h5>
