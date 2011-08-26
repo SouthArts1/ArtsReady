@@ -6,7 +6,7 @@ Here's what they have to say:
 
 <%= @crisis.description if @crisis.description.present? %>
 
-Please visit ArtsReady's Lend a Hand page at <%= lend_a_hand_url %> to see what you can do to help.
+Please visit ArtsReady’s <%= link_to "Lend a Hand", lend_a_hand_url %> page to see what you can do to help.
 
 To contact <%= @crisis.organization_name %>'s ArtsReady administrator: 
 
