@@ -11,6 +11,7 @@ class Organization < ActiveRecord::Base
   has_many :battle_buddy_requests_received, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
   has_many :battle_buddy_requests_sent, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest'
   has_many :crises
+  has_many :messages
   has_many :resources
   has_many :todos
   has_many :updates
