@@ -48,7 +48,7 @@
 	      <div>
 					<%= note.message %>
 				</div>
-	      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user.name %></time>
+	      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user_name %></time>
 	    </div>
 	  <% end %>
 		<%= form_for TodoNote.new do |f| %>
