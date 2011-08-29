@@ -1,8 +1,8 @@
-<%= @crisis.organization.name %> is in crisis!
+<p><%= @crisis.organization.name %> is in crisis!</p>
 
-Here's the latest update:
+<p>Here's the latest update:</p>
 
-<%= @update.message %>
+<p><%= @update.message %></p>
 
-- From: <%= @update.user.name %> (<%= @update.user.organization_name %>)
-- <%= @update.created_at %>
+<p>- From: <%= @update.user.name %> (<%= @update.user.organization_name %>)</p>
+<p>- <%= @update.created_at %></p>
