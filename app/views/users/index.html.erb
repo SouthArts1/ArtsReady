@@ -11,8 +11,7 @@
   <section>
     <table class="users">
       <thead>
-        <td><p>First Name</p></td>
-        <td><p>Last Name</p></td>
+        <td><p>Name</p></td>
         <td><p>Email</p></td>
         <td><p>Last Login</p></td>
         <td><p>Role</p></td>
@@ -21,17 +20,19 @@
       <tbody>
         <% current_org.users.each do |user| %>
           <tr>
-            <td class="name"><p><%= user.first_name %></p></td>
-            <td class="name"><p><%= user.last_name %></p></td>
+            <td class="name"><p><%= user.name %></p></td>
             <td class="email"><p><%= user.email %></p></td>
             <td class="login"><p><%= user.last_activity %></p></td>
             <td class="role"><p><%= user.role.humanize %></p></td>
-            <td class="actions"><p>
+            <td class="actions"  style="white-space:nowrap; block:inline;"><p>
             <%= link_to 'profile', profile_path, :class => 'button blue' if user == current_user %>
             <% if (can? :edit, User) %>
-              <%= link_to 'edit', edit_user_path(user), :class => 'button blue' unless user == current_user %>
-              <%= link_to 'reset password', "", :class => 'button blue'  unless user == current_user %>
-              <%= link_to 'disable', "", :class => 'button white' unless user == current_user %>
+              <%= link_to 'edit', edit_user_path(user), :class => 'button blue', :html => {:style => 'block:inline;'} unless user == current_user %>
+              <%= form_tag password_resets_path do %>
+                <%= hidden_field_tag :user_id, user.id %>
+                <%= submit_tag 'reset password', :class => 'button white', :html => {:style => 'block:inline;'} %>
+              <% end unless user == current_user%>
+              <%= button_to 'disable', user_path(user), :method => :delete, :class => 'button white', :html => {:style => 'block:inline;'} unless user.disabled? %>
             <% end %>
             </p></td>
           </tr>

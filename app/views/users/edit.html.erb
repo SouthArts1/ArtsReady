@@ -46,7 +46,12 @@
     </p>
     <% if current_user.role == 'manager' && current_user != @user %>
     <p>
+      <%= f.label :role %>
       <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| [r.humanize, r]} %></td>
+    </p>
+    <p>
+      <%= f.label :disabled %>
+      <%= f.check_box :disabled %></td>
     </p>
     <% end %>
     <p>

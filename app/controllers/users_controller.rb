@@ -33,5 +33,17 @@ class UsersController < ApplicationController
     @user = current_user
     render :edit
   end
+  
+  def destroy
+    @user = current_org.users.find(params[:id])
+    if @user.update_attribute(:disabled,true)
+      logger.info("#{current_user.name} just disabled #{@user.email}")
+      redirect_to(organization_users_path(current_org), :notice => 'User was successfully disabled.')
+    else
+      logger.warn("Had trouble disabling #{@user.email}")
+      redirect_to(organization_users_path(current_org), :notice => 'Problem disabling user')
+    end
+  end
+  
 
 end

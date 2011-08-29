@@ -66,7 +66,7 @@ Artsready::Application.routes.draw do
 
   match 'confirm(/:id)' => 'password_resets#edit', :as => :confirmation
   
-  resources :users, :only => [:new, :create, :edit, :update]
+  resources :users, :only => [:new, :create, :edit, :update, :destroy]
   get "profile" => "users#profile", :as => "profile"
   
   resources :password_resets, :only => [:new, :create, :edit, :update]
