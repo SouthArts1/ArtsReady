@@ -12,50 +12,118 @@
 <div class="grid_8">
   <section>
     <%= form_for([:admin, @organization]) do |f| %>
-    <p>
-      <label>Organization Name</label>
-      <%= f.text_field :name %>
-    </p>
-
-    <p>
-      <label>Address</label>
-      <%= f.text_field :address %><br />
-      <%#= f.text_field :address_2 %>
-    </p>
-
-    <p>
-      <label>City</label>
-      <%= f.text_field :city %>
-    </p>
-  <div class="grid_4 alpha">
-    <p>
-      <label>State</label>
-      <%= f.text_field :state %>
-    </p>
-  </div>
-  <div class="grid_4 omega">
-    <p>
-      <label>Zip</label>
-      <%= f.text_field :zipcode %>
-    </p>
-  </div>
-    <p>
-      <label>Website</label>
-      <%#= f.text_field :website %>
-    </p>
-
-    <p>
-      <label>Phone</label>
-      <%#= f.text_field :phone %>
-    </p>
-
-    <p>
-      <label>Fax</label>
-      <%#= f.text_field :fax %>
-    </p>
+      <legend>Organization Information</legend>
+      <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :address, 'Physical Address' %>
+        <%= f.text_field :address %>
+      </p>
+      <p>
+        <%= f.label :address_additional, 'Physical Address Line 2' %>
+        <%= f.text_field :address_additional %>
+      </p>
+      <div class="grid_4 alpha">
+      <p>
+        <%= f.label :city %>
+        <%= f.text_field :city %>
+      </p>
+      </div>
+      <div class="grid_1">
+      <p>
+        <%= f.label :state %>
+        <%= f.text_field :state %>
+      </p>
+      </div>
+      <div class="grid_3 omega">
+      <p>
+        <%= f.label :zipcode %>
+        <%= f.text_field :zipcode %>
+      </p>
+      </div>
+      <legend>Mailing Address (if different)</legend>
+      <p>
+        <%= f.label :mailing_address, 'Mailing Address' %>
+        <%= f.text_field :mailing_address %>
+      </p>
+      <p>
+        <%= f.label :mailing_address_additional, 'Mailing Address Line 2' %>
+        <%= f.text_field :mailing_address_additional %>
+      </p>
+      <div class="grid_4 alpha">
+      <p>
+        <%= f.label :mailing_city, 'City' %>
+        <%= f.text_field :mailing_city %>
+      </p>
+      </div>
+      <div class="grid_1">
+      <p>
+        <%= f.label :mailing_state, 'State' %>
+        <%= f.text_field :mailing_state %>
+      </p>
+      </div>
+      <div class="grid_3 omega">
+      <p>
+        <%= f.label :mailing_zipcode, 'Zipcode' %>
+        <%= f.text_field :mailing_zipcode %>
+      </p>
+      </div>
+      <legend>General Contact Information</legend>
+      <p>
+        <%= f.label :contact_name %>
+        <%= f.text_field :contact_name %>
+      </p>
+      <p>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </p>
+      <p>
+        <%= f.label :phone_number %>
+        <%= f.text_field :phone_number %>
+      </p>
+      <p>
+        <%= f.label :fax_number %>
+        <%= f.text_field :fax_number %>
+      </p>
+      <legend>Reporting Information</legend>
+      <p>
+        <%= f.label :parent_organization %>
+        <%= f.text_field :parent_organization %>
+      </p>
+      <p>
+        <%= f.label :subsidizing_organization %>
+        <%= f.text_field :subsidizing_organization %>
+      </p>
+      <p>
+        <%= f.label :organizational_status %> <%= f.select :organizational_status, ArtsreadyDomain::ORGANIZATIONAL_STATUSES, :include_blank => true %>
+      </p>
+      <p>
+        <%= f.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= f.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true %>
+      </p>
+      <div class="grid_2 alpha">
+        <p>
+          <%= f.label :ein, 'Federal EIN' %>
+          <%= f.text_field :ein %>
+        </p>
+      </div>
+      <div class="grid_2">
+        <p>
+          <%= f.label :duns, 'DUNS Number' %>
+          <%= f.text_field :duns %>
+        </p>
+      </div>
+      <div class="grid_4 omega">
+        <p>
+          <%= f.label :nsic_code, 'National Standard Institution Code' %>
+          <%= f.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
+          Enter other codes here: <%= text_field_tag :other_nsic_code %>
+        </p>
+      </div>
+    </fieldset>
 
       <%= f.submit 'Save Settings' %>
-    </p>
     <% end %>
   </section>
 </div>
