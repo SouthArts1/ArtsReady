@@ -27,8 +27,8 @@ describe UsersController do
       put("/users/1").should be_routable
     end
 
-    it "does not route to #destroy" do
-      delete("/users/1").should_not be_routable
+    it "route to #destroy" do
+      delete("/users/1").should be_routable
     end
 
   end
