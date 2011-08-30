@@ -21,6 +21,10 @@ class AdditionalOrganizationFields < ActiveRecord::Migration
     
     Organization.all.each {|o| o.update_attributes({:organizational_status => 'UNKNOWN', :operating_budget => 'UNKNOWN'})}
     User.all.each {|u| u.update_attributes({:title => 'TITLE'})}
+    
+    Page.create(:title => 'Privacy Policy', :body => "we will keep your content private", :slug => 'privacy')
+    Page.create(:title => 'Terms of Use', :body => "we will not abuse your information", :slug => 'terms')
+    
   end
 
   def self.down
