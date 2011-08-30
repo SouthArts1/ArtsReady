@@ -20,8 +20,12 @@
           <%= org.text_field :name %>
         </p>
         <p>
-          <%= org.label :address %>
+          <%= org.label :address, 'Physical Address' %>
           <%= org.text_field :address %>
+        </p>
+        <p>
+          <%= org.label :address_additional, 'Physical Address Line 2' %>
+          <%= org.text_field :address_additional %>
         </p>
         <div class="grid_4 alpha">
         <p>
@@ -41,6 +45,38 @@
           <%= org.text_field :zipcode %>
         </p>
         </div>
+        <legend>Mailing Address (if different)</legend>
+        <p>
+          <%= org.label :mailing_address, 'Mailing Address' %>
+          <%= org.text_field :mailing_address %>
+        </p>
+        <p>
+          <%= org.label :mailing_address_additional, 'Mailing Address Line 2' %>
+          <%= org.text_field :mailing_address_additional %>
+        </p>
+        <div class="grid_4 alpha">
+        <p>
+          <%= org.label :mailing_city, 'City' %>
+          <%= org.text_field :mailing_city %>
+        </p>
+        </div>
+        <div class="grid_1">
+        <p>
+          <%= org.label :mailing_state, 'State' %>
+          <%= org.text_field :mailing_state %>
+        </p>
+        </div>
+        <div class="grid_3 omega">
+        <p>
+          <%= org.label :mailing_zipcode, 'Zipcode' %>
+          <%= org.text_field :mailing_zipcode %>
+        </p>
+        </div>
+        <legend>General Contact Information</legend>
+        <p>
+          <%= org.label :contact_name %>
+          <%= org.text_field :contact_name %>
+        </p>
         <p>
           <%= org.label :email %>
           <%= org.text_field :email %>
@@ -50,20 +86,59 @@
           <%= org.text_field :phone_number %>
         </p>
         <p>
-          <%= org.label :contact_name %>
-          <%= org.text_field :contact_name %>
+          <%= org.label :fax_number %>
+          <%= org.text_field :fax_number %>
         </p>
+        <legend>Reporting Information</legend>
+        <p>
+          <%= org.label :parent_organization %>
+          <%= org.text_field :parent_organization %>
+        </p>
+        <p>
+          <%= org.label :subsidizing_organization %>
+          <%= org.text_field :subsidizing_organization %>
+        </p>
+        <p>
+          <%= org.label :organizational_status %> <%= org.select :organizational_status, [] %>
+        </p>
+        <p>
+          <%= org.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= org.select :operating_budget, [] %>
+        </p>
+        <div class="grid_2 alpha">
+          <p>
+            <%= org.label :ein, 'Federal EIN' %>
+            <%= org.text_field :ein %>
+          </p>
+        </div>
+        <div class="grid_2">
+          <p>
+            <%= org.label :duns, 'DUNS Number' %>
+            <%= org.text_field :duns %>
+          </p>
+        </div>
+        <div class="grid_4 omega">
+          <p>
+            <%= org.label :nsic_code, 'National Standard Institution Code' %>
+            <%= org.select :nsic_code, [] %>
+          </p>
+        </div>
       </fieldset>
       <%= org.fields_for(:users,@organization.users.build) do |user| %>
       <fieldset>
-        <legend>User Information</legend>
-        <div class="grid_4 alpha">
+        <legend>Your Information</legend>
+        <div class="grid_2 alpha">
+          <p>
+            <%= user.label :title %>
+            <%= user.text_field :title %>
+          </p>
+        </div>
+        <div class="grid_3">
           <p>
             <%= user.label :first_name, 'First Name' %>
             <%= user.text_field :first_name %>
           </p>
         </div>
-        <div class="grid_4 omega">
+        <div class="grid_3 omega">
           <p>
             <%= user.label :last_name, 'Last Name' %>
             <%= user.text_field :last_name %>
@@ -81,6 +156,10 @@
         <p>
           <%= user.label :password_confirmation, 'Confirm Password' %>
           <%= user.password_field :password_confirmation %>
+        </p>
+        <p>
+          <%= user.check_box :accepted_terms %>
+          I accept the ArtsReady <%= link_to "terms and conditions", page_path('terms') %> and <%= link_to "the privacy policy", page_path('privacy') %>
         </p>
         </fieldset>
         <% end %>
