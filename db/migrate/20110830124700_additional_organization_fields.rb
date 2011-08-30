@@ -17,7 +17,10 @@ class AdditionalOrganizationFields < ActiveRecord::Migration
     
     add_column :users, :title, :string
     add_column :users, :phone_number, :string
-    add_column :users, :accepted_terms, :boolean, :default => false
+    add_column :users, :accepted_terms, :boolean, :default => true
+    
+    Organization.all.each {|o| o.update_attributes({:organizational_status => 'UNKNOWN', :operating_budget => 'UNKNOWN'})}
+    User.all.each {|u| u.update_attributes({:title => 'TITLE'})}
   end
 
   def self.down

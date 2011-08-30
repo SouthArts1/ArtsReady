@@ -2,6 +2,7 @@ FactoryGirl.define do
 
   factory :user, :aliases => [:reader, :member] do
     sequence(:email) {|n| "person#{n}@example.com" }
+    title 'Director'
     first_name "First"
     last_name "Last"
     password "password"

@@ -282,7 +282,7 @@ ActiveRecord::Schema.define(:version => 20110830124700) do
     t.datetime "password_reset_sent_at"
     t.string   "title"
     t.string   "phone_number"
-    t.boolean  "accepted_terms",         :default => false
+    t.boolean  "accepted_terms",         :default => true
   end
 
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
