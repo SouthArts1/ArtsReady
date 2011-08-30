@@ -1,14 +1,16 @@
 FactoryGirl.define do
 
   factory :user, :aliases => [:reader, :member] do
+    sequence(:email) {|n| "person#{n}@example.com" }
+    title 'Director'
     first_name "First"
     last_name "Last"
-    sequence(:email) {|n| "person#{n}@example.com" }
     password "password"
     password_confirmation {|p| p.password}
     role 'reader'
     admin false
-    association :organization, :factory => :organization  
+    accepted_terms true
+    association :organization, :factory => :organization
 
     factory :editor do
       role 'editor'

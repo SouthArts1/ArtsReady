@@ -1,33 +1,33 @@
 require 'csv'
 
 puts "Creating South Arts (Admin)"
-org = Organization.create!(:name => 'South Arts', :address => '1800 Peachtree St., NW', :city => 'Atlanta', :state => 'GA', :zipcode => '30309', :active => true)
-admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true, :organization => org, :role => 'manager')
-admin = User.create!(:email=>'jlk@storiedfuture.com', :password => 'password', :password_confirmation => 'password', :first_name => 'JLK', :last_name => 'Test', :admin => true, :organization => org, :role => 'manager')
-admin = User.create!(:email=>'kmalone@southarts.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Katy', :last_name => 'Malone', :admin => true, :organization => org, :role => 'manager')
+org = Organization.create!(:name => 'South Arts', :address => '1800 Peachtree St., NW', :city => 'Atlanta', :state => 'GA', :zipcode => '30309', :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
+admin = User.create!(:email=>'admin@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Admin', :last_name => 'User', :admin => true, :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
+admin = User.create!(:email=>'jlk@storiedfuture.com', :password => 'password', :password_confirmation => 'password', :first_name => 'JLK', :last_name => 'Test', :admin => true, :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
+admin = User.create!(:email=>'kmalone@southarts.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Katy', :last_name => 'Malone', :admin => true, :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
 
 article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'Featuring ArtsReady', :body => 'Prepare for the unexpected', :description => 'Featured Introduction ArtsReady', :critical_function => 'technology', :featured => true)
 article = Article.create(:visibility=>'public', :organization => org, :user => admin, :title => 'Paying for ArtsReady?', :body => 'Paying', :description => 'Paying for Preparedness', :critical_function => 'finances')
 
 puts "Creating Fractured Atlas"
-org = Organization.create!(:name => 'Fractured Atlas', :address => '248 W. 35th Street', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true)
-member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org, :role => 'manager')
-member = User.create!(:email=>'kirsten.nordine@fracturedatlas.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Kirsten', :last_name => 'Nordine', :organization => org)
-member = User.create!(:email=>'justin.karr@fracturedatlas.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Justin', :last_name => 'Karr', :organization => org)
+org = Organization.create!(:name => 'Fractured Atlas', :address => '248 W. 35th Street', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
+member = User.create!(:email=>'test@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Test', :last_name => 'User', :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
+member = User.create!(:email=>'kirsten.nordine@fracturedatlas.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Kirsten', :last_name => 'Nordine', :organization => org, :title => 'tester', :accepted_terms => true)
+member = User.create!(:email=>'justin.karr@fracturedatlas.org', :password => 'password', :password_confirmation => 'password', :first_name => 'Justin', :last_name => 'Karr', :organization => org, :title => 'tester', :accepted_terms => true)
 
 puts "Adding some public articles"
 member.articles.create(:title => 'First Article is Public and Feature', :body => 'This is my article', :visibility => 'public', :featured => true, :critical_function => 'people')
 member.articles.create(:title => 'Another Public Article', :body => 'This is another article', :visibility => 'public', :critical_function => 'exhibits')
 
 puts "Creating battle buddies"
-org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :battle_buddy_enabled => true, :active => true)
-member = User.create!(:email=>'lc@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Lincoln', :last_name => 'Center', :organization => org, :role => 'manager')
+org = Organization.create!(:name => 'Lincoln Center', :address => '10 Lincoln Center Plaza', :city => 'New York', :state => 'NY', :zipcode => '10023', :battle_buddy_enabled => true, :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
+member = User.create!(:email=>'lc@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Lincoln', :last_name => 'Center', :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
 
-org = Organization.create!(:name => 'Whitney Museum of American Art', :address => '945 Madison Avenue', :city => 'New York', :state => 'NY', :zipcode => '10021', :battle_buddy_enabled => true, :active => true)
-member = User.create!(:email=>'wmaa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Whitney', :last_name => 'Museum', :organization => org, :role => 'manager')
+org = Organization.create!(:name => 'Whitney Museum of American Art', :address => '945 Madison Avenue', :city => 'New York', :state => 'NY', :zipcode => '10021', :battle_buddy_enabled => true, :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
+member = User.create!(:email=>'wmaa@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Whitney', :last_name => 'Museum', :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
 
-org = Organization.create!(:name => 'The Museum of Modern Art', :address => '11 West 53rd Street', :city => 'New York', :state => 'NY', :zipcode => '10019', :battle_buddy_enabled => true, :active => true)
-member = User.create!(:email=>'moma@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Moma', :last_name => 'Museum', :organization => org, :role => 'manager')
+org = Organization.create!(:name => 'The Museum of Modern Art', :address => '11 West 53rd Street', :city => 'New York', :state => 'NY', :zipcode => '10019', :battle_buddy_enabled => true, :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
+member = User.create!(:email=>'moma@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Moma', :last_name => 'Museum', :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
 
 puts "Loading the questions"
 questions = <<END
@@ -205,16 +205,16 @@ CSV.parse(action_items) do |row|
 end
 
 puts "Creating pages"
-pages = ['About','Staff','Tour','FAQ','Get ArtsReady','Give ArtsReady','List of current subsidizers','Useful Links','Site Map','Support ArtsReady','Contact Us','Press Center','ArtsReady How To']
+pages = ['About','Staff','Tour','FAQ','Get ArtsReady','Give ArtsReady','List of current subsidizers','Useful Links','Site Map','Support ArtsReady','Contact Us','Press Center','ArtsReady How To', 'Privacy', 'Terms']
 pages.each do |page|
   Page.create(:title => page, :body => "#{page} content", :slug => page.gsub(' ','').underscore)
 end
 
 puts "Adding unapproved organization"
-org = Organization.create!(:name => 'Unapproved Org', :address => '1505 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => false, :battle_buddy_enabled => false)
-member = User.create!(:email=>'unapproved@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org, :role => 'manager')
+org = Organization.create!(:name => 'Unapproved Org', :address => '1505 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :active => false, :battle_buddy_enabled => false, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
+member = User.create!(:email=>'unapproved@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Unapproved', :last_name => 'Org', :organization => org, :role => 'manager', :title => 'tester', :accepted_terms => true)
 
 puts "Adding crisis organization"
-org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :battle_buddy_enabled => false, :active => true)
+org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :battle_buddy_enabled => false, :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
 member = User.create!(:email=>'crisis@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Crisis', :last_name => 'Org', :organization => org)
-org.crises.create(:description => 'some crisis', :user => member)
+org.crises.create(:description => 'some crisis', :user => member, :title => 'tester', :accepted_terms => true)

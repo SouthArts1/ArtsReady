@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :todos
   has_many :todo_notes
 
+  validates_presence_of :title
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
@@ -13,6 +14,7 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
   validates_uniqueness_of :email
+  validates_acceptance_of :accepted_terms, :accept => true, :on => :create
   
   validates_inclusion_of :role, :in => ArtsreadyDomain::ROLES
 
@@ -28,7 +30,8 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   
   after_create :send_welcome_email
-  after_save :add_to_mailchimp
+  
+  after_save :add_to_mailchimp, :if => lambda{ |obj| (obj.changed.include?("email")) }
 
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -103,14 +106,11 @@ class User < ActiveRecord::Base
   private 
   
   def add_to_mailchimp
-    puts "trying to add to mailing list"
     begin
       gb = Gibbon::API.new(MAILCHIMP_API_KEY)
       response = gb.listSubscribe({:id => MAILCHIMP_LIST_ID, :email_address => email, :double_optin => false, :merge_vars => {:FNAME=>first_name}})
-      puts "Registered #{email} with mailchimp"
-      puts response.inspect
     rescue
-      puts "Failed to register #{email} with mailchimp"
+      logger.warn("Failed to register #{email} with mailchimp")
     end
     
   end

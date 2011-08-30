@@ -10,6 +10,8 @@ FactoryGirl.define do
     latitude 33.8039 
     longitude -84.3933 
     gmaps true
+    organizational_status 'test'
+    operating_budget 'test'
     
     factory :new_organization do
       name "New Organization"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826174849) do
+ActiveRecord::Schema.define(:version => 20110830124700) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -150,14 +150,28 @@ ActiveRecord::Schema.define(:version => 20110826174849) do
     t.string   "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",               :default => false
-    t.boolean  "battle_buddy_enabled", :default => false
+    t.boolean  "active",                     :default => false
+    t.boolean  "battle_buddy_enabled",       :default => false
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "gmaps"
     t.string   "phone_number"
     t.string   "email"
     t.string   "contact_name"
+    t.string   "fax_number"
+    t.string   "mailing_address"
+    t.string   "mailing_address_additional"
+    t.string   "address_additional"
+    t.string   "mailing_city"
+    t.string   "mailing_state"
+    t.string   "mailing_zipcode"
+    t.string   "parent_organization"
+    t.string   "subsidizing_organization"
+    t.string   "organizational_status"
+    t.string   "operating_budget"
+    t.string   "ein"
+    t.string   "duns"
+    t.string   "nsic_code"
   end
 
   create_table "pages", :force => true do |t|
@@ -266,6 +280,9 @@ ActiveRecord::Schema.define(:version => 20110826174849) do
     t.datetime "last_login_at"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.string   "title"
+    t.string   "phone_number"
+    t.boolean  "accepted_terms",         :default => true
   end
 
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"

@@ -60,8 +60,7 @@ class Crisis < ActiveRecord::Base
   private 
   
   def send_crisis_announcement
-    logger.debug(self.inspect)
-    crisis_participants.each {|u| puts CrisisNotifications.announcement(u,self).deliver }
+    crisis_participants.each {|u| CrisisNotifications.announcement(u,self).deliver }
   end
 
   def send_crisis_resolution

@@ -27,13 +27,19 @@
       </div>
     <% end %>
     <%= form_for(@user) do |f| %>
-    <div class="grid_4 alpha">
+    <div class="grid_2 alpha">
+      <p>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </p>
+    </div>
+    <div class="grid_3">
       <p>
         <%= f.label :first_name %>
         <%= f.text_field :first_name %>
       </p>
     </div>
-    <div class="grid_4 omega">
+    <div class="grid_3 omega">
       <p>
         <%= f.label :last_name %>
         <%= f.text_field :last_name %>
