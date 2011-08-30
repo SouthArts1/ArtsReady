@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
   validates_uniqueness_of :email
+  validates_acceptance_of :accepted_terms
   
   validates_inclusion_of :role, :in => ArtsreadyDomain::ROLES
 
