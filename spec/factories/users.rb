@@ -1,7 +1,6 @@
 FactoryGirl.define do
 
   factory :user, :aliases => [:reader, :member] do
-    association :organization, :factory => :organization
     sequence(:email) {|n| "person#{n}@example.com" }
     first_name "First"
     last_name "Last"
@@ -10,6 +9,7 @@ FactoryGirl.define do
     role 'reader'
     admin false
     accepted_terms true
+    association :organization, :factory => :organization
 
     factory :editor do
       role 'editor'
