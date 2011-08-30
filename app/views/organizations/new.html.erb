@@ -99,10 +99,10 @@
           <%= org.text_field :subsidizing_organization %>
         </p>
         <p>
-          <%= org.label :organizational_status %> <%= org.select :organizational_status, [] %>
+          <%= org.label :organizational_status %> <%= org.select :organizational_status, ArtsreadyDomain::ORGANIZATIONAL_STATUSES, :include_blank => true %>
         </p>
         <p>
-          <%= org.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= org.select :operating_budget, [] %>
+          <%= org.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= org.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true %>
         </p>
         <div class="grid_2 alpha">
           <p>
@@ -119,7 +119,8 @@
         <div class="grid_4 omega">
           <p>
             <%= org.label :nsic_code, 'National Standard Institution Code' %>
-            <%= org.select :nsic_code, [] %>
+            <%= org.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
+            Didn’t see your code? Please enter it here: <%= text_field_tag :other_nsic_code %>
           </p>
         </div>
       </fieldset>
