@@ -127,22 +127,22 @@
       <%= org.fields_for(:users,@organization.users.build) do |user| %>
       <fieldset>
         <legend>Your Information</legend>
-        <div class="grid_2 alpha">
-          <p>
-            <%= user.label :title %>
-            <%= user.text_field :title %>
-          </p>
-        </div>
-        <div class="grid_3">
+        <div class="grid_3 alpha">
           <p>
             <%= user.label :first_name, 'First Name' %>
             <%= user.text_field :first_name %>
           </p>
         </div>
-        <div class="grid_3 omega">
+        <div class="grid_3">
           <p>
             <%= user.label :last_name, 'Last Name' %>
             <%= user.text_field :last_name %>
+          </p>
+        </div>
+        <div class="grid_2 omega">
+          <p>
+            <%= user.label :title %>
+            <%= user.text_field :title %>
           </p>
         </div>
         <div class="clear"></div> 
