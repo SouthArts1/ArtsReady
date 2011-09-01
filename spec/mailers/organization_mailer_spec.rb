@@ -6,7 +6,7 @@ describe OrganizationMailer do
     let(:mail) { OrganizationMailer.sign_up(organization) }
 
     it "renders the headers" do
-      mail.subject.should eq("Thank you for joining ArtsReady")
+      mail.subject.should eq("Your ArtsReady Profile is Pending Approval")
       mail.to.should eq([organization.users.first.email])
       mail.from.should eq(["admin@artsready.org"])
     end
