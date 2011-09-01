@@ -44,7 +44,17 @@
   <section> 
     <table class="add-user">
       <thead>
-        <td colspan="5"><p>Add another user</p></td>
+        <tr>
+          <td colspan="5"><p>Add another user</p></td>
+        </tr>
+        <tr>
+        <tr>
+          <td><p>First Name</p></td>
+          <td><p>Last Name</p></td>
+          <td><p>Email</p></td>
+          <td><p>Role</p></td>
+          <td><p></p></td>
+        </tr>
       </thead>
       <tbody>
         <%= form_for(current_org.users.new) do |f| %>
