@@ -14,7 +14,7 @@ class Admin::OrganizationsController < Admin::AdminController
     if @organization.update_attributes(params[:organization])
       redirect_to admin_organizations_path, :notice => "Organization updated"
     else
-      redirect_to admin_organizations_path, :notice => "Problem approving organization"
+      redirect_to admin_organizations_path, :notice => "Problem updating organization"
     end
 
   end

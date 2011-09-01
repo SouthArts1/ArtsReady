@@ -2,6 +2,43 @@
   <h1>Join ArtsReady</h1>
   <div class="grid_8 alpha">
     <section>
+      
+      <p>Be part of the readiness movement!</p>
+
+      <table>    
+        <tr>
+          <th>PREMIUM MEMBER</th>
+          <th>BASIC MEMBER</th>
+        </tr>
+        <tr>
+          <td>Enjoy the full ArtsReady platform! You can...</td>
+          <td> Or you can start your ArtsReady journey with...</td>
+        </tr>
+        <tr>
+          <td>Assess your organization for readiness </td>
+          <td>Our ArtsReady newsletter</td>
+        </tr>
+        <tr>
+          <td>Develop and maintain a customized plan</td>
+          <td>Updates from ArtsReady on response, recovery and readiness</td>
+        </tr>
+        <tr>
+          <td>Join the Battle Buddy Network</td>
+          <td>Access the ArtsReady Library</td>
+        </tr>
+        <tr>
+          <td>Safely store your organization's Critical Stuff, accessible anytime, from anywhere</td>
+          <td><a href="https://artsready.wufoo.com/forms/z7x3k7/" onclick="window.open(this.href,  null, 'height=1013, width=680, toolbar=0, location=0, status=1, scrollbars=1, resizable=1'); return false" title="ArtsReady Basic Member">Become a Basic Member.</a></td>
+        </tr>
+        <tr>
+          <td>Contribute to the Library and the ongoing national readiness discussion</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <p></p>
+      <p>As a Premium Member you also get a free associate membership with our development partner, <a href=http:\\www.fracturedatlas.org>Fractured Atlas</a>.</p>
+    </section>
+    <section>
       <% if @organization.errors.any? %>
       <div class="error_messages">
           <h2>Form is invalid</h2>
@@ -73,14 +110,6 @@
         </p>
         </div>
         <legend>General Contact Information</legend>
-        <p>
-          <%= org.label :contact_name %>
-          <%= org.text_field :contact_name %>
-        </p>
-        <p>
-          <%= org.label :email %>
-          <%= org.text_field :email %>
-        </p>
         <p>
           <%= org.label :phone_number %>
           <%= org.text_field :phone_number %>
