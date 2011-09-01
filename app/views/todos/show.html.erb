@@ -37,7 +37,7 @@
 	    </article>
 		<% end %>
 	</section>
-	<%= link_to "Add a new article", "#{new_article_path}/#{@todo.id}", :class => "button" %>
+	<%= link_to "Add a new article", new_article_path(:todo_id => @todo.id), :class => "button" %>
 </div>
 
 <div class="grid_6 todo-logs">

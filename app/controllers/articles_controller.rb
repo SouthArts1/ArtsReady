@@ -21,8 +21,8 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    if params[:id]
-      @article.todo_id = params[:id]
+    if params[:todo_id]
+      @article.todo_id = params[:todo_id]
     end
   end
 
