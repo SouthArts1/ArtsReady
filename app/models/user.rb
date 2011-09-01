@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
 
   scope :admins, where(:admin => true)
+  scope :active, where(:disabled => false)
   
   before_validation :set_first_password, :if => "password.nil?"
   before_validation :set_default_role
