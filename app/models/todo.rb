@@ -16,7 +16,7 @@ class Todo < ActiveRecord::Base
 
   before_save :set_status
   before_save :check_user_change
-  after_create :send_assignment_email
+  after_create :send_assignment_email, :add_create_note
   after_update :add_update_note
 
   scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
@@ -78,11 +78,17 @@ class Todo < ActiveRecord::Base
   
   private
   
+  def add_create_note
+    todo_notes.create(:user_id => last_user_id, :message => "Created")
+  end
+
   def add_update_note
     message = ''
     self.changes.each do |key, value|
-      message += "#{key} changed from #{value[0]} to #{value[1]}\n" if TRACKED_ATTRIBUTES.include?(key)
+      message += "#{key.humanize} changed from #{value[0].blank? ? 'nothing' : value[0]} to #{value[1]}\n" if TRACKED_ATTRIBUTES.include?(key)
     end
+    message += "Assigned to #{user_name}" if self.changes["user_id"]
+    
     todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
   end
   
