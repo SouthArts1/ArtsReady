@@ -10,7 +10,8 @@ class MemberController < ApplicationController
   def library
     @critical_function_counts = Article.group(:critical_function).count
     @public_articles = Article.for_public
-    @recent_comments = current_org.comments.recent
+    @public_comments = Comment.for_public.recent
+    @our_comments = current_org.comments.recent
   end
 
 end
