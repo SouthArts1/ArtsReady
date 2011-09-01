@@ -1,3 +1,12 @@
-OrganizationMailer#sign_up
+<p>Dear <%= @user.name %>,</p>
 
-<%= @greeting %>, find me in app/views/app/views/organization_mailer/sign_up.text.erb
+<p>Thank you for signing up for ArtsReady. We will send you an approval within the next 48 hours, and you 
+can then start your path toward comprehensive readiness. Your approval email will go to <%= @user.email %>.</p>
+
+<p>We’re glad to have you aboard! If you have any questions, please contact us at admin@artsready.org.</p>
+
+<p>Happy Planning-<br/>
+The ArtsReady Team</p>
+
+<p>No matter what happens today,<br/>
+be able to do tomorrow what you were doing yesterday.</p>
