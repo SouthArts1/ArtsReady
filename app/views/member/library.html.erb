@@ -47,9 +47,21 @@
   </div>
   <div class="grid_4 omega">
     <section>
-      <h3>Recent Comments</h3>
+      <h3>Recent Comments (Public)</h3>
       <ul class="library">
-        <% @recent_comments.each do |comment| %>
+        <% @public_comments.each do |comment| %>
+          <li>
+            <%= image_tag('library-comment.png', :style => 'float: left; margin-right: 10px; margin-bottom: 10px;') %>
+            <i><%= comment.comment %></i><br />
+            <%= link_to comment.article_title, article_path(comment.article) %> <%= time_ago_in_words(comment.created_at) %> ago
+          </li>
+        <% end %>
+      </ul>
+    </section>
+    <section>
+      <h3>Recent Comments (Ours)</h3>
+      <ul class="library">
+        <% @our_comments.each do |comment| %>
           <li>
             <%= image_tag('library-comment.png', :style => 'float: left; margin-right: 10px; margin-bottom: 10px;') %>
             <i><%= comment.comment %></i><br />

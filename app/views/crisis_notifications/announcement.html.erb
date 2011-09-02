@@ -1,0 +1,18 @@
+<p>Dear <%= @user.name %></p>
+
+<p><%= @crisis.organization_name %>, is facing a crisis!</p>
+
+<p>Here's what they have to say:</p>
+
+<p><%= @crisis.description if @crisis.description.present? %></p>
+
+<p>Please visit ArtsReady’s <%= link_to "Lend a Hand", lend_a_hand_url %> page to see what you can do to help.</p>
+
+<p>To contact <%= @crisis.organization_name %>'s ArtsReady administrator: </p>
+
+<%= @crisis.organization.contact_name %><br>
+<%= @crisis.organization.email %><br>
+<%= @crisis.organization.phone_number %><br>
+
+<p>Best Regards-<br>
+The ArtsReady Team</p>

@@ -22,7 +22,8 @@
   <p>You can attach a file or link to this article, or simply enter the content directly in the body field below.</p>
   <div class="field">
     <%= f.label :document, 'Upload a file' %>
-    <%= f.file_field :document %>
+    <%= f.file_field :document %><br>
+    <%= link_to("Current file: #{@article.document_identifier}", @article.document.url) if @article.document_identifier %>
   </div>
   <div class="field">
     <%= f.label :link, 'Or assign a link' %>

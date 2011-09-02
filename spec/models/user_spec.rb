@@ -170,7 +170,7 @@ describe User do
     it "sends an password reset email" do
       # TODO This sends the intro email on the create and then the reset. Probably a better way to do
       expect {user.send_password_reset}.to change{ActionMailer::Base.deliveries.count}
-      last_email.subject.should eq("ArtsReady Password Reset")
+      last_email.subject.should eq("Important Information about your ArtsReady Account")
       last_email.to.should eq([user.email])
     end
   end

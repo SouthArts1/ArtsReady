@@ -7,6 +7,10 @@ class OrganizationsController < ApplicationController
   end
   
   def create
+    user = params[:organization][:users_attributes]['0']
+    logger.debug(user.inspect)
+    params[:organization].merge!({:contact_name => "#{user[:first_name]} #{user[:last_name]}", :email => user[:email]})
+    logger.debug(params[:organization].inspect)
     @organization = Organization.new(params[:organization])
     if @organization.save
       redirect_to welcome_path, :notice => "Signed up!"

@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'Problem with considering the question'
     end
-    redirect_to assessment_path
+    redirect_to :back
   end
   
   def skip
@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'Problem with considering the question'
     end
-    redirect_to assessment_path
+    redirect_to :back
   end
 
   def update
@@ -28,7 +28,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'All fields are required for your answer'
     end
-    redirect_to assessment_path
+    redirect_to :back
   end
   
 

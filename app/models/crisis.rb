@@ -46,11 +46,11 @@ class Crisis < ActiveRecord::Base
   def crisis_participants
     case visibility
     when 'public'
-      User.all
+      User.active
     when 'buddies'
-      organization.battle_buddies.collect {|buddy| buddy.users} rescue []
+      User.where("organization_id IN (?)", organization.battle_buddies.collect(&:id)) rescue []
     when 'private'
-      User.where("organization_id IN (?)", buddy_list.split(',').collect{|b| b.to_i}) rescue [  ]
+      User.where("organization_id IN (?)", buddy_list.split(',').collect{|b| b.to_i}) rescue []
     else
       User.admins
     end
@@ -60,7 +60,6 @@ class Crisis < ActiveRecord::Base
   private 
   
   def send_crisis_announcement
-    logger.debug(self.inspect)
     crisis_participants.each {|u| CrisisNotifications.announcement(u,self).deliver }
   end
 

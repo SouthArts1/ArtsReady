@@ -21,7 +21,7 @@ describe UserMailer do
      let(:mail) { UserMailer.password_reset(user) }
 
      it "send user password reset url" do
-       mail.subject.should eq("ArtsReady Password Reset")
+       mail.subject.should eq("Important Information about your ArtsReady Account")
        mail.to.should eq([user.email])
        mail.from.should eq(["admin@artsready.org"])
        mail.body.encoded.should match(edit_password_reset_path(user.password_reset_token))

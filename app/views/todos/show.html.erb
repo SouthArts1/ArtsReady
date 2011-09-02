@@ -37,20 +37,18 @@
 	    </article>
 		<% end %>
 	</section>
-	<%= link_to "Add a new article", "#{new_article_path}/#{@todo.id}", :class => "button" %>
+	<%= link_to "Add a new article", new_article_path(:todo_id => @todo.id), :class => "button" %>
 </div>
 
 <div class="grid_6 todo-logs">
 	<section>
 	  <h3 style="">Log</h3>
+    <div class="log">
 	  <% @todo.todo_notes.each do |note| %>
-	    <div class="log">
-	      <div>
-					<%= note.message %>
-				</div>
-	      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user.name %></time>
-	    </div>
+      <div><%= note.message %></div>
+      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user_name %></time>
 	  <% end %>
+  </div>
 		<%= form_for TodoNote.new do |f| %>
 				<h3 style="">Add a new note</h3>
 			  <div class="field" style="width:400px;">

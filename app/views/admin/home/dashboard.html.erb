@@ -23,8 +23,8 @@
   <section>
     <h3><%= pluralize(@crises.count,'Organization') %> in Crisis</h3>
     <ul class="list-actionitems">
-      <% @crises.each do |org| %>
-      <li><%= link_to org.name, edit_admin_organization_path(org) %></li>
+      <% @crises.each do |crisis| %>
+      <li><%= link_to crisis.organization_name, edit_admin_organization_path(crisis.organization) %></li>
       <% end %>
     </ul>
   </section>

@@ -19,8 +19,15 @@
 
     <div class="field">
       <label>Related Library Articles</label>
-      <%= select_tag :critical_function, options_for_select(['Articles...']) %> &nbsp; <%= link_to_function image_tag('remove.png', :style => 'vertical-align: middle;'), "" %><br />
-      <%= link_to_function image_tag('add.png', :style => 'vertical-align: middle;') + ' add another', "" %>
+      <section class="list-kb">
+    		<% @todo.articles.each do |article| %>
+    			<article>
+    	      <h5><%= link_to article.title, article_path(article) %> </h5>
+    	      <p><time><%= article.created_at.strftime("%B %e, %Y") %></time></p>
+    	    </article>
+    		<% end %>
+      	<%= link_to "Add a new article", new_article_path(:todo_id => @todo.id), :class => "button" %>
+    	</section>
     </div>
 
     <div class="actions">

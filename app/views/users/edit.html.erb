@@ -27,16 +27,22 @@
       </div>
     <% end %>
     <%= form_for(@user) do |f| %>
-    <div class="grid_4 alpha">
+    <div class="grid_3 alpha">
       <p>
         <%= f.label :first_name %>
         <%= f.text_field :first_name %>
       </p>
     </div>
-    <div class="grid_4 omega">
+    <div class="grid_3">
       <p>
         <%= f.label :last_name %>
         <%= f.text_field :last_name %>
+      </p>
+    </div>
+    <div class="grid_2 omega">
+      <p>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
       </p>
     </div>
     <div class="clear"></div>
@@ -46,7 +52,12 @@
     </p>
     <% if current_user.role == 'manager' && current_user != @user %>
     <p>
+      <%= f.label :role %>
       <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| [r.humanize, r]} %></td>
+    </p>
+    <p>
+      <%= f.label :disabled %>
+      <%= f.check_box :disabled %></td>
     </p>
     <% end %>
     <p>

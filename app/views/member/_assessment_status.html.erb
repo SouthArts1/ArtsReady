@@ -1,0 +1,17 @@
+<% if current_org.assessment.nil? %>
+<section class="readiness-intro">
+  <h2>Our mission is to help arts organizations plan for the best, and prepare for the worst.</h2>
+  <p style="margin-bottom:20px;">In less than 1 hour you’ll have a list of ways to prepare for emergencies and and a comprehensive todo list to get your team on the same page.</p>
+  <p style="width:50%;">
+    <%= link_to "Get Started &raquo;".html_safe , new_assessment_path, :class => "button button-join"  %>
+  </p>
+</section>
+<% elsif current_org.assessment && !current_org.assessment_is_complete? %>
+<section class="readiness-intro">
+  <h2>Welcome Back!</h2>
+  <p style="margin-bottom:20px;">Continue with your organization's readiness planning, check out your Critical Stuff, or just browse the Library for the latest additions.</p>
+  <p style="width:50%;">
+    <%= link_to "Continue &raquo;".html_safe , new_assessment_path, :class => "button button-join"  %>
+  </p>
+</section>
+<% end %>

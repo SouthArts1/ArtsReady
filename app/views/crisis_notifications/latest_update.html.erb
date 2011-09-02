@@ -1,0 +1,8 @@
+<p><%= @crisis.organization.name %> is in crisis!</p>
+
+<p>Here's the latest update:</p>
+
+<p><%= @update.message %></p>
+
+<p>- From: <%= @update.user.name %> (<%= @update.user.organization_name %>)</p>
+<p>- <%= @update.created_at %></p>
