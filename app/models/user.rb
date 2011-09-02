@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   scope :admins, where(:admin => true)
   scope :active, where(:disabled => false)
   
-  before_validation :set_first_password, :if => "encrypted_password.nil?"
+  before_validation :set_first_password, :if => "password.nil? && encrypted_password.nil?"
   before_validation :set_default_role
 
   before_save :encrypt_password
