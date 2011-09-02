@@ -11,7 +11,7 @@
     <%= f.hidden_field :active, :value => false %>
     <%= f.submit "Disable" %>
   <% end if @organization.active?%>
-  <%#= button_to "Delete" if @organization.deletable?%>
+  <%= button_to("Delete", admin_organization_path(@organization), :confirm => 'Are you sure. THIS CAN NOT BE UNDONE.', :method => :delete) if @organization.deletable? %>
 </div>
 <div class="grid_12">
 <ul class="top-nav settings">

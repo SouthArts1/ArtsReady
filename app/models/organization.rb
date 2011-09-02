@@ -49,6 +49,11 @@ class Organization < ActiveRecord::Base
     0
   end
 
+  def deletable?
+    # organization needs to be inactive with only a single disabled user which describes new org
+    !active? && users.count == 1 && users.first.disabled? rescue false
+  end
+  
   def is_my_buddy?
     false
   end

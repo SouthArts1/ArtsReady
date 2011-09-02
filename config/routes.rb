@@ -2,7 +2,6 @@ Artsready::Application.routes.draw do
 
 
   get "messages/create"
-
   get "needs/create"
 
   get "get_help" => "buddies#get_help", :as => "get_help"
@@ -13,7 +12,7 @@ Artsready::Application.routes.draw do
 
   namespace :admin do
     get 'home/dashboard', :as => "dashboard"
-    resources :organizations, :only => [:index, :edit, :update] do
+    resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
     end
     resources :password_resets, :only => [:create]
