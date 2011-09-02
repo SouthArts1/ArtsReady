@@ -1,13 +1,14 @@
 <div class="grid_12">
      <h1>Manage Organizations</h1>
-    <p>Filter <input type="text" placeholder="Search by name" class="filter-query"></p>
   <section>
     <table class="resource side-nav-panels">
       <thead>
-        <td><p>Name</p></td>
-        <td><p>Members</p></td>
-        <td><p>Latest Activity</p></td>
-        <td><p></p></td>
+        <tr>
+          <th><p>Name</p></th>
+          <th><p>Members</p></th>
+          <th><p>Latest Activity</p></th>
+          <th><p>&nbsp;</p></th>
+        </tr>
       </thead>
       <tbody>
         <% @organizations.each do |org| %>
