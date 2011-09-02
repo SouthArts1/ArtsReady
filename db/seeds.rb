@@ -217,4 +217,4 @@ member = User.create!(:email=>'unapproved@test.host', :password => 'password', :
 puts "Adding crisis organization"
 org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :battle_buddy_enabled => false, :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
 member = User.create!(:email=>'crisis@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Crisis', :last_name => 'Org', :organization => org)
-org.crises.create(:description => 'some crisis', :user => member, :title => 'tester', :accepted_terms => true)
+org.crises.create(:description => 'some crisis', :user => member)
