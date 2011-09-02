@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
   
-  after_create :send_welcome_email
+  after_create :send_welcome_email, :if => lambda{ |obj| (obj.organization.active?) }
   
   after_save :add_to_mailchimp, :if => lambda{ |obj| (obj.changed.include?("email")) }
 
