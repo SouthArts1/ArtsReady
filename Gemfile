@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.10'
 gem 'mysql2', '0.2.6'
+gem 'jquery-rails'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
 gem 'cancan'
