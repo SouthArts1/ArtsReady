@@ -72,7 +72,7 @@
   <div class="response">
     <div class="answers">
     </div>
-    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
+    &nbsp; <%= link_to 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;', :onclick => "$('.answer').toggle();"%><br />
     <%= form_for(answer, :url => skip_answer_path(answer), :html => {:method => :put}) do |a| %>
     <%= a.hidden_field :was_skipped, :value => true %>
     <%= link_to 'not applicable', '#', :class => 'does-not-apply skip-question', :style => 'color:#666;text-decoration:underline;' %>
