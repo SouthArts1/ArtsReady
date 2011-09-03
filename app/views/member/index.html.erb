@@ -24,9 +24,9 @@
     <section>
       <h3 class="icon-resources">Critical Stuff Short Cuts</h3>
       <ul class="list-resources">
-        <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |function| %>
-          <li><%= link_to function[:title], organization_articles_path(current_org,:critical_function => function[:name]) %></li>
-        <% end %>
+        <li><%= link_to 'People Resources', critical_list_organization_articles_path(current_org,:critical_function => 'people') %></li>
+        <li><%= link_to 'Finances & Insurance', critical_list_organization_articles_path(current_org,:critical_function => 'finance') %></li>
+        <li><%= link_to 'Technology', critical_list_organization_articles_path(current_org,:critical_function => 'technology') %></li>
       </ul>
     </section>
   </div>
