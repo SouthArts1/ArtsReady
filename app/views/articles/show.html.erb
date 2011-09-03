@@ -9,7 +9,7 @@
 <div class="grid_8">
   <article>
     <% if @article.link.present? %>
-    <div><%= link_to "Link", @article.link %></div>
+    <div>URL: <%= link_to @article.link, @article.link, :target => '_blank' %></div>
     <% end %>
     <% if @article.document.present? %>
     <div><%= link_to "Download", @article.document.url %></div>
