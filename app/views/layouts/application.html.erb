@@ -30,6 +30,7 @@
             <% else %>
             <li><%= link_to "Login", sign_in_path %></li>
             <li><%= link_to "Join", sign_up_path %></li>
+            <li><%= link_to "Help", page_path('help') %></li>
             <% end %>
           </ul>
           <% if user_signed_in? %>
@@ -53,7 +54,7 @@
               <li><%= link_to 'Tour', page_path('tour') %></li>
               <li><%= link_to 'FAQ', page_path('faq') %></li>
               <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
-              <li><%= link_to 'Give ArtsReady', page_path('support_arts_ready') %></li>
+              <li><%= link_to 'Give To ArtsReady', page_path('give_to_artsready') %></li>
               <li><%= link_to 'Useful Links', page_path('useful_links') %></li>
               <li><%= link_to 'Library', readiness_library_path %></li>
             <% end %>
