@@ -32,10 +32,15 @@
   <section class="list-kb">
 		<% @todo.articles.each do |article| %>
 			<article>
+	      <% if article.on_critical_list? %>
+	      <h5><%= link_to "*#{article.title}", article_path(article) %></h5>
+	      <% else %>
 	      <h5><%= link_to article.title, article_path(article) %> </h5>
+	      <% end %>
 	      <p><time><%= article.created_at.strftime("%B %e, %Y") %></time></p>
 	    </article>
 		<% end %>
+		<p>* Article is part of Critical Stuff</p>
 	</section>
 	<%= link_to "Add a new article", new_article_path(:todo_id => @todo.id), :class => "button" %>
 </div>
