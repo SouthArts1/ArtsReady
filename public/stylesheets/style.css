@@ -928,7 +928,8 @@ tbody tr:hover td {
 
 .editable {
   padding-right: 20px;
-  background: url("../images/icon-pencil.png") right top no-repeat; }
+/*  background: url("../images/icon-pencil.png") right top no-repeat; */
+}
 
 .filter {
   text-align: right;
