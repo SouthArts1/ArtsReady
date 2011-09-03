@@ -7,6 +7,11 @@
     
     <h1>To Do Item</h1>
     <p><%= @todo.description %></p>
+    <% if @todo.action_item_id %>
+    <p>From Assessment Question<br>
+      <%= @todo.related_assessment_question %>
+    </p>
+    <% end %>
   </hgroup>
 </div>
 
