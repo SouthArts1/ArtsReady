@@ -1,6 +1,6 @@
 <div class="grid_12">
   <hgroup>
-    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' if @article.organization == current_org %>
+    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' if @article.organization == current_org  && current_user.role != 'reader'%>
     <h1>Library Article</h1>
     <h2><%= @article.title %></h2>
   </hgroup>
