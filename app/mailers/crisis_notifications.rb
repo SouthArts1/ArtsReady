@@ -15,8 +15,9 @@ class CrisisNotifications < ActionMailer::Base
 
   def resolved(user,crisis)
     @crisis = crisis
+    @user = user
     begin
-      mail :to => user.email, :subject => "#{@crisis.organization.name} resolved their crisis!"
+      mail :to => user.email, :subject => "Good news! #{@crisis.organization_name} has resolved their crisis through ArtsReady!"
     rescue
       logger.debug("Failed to send crisis resolution to #{user.inspect}")
     end

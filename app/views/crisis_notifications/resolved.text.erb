@@ -1,5 +1,14 @@
-<%= @crisis.organization.name %> has resolved their crisis.
+Dear <%= @user.name %>,
 
-- <%= @crisis.user.name %> <%= @crisis.created_at %>
+Your Battle Buddy, <%= @crisis.organization_name %>, has concluded their crisis! 
 
-Thanks for being a part of the solution.
+<% if @crisis.updates.last %>
+Here the final entry on <%= @crisis.organization_name %> Crisis Console: <%= @crisis.updates.last %>
+<% end %>
+
+Thank you for taking part in the ArtsReady Battle Buddy Network! Your help and support for your sister organizations is greatly appreciated.
+
+Best Regards-
+The ArtsReady Team
+
+Keep your doors open. No matter what.
