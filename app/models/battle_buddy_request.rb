@@ -19,6 +19,9 @@ class BattleBuddyRequest < ActiveRecord::Base
     battle_buddy.managers.each do |manager|
       OrganizationMailer.battle_buddy_invitation(manager,battle_buddy,organization).deliver
     end
+    battle_buddy.editors.each do |editors|
+      OrganizationMailer.battle_buddy_invitation(editor,battle_buddy,organization).deliver
+    end
   end
   
 end
