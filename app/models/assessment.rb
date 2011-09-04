@@ -16,11 +16,11 @@ class Assessment < ActiveRecord::Base
   
   def initial_critical_functions
     cf = ['people', 'finance', 'technology']
-    cf << 'performances' if has_performances?
-    cf << 'tickets' if has_tickets?
+    cf << 'productions' if has_performances?
+    cf << 'ticketing' if has_tickets?
     cf << 'facilities' if has_facilities?
     cf << 'programs' if has_programs?
-    cf << 'grants' if has_performances?
+    cf << 'grantmaking' if has_grants?
     cf << 'exhibits' if has_exhibits?
     cf
   end
@@ -31,6 +31,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def populate_empty_answers
+    logger.debug("initial critical functions => #{initial_critical_functions}")
     Question.all.each do |q|
       if initial_critical_functions.include?(q.critical_function)
         logger.debug("Adding question #{q.id}, #{q.critical_function}")
