@@ -49,6 +49,9 @@ Artsready::Application.configure do
   config.active_support.deprecation = :notify
   
   config.action_mailer.default_url_options = { :host => 'artsready-staging.heroku.com' }
+
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
     
   config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
 end
