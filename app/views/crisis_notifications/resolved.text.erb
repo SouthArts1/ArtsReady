@@ -3,7 +3,7 @@ Dear <%= @user.name %>,
 Your Battle Buddy, <%= @crisis.organization_name %>, has concluded their crisis! 
 
 <% if @crisis.updates.last %>
-Here the final entry on <%= @crisis.organization_name %> Crisis Console: <%= @crisis.updates.last %>
+Here is the final entry on <%= @crisis.organization_name %> Crisis Console: <%= @crisis.updates.last.message %>
 <% end %>
 
 Thank you for taking part in the ArtsReady Battle Buddy Network! Your help and support for your sister organizations is greatly appreciated.
