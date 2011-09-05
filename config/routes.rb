@@ -20,6 +20,7 @@ Artsready::Application.routes.draw do
     resources :comments, :only => [:destroy]
     resources :pages, :only => [:index, :edit, :update]
     resources :questions
+    resources :action_items
     root :to => 'home#dashboard', :as => "dashboard"
   end
 

@@ -1,5 +1,6 @@
 <h1>Editing Assessment Question</h1>
 
+<section>
 <% if @question.errors.any? %>
 <div class="error_messages">
     <h2>Form is invalid</h2>
@@ -26,3 +27,13 @@
   <%= f.submit 'Save Question' %> <%= link_to "Cancel", admin_questions_path, :class => 'button green' %>
 
 <% end %>
+</section>
+
+<section>
+<h2>To-Do Items</h2>
+<% @question.action_items.each do |t| %>
+  <p><%= t.description %></p>
+<% end %>
+<%= link_to 'New To-Do', new_admin_action_item_path, :class => 'button'%>
+
+</section>

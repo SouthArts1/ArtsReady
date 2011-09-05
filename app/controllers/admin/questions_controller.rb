@@ -19,7 +19,7 @@ class Admin::QuestionsController < ApplicationController
   end
   
   def edit
-    @question = Question.find(params[:id])
+    @question = Question.includes(:action_items).find(params[:id])
   end
   
   def update
