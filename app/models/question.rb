@@ -5,4 +5,5 @@ class Question < ActiveRecord::Base
 
   scope :by_critical_function, lambda {|cf| where(:critical_function => cf) }
 
+  validates_presence_of :description, :critical_function
 end

@@ -1,0 +1,21 @@
+<div class="grid_12">
+  <h1>Edit Assessment Questions</h1>
+  <ul class="top-nav">
+    <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
+      <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], admin_questions_path(:tab => critical_function[:name]) %></li>
+    <% end %>
+  </ul>
+  <div class="critical-function-toggle">
+  </div>
+  <div class="questions">
+    <% @questions.each do |q| %>
+    <div class="question">
+      <%= link_to 'Edit', edit_admin_question_path(q), :class => 'button'%>
+      <span style="color: #153041; font-size:17px; font-weight:bold;"><%= q.description %></span>
+    </div>
+    <% end %>
+    <div class="question">
+      &nbsp; <%= link_to 'Add', new_admin_question_path, :class => 'button'%>
+    </div>
+  </div>
+</div>

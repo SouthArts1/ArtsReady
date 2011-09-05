@@ -1,0 +1,27 @@
+<h1>New Assessment Question</h1>
+<% if @question.errors.any? %>
+<div class="error_messages">
+    <h2>Form is invalid</h2>
+    <ul>
+      <% for message in @question.errors.full_messages %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for([:admin,@question]) do |f| %>
+
+  <div class="field">
+    <%= f.label :critical_function %>
+    <%= f.select :critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, :size => '40x4' %>
+  </div>
+
+  <%= f.submit 'Save Question' %> <%= link_to "Cancel", admin_questions_path, :class => 'button green' %>
+
+<% end %>
