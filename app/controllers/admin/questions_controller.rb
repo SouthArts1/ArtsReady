@@ -2,7 +2,7 @@ class Admin::QuestionsController < ApplicationController
 
   def index
     critical_function = (params[:tab] ||= 'people')
-    @questions = Question.where(:critical_function => critical_function)
+    @questions = Question.active.where(:critical_function => critical_function)
   end
   
   def new
@@ -19,7 +19,7 @@ class Admin::QuestionsController < ApplicationController
   end
   
   def edit
-    @question = Question.find(params[:id])
+    @question = Question.includes(:action_items).find(params[:id])
   end
   
   def update
@@ -30,8 +30,11 @@ class Admin::QuestionsController < ApplicationController
     else
       render :edit, :notice => "Problem updating question"
     end
-
   end
   
-
+  def destroy
+    @question = Question.find(params[:id])
+    @question.update_attribute(:deleted,true)
+    redirect_to admin_questions_path, :notice => "Question removed"
+  end
 end

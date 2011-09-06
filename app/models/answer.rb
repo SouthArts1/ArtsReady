@@ -30,7 +30,7 @@ class Answer < ActiveRecord::Base
   end
 
   def add_todo_items
-    question.action_items.each do |i|
+    question.action_items.active.each do |i|
       todos.create(:action_item => i, :organization => assessment.organization, :description => i.description, :critical_function => question.critical_function, :priority => priority)
       logger.debug("Added todo for question #{question}")
     end
