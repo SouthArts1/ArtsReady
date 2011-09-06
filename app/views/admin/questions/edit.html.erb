@@ -42,17 +42,27 @@
     <tbody>
       <% @question.action_items.active.each do |t| %>
       <tr>
-        <td><p><%= t.description %></p></td>
-        <td><p><%= link_to 'Edit', admin_action_item_path(t), :class => 'button' %> <%= button_to 'DELETE', admin_action_item_path(t), :method => :delete %></p></td>
+        <td><p>
+          <%= form_for([:admin,t]) do |f| %>
+          <%= f.label :description %>
+          <%= f.text_field :description, :size => '100' %>
+          <%= f.submit 'Update', :confirm => 'Are you sure you want to change this?' %>
+          <% end %>
+        </p></td>
+        <td><p><%= button_to 'DELETE', admin_action_item_path(t), :method => :delete, :confirm => 'Are you *SURE*?' %></p></td>
       </tr>
       <% end %>
+      <tr>
+        <td><p>
+        <%= form_for([:admin,ActionItem.new]) do |f| %>
+        <%= f.hidden_field :question_id, :value => @question.id %>
+        <%= f.label :description %>
+        <%= f.text_field :description, :size => '100' %>
+        <%= f.submit 'Add' %>
+        <% end %>
+        </p></td>
+        <td><p></p></td>
+      </tr>
     </tbody>
   </table>
 </section>
-<p>Add new action item</p>
-<%= form_for([:admin,ActionItem.new]) do |f| %>
-<%= f.hidden_field :question_id, :value => @question.id %>
-<%= f.label :description %>
-<%= f.text_field :description %>
-<%= f.submit 'Add Action Item' %>
-<% end %>

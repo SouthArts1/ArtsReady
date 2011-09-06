@@ -10,6 +10,13 @@ class Admin::ActionItemsController < Admin::AdminController
   end
 
   def update
+    @action_item = ActionItem.find(params[:id])
+
+    if @action_item.update_attributes(params[:action_item])
+      redirect_to edit_admin_question_path(@action_item.question), :notice => "Action item updated"
+    else
+      redirect_to edit_admin_question_path(@action_item.question), :notice => "Problem with your action item"
+    end
   end
   
   def destroy
