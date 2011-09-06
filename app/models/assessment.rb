@@ -32,7 +32,7 @@ class Assessment < ActiveRecord::Base
 
   def populate_empty_answers
     logger.debug("initial critical functions => #{initial_critical_functions}")
-    Question.all.each do |q|
+    Question.active.each do |q|
       if initial_critical_functions.include?(q.critical_function)
         logger.debug("Adding question #{q.id}, #{q.critical_function}")
         self.answers.create(:question => q, :critical_function => q.critical_function) 
