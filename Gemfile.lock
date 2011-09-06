@@ -65,7 +65,7 @@ GEM
       abstract (>= 1.0.0)
     exceptional (2.0.32)
       rack
-    excon (0.6.5)
+    excon (0.6.6)
     factory_girl (2.1.0)
     factory_girl_rails (1.2.0)
       factory_girl (~> 2.1.0)
@@ -83,7 +83,7 @@ GEM
       ruby-hmac
     forgery (0.4.3)
       nokogiri (~> 1.4)
-    formatador (0.2.0)
+    formatador (0.2.1)
     geocoder (1.0.2)
     gherkin (2.4.18)
       json (>= 1.4.6)
@@ -104,13 +104,14 @@ GEM
     guard-cucumber (0.6.2)
       cucumber (>= 0.10)
       guard (>= 0.4.0)
-    guard-pow (0.1.0)
+    guard-pow (0.2.1)
       guard (>= 0.3.0)
     guard-rspec (0.4.4)
       guard (>= 0.4.0)
-    heroku (2.5.0)
+    heroku (2.6.1)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
+      rubyzip
       term-ansicolor (~> 1.0.5)
     heroku_san (1.2.3)
       heroku (>= 2)
@@ -224,20 +225,20 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  acts-as-taggable-on
-  bcrypt-ruby
-  cancan
+  acts-as-taggable-on (= 2.0.6)
+  bcrypt-ruby (= 2.1.4)
+  cancan (= 1.6.5)
   capybara
-  carrierwave
+  carrierwave (= 0.5.7)
   cucumber-rails
   database_cleaner
   exceptional
   factory_girl_rails
-  fog
+  fog (= 0.11.0)
   forgery
-  geocoder
-  gibbon
-  gmaps4rails
+  geocoder (= 1.0.2)
+  gibbon (= 0.1.7)
+  gmaps4rails (= 0.10.2)
   growl_notify
   guard
   guard-bundler

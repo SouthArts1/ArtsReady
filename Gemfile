@@ -4,22 +4,22 @@ gem 'rails', '3.0.10'
 gem 'mysql2', '0.2.6'
 gem 'jquery-rails'
 
-gem 'bcrypt-ruby', :require => 'bcrypt' 
-gem 'cancan'
+gem 'bcrypt-ruby', '2.1.4', :require => 'bcrypt'
+gem 'cancan', '1.6.5'
 
-gem 'carrierwave'
-gem 'fog'
+gem 'carrierwave', '0.5.7'
+gem 'fog', '0.11.0'
 
-gem 'geocoder'
-gem 'gmaps4rails'
+gem 'geocoder', '1.0.2'
+gem 'gmaps4rails', '0.10.2'
 
 gem 'RedCloth'
-gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on', '2.0.6'
 
 gem 'heroku'
 gem 'exceptional'
 
-gem 'gibbon'
+gem 'gibbon', '0.1.7'
 
 gem 'rack-ssl', :require => 'rack/ssl'
 
