@@ -1,5 +1,7 @@
 <h1>Editing Assessment Question</h1>
 
+<%= button_to 'DELETE QUESTION', admin_question_path(@question), :method => :delete, :confirm => 'Are you *SURE* you want to remove this question?' %>
+
 <section>
 <% if @question.errors.any? %>
 <div class="error_messages">
@@ -26,7 +28,6 @@
 
   <%= f.submit 'Save Question' %> <%= link_to "Cancel", admin_questions_path, :class => 'button green' %>
 <% end %>
-<%= button_to 'DELETE QUESTION', admin_question_path(@question), :method => :delete, :confirm => 'Are you *SURE* you want to remove this question?' %>
 </section>
 
 <section>
