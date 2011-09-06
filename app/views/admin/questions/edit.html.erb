@@ -31,10 +31,28 @@
 </section>
 
 <section>
-<h2>To-Do Items</h2>
-<% @question.action_items.each do |t| %>
-  <p><%= t.description %></p>
-<% end %>
-<%= link_to 'New To-Do', new_admin_action_item_path, :class => 'button'%>
-
+  <h2>To-Do Items</h2>
+  <table class="actionitems">
+    <thead>
+      <tr>
+        <th><p>Item</p></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @question.action_items.active.each do |t| %>
+      <tr>
+        <td><p><%= t.description %></p></td>
+        <td><p><%= link_to 'Edit', admin_action_item_path(t), :class => 'button' %> <%= button_to 'DELETE', admin_action_item_path(t), :method => :delete %></p></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </section>
+<p>Add new action item</p>
+<%= form_for([:admin,ActionItem.new]) do |f| %>
+<%= f.hidden_field :question_id, :value => @question.id %>
+<%= f.label :description %>
+<%= f.text_field :description %>
+<%= f.submit 'Add Action Item' %>
+<% end %>
