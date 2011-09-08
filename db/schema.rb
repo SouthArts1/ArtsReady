@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110906122936) do
+ActiveRecord::Schema.define(:version => 20110908125922) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20110906122936) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",           :default => false
+    t.text     "help"
   end
 
   add_index "questions", ["import_id"], :name => "index_questions_on_import_id"

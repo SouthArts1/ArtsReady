@@ -26,6 +26,11 @@
     <%= f.text_area :description, :size => '40x4' %>
   </div>
 
+  <div class="field">
+    <%= f.label :help %>
+    <%= f.text_area :help, :size => '40x4' %>
+  </div>
+
   <%= f.submit 'Save Question' %> <%= link_to "Cancel", admin_questions_path, :class => 'button green' %>
 <% end %>
 </section>
