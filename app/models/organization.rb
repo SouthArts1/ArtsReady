@@ -29,6 +29,7 @@ class Organization < ActiveRecord::Base
 
   after_create :send_sign_up_email, :send_admin_notification
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
+  after_update :setup_initial_todo, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
   scope :approved, where(:active => true)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
@@ -104,6 +105,11 @@ class Organization < ActiveRecord::Base
   def send_approval_email
     logger.debug("Sending approval email for organization #{name}")
     OrganizationMailer.welcome(self).deliver rescue logger.debug("send approval email failed")
+  end
+  
+  def setup_initial_todo
+    logger.debug("setup_initial_todo: #{self.todos.count}")
+    self.todos.create(:critical_function => 'people', :description => 'Add a second manager using the Settings menu to ensure access to the ArtsReady site', :priority => 'critical', :user => users.first) if self.todos.count == 0
   end
 
 end
