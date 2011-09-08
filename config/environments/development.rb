@@ -37,6 +37,6 @@ unless $rails_rake_task
   Debugger.start_remote
 end
 
-S3_UPLOAD_BUCKET = 'fracturedatlas-artsready-dev'
+S3_UPLOAD_BUCKET = 'artsready-dev'
 MAILCHIMP_API_KEY = '5f70b48cbd31f3cab0d4d24ca8d5acde-us2'
 MAILCHIMP_LIST_ID = '91aa1b2d44'
