@@ -59,11 +59,11 @@
       <tbody>
         <%= form_for(current_org.users.new) do |f| %>
         <tr>
-          <td class="name"><p><%= f.text_field:first_name, :placeholder => 'First Name'%></p></td>
-          <td class="name"><p><%= f.text_field:last_name, :placeholder => 'Last Name'%></p></td>
+          <td class="name"><p><%= f.text_field:first_name, :placeholder => 'First Name', :style => 'width:150px;'%></p></td>
+          <td class="name"><p><%= f.text_field:last_name, :placeholder => 'Last Name', :style => 'width:150px;'%></p></td>
           <td class="email"><p><%= f.text_field :email, :placeholder => 'Email'%></p></td>
           <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| [r.humanize, r]} %></td>
-          <td class="add"><p><%= f.submit 'Add', :class => 'button green'%></p></td>
+          <td class="add"><p><%= f.submit 'Add', :class => 'button green', :style => 'width:40px;'%></p></td>
         </tr>
         <% end %>
       </tbody>
