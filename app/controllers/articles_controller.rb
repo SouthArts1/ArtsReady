@@ -44,12 +44,12 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = current_org.articles.find(params[:id])
-    authorize! :edit, @article
+#    authorize! :manage, @article
   end
 
   def update
     @article = current_org.articles.find(params[:id])
-    authorize! :edit, @article
+#    authorize! :edit, @article
     #TODO fix this hack
     if params[:buddy_list].present?
       buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
