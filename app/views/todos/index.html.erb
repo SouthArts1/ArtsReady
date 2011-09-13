@@ -47,7 +47,7 @@
               </td>
               <td class="status"><p><%= todo.status %></p></td>
               <td class="priority"><p><%= f.select :priority, Todo::PRIORITY %></p></td>
-              <td><p><%= link_to 'Details', todo_path(todo), :class => 'button' %></p></td>
+              <td><p><%= link_to 'Details', todo_path(todo), :class => 'button' %> <%= f.submit "Update", :class => 'update' %></p></td>
             <% end %>
           </tr>
           <% end %>
