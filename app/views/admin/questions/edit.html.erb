@@ -1,0 +1,73 @@
+<h1>Editing Assessment Question</h1>
+
+<%= button_to 'DELETE QUESTION', admin_question_path(@question), :method => :delete, :confirm => 'Are you *SURE* you want to remove this question?' %>
+
+<section>
+<% if @question.errors.any? %>
+<div class="error_messages">
+    <h2>Form is invalid</h2>
+    <ul>
+      <% for message in @question.errors.full_messages %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for([:admin,@question]) do |f| %>
+
+  <div class="field">
+    <%= f.label :critical_function %>
+    <%= f.select :critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] }, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description, :size => '40x4' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :help %>
+    <%= f.text_area :help, :size => '40x4' %>
+  </div>
+
+  <%= f.submit 'Save Question' %> <%= link_to "Cancel", admin_questions_path, :class => 'button green' %>
+<% end %>
+</section>
+
+<section>
+  <h2>To-Do Items</h2>
+  <table class="actionitems">
+    <thead>
+      <tr>
+        <th><p>Item</p></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @question.action_items.active.each do |t| %>
+      <tr>
+        <td><p>
+          <%= form_for([:admin,t]) do |f| %>
+          <%= f.label :description %>
+          <%= f.text_field :description, :size => '100' %>
+          <%= f.submit 'Update', :confirm => 'Are you sure you want to change this?' %>
+          <% end %>
+        </p></td>
+        <td><p><%= button_to 'DELETE', admin_action_item_path(t), :method => :delete, :confirm => 'Are you *SURE*?' %></p></td>
+      </tr>
+      <% end %>
+      <tr>
+        <td><p>
+        <%= form_for([:admin,ActionItem.new]) do |f| %>
+        <%= f.hidden_field :question_id, :value => @question.id %>
+        <%= f.label :description %>
+        <%= f.text_field :description, :size => '100' %>
+        <%= f.submit 'Add' %>
+        <% end %>
+        </p></td>
+        <td><p></p></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

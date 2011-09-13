@@ -36,4 +36,12 @@
     </p>
     <% end %>
   </section>
+  <%= form_for([:admin, @organization, @user]) do |f| %>
+    <%= f.hidden_field :admin, :value => true %>
+    <%= f.submit 'Promote to Admin', :confirm => 'Are you sure? THIS WILL ALLOW FULL ADMIN ACCESS TO ARTSREADY' %>
+  <% end unless @user.admin? || @user.organization != current_org %>
+  <%= form_for([:admin, @organization, @user]) do |f| %>
+    <%= f.hidden_field :admin, :value => false %>
+    <%= f.submit 'Remove Admin Privileges', :confirm => 'Are you sure?' %>
+  <% end if @user.admin? && @user != current_user  %>  
 </div>

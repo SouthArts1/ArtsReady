@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
     unless user_signed_in?
       msg = 'You must sign in to access that page'
-      if (current_user.present? && !current_org.active?) then msg = 'Your organization has not been approved' end
+      if (current_user.present? && !current_org.active?) then msg = 'Your organization has not been approved or is inactive.' end
       if (current_user.present? && current_user.disabled?) then msg = 'Your user account is inactive' end
       redirect_to :sign_in, :notice => msg
     end

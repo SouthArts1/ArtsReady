@@ -1,21 +1,21 @@
 <div class="grid_12">
   <hgroup>
-    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' if @article.organization == current_org %>
-    <h1><%= @article.title %></h1>
+    <%= link_to 'edit article', edit_article_path(@article), :class => 'button', :style => 'float:right;' if @article.organization == current_org  && current_user.role != 'reader'%>
+    <h1>Library Article</h1>
+    <h2><%= @article.title %></h2>
   </hgroup>
 </div>
 
 <div class="grid_8">
   <article>
     <% if @article.link.present? %>
-    <div><%= link_to "Link", @article.link %></div>
+    <div>URL: <%= link_to @article.link, @article.link, :target => '_blank' %></div>
     <% end %>
     <% if @article.document.present? %>
     <div><%= link_to "Download", @article.document.url %></div>
     <% end %>
     <div><%= @article.to_html %></div>
   </article>
-  <%= render 'share' %>
   <section>`
     <h4>Comments</h4>
     <ul class="comments">

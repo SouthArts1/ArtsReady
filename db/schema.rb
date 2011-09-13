@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110830124700) do
+ActiveRecord::Schema.define(:version => 20110908125922) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20110830124700) do
     t.string   "recurrence"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",     :default => false
   end
 
   add_index "action_items", ["import_id"], :name => "index_action_items_on_import_id"
@@ -172,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20110830124700) do
     t.string   "ein"
     t.string   "duns"
     t.string   "nsic_code"
+    t.integer  "users_count",                :default => 0
   end
 
   create_table "pages", :force => true do |t|
@@ -188,6 +190,8 @@ ActiveRecord::Schema.define(:version => 20110830124700) do
     t.integer  "import_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted",           :default => false
+    t.text     "help"
   end
 
   add_index "questions", ["import_id"], :name => "index_questions_on_import_id"
@@ -244,7 +248,6 @@ ActiveRecord::Schema.define(:version => 20110830124700) do
     t.string   "critical_function"
     t.boolean  "complete",          :default => false, :null => false
     t.string   "status"
-    t.integer  "last_updated_by"
     t.integer  "last_user_id"
   end
 

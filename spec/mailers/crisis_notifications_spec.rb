@@ -22,7 +22,7 @@ describe CrisisNotifications do
     let(:mail) { CrisisNotifications.resolved(user,crisis) }
 
     it "renders the headers" do
-      mail.subject.should eq("#{crisis.organization.name} resolved their crisis!")
+      mail.subject.should eq("Good news! #{crisis.organization_name} has resolved their crisis through ArtsReady!")
       mail.to.should eq([user.email])
       mail.from.should eq(["admin@artsready.org"])
     end

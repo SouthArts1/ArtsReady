@@ -5,4 +5,6 @@ class ActionItem < ActiveRecord::Base
   validates_presence_of :question
   validates_presence_of :description
 
+  scope :active, where(:deleted => false)
+
 end

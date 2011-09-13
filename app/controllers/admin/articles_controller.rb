@@ -12,6 +12,10 @@ class Admin::ArticlesController < Admin::AdminController
       # TODO Email user?
       @article.save
       redirect_to article_path(@article), :notice => "Article updated"
+    elsif params[:toggle] = "owner"
+      @article.update_attribute(:user_id, current_user.id)
+      @article.update_attribute(:organization_id, current_org.id)
+      redirect_to article_path(@article), :notice => "Article updated"
     else
       redirect_to article_path(@article), :notice => "Problem updating article"
     end

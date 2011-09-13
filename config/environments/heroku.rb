@@ -22,21 +22,9 @@ Artsready::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.slowgrowl.warn = 1000    # growl any action which takes > 1000ms (1s)
-  config.slowgrowl.sticky = true  # make really slow (2x warn) alerts sticky
-
   config.action_mailer.default_url_options = { :host => 'artsready.dev' }
 end
 
-unless $rails_rake_task
-  require 'ruby-debug'
-
-  Debugger.settings[:autoeval] = true
-  Debugger.settings[:autolist] = 1
-  Debugger.settings[:reload_source_on_change] = true
-  Debugger.start_remote
-end
-
-S3_UPLOAD_BUCKET = 'artsready-dev'
+S3_UPLOAD_BUCKET = 'artsready-production'
 MAILCHIMP_API_KEY = '5f70b48cbd31f3cab0d4d24ca8d5acde-us2'
 MAILCHIMP_LIST_ID = '91aa1b2d44'

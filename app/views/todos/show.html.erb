@@ -1,8 +1,17 @@
 <div class="grid_12">
   <hgroup>
-    <%= link_to 'edit to do', edit_todo_path(@todo), :class => 'button', :style => 'float:right;' %>
+    <%= link_to 'edit to-do', edit_todo_path(@todo), :class => 'button', :style => 'float:right;' %>
+    <p>
+      <%= link_to "View All", todos_path %>
+    </p>
+    
     <h1>To Do Item</h1>
     <p><%= @todo.description %></p>
+    <% if @todo.action_item_id %>
+    <p>From Assessment Question<br>
+      <%= @todo.related_assessment_question %>
+    </p>
+    <% end %>
   </hgroup>
 </div>
 
@@ -32,10 +41,15 @@
   <section class="list-kb">
 		<% @todo.articles.each do |article| %>
 			<article>
+	      <% if article.on_critical_list? %>
+	      <h5><%= link_to "*#{article.title}", article_path(article) %></h5>
+	      <% else %>
 	      <h5><%= link_to article.title, article_path(article) %> </h5>
+	      <% end %>
 	      <p><time><%= article.created_at.strftime("%B %e, %Y") %></time></p>
 	    </article>
 		<% end %>
+		<p>* Article is part of Critical Stuff</p>
 	</section>
 	<%= link_to "Add a new article", new_article_path(:todo_id => @todo.id), :class => "button" %>
 </div>

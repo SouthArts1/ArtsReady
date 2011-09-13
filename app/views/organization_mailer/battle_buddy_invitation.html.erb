@@ -14,7 +14,7 @@
 <%= @requesting_organization.phone_number %><br>
 </p>
 
-<p>To approve this organization as your new Battle Buddy <%= link_to 'go here', organization_battle_buddy_request_path(@target_organization,@requesting_organization) , :method => :put %>.</p>
+<p>To approve this organization as your new Battle Buddy <%= link_to 'go here', organization_battle_buddy_request_url(@target_organization,@requesting_organization) , :method => :put %>.</p>
 
 <p>Happy Planning-<br>
 The ArtsReady Team</p>

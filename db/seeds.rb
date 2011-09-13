@@ -205,7 +205,7 @@ CSV.parse(action_items) do |row|
 end
 
 puts "Creating pages"
-pages = ['About','Staff','Tour','FAQ','Get ArtsReady','Give ArtsReady','List of current subsidizers','Useful Links','Site Map','Support ArtsReady','Contact Us','Press Center','ArtsReady How To', 'Privacy', 'Terms']
+pages = ['About','Staff','Tour','FAQ','Get ArtsReady','Give ArtsReady','List of current subsidizers','Useful Links','Site Map','Support ArtsReady','Contact Us','Press Center','ArtsReady How To', 'Privacy', 'Terms', 'Help', 'Give To ArtsReady']
 pages.each do |page|
   Page.create(:title => page, :body => "#{page} content", :slug => page.gsub(' ','').underscore)
 end
@@ -217,4 +217,4 @@ member = User.create!(:email=>'unapproved@test.host', :password => 'password', :
 puts "Adding crisis organization"
 org = Organization.create!(:name => 'Crisis Org', :address => '205 Broadway', :city => 'New York', :state => 'NY', :zipcode => '10001', :battle_buddy_enabled => false, :active => true, :organizational_status => 'TEST', :operating_budget => 'NOTHING')
 member = User.create!(:email=>'crisis@test.host', :password => 'password', :password_confirmation => 'password', :first_name => 'Crisis', :last_name => 'Org', :organization => org)
-org.crises.create(:description => 'some crisis', :user => member, :title => 'tester', :accepted_terms => true)
+org.crises.create(:description => 'some crisis', :user => member)

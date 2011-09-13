@@ -49,10 +49,14 @@ Artsready::Application.configure do
   config.active_support.deprecation = :notify
   
   config.action_mailer.default_url_options = { :host => 'artsready.heroku.com' }
+
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
     
   config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
 end
 
-S3_UPLOAD_BUCKET = 'fracturedatlas-artsready'
+#S3_UPLOAD_BUCKET = 'fracturedatlas-artsready'
+S3_UPLOAD_BUCKET = 'artsready-production'
 MAILCHIMP_API_KEY = 'b8912933a59791689dcc41a2e5ebe34c-us2'
 MAILCHIMP_LIST_ID = '5f443e1901'

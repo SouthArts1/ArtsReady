@@ -623,6 +623,20 @@ thead td {
   text-transform: uppercase;
   color: #fff; }
 
+thead th {
+  background-color: #525e96;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#525e96), to(#28387d));
+  background-image: -moz-linear-gradient(100% 100% 90deg, #28387d, #525e96);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#525e96', endColorstr='#28387d');
+  box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5) inset;
+  -moz-box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5) inset;
+  -webkit-box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5) inset;
+  border: 1px solid #28387d;
+  font-size: 80%;
+  text-transform: uppercase;
+	margin: 5px, 10px;
+  color: #fff; }
+
 table p {
   margin: 5px 10px; }
 
@@ -914,7 +928,8 @@ tbody tr:hover td {
 
 .editable {
   padding-right: 20px;
-  background: url("../images/icon-pencil.png") right top no-repeat; }
+/*  background: url("../images/icon-pencil.png") right top no-repeat; */
+}
 
 .filter {
   text-align: right;

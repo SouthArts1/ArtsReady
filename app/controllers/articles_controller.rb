@@ -44,10 +44,12 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = current_org.articles.find(params[:id])
+#    authorize! :manage, @article
   end
 
   def update
     @article = current_org.articles.find(params[:id])
+#    authorize! :edit, @article
     #TODO fix this hack
     if params[:buddy_list].present?
       buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
@@ -62,6 +64,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = current_org.articles.find(params[:id])
+    authorize! :destroy, @article
     @article.destroy
     redirect_to articles_url, :notice => "Successfully destroyed article."
   end

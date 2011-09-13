@@ -3,7 +3,8 @@
 <head>
   <title>ArtsReady</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag "modernizr-2.0.4.custom.89556", "jquery-1.6.1.min", "jquery.uniform.min", "jquery-ui-1.8.10.custom.min", "jquery.tablesorter.min.js", "application" %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "modernizr-2.0.4.custom.89556", "jquery.uniform.min", "jquery-ui-1.8.10.custom.min", "jquery.tablesorter.min.js", "application" %>
   <%= csrf_meta_tag %>
   <%= yield :head %>
 </head>
@@ -30,6 +31,7 @@
             <li><%= link_to "Login", sign_in_path %></li>
             <li><%= link_to "Join", sign_up_path %></li>
             <% end %>
+            <li><%= link_to "Help", page_path('arts_ready_how_to') %></li>
           </ul>
           <% if user_signed_in? %>
             <div id="logged-in-status">
@@ -42,7 +44,7 @@
             <% if user_signed_in? %>
               <li><%= link_to 'Dashboard', dashboard_path %></li>
               <li><%= link_to 'Assess', new_assessment_path %></li>
-              <li><%= link_to 'To Do', todos_path %></li>
+              <li><%= link_to 'To-Do', todos_path %></li>
               <li><%= link_to 'Our Critical Stuff', critical_list_articles_path %></li>
               <li><%= link_to 'Battle Buddy Network', lend_a_hand_path %></li>
               <li><%= link_to 'Useful Links', page_path('useful_links') %></li>
@@ -52,7 +54,7 @@
               <li><%= link_to 'Tour', page_path('tour') %></li>
               <li><%= link_to 'FAQ', page_path('faq') %></li>
               <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
-              <li><%= link_to 'Give ArtsReady', page_path('support_arts_ready') %></li>
+              <li><%= link_to 'Give To ArtsReady', page_path('give_to_artsready') %></li>
               <li><%= link_to 'Useful Links', page_path('useful_links') %></li>
               <li><%= link_to 'Library', readiness_library_path %></li>
             <% end %>
@@ -93,7 +95,9 @@
         <li><%= link_to 'Support for ArtsReady', page_path('support_arts_ready') %></li>
         <li><%= link_to 'Contact Us', page_path('contact_us') %></li>
         <li><%= link_to 'Press Center', page_path('press_center') %></li>
-        <li><%= link_to 'ArtsReady How to', page_path('arts_ready_how_to') %></li>
+        <li><%= link_to 'ArtsReady How-To', page_path('arts_ready_how_to') %></li>
+        <li><%= link_to "Terms of Use", page_path('terms') %></li>
+        <li><%= link_to "Privacy Policy", page_path('privacy') %></li>
       </ul>
     </nav>
   </footer>

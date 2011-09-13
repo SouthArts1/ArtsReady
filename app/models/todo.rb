@@ -76,6 +76,10 @@ class Todo < ActiveRecord::Base
     end
   end
   
+  def related_assessment_question
+    answer.question.description rescue ""
+  end
+  
   private
   
   def add_create_note

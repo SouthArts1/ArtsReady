@@ -1,12 +1,12 @@
 <% if answer.answered? %>
-  <div class="question answered">
-    <div class="response answered">
-      <div class="answers">
-        <%= answer.priority %> <br/> <%= answer.preparedness %>
-      </div>
+<div class="question answered">
+  <div class="response answered">
+    <div class="answers">
+      <%= answer.priority %> <br/> <%= answer.preparedness %>
     </div>
-    <h3 class="prompt plain"><%= answer.question_description %></h3>
   </div>
+  <h3 class="prompt plain"><%= answer.question_description %></h3>
+</div>
 <% elsif answer.was_skipped? %>
 <div class="question not-applicable">
   <div class="response">
@@ -52,16 +52,14 @@
     </table>
     <%= a.submit 'save answer', :class => 'button blue save-response' %>
     <% end %>
-    <%#= link_to_function 'save answer', '', :class => 'button blue save-response' %>
   </div>
-  <div class="explain" style="display:none;">
+  <div class="explain" style="display:none">
     <p>Please rate the priority and preparedness of this topic for your organization.</p>
     <p class="info-bubble">
       <%= link_to 'Learn more about this topic', '', :class => 'button weak info-bubble-trigger' %>
       <span class="info-bubble-text">
-        <%= raw(learn_more) %>
+        <%= RedCloth.new(answer.question.help).to_html.html_safe if answer.question.help %>
         <br /><br />
-        <a href="#">See how others answered this question.</a>
       </span>
     </p>
   </div>
@@ -72,14 +70,14 @@
   <div class="response">
     <div class="answers">
     </div>
-    &nbsp; <%= link_to_function 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;' %><br />
+    &nbsp; <%= link_to 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
     <%= form_for(answer, :url => skip_answer_path(answer), :html => {:method => :put}) do |a| %>
     <%= a.hidden_field :was_skipped, :value => true %>
     <%= link_to 'not applicable', '#', :class => 'does-not-apply skip-question', :style => 'color:#666;text-decoration:underline;' %>
     <% end %>
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
-  <div class="answer" style="display:none;">
+  <div class="answer answer-<%= answer.id %>" style="display:none;">
     <%= form_for answer do |a| %>
     <table>
       <tr>
@@ -113,18 +111,18 @@
     </table>
     <%= a.submit 'save answer', :class => 'button blue save-response' %>
     <% end %>
-    <%#= link_to_function 'save answer', '', :class => 'button blue save-response' %>
   </div>
-  <div class="explain" style="display:none;">
+  <div class="explain explain-<%= answer.id %>" style="display:none;">
     <p>Please rate the priority and preparedness of this topic for your organization.</p>
+    <% unless answer.question.help.blank? %>
     <p class="info-bubble">
-      <%= link_to 'Learn more about this topic', '', :class => 'button weak info-bubble-trigger' %>
+      <%= link_to 'Learn more about this topic', '', :class => 'button weak', :onclick => 'return false;' %>
       <span class="info-bubble-text">
-        <%= raw(learn_more) %>
-        <br /><br />
-        Still don't know? Select unknown
+        <%= RedCloth.new(answer.question.help).to_html.html_safe if answer.question.help.present?%>
       </span>
     </p>
+    <% end %>
+    <p>Not sure? Select unknown</p>
   </div>
   <div style="clear: both;"></div>
 </div>
