@@ -4,12 +4,12 @@ class UserMailer < ActionMailer::Base
 
   def welcome(user)
     @user = user
-    mail :to => user.email, :subject => "Welcome to ArtsReady", :bcc => 'john.paul.ashenfelter@gmail.com'
+    mail :to => user.email, :subject => "Welcome to ArtsReady"
   end
   
   def password_reset(user)
     @user = user
-    mail :to => user.email, :subject => "Important Information about your ArtsReady Account", :bcc => 'john.paul.ashenfelter@gmail.com'
+    mail :to => user.email, :subject => "Important Information about your ArtsReady Account"
   end
   
 end

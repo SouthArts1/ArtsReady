@@ -7,7 +7,7 @@ class TodoMailer < ActionMailer::Base
     @url = todo_url(todo)
     @todo = todo
     mail(:to => user.email,
-         :subject => "You have a new ArtsReady To-Do", :bcc => 'john.paul.ashenfelter@gmail.com')
+         :subject => "You have a new ArtsReady To-Do")
   end
   
   def reassigned_todo(user, todo)
@@ -15,13 +15,13 @@ class TodoMailer < ActionMailer::Base
     @url = todo_url(todo)
     @todo = todo
     mail(:to => user.email,
-         :subject => "You have a new To Do item at ArtsReady!", :bcc => 'john.paul.ashenfelter@gmail.com')
+         :subject => "You have a new To Do item at ArtsReady!")
   end
   
   def reminder(todo)
     @todo = todo
     mail(:to => todo.user.email,
-         :subject => "Your ArtsReady To-Do is Due!", :bcc => 'john.paul.ashenfelter@gmail.com')
+         :subject => "Your ArtsReady To-Do is Due!")
   end
   
 end

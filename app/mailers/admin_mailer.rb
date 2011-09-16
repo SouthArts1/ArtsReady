@@ -10,17 +10,17 @@ class AdminMailer < ActionMailer::Base
 
   def new_organization(organization,admin)
     @organization = organization
-    mail :to => admin.email, :subject => "There is a organization to approve.", :bcc => 'john.paul.ashenfelter@gmail.com'
+    mail :to => admin.email, :subject => "There is a organization to approve."
   end
 
   def review_public(article,admin)
     @article = article
-    mail :to => admin.email, :subject => "There is a new public article to review.", :bcc => 'john.paul.ashenfelter@gmail.com'
+    mail :to => admin.email, :subject => "There is a new public article to review."
   end
   
   def review_comment(comment,admin)
     @comment = comment
-    mail :to => admin.email, :subject => "There is a new comment to review.", :bcc => 'john.paul.ashenfelter@gmail.com'
+    mail :to => admin.email, :subject => "There is a new comment to review."
   end
   
 end
