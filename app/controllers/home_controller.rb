@@ -26,6 +26,8 @@ class HomeController < ApplicationController
   end
 
   def welcome
+    @page = Page.find_by_slug('billing')
+    render 'pages/show'
   end
 
 end
