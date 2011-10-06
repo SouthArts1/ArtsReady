@@ -5,7 +5,7 @@
       <div id="search-form">
       	<%= form_tag articles_path, :method => :get  do %>
         <%= text_field_tag :term, '', :class => 'library-search', :placeholder => 'Search articles by title, topic, or tag' %>
-        <%= submit_tag 'search library', :class => 'button green' %>
+        <%= submit_tag 'Search library', :class => 'button green' %>
       	<% end %>
       </div>
     </div>
@@ -69,7 +69,7 @@
     </section>
     <section>
       <h3>Share Your Knowledge</h3>
-      <p style="padding:10px; margin:0;"><%= link_to 'submit article', new_article_path, :class => 'button' %></p>
+      <p style="padding:10px; margin:0;"><%= link_to 'Submit article', new_article_path, :class => 'button' %></p>
     </section>
   </div>
 </div>
