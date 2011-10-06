@@ -18,9 +18,9 @@ class TodosController < ApplicationController
     @todo = current_org.todos.new(params[:todo].merge({:last_user => current_user}))
 
     if @todo.save
-      redirect_to :back, :notice => 'Todo was successfully created.'
+      redirect_to :back, :notice => 'To-Do was successfully created.'
     else
-      redirect_to :back, :notice => 'There was a problem with your todo'
+      redirect_to :back, :notice => 'There was a problem with your To-Do'
     end
 
   end

@@ -15,7 +15,7 @@ class TodoMailer < ActionMailer::Base
     @url = todo_url(todo)
     @todo = todo
     mail(:to => user.email,
-         :subject => "You have a new To Do item at ArtsReady!")
+         :subject => "You have a new To-Do item at ArtsReady!")
   end
   
   def reminder(todo)
