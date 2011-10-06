@@ -2,7 +2,7 @@ Feature: New organization registration
   In order to become a member
   As a visitor  
   I want to register with the site
-
+  
   Scenario: A visitor registers their organization
     When I am on the sign up page
     And I fill in the following:
@@ -16,6 +16,9 @@ Feature: New organization registration
      | Email            | newuser@test.host |
      | Password         | password          |
      | Confirm Password | password          |
+    And I select "02 Organization - Non-profit" from "Organizational status"
+    And I select "Less than $1,000,000" from "budget"
+    And I check "terms"
     And I press "Create Organization"
     Then I should be on the welcome page
     And I should see "organization has been registered and is awaiting approval"

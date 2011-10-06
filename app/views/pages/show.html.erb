@@ -1,9 +1,9 @@
 <div class="grid_12">
   <hgroup>
-    <h1><%= @page.title %></h1>
+    <h1><%= @page.title rescue 'Page Not Found'%></h1>
   </hgroup>
 </div>
 
 <div class="grid_12">
-  <%= @page.to_html %>
+  <%= @page.to_html rescue "No page found for #{slug}"%>
 </div>
