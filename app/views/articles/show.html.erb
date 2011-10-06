@@ -2,6 +2,7 @@
   <hgroup>
     <%= link_to 'Edit Article', edit_article_path(@article), :class => 'button', :style => 'float:right;' if @article.organization == current_org  && current_user.role != 'reader'%>
     <h1>Library Article</h1>
+    <p><%= link_to "Need help?", page_path('help_library') %></p>
     <h2><%= @article.title %></h2>
   </hgroup>
 </div>
