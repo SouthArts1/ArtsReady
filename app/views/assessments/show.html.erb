@@ -4,6 +4,7 @@
     <p class="progress-sub"><%= @answers.reject {|q| !q.answered?}.count %>/<%= @answers.count %> answered in section</p>
   </div>
   <h1>Readiness Assessment</h1>
+  <p><%= link_to "Need help?", page_path('help_assessment') %></p>
   <ul class="top-nav">
     <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
       <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(:tab => critical_function[:name]) %></li>
