@@ -87,33 +87,6 @@
           <%= org.text_field :zipcode %>
         </p>
         </div>
-        <legend>Mailing Address (if different)</legend>
-        <p>
-          <%= org.label :mailing_address, 'Mailing Address' %>
-          <%= org.text_field :mailing_address %>
-        </p>
-        <p>
-          <%= org.label :mailing_address_additional, 'Mailing Address Line 2' %>
-          <%= org.text_field :mailing_address_additional %>
-        </p>
-        <div class="grid_4 alpha">
-        <p>
-          <%= org.label :mailing_city, 'City' %>
-          <%= org.text_field :mailing_city %>
-        </p>
-        </div>
-        <div class="grid_1">
-        <p>
-          <%= org.label :mailing_state, 'State' %>
-          <%= org.text_field :mailing_state %>
-        </p>
-        </div>
-        <div class="grid_3 omega">
-        <p>
-          <%= org.label :mailing_zipcode, 'Zipcode' %>
-          <%= org.text_field :mailing_zipcode %>
-        </p>
-        </div>
         <legend>General Contact Information</legend>
         <p>
           <%= org.label :phone_number %>
@@ -138,25 +111,12 @@
         <p>
           <%= org.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= org.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true, :id => 'budget' %>
         </p>
-        <div class="grid_2 alpha">
-          <p>
-            <%= org.label :ein, 'Federal EIN' %>
-            <%= org.text_field :ein %>
-          </p>
-        </div>
-        <div class="grid_2">
-          <p>
-            <%= org.label :duns, 'DUNS Number' %>
-            <%= org.text_field :duns %>
-          </p>
-        </div>
-        <div class="grid_4 omega">
-          <p>
-            <%= org.label :nsic_code, 'National Standard Institution Code' %>
-            <%= org.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
-            Didn’t see your code? Please enter it here: <%= text_field_tag :other_nsic_code %>
-          </p>
-        </div>
+        <p>
+          <%= org.label :nsic_code, 'National Standard Institution Code' %>
+          <%= org.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <a href="http://www.nasaa-arts.org/Research/Planning-and-Accountability/National-Standard-Reference-Center/revisions.pdf">What's this?</a><br>
+<br/> 
+          Didn’t see your code? Please enter it here: <%= text_field_tag :other_nsic_code %>
+        </p>
       </fieldset>
       <%= org.fields_for(:users,@organization.users.build) do |user| %>
       <fieldset>
