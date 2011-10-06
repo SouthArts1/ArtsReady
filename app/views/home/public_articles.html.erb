@@ -14,7 +14,7 @@
         <tbody>
           <% @public_articles.each do |a| %>
             <tr>
-              <td class="title"><p><%= link_to a.title, article_path(a) %></p></td>
+              <td class="title"><p><%= link_to a.title, public_article_path(a) %></p></td>
               <td class="description"><p><%= a.description %></p></td>
               <td class="source"><p>
                 <% if a.link.present? %>
