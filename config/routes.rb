@@ -82,7 +82,7 @@ Artsready::Application.routes.draw do
   get "readiness_library" => "home#readiness_library", :as => "readiness_library"
   get "home/public_articles" => "home#public_articles", :as => "public_articles"
   get "home/public_article(/:id)" => "home#public_article", :as => "public_article"
-
+  get "news" => "home#news", :as => "news"
   root :to => "home#index"
 
 end
