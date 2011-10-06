@@ -20,11 +20,11 @@
               <td class="description"><p><%= a.description %></p></td>
               <td class="source"><p>
                 <% if a.link.present? %>
-                <%= link_to a.link, a.link, :target => '_blank' %>
+                <%= link_to 'Visit', a.link, :target => '_blank' %>
                 <% elsif a.document.present? %>
                 <%= link_to "Download", a.document.url %>
                 <% else %>
-                <%= truncate(a.body) %>
+                <%= link_to 'Read', article_path(a) %>
                 <% end %>
               </p></td>
               <td class="function"><p><a href="#"><%= a.critical_function %></a></p></td>
