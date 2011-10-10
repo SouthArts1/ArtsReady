@@ -53,33 +53,6 @@
         <%= f.text_field :zipcode %>
       </p>
       </div>
-      <legend>Mailing Address (if different)</legend>
-      <p>
-        <%= f.label :mailing_address, 'Mailing Address' %>
-        <%= f.text_field :mailing_address %>
-      </p>
-      <p>
-        <%= f.label :mailing_address_additional, 'Mailing Address Line 2' %>
-        <%= f.text_field :mailing_address_additional %>
-      </p>
-      <div class="grid_4 alpha">
-      <p>
-        <%= f.label :mailing_city, 'City' %>
-        <%= f.text_field :mailing_city %>
-      </p>
-      </div>
-      <div class="grid_1">
-      <p>
-        <%= f.label :mailing_state, 'State' %>
-        <%= f.text_field :mailing_state %>
-      </p>
-      </div>
-      <div class="grid_3 omega">
-      <p>
-        <%= f.label :mailing_zipcode, 'Zipcode' %>
-        <%= f.text_field :mailing_zipcode %>
-      </p>
-      </div>
       <legend>General Contact Information</legend>
       <p>
         <%= f.label :contact_name %>
@@ -112,25 +85,11 @@
       <p>
         <%= f.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= f.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true %>
       </p>
-      <div class="grid_2 alpha">
-        <p>
-          <%= f.label :ein, 'Federal EIN' %>
-          <%= f.text_field :ein %>
-        </p>
-      </div>
-      <div class="grid_2">
-        <p>
-          <%= f.label :duns, 'DUNS Number' %>
-          <%= f.text_field :duns %>
-        </p>
-      </div>
-      <div class="grid_4 omega">
-        <p>
-          <%= f.label :nsic_code, 'National Standard Institution Code' %>
-          <%= f.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
-          Enter other codes here: <%= text_field_tag :other_nsic_code %>
-        </p>
-      </div>
+      <p>
+        <%= f.label :nsic_code, 'National Standard Institution Code' %>
+        <%= f.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
+        Enter other codes here: <%= text_field_tag :other_nsic_code %>
+      </p>
     </fieldset>
       <%= f.submit 'Save Settings' %>
     <% end %>
