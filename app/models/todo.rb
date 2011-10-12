@@ -77,7 +77,7 @@ class Todo < ActiveRecord::Base
   end
   
   def related_assessment_question
-    answer.question.description rescue ""
+    action_item.question.description rescue ""
   end
   
   private
