@@ -41,6 +41,6 @@
   </section>
   <div class="asses-actions">
     <%= link_to raw("Continue to #{@next_function[0]}  &raquo;"), "/wireframe/assess?tab=#{Assesment.critical_functions.index(@next_function)}", :class => 'button blue', :style => 'margin-bottom:10px;' if @next_function %>
-    <br /> <%= link_to "View To Do List &raquo;".html_safe, todos_path %>
+    <br /> <%= link_to "View To-Do List &raquo;".html_safe, todos_path %>
   </div>
 </div>

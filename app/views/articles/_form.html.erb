@@ -77,7 +77,7 @@
 			<hr />
     	<p><%= f.check_box :on_critical_list %> Include in Our Critical Stuff?</p>
 			<p>
-				Assign to a To Do item?<br />
+				Assign to a To-Do item?<br />
 				<%= f.select :todo_id, current_org.todos.collect{|t| [t.description, t.id] }, :include_blank => true %>
 			</p>
 		</div>
