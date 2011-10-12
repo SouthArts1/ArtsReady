@@ -9,9 +9,8 @@
     <p><%= link_to "Need help?", page_path('help_todos') %></p>
     <p><%= @todo.description %></p>
     <% if @todo.action_item_id %>
-    <p>From Assessment Question<br>
-      <%= @todo.related_assessment_question %>
-    </p>
+    <h3>From Assessment Statement</h3>
+    <p><%= @todo.related_assessment_question %></p>
     <% end %>
   </hgroup>
 </div>
