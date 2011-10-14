@@ -18,8 +18,12 @@
 </div>
 
 <div class="grid_4">
-  <%= gmaps(
-  "map_options" => { "id" => "map_canvas_large", "type" => "ROADMAP", "center_longitude" => 180, "zoom" => 12, "auto_adjust" => true, "auto_zoom" => true}, "markers" => { "data" => @buddies.to_gmaps4rails}) %>
+  <%= gmaps({
+      :map_options => {:container_class => "map_canvas_container", :id => "map_canvas_large", :type => "ROADMAP", :center_longitude => 180, :zoom => 12, :auto_adjust => true, :auto_zoom => true},
+      :markers     => { :data => @buddies.to_gmaps4rails}
+      },
+      true,false)
+      %>
 </div>
 <div class="grid_8">
   <section>

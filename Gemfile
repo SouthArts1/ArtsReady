@@ -11,7 +11,7 @@ gem 'carrierwave', '0.5.7'
 gem 'fog', '0.11.0'
 
 gem 'geocoder', '1.0.2'
-gem 'gmaps4rails', '0.10.2'
+gem 'gmaps4rails', '1.3.0'
 
 gem 'RedCloth'
 gem 'acts-as-taggable-on', '2.0.6'

@@ -92,7 +92,7 @@ GEM
       activesupport (> 3.0.0)
       httparty (> 0.6.0)
       json (> 1.4.0)
-    gmaps4rails (0.10.2)
+    gmaps4rails (1.3.0)
       crack
     growl (1.0.3)
     growl_notify (0.0.3)
@@ -239,7 +239,7 @@ DEPENDENCIES
   forgery
   geocoder (= 1.0.2)
   gibbon (= 0.1.7)
-  gmaps4rails (= 0.10.2)
+  gmaps4rails (= 1.3.0)
   growl_notify
   guard
   guard-bundler
