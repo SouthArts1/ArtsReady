@@ -5,8 +5,14 @@
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag "modernizr-2.0.4.custom.89556", "jquery.uniform.min", "jquery-ui-1.8.10.custom.min", "jquery.tablesorter.min.js", "application" %>
+  <%= javascript_include_tag "https://maps.google.com/maps/api/js?sensor=false&libraries=geometry" %>
+  <%= javascript_include_tag "https://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/src/infobox.js" %>
+  <%= javascript_include_tag "gmaps4rails/gmaps4rails.base.js" %>
+  <%= javascript_include_tag "gmaps4rails/gmaps4rails.googlemaps.js" %>
+  
+  <%= javascript_include_tag "https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/1.0/src/markerclusterer_compiled.js" %>
   <%= csrf_meta_tag %>
-  <%= yield :head %>
+  <%#= yield :head %>
 </head>
 <!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
 <!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
@@ -108,6 +114,6 @@
     <script src="javascripts/dd_belatedpng.js"></script>
     <script> DD_belatedPNG.fix('img, .png_bg'); </script>
   <![endif]-->
-  <%= yield :scripts %>
+  <%#= yield :scripts %>
 </body>
 </html>
