@@ -17,7 +17,7 @@ gem 'RedCloth'
 gem 'acts-as-taggable-on', '2.0.6'
 
 gem 'heroku'
-gem 'exceptional'
+gem 'airbrake'
 
 gem 'gibbon', '0.1.7'
 

@@ -65,3 +65,6 @@ end
 require './config/boot'
 require './config/deploy/cap_notify.rb'
 
+
+        require './config/boot'
+        require 'airbrake/capistrano'
