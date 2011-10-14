@@ -60,11 +60,11 @@
         <%= form_for(@resource) do |f| %>
         <h3 class="buddy">Add a Resource</h3>
         <div class="field">
-          <label>Resource Type</label>
+          <label>Resource Type *</label>
           <%= f.text_field :name %>
         </div>
         <div class="field">
-          <label>Details</label>
+          <label>Details *</label>
           <%= f.text_area :details, :size => '36x2', :style => 'width:95%' %>
         </div>
         <%= f.submit "Add" %>

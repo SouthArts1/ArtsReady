@@ -40,7 +40,7 @@
 <div class="grid_4">
 
   <div class="field">
-    <%= f.label :critical_function %>
+    <%= f.label :critical_function, 'Critical Function *', :class => 'required' %>
     <%= f.select :critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] }, :include_blank => true %>
   </div>
 
