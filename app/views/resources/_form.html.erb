@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, 'Name *', :class => 'required' %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :details %><br />
+    <%= f.label :details, 'Details *', :class => 'required' %><br />
     <%= f.text_field :details %>
   </div>
   <div class="actions">
