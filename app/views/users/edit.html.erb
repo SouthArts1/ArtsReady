@@ -29,13 +29,13 @@
     <%= form_for(@user) do |f| %>
     <div class="grid_3 alpha">
       <p>
-        <%= f.label :first_name %>
+        <%= f.label :first_name, 'First name *', :class => 'required' %>
         <%= f.text_field :first_name %>
       </p>
     </div>
     <div class="grid_3">
       <p>
-        <%= f.label :last_name %>
+        <%= f.label :last_name, 'Last name *', :class => 'required' %>
         <%= f.text_field :last_name %>
       </p>
     </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="clear"></div>
     <p>
-      <%= f.label :email %>
+      <%= f.label :email, 'Email *', :class => 'required' %>
       <%= f.text_field :email %>
     </p>
     <% if current_user.role == 'manager' && current_user != @user %>
@@ -61,11 +61,11 @@
     </p>
     <% end %>
     <p>
-      <%= f.label :password %>
+      <%= f.label :password, 'Password *', :class => 'required' %>
       <%= f.password_field :password %>
     </p>
     <p>
-      <%= f.label :password_confirmation %>
+      <%= f.label :password_confirmation, 'Password confirmation *', :class => 'required' %>
       <%= f.password_field :password_confirmation %>
     </p>
     <p>
