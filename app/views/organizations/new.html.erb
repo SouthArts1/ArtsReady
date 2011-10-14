@@ -123,13 +123,13 @@
         <legend>Your Information</legend>
         <div class="grid_3 alpha">
           <p>
-            <%= user.label :first_name, 'First Name' %>
+            <%= user.label :first_name, 'First Name *', :class => 'required' %>
             <%= user.text_field :first_name %>
           </p>
         </div>
         <div class="grid_3">
           <p>
-            <%= user.label :last_name, 'Last Name' %>
+            <%= user.label :last_name, 'Last Name *', :class => 'required' %>
             <%= user.text_field :last_name %>
           </p>
         </div>
@@ -141,20 +141,20 @@
         </div>
         <div class="clear"></div> 
         <p>
-          <%= user.label :email %>
+          <%= user.label :email, 'Email *', :class => 'required' %>
           <%= user.text_field :email %>
         </p>
         <p>
-          <%= user.label :password %>
+          <%= user.label :password, 'Password *', :class => 'required' %>
           <%= user.password_field :password %>
         </p>
         <p>
-          <%= user.label :password_confirmation, 'Confirm Password' %>
+          <%= user.label :password_confirmation, 'Confirm Password *', :class => 'required' %>
           <%= user.password_field :password_confirmation %>
         </p>
         <p>
-          <%= user.check_box :accepted_terms, :id => 'terms' %>
-          I accept the ArtsReady <%= link_to "Terms of Use", page_path('terms') %> and <%= link_to "Privacy Policy", page_path('privacy') %>.
+          <%= user.check_box :accepted_terms, :id => 'terms', :class => 'required' %>
+          I accept the ArtsReady <%= link_to "Terms of Use", page_path('terms') %> and <%= link_to "Privacy Policy", page_path('privacy') %> *.
         </p>
         </fieldset>
         <% end %>
