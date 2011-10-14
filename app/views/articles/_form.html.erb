@@ -3,12 +3,12 @@
   <%= f.error_messages %>
   <section>
     <div class="field">
-      <%= f.label :title %>
+      <%= f.label :title, 'Title *', :class => 'required' %>
       <%= f.text_field :title %>
     </div>
 
     <div class="field">
-      <%= f.label :description, 'Short Description' %>
+      <%= f.label :description, 'Short Description *', :class => 'required' %>
       <%= f.text_field :description %>
     </div>
 
