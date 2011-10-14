@@ -58,11 +58,11 @@
       <fieldset>
         <legend>Organization Information</legend>
         <p>
-          <%= org.label :name %>
+          <%= org.label :name, 'Name *', :class => 'required' %>
           <%= org.text_field :name %>
         </p>
         <p>
-          <%= org.label :address, 'Physical Address' %>
+          <%= org.label :address, 'Physical Address *', :class => 'required' %>
           <%= org.text_field :address %>
         </p>
         <p>
@@ -71,19 +71,19 @@
         </p>
         <div class="grid_4 alpha">
         <p>
-          <%= org.label :city %>
+          <%= org.label :city, 'City *', :class => 'required' %>
           <%= org.text_field :city %>
         </p>
         </div>
         <div class="grid_1">
         <p>
-          <%= org.label :state %>
+          <%= org.label :state, 'State*', :class => 'required' %>
           <%= org.text_field :state %>
         </p>
         </div>
         <div class="grid_3 omega">
         <p>
-          <%= org.label :zipcode %>
+          <%= org.label :zipcode, 'Zipcode *', :class => 'required' %>
           <%= org.text_field :zipcode %>
         </p>
         </div>
@@ -106,10 +106,10 @@
           <%= org.text_field :subsidizing_organization %>
         </p>
         <p>
-          <%= org.label :organizational_status %> <%= org.select :organizational_status, ArtsreadyDomain::ORGANIZATIONAL_STATUSES, :include_blank => true %>
+          <%= org.label :organizational_status, 'Organizational Status *', :class => 'required' %> <%= org.select :organizational_status, ArtsreadyDomain::ORGANIZATIONAL_STATUSES, :include_blank => true %>
         </p>
         <p>
-          <%= org.label :operating_budget, "Last year my organization's operating budget was:"  %> <%= org.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true, :id => 'budget' %>
+          <%= org.label :operating_budget, "Last year my organization's operating budget was: *", :class => 'required'  %> <%= org.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true, :id => 'budget' %>
         </p>
         <p>
           <%= org.label :nsic_code, 'National Standard Institution Code' %>

@@ -11,26 +11,26 @@
   <section>
     <%= form_for(current_org) do |f| %>
     <p>
-      <%= f.label :name, 'Organization Name' %>
+      <%= f.label :name, 'Organization Name *', :class => 'required' %>
       <%= f.text_field :name %>
     </p>
     <p>
-      <%= f.label :address %>
+      <%= f.label :address, 'Address *', :class => 'required' %>
       <%= f.text_field :address %><br />
     </p>
     <p>
-      <%= f.label :city %>
+      <%= f.label :city, 'City *', :class => 'required' %>
       <%= f.text_field :city %>
     </p>
     <div class="grid_4 alpha">
       <p>
-        <%= f.label :state %>
+        <%= f.label :state, 'State *', :class => 'required' %>
         <%= f.text_field :state %>
       </p>
     </div>
     <div class="grid_4 omega">
       <p>
-        <%= f.label :zipcode %>
+        <%= f.label :zipcode, 'Zipcode *', :class => 'required' %>
         <%= f.text_field :zipcode %>
       </p>
     </div>
