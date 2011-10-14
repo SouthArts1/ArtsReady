@@ -2,12 +2,8 @@
 <div><%= crisis.description %></div>
 <div id="crisis-update" style="margin-bottom: 20px;">
   <%= form_for([crisis,Update.new]) do |f| %>
-  <div class="grid_10 alpha">
-    <%= f.text_area :message, :rows => 2, :placeholder => 'Send crisis update' %>
-  </div>
-  <div class="grid_2 omega">
+    <%= f.text_area :message, :rows => 2, :placeholder => 'Send crisis update', :style => 'width: 280px; height: 40px;' %>
     <%= f.submit 'Report', :class => 'button blue' %>
-  </div>
   <% end %>
   <div class="clear"></div>
 </div>

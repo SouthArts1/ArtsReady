@@ -48,9 +48,7 @@
   <section>
     <div id="crisis-update" style="margin-bottom: 20px;">
       <%= form_for([current_org,Message.new]) do |f| %>
-      <div class="grid_10 alpha">
-        <%= f.text_area :content, :rows => 2, :placeholder => 'Send message' %>
-      </div>
+        <%= f.text_area :content, :placeholder => 'Send message', :style => 'width: 280px; height: 40px;' %>
       <div id="crisis-visibility">
       <%= f.label :visibility, 'Crisis Visibility' %>
       <%= f.radio_button :visibility, 'public' %> Public <br />
