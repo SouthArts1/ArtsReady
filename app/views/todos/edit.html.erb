@@ -9,12 +9,12 @@
   <div class="grid_8">
 
     <div class="field">
-      <%= f.label :description %>
+      <%= f.label :description, 'Description *', :class => 'required' %>
       <%= f.text_field :description %>
     </div>
 
     <div class="field">
-      <%= f.label :critical_function %>
+      <%= f.label :critical_function, 'Critical Function *', :class => 'required' %>
       <%= f.select :critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] } %>
     </div>
 
@@ -53,7 +53,7 @@
     </div>
 
     <div class="field">
-      <%= f.label :priority, "Priority" %>
+      <%= f.label :priority, "Priority *", :class => 'required' %>
       <%= f.select :priority, options_for_select(Todo::PRIORITY) %>
     </div>
     <div class="field">
