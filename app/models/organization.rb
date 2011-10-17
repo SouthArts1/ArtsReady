@@ -104,7 +104,7 @@ class Organization < ActiveRecord::Base
 
   def send_approval_email
     logger.debug("Sending approval email for organization #{name}")
-    OrganizationMailer.welcome(self).deliver rescue logger.debug("send approval email failed")
+    OrganizationMailer.approved(self).deliver rescue logger.debug("send approval email failed")
   end
   
   def setup_initial_todo
