@@ -48,6 +48,7 @@
   <h2>Messages</h2>
   <section>
     <div id="crisis-update" style="margin-bottom: 20px;">
+      <p><%= "No messages are waiting for you" if @messages.count == 0 %></p>
       <%= form_for([current_org,Message.new]) do |f| %>
         <%= f.text_area :content, :placeholder => 'Send message', :style => 'width: 280px; height: 40px;' %>
       <div id="crisis-visibility">
