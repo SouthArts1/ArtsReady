@@ -22,12 +22,17 @@
       :map_options => {:container_class => "map_canvas_container", :id => "map_canvas_large", :type => "ROADMAP", :center_longitude => 180, :zoom => 12, :auto_adjust => true, :auto_zoom => true},
       :markers     => { :data => @buddies.to_gmaps4rails}
       },
-      true,false)
+      true,false) if @buddies.present?
       %>
 </div>
 <div class="grid_8">
   <section>
+    <% if @buddies.present? %>
     <h2 class="buddy"><%= pluralize(@buddies.size, "Nearby Organization") %> Who Can Help</h2>
+    <% else %>
+    <h2>No Nearby Organizations</h2>
+    <p>You might want to try a larger search radius.</p>
+    <% end %>
     <div class="buddy-filter">
       <%= form_tag get_help_path, :method => :get do %>
       Show buddies within <%= text_field_tag :miles, params[:miles], :style => 'width: 40px;' %> miles
