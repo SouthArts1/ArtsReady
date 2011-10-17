@@ -33,7 +33,7 @@
     </div>
     <div class="grid_3 omega">
       <h3>Review Date</h3>
-      <%= @todo.review_on  %>
+      <%= @todo.review_on ||= 'None'  %>
     </div>
   </section>
 
