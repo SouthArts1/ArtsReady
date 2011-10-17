@@ -61,7 +61,7 @@
 			<div id="resources">
       <% @buddy.resources.each do |r| %>
 	      <div class="resource offer">
-	        <h3 class="name plain nopad"><%= link_to r.name, resource_path(r) %></h3>
+	        <h3 class="name plain nopad"><%= r.name %></h3>
 	        <div class="details">
 	          <p><%= r.details %></p>
 	        </div>
