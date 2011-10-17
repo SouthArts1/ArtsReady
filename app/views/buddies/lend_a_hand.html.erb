@@ -25,6 +25,7 @@
       <%= render :partial => 'crisis', :collection => @network_crises %>
       <%= render :partial => 'crisis', :collection => @private_crises %>
     </div>
+    <%= "All ArtsReady members are doing great!" if(@public_crises.count + @network_crises.count + @private_crises.count == 0)%>
   </section>
 </div>
 
