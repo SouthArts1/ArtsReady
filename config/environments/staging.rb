@@ -56,6 +56,6 @@ Artsready::Application.configure do
   config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
 end
 
-S3_UPLOAD_BUCKET = 'fracturedatlas-artsready-staging'
+S3_UPLOAD_BUCKET = 'artsready-staging'
 MAILCHIMP_API_KEY = 'a3963e9328e7b6c91de7cfd14131b5f1-us2'
 MAILCHIMP_LIST_ID = '25d8e6c838'
