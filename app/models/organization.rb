@@ -41,6 +41,14 @@ class Organization < ActiveRecord::Base
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
   
+  def self.with_user_activity_since(last=1.week.ago)
+    approved.select('DISTINCT organizations.id').joins(:users).where('users.last_login_at > ?',last)
+  end
+  
+  def self.activity_percentage(last=1.week.ago)
+    ((Organization.with_user_activity_since(last).count.to_f / Organization.approved.count.to_f)*100).to_i rescue 0
+  end
+  
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
   end

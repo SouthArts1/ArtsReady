@@ -4,8 +4,8 @@
 <div class="grid_4">
   <section>
     <p class="progress" style="float:left;">
-      <span class="progress-complete" style="right:26%"></span>
-      <span class="progress-percent">74% Orgs Active This Week</span>
+      <span class="progress-complete" style="right:<%= 100-Organization.activity_percentage %>%"></span>
+      <span class="progress-percent"><%= Organization.activity_percentage %>% Orgs Active This Week</span>
     </p>
   </section>
 </div>
