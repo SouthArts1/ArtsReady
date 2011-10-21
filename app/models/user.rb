@@ -110,19 +110,11 @@ class User < ActiveRecord::Base
       :FNAME => first_name,
       :LNAME => last_name,
       :ORGNAME => organization.name,
-      :ADDRESS => organization.address, 
       :ADDRESS1 => organization.address, 
       :ADDRESS2 => organization.address_additional,
       :CITY => organization.city,
       :STATE => organization.state,
-      :ZIPCODE => organization.zipcode,
-      :PHONE => organization.phone_number,
-      :FAX => organization.fax_number,
-      :PARENTORG => organization.parent_organization,
-      :SUBORG => organization.subsidizing_organization,
-      :STATUS => organization.organizational_status,
-      :BUDGET => organization.operating_budget,
-      :CODE => organization.nsic_code        
+      :ZIPCODE => organization.zipcode
     }  
   end
   
