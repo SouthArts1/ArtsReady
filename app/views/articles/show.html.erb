@@ -8,29 +8,7 @@
 </div>
 
 <div class="grid_8">
-  <article>
-    <% if @article.link.present? %>
-    <div>URL: <%= link_to @article.link, @article.link, :target => '_blank' %></div>
-    <% end %>
-    <% if @article.document.present? %>
-    <div><%= link_to "Download", @article.document.url %></div>
-    <% end %>
-    <div><%= @article.to_html %></div>
-  </article>
-  <section>
-    <h4>Comments</h4>
-    <ul class="comments">
-      <% @article.comments.approved.each do |comment| %>
-      <li>
-        <div class="comments-meta clearfix">
-          <p class="comments-author f-left"><%= comment.user.name %>, <%= comment.user.organization.name %></p>
-          <p class="comments-time f-right"><%= comment.created_at.to_date.to_formatted_s(:long) %> <%= button_to 'Remove Comment?', admin_comment_path(comment), :method => :delete, :confirm => 'Are you sure?', :class => 'button white' if current_user.is_admin? %></p>
-        </div>
-        <p><%= comment.comment %></p>
-      </li>
-      <% end %>
-    </ul>
-  </section>
+  <%= render 'articles/article' %>  
   <section>
     <h4>Leave your comment</h4>
     <div class="create-comment">
@@ -45,23 +23,7 @@
   </section>
 </div>
 <div class="grid_4">
-  <div class="library-sidebar">
-    <h5>Permissions</h5>
-    <p><%= @article.visibility.humanize %></p>
-
-    <h5>Author</h5>
-    <p><%= @article.user_name %> <%#= pluralize(@article.user.articles.for_public.count, 'other article') %></p>
-
-    <h5>Created</h5>
-    <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
-
-    <h5>Critical Function</h5>
-    <p><%= @article.critical_function %></p>
-
-    <h5>Tags</h5>
-    <p><%= @article.tag_list.to_s %></p>
-
-  </div>
+  <%= render 'sidebar', :locals => {:article => @article} %>
   <%= render 'admin/articles/admin_toolbar', :locals => {:article => @article} if current_user.admin? && @article.is_public?  %>
 </div>
 

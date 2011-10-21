@@ -1,0 +1,14 @@
+<div class="library-sidebar">
+  <h5>Author</h5>
+  <p><%= @article.user_name %> <%#= pluralize(@article.user.articles.for_public.count, 'other article') %></p>
+  <h5>Created</h5>
+  <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
+  <h5>Critical Function</h5>
+  <p><%= @article.critical_function %></p>
+  <h5>Tags</h5>
+  <p><%= @article.tag_list.to_s %></p>
+  <% if user_signed_in? %>
+  <h5>Permissions</h5>
+  <p><%= @article.visibility.humanize %></p>
+  <% end %>
+</div>
