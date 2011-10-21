@@ -57,5 +57,5 @@ Artsready::Application.configure do
 end
 
 S3_UPLOAD_BUCKET = 'artsready-staging'
-MAILCHIMP_API_KEY = 'a3963e9328e7b6c91de7cfd14131b5f1-us2'
-MAILCHIMP_LIST_ID = '25d8e6c838'
+MAILCHIMP_API_KEY = 'b8912933a59791689dcc41a2e5ebe34c-us2'
+MAILCHIMP_LIST_ID = 'ef0c308b1f'
