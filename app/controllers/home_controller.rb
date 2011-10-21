@@ -15,7 +15,11 @@ class HomeController < ApplicationController
   end
 
   def public_articles
-    @public_articles = Article.for_public
+    if params[:critical_function]
+      @public_articles = Article.for_public.with_critical_function(params[:critical_function])
+    else
+      @public_articles = Article.for_public
+    end    
   end
 
   def public_article

@@ -3,6 +3,8 @@ class ArticlesController < ApplicationController
   def index
     if params[:term]
       @articles = current_org.articles.only_private.matching(params[:term]) + Article.for_public.matching(params[:term])
+    elsif params[:critical_function]
+      @articles = current_org.articles.only_private.with_critical_function(params[:critical_function]) + Article.for_public.with_critical_function(params[:critical_function])
     else
       @articles = current_org.articles.only_private + Article.for_public
     end

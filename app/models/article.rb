@@ -26,7 +26,7 @@ class Article < ActiveRecord::Base
   scope :matching, lambda { |term| includes(:tags).where("articles.title LIKE ? OR articles.body LIKE ? OR tags.name LIKE ?","%#{term}%","%#{term}%","%#{term}%") }  
   scope :executive, where(:visibility => 'executive')
   scope :disabled, where(:disabled => true)
-  
+  scope :with_critical_function, lambda { |cf| where(:critical_function => cf)}
   after_save :notify_admin, :if => "is_public?"
 
   def self.search_public(phrase)
