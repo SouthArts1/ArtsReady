@@ -3,13 +3,15 @@
 	<%= render 'shared/search_articles' %>
 	<hr>
     <section>
-      <table class="resource side-nav-panels">
+      <table class="articles">
         <thead>
-          <td><p>Title</p></td>
-          <td><p>Description</p></td>
-          <td><p>Type</p></td>
-          <td><p>Critical Function</p></td>
-          <td><p>Tags</p></td>
+          <tr>
+            <th><p>Title</p></th>
+            <th><p>Description</p></th>
+            <th><p>Type</p></th>
+            <th><p>Critical Function</p></th>
+            <th><p>Tags</p></th>
+          </tr>
         </thead>
         <tbody>
           <% @public_articles.each do |a| %>
@@ -33,3 +35,8 @@
       </table>
     </section>
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".articles").tablesorter();
+	})
+</script>
