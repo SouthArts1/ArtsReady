@@ -1,0 +1,6 @@
+<div id="search-form">
+	<%= form_tag public_articles_path, :method => :get  do %>
+  <%= text_field_tag :term, '', :class => 'library-search', :placeholder => 'Search articles by title, topic, or tag' %>
+  <%= submit_tag 'Search library', :class => 'button green' %>
+	<% end %>
+</div>  
