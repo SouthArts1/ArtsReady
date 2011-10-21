@@ -19,7 +19,7 @@ gem 'acts-as-taggable-on', '2.0.6'
 gem 'heroku'
 gem 'airbrake'
 
-gem 'gibbon', '0.1.7'
+gem 'gibbon', '0.3.0'
 
 gem 'rack-ssl', :require => 'rack/ssl'
 

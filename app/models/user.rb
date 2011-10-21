@@ -110,8 +110,9 @@ class User < ActiveRecord::Base
       :FNAME => first_name,
       :LNAME => last_name,
       :ORGNAME => organization.name,
-      :ADDRESS => organization.address,
-      :ADDRESS2 => organization.address_additional ,
+      :ADDRESS => organization.address, 
+      :ADDRESS1 => organization.address, 
+      :ADDRESS2 => organization.address_additional,
       :CITY => organization.city,
       :STATE => organization.state,
       :ZIPCODE => organization.zipcode,
@@ -127,7 +128,7 @@ class User < ActiveRecord::Base
   
   def add_to_mailchimp
     begin
-      gb = Gibbon::API.new(MAILCHIMP_API_KEY)
+      gb = Gibbon.new(MAILCHIMP_API_KEY)
       user_info = mailchimp_merge_fields
       logger.debug("Sending #{user_info} to mailchimp list #{MAILCHIMP_LIST_ID}")
       response = gb.listSubscribe({:id => MAILCHIMP_LIST_ID, :email_address => email, :double_optin => false, :merge_vars => user_info})
