@@ -102,14 +102,34 @@ class User < ActiveRecord::Base
   def send_welcome_email
     UserMailer.welcome(self).deliver
   end
-  
+
   private 
   
   def add_to_mailchimp
     begin
       gb = Gibbon::API.new(MAILCHIMP_API_KEY)
-      response = gb.listSubscribe({:id => MAILCHIMP_LIST_ID, :email_address => email, :double_optin => false, :merge_vars => {:FNAME=>first_name}})
-    rescue
+
+      user_info = {
+        :FNAME => first_name,
+        :LNAME => last_name,
+        :ORGNAME => organization.name,
+        :ADDRESS => organization.address,
+        :ADDRESS2 => organization.address_additional ,
+        :CITY => organization.city,
+        :STATE => organization.state,
+        :ZIPCODE => organization.zipcode,
+        :PHONE => organization.phone_number,
+        :FAX => organization.fax_number,
+        :PARENTORG => organization.parent_organization,
+        :SUBORG => organization.subsidizing_organization,
+        :STATUS => organization.organizational_status,
+        :BUDGET => organization.operating_budget,
+        :CODE => organization.nsic_code        
+      }
+      logger.debug("Sending #{user_info} to mailchimp list #{MAILCHIMP_LIST_ID}")
+      response = gb.listSubscribe({:id => MAILCHIMP_LIST_ID, :email_address => email, :double_optin => false, :merge_vars => user_info})
+    rescue Exception => e
+      logger.debug(e.message) 
       logger.warn("Failed to register #{email} with mailchimp")
     end
     
