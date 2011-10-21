@@ -35,11 +35,11 @@
 <div class="grid_8">
   <section>
     <div class="grid_4 alpha">
-      <h2 class="buddy"><%= params[:title] %></h2>
+      <h2 class="buddy"><%= @buddy.name %></h2>
       <div>
-        <%= current_org.contact_name %> <br />
-        <%= current_org.phone_number %><br />
-        <%= current_org.email %><br />
+        <%= @buddy.contact_name %> <br />
+        <%= @buddy.phone_number %><br />
+        <%= @buddy.email %><br />
       </div>
     </div>
     <div class="grid_4 omega">
