@@ -15,7 +15,7 @@
 
 	  <ul class="top-nav">
 	    <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
-	      <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], todos_path(:tab => critical_function[:name]) %></li>
+	      <li class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], todos_path(:tab => critical_function[:name]) %></li>
 	    <% end %>
 	  </ul>
 
@@ -25,31 +25,36 @@
           <tr>
           <th><p>Item</p></th>
           <th><p>Assigned To</p></th>
-          <th><p>Updated</p></th>
           <th><p>Due</p></th>
-          <th><p>Status</p></th>
           <th><p>Priority</p></th>
+          <th><p>Status</p></th>
+          <th><p>Updated</p></th>
           <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
           <% @todos.each do |todo| %>
           <tr>
-            <%= form_for todo, :remote => true do |f| %>
-              <td class="item"><p contenteditable="true" class="editable"><%= todo.description %></p></td>
-              <td class="assigned">
+              <td class="item"><p><%= todo.description %></p></td>
+              <td class="assigned"><p>
+                <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
+                  <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
+                <% end %></p>
+              </td>
+              <td class="due">
                 <p>
-                  <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %>
+                <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
+                  <%= f.text_field :due_on, :class => 'datepicker updateable' %>
+                <% end %>
                 </p>
               </td>
-              <td class="updated"><p>Created <%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
-              <td class="due">
-                <p><%= todo.due_on.to_formatted_s(:slashed) unless todo.due_on.nil? %></p>
-              </td>
+              <td class="priority"><p>
+              <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
+                <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
+              <% end %></p></td>
               <td class="status"><p><%= todo.status %></p></td>
-              <td class="priority"><p><%= f.select :priority, Todo::PRIORITY %></p></td>
-              <td><p><%= link_to 'Details', todo_path(todo), :class => 'button' %> <%= f.submit "Update", :class => 'update' %></p></td>
-            <% end %>
+              <td class="updated"><p>Created <%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
+              <td><p><%= link_to 'Details', todo_path(todo), :class => 'button' %></p></td>
           </tr>
           <% end %>
         </tbody>
@@ -79,6 +84,12 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".actionitems").tablesorter();
-	})
-	
+
+    $('.updateable').change(function (){
+      _form = $(this).closest('form.edit_todo');
+      $.post(_form.attr('action'), _form.serialize(), null, "script");
+      return false;
+    });
+      
+	});
 </script>

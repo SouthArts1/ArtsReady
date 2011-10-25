@@ -28,7 +28,12 @@ class TodosController < ApplicationController
   def update
     @todo = current_org.todos.find(params[:id])
     if @todo.update_attributes(params[:todo].merge({:last_user => current_user}))
-      redirect_to todos_path(:tab => @todo.critical_function), :notice => 'Todo was successfully updated.'
+
+      respond_to do |format|
+        format.html { redirect_to todos_path(:tab => @todo.critical_function), :notice => 'Todo was successfully updated.' }  
+        format.js
+      end
+      
     else
       render 'edit'
     end
