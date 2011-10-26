@@ -23,7 +23,6 @@
       <table class="actionitems">
         <thead>
           <tr>
-            <th><p>Due</p></th>
             <th><p>Item</p></th>
             <th><p>Assigned To</p></th>
             <th><p>Due Date</p></th>
@@ -36,7 +35,6 @@
         <tbody>
           <% @todos.each do |todo| %>
           <tr>
-            <td class="due"><p><%= todo.due_on.to_formatted_s(:slashed) unless todo.due_on.nil? %></p></td>
             <td class="item"><p><%= todo.description %></p></td>
             <td class="assigned"><p>
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
