@@ -17,6 +17,8 @@ class Article < ActiveRecord::Base
   validates_presence_of :description
   validates_presence_of :critical_function
 
+  default_scope where(:disabled => false)
+  
   scope :on_critical_list, where(:on_critical_list => true)
   scope :only_public, where("visibility = 'public' AND disabled = false AND featured = false")
   scope :for_public, where("visibility = 'public' AND disabled = false")
@@ -78,6 +80,10 @@ class Article < ActiveRecord::Base
       logger.debug("access denied to #{user.inspect} to #{self.inspect}")
       return false
     end
+  end
+  
+  def deleteable_by(user)
+    self.user == user
   end
 
   def published_on

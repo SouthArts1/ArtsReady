@@ -66,8 +66,8 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article = current_org.articles.find(params[:id])
-    authorize! :destroy, @article
-    @article.destroy
+#    authorize! :destroy, @article
+    @article.update_attribute(:disabled, true) if @article.deleteable_by(current_user)
     redirect_to articles_url, :notice => "Successfully destroyed article."
   end
 end

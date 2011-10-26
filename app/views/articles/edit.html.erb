@@ -10,3 +10,7 @@
   <%= link_to "Show", @article %> |
   <%= link_to "View All", articles_path %>
 </p>
+
+<% if user_signed_in? && @article.deleteable_by(current_user) %>
+<p><%= button_to 'Delete Article?', article_path(@article), :method => :delete, :class => 'button white' %></p>
+<% end %>
