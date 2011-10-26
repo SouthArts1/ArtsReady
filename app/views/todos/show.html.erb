@@ -1,17 +1,15 @@
 <div class="grid_12">
   <hgroup>
     <%= link_to 'Edit To-Do', edit_todo_path(@todo), :class => 'button', :style => 'float:right;' %>
-    <p>
-      <%= link_to "View All", todos_path %>
-    </p>
     
     <h1>To-Do Item</h1>
+    <p><%= link_to "Return to List", todos_path %></p>
     <p><%= link_to "Need help?", page_path('help_todos') %></p>
     <p><%= @todo.description %></p>
     <% if @todo.action_item_id %>
     <h3>From Assessment Statement</h3>
     <p><%= @todo.related_assessment_question %></p>
-    <h3>Help</h3>
+    <h3>Learn More</h3>
     <p><%= @todo.related_assessment_question_help %></p>
     <% end %>
   </hgroup>
