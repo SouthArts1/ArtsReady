@@ -81,14 +81,37 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-    
-    $('.actionitems').tablesorter();
+
+    $.tablesorter.addParser({
+        // set a unique id
+        id: 'input',
+        is: function(s) {
+            // return false so this parser is not auto detected
+            return false;
+        },
+        
+        format: function(s, table, cell) {
+          return $('input', cell).val();
+        },
+
+        // set type, either numeric or text
+        type: 'numeric'
+    });
+
+    $('.actionitems').tablesorter({   
+        headers: {
+            2 : { sorter : 'input' },
+              },
+        debug: true
+    });
 		
     $('.updateable').change(function (){
       _form = $(this).closest('form.edit_todo');
       $.post(_form.attr('action'), _form.serialize(), null, "script");
       return false;
     });
+    
+    $( ".datepicker" ).datepicker( "option", "dateFormat", 'mm/dd/yy' );
       
 	});
 </script>
