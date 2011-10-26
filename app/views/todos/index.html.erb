@@ -44,7 +44,7 @@
             <td class="duedate"><p>
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
                 <%= f.text_field :due_on, :class => 'updateable datepicker', :id => "todo_due_on_#{todo.id}" %>
-              <% end %></p></td>
+              <% end %>
             </p></td>
             <td class="priority"><p>
             <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
