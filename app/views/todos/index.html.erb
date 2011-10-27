@@ -84,23 +84,44 @@
 
     $.tablesorter.addParser({
         // set a unique id
-        id: 'input',
+        id: 'picker',
         is: function(s) {
             // return false so this parser is not auto detected
             return false;
         },
         
         format: function(s, table, cell) {
-          return $('input', cell).val();
+          console.log($('.updateable',cell).attr('value'));
+          return $('.updateable',cell).attr('value');
         },
 
         // set type, either numeric or text
-        type: 'numeric'
+        type: 'shortDate'
     });
+
+    $.tablesorter.addParser({
+      // set a unique id
+      id: 'input',
+      is: function(s) {
+          // return false so this parser is not auto detected
+          return false;
+      },
+      
+      format: function(s, table, cell) {
+        _input = $('.updateable',cell);
+        console.log($(':selected',_input).text());
+        return $('.updateable',cell).attr('value');
+      },
+
+      // set type, either numeric or text
+      type: 'text'
+  });
 
     $('.actionitems').tablesorter({   
         headers: {
-            2 : { sorter : 'input' },
+          1 : { sorter : 'input' },
+          2 : { sorter : 'picker' },
+          3 : { sorter : 'input' },
               },
         debug: true
     });
@@ -111,7 +132,7 @@
       return false;
     });
     
-    $( ".datepicker" ).datepicker( "option", "dateFormat", 'mm/dd/yy' );
+    $( ".datepicker" ).datepicker();
       
 	});
 </script>
