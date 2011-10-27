@@ -109,8 +109,9 @@
       
       format: function(s, table, cell) {
         _input = $('.updateable',cell);
-        console.log($(':selected',_input).text());
-        return $('.updateable',cell).attr('value');
+        _text = $(':selected',_input).text();
+        console.log(_text);
+        return _text;
       },
 
       // set type, either numeric or text
