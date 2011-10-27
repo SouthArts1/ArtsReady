@@ -91,12 +91,15 @@
         },
         
         format: function(s, table, cell) {
-          console.log($('.updateable',cell).attr('value'));
-          return $('.updateable',cell).attr('value');
+          var _val = $('.updateable',cell).attr('value')
+          var _rawdate = _val.split('-');
+          var _date = new Date(_rawdate[2], _rawdate[1], _rawdate[0]).getTime();
+          console.log(_date);
+          return _date;
         },
 
         // set type, either numeric or text
-        type: 'shortDate'
+        type: 'numeric'
     });
 
     $.tablesorter.addParser({
@@ -108,9 +111,8 @@
       },
       
       format: function(s, table, cell) {
-        _input = $('.updateable',cell);
-        _text = $(':selected',_input).text();
-        console.log(_text);
+        var _input = $('.updateable',cell);
+        var _text = $(':selected',_input).text();
         return _text;
       },
 
@@ -133,7 +135,7 @@
       return false;
     });
     
-    $( ".datepicker" ).datepicker();
+    $( ".datepicker" ).datepicker("option", "dateFormat", 'mm/dd/yy' );
       
 	});
 </script>
