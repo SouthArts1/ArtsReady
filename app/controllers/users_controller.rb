@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :require_manager, :except => [:index, :profile]
+  
   def create
     @user = current_org.users.new(params[:user])
     if @user.save
@@ -43,6 +45,12 @@ class UsersController < ApplicationController
       logger.warn("Had trouble disabling #{@user.email}")
       redirect_to(organization_users_path(current_org), :notice => 'Problem disabling user')
     end
+  end
+  
+  private
+  
+  def require_manager
+    redirect_to :root, :notice => 'You must be a manager to do that' unless current_user.role == 'manager'
   end
   
 
