@@ -6,7 +6,7 @@ class BattleBuddyRequestsController < ApplicationController
   end
   
   def update
-    @bb_request = BattleBuddyRequest.find(params[:id])
+    @bb_request = current_org.battle_buddy_requests.find(params[:id])
 
     if @bb_request.update_attributes({:accepted => true}) && current_org.battle_buddy_requests.create(:battle_buddy_id => @bb_request.organization_id, :accepted => true)
       redirect_to get_help_path, :notice => "Battle buddy added"
