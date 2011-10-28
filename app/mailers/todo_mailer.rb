@@ -10,7 +10,7 @@ class TodoMailer < ActionMailer::Base
          :subject => "You have a new ArtsReady To-Do")
   end
   
-  def reassigned_todo(user, todo)
+  def reassign_to(user, todo)
     @user = user
     @url = todo_url(todo)
     @todo = todo
