@@ -29,7 +29,7 @@
             <% if (can? :edit, User) %>
               <%= link_to 'Edit', edit_user_path(user), :class => 'button blue', :html => {:style => 'block:inline;'} unless user == current_user %>
               <%= form_tag password_resets_path do %>
-                <%= hidden_field_tag :user_id, user.id %>
+                <%= hidden_field_tag :email, user.email %>
                 <%= submit_tag 'Reset password', :class => 'button white', :html => {:style => 'block:inline;'} %>
               <% end unless user == current_user%>
               <%= button_to 'Disable', user_path(user), :method => :delete, :class => 'button white', :html => {:style => 'block:inline;'} unless user.disabled? %>
