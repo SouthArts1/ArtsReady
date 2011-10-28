@@ -1,7 +1,7 @@
 <div class="grid_12">
   <div class="progress-container">
     <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.assessment_percentage_complete, :message => 'Assessment is'} %>
-    <p class="progress-sub"><%= @answers.reject {|q| !q.answered?}.count %>/<%= @answers.count %> answered in section</p>
+    <p class="progress-sub"><%= @answers.reject {|q| !q.answered?}.count %>/<%= @answers.reject {|q| q.was_skipped?}.count %> answered in section</p>
   </div>
   <h1>Readiness Assessment</h1>
   <p><%= link_to "Need help?", page_path('help_assessment') %></p>
