@@ -93,7 +93,8 @@
         format: function(s, table, cell) {
           var _val = $('.updateable',cell).attr('value')
           var _rawdate = _val.split('-');
-          var _date = new Date(_rawdate[2], _rawdate[1], _rawdate[0]).getTime();
+          console.log(_rawdate);
+          var _date = new Date(_rawdate[0], (_rawdate[1]-1), _rawdate[2]);
           console.log(_date);
           return _date;
         },
