@@ -17,7 +17,7 @@
   <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)) , :method => :put%>
   <% elsif current_org.battle_buddy_requests_sent.collect(&:battle_buddy_id).include?(buddy.id) %>
   SENT on <%= current_org.battle_buddy_requests_sent.find_by_battle_buddy_id(buddy.id).created_at.to_date %>
-  <% else %>
+  <% elsif current_org.battle_buddy_enabled? %>
     <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
     <%= f.hidden_field :battle_buddy_id, :value => buddy.id %>
     <%= f.submit 'Add as Battle Buddy' %>
