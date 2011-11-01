@@ -7,7 +7,7 @@ class BuddiesController < ApplicationController
 
   def lend_a_hand
     redirect_to(buddies_profile_path, :notice => 'Join the Battle Buddy Network') unless current_org.battle_buddy_enabled?
-    @messages = Message.limit(30).for_organization(current_org)
+    @messages = Message.for_organization(current_org)
     @public_crises = Crisis.shared_with_the_community
     @network_crises = Crisis.shared_with_my_battle_buddy_network(current_org.battle_buddy_list)
     @private_crises = Crisis.shared_with_me(current_org)
