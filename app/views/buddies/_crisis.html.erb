@@ -3,7 +3,7 @@
   <div class="address"><%= crisis.organization.full_street_address %></div>
   <div class="privacy">Privacy setting: <%= crisis.visibility.humanize %></div>
   <% if current_org.battle_buddies.collect(&:id).include?(crisis.id) %>
-  Buddy since <%= current_org.battle_buddies.find(crisis.id).updated_at.to_date %>
+  <div class="contact"><%= buddy.email %> <%= buddy.phone_number %></div>
   <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(crisis.id) %>
   Buddy request received on <%= current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id).created_at.to_date %>
   <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id)) , :method => :put%>
@@ -11,7 +11,7 @@
   Buddy request sent on <%= current_org.battle_buddy_requests_sent.find_by_battle_buddy_id(crisis.id).created_at.to_date %>
   <% else %>
     <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
-    <%= f.hidden_field :battle_buddy_id, :value => crisis.id %>
+    <%= f.hidden_field :battle_buddy_id, :value => crisis.organization.id %>
     <%= f.submit 'Add as Battle Buddy' %>
     <% end %>
   <% end %>
