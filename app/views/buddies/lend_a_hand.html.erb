@@ -35,13 +35,14 @@
       <%= render :partial => 'crisis_log', :locals => {:crisis => current_org.crisis} %>
     <% end %>
     <% @public_crises.each do |crisis| %>
-      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} unless crisis == current_org.crisis %>
     <% end %>
     <% @network_crises.each do |crisis| %>
-      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} unless crisis == current_org.crisis %>
+      <%= crisis.inspect %>
     <% end %>
     <% @private_crises.each do |crisis| %>
-      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} unless crisis == current_org.crisis %>
     <% end %>
   </section>
 
