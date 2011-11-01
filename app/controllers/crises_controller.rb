@@ -1,7 +1,7 @@
 class CrisesController < ApplicationController
 
   def index
-    @crises = current_org.crises.resolved
+    @crises = current_org.crises.resolved.order('resolved_on DESC')
   end
   
   def new
