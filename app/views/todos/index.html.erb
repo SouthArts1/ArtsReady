@@ -93,9 +93,7 @@
         format: function(s, table, cell) {
           var _val = $('.updateable',cell).attr('value')
           var _rawdate = _val.split('-');
-          console.log(_rawdate);
           var _date = new Date(_rawdate[0], (_rawdate[1]-1), _rawdate[2]);
-          console.log(_date);
           return _date;
         },
 
@@ -126,8 +124,7 @@
           1 : { sorter : 'input' },
           2 : { sorter : 'picker' },
           3 : { sorter : 'input' },
-              },
-        debug: true
+              }
     });
 		
     $('.updateable').change(function (){
