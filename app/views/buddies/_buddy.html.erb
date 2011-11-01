@@ -11,7 +11,7 @@
     <%= buddy.distance.round %> miles away: <%= buddy.full_street_address %>
   </div>
   <% if current_org.battle_buddies.collect(&:id).include?(buddy.id) %>
-  BUDDY approved on <%= current_org.battle_buddies.find(buddy.id).updated_at.to_date %>
+  <div class="contact"><%= buddy.email %> <%= buddy.phone_number %></div>
   <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(buddy.id) %>
   RECEIVED on <%= current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id).created_at.to_date %>
   <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)) , :method => :put%>
