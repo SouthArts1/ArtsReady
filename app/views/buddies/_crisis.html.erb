@@ -1,9 +1,15 @@
 <div class="buddy">
+<% if crisis.organization == current_org %>
+  <h3 class="name plain"><%= crisis.organization.name %></h3>
+  <div class="address"><%= crisis.organization.full_street_address %></div>
+  <div class="contact"><%= crisis.organization.email %> <%= crisis.organization.phone_number %></div>
+  <div class="privacy">Privacy setting: <%= crisis.visibility.humanize %></div>
+<% else %>
   <h3 class="name plain"><%= link_to crisis.organization.name, buddy_path(crisis.organization) %></h3>
   <div class="address"><%= crisis.organization.full_street_address %></div>
   <div class="privacy">Privacy setting: <%= crisis.visibility.humanize %></div>
   <% if current_org.battle_buddies.collect(&:id).include?(crisis.id) %>
-  <div class="contact"><%= buddy.email %> <%= buddy.phone_number %></div>
+  <div class="contact"><%= crisis.organization.email %> <%= crisis.organization.phone_number %></div>
   <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(crisis.id) %>
   Buddy request received on <%= current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id).created_at.to_date %>
   <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(crisis.id)) , :method => :put%>
@@ -15,4 +21,5 @@
     <%= f.submit 'Add as Battle Buddy' %>
     <% end %>
   <% end %>
+<% end %>
 </div>
