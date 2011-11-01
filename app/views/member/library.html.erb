@@ -19,7 +19,7 @@
     <h3>Topics</h3>
     <ul class="library categories">
       <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |function| %>
-        <li><%= link_to "#{function[:title]} (#{@critical_function_counts[function[:name]] rescue 0})", organization_articles_path(current_org,:critical_function => function[:name]) %></li>
+        <li><%= link_to "#{function[:title]} (#{(@public_critical_function_counts[function[:name]].to_i + @private_critical_function_counts[function[:name]].to_i) rescue 0})", organization_articles_path(current_org,:critical_function => function[:name]) %></li>
       <% end %>
     </ul>
     <% if current_user.is_executive? %>
