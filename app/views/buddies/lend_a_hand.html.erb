@@ -25,12 +25,15 @@
       <%= render :partial => 'crisis', :collection => @network_crises %>
       <%= render :partial => 'crisis', :collection => @private_crises %>
     </div>
-    <%= "All ArtsReady members are doing great!" if(@public_crises.count + @network_crises.count + @private_crises.count == 0)%>
+    <%= "All ArtsReady members are doing great!" if((@public_crises.count + @network_crises.count + @private_crises.count == 0) && current_org.crisis.nil?)%>
   </section>
 </div>
 
 <div class="grid_4">
   <section>
+    <% unless current_org.crisis.nil? %>
+      <%= render :partial => 'crisis_log', :locals => {:crisis => current_org.crisis} %>
+    <% end %>
     <% @public_crises.each do |crisis| %>
       <%= render :partial => 'crisis_log', :locals => {:crisis => crisis} %>
     <% end %>
