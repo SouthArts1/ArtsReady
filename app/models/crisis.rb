@@ -23,7 +23,7 @@ class Crisis < ActiveRecord::Base
   
   # TODO validate buddy_list if permission is set to only my buddies
 
-  #after_create :send_crisis_announcement
+  after_create :send_crisis_announcement
   
   def self.shared_with_me(org)
     crises = []
