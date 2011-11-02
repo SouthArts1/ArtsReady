@@ -22,6 +22,7 @@ gem 'airbrake'
 gem 'gibbon', '0.3.0'
 
 gem 'rack-ssl', :require => 'rack/ssl'
+gem 'delayed_job'
 
 group :test, :development do
   gem 'rspec-rails'

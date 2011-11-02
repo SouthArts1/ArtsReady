@@ -60,11 +60,11 @@ class Crisis < ActiveRecord::Base
   private 
   
   def send_crisis_announcement
-    crisis_participants.each {|u| CrisisNotifications.announcement(u,self).deliver }
+    crisis_participants.each {|u| CrisisNotifications.delay.announcement(u,self) }
   end
 
   def send_crisis_resolution
-    crisis_participants.each {|u| CrisisNotifications.resolved(u,self).deliver }
+    crisis_participants.each {|u| CrisisNotifications.delay.resolved(u,self) }
   end
 
 end
