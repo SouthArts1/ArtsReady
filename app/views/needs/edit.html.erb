@@ -28,5 +28,10 @@
       <%= f.label :provided, "Provided?" %>
       <%= f.select :provided, ['true', 'false'] %>
     </div>
+
+    <div class="field">
+      <%= f.label :provider, "Provided by" %>
+      <%= f.text_field :provider %>
+    </div>
   </div>
 <% end %>
