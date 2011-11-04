@@ -81,7 +81,7 @@ class Todo < ActiveRecord::Base
   end
 
   def related_assessment_question_help
-    action_item.question.help rescue ""
+    RedCloth.new(action_item.question.help).to_html.html_safe rescue ""
   end
   
   private
