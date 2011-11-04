@@ -17,7 +17,10 @@ class UsersController < ApplicationController
   
   def update
     @user = current_org.users.find(params[:id])
-
+    #TWO QUICK TWEAKS FOR #20307113
+    redirect_to edit_organization_user_path(current_org,@user), :notice => "Permission denied" if params[:user].has_key(:admin)
+    redirect_to edit_organization_user_path(current_org,@user), :notice => "Permission denied" if params[:user].has_key(:role) && current_user.role == 'reader'
+    
     if @user.update_attributes(params[:user])
       redirect_to edit_organization_user_path(current_org,@user), :notice => "User updated"
     else
