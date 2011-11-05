@@ -12,7 +12,7 @@ class MemberController < ApplicationController
     @private_critical_function_counts = current_org.articles.only_private.group(:critical_function).count
     @public_articles = Article.for_public
     @public_comments = Comment.for_public.recent
-    @our_comments = current_org.comments.recent
+    @our_comments = current_org.comments.joins(:article).where("articles.visibility != 'executive'").recent
   end
 
 end
