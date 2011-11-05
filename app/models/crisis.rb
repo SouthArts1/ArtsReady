@@ -28,7 +28,7 @@ class Crisis < ActiveRecord::Base
   def self.shared_with_me(org)
     crises = []
     Crisis.shared_privately.each do |c|
-      crises << c if c.buddy_list.include?(org.id.to_s) unless c.buddy_list.nil?
+      crises << c if c.buddy_list.split(',').include?(org.id.to_s) unless c.buddy_list.nil?
     end
     crises
   end
