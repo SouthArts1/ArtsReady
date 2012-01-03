@@ -1,42 +1,58 @@
-<div class="grid_6">
-  <hgroup><h2>ArtsReady Library</h2></hgroup>
-  <section>
-    <% @featured_articles.each do |article| %>
-    <article>
-      <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
-      <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
-      <p><%= article.to_html %></p>
-    </article>
-    <% end %>
-  </section>
-  <section class="list-kb">
-    <% @public_articles.each do |article| %>
-    <article>
-      <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
-      <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
-    </article>
-    <% end %>
-  </section>
-</div>
-<div class="grid_6">
-  <div class="areyou">
-    <p><%= link_to "Join Today", sign_up_path, :class => 'button button-join' %></p>
+<div id="landing">
+  <div class="grid_6">
+
+      <div id="headline">
+        <p>Create your arts organization's business continuity plan, because the unexpected, won't-happen-to-me,<br /> I-don't-want-to-think-about-it actually <i>does</i> happen.</p>
+        <h1>Be ArtsReady.</h1>
+      </div>
+
+    <div id="subhead">
+      <h2>What is ArtsReady?</h2>
+      <p>ArtsReady is a web-based emergency preparedness platform designed to provide arts and cultural organizations with customized business continuity plans for post crisis sustainability. <%= link_to 'Learn More', page_path('tour') %>.</p>
+    </div>
+
+    <div class="grid_3 alpha">
+      <section>
+        <h3><br />Why do readiness planning?</h3>
+        <ul class="list-join">
+          <li>To protect community and cultural assets.</li>
+          <li>To demonstrate sustainability to investors.</li>
+          <li>To show mitigated risk to insurance companies.</li>
+          <li>To be able to get up and running after crisis.</li>
+        </ul>
+      </section>
+    </div>
+    <div class="grid_3 omega">
+      <h3>Why does the San Francisco Ballet use ArtsReady?</h3>
+      <blockquote>
+        <p>"It's a platform to collaborate with peers near and far before a crisis strikes. Its web-based storage of key documents in a private, but shareable, manner provides peace of mind, and the checklists and process flow in ArtsReady greatly enhances the probability of our plan's timely, well-coordinated completion."</p>
+        -Kim Carim, Chief Financial Officer
+      </blockquote>
+    </div>
   </div>
-  <div class="grid_3 alpha">
+  <div class="grid_6">
+    <div id="dont-risk-it">
+      <h1>Don't risk it.</h1>
+      <p>Get a free Basic Membership to <i>start protecting your organization!</i></p>
+      <p><%= link_to "Join the Movement", sign_up_path, :class => 'button button-join' %></p>
+    </div>
+    <hgroup><h2>ArtsReady Library Features</h2></hgroup>
     <section>
-      <h3>About ArtsReady</h4>
-      <p>Plan for “what if” instead of “why me.” The fire. The flood. The storm. The broken pipes. The break-in. The disaster. The unforeseen happens too often. The unexpected, once-in-a-lifetime, won’t-happen-to-me, I-don’t-want-to-talk-about-it-possibility, happens.</p>
+      <% @featured_articles.each do |article| %>
+      <article>
+        <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
+        <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
+        <p><%= article.to_html %></p>
+      </article>
+      <% end %>
     </section>
-  </div>
-  <div class="grid_3 omega">
-    <section>
-      <h3>Premium Members Can</h3>
-      <ul class="list-join">
-        <li>Assess the readiness of your organization</li>
-        <li>Prioritize actions that your organization can take to become more ready</li>
-        <li>Take action. Assign staff, create deadlines, store readiness information</li>
-        <li>Post your own stories and calls for help</li>
-      </ul>
+    <section class="list-kb">
+      <% @public_articles.each do |article| %>
+      <article>
+        <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
+        <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
+      </article>
+      <% end %>
     </section>
   </div>
 </div>
