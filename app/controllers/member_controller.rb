@@ -10,7 +10,7 @@ class MemberController < ApplicationController
   def library
     @public_critical_function_counts = Article.only_public.group(:critical_function).count
     @private_critical_function_counts = current_org.articles.only_private.group(:critical_function).count
-    @public_articles = Article.for_public
+    @public_articles = Article.for_public.order('created_at DESC')
     @public_comments = Comment.for_public.recent
     @our_comments = current_org.comments.joins(:article).where("articles.visibility != 'executive'").recent
   end
