@@ -27,7 +27,7 @@
                 <%= link_to 'Read', article_path(a) %>
                 <% end %>
               </p></td>
-              <td class="function"><p><a href="#"><%= a.critical_function %></a></p></td>
+              <td class="function"><p><a href="#"><%= a.critical_function.capitalize %></a></p></td>
               <td class="tags"><p><%= a.tag_list.to_s %></p></td>
             </tr>
           <% end %>

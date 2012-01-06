@@ -4,7 +4,7 @@
   <h5>Created</h5>
   <p><%= @article.created_at.to_formatted_s(:slashed) %></p>
   <h5>Critical Function</h5>
-  <p><%= @article.critical_function %></p>
+  <p><%= @article.critical_function.capitalize %></p>
   <h5>Tags</h5>
   <p><%= @article.tag_list.to_s %></p>
   <% if user_signed_in? %>
