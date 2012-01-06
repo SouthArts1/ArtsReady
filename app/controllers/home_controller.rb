@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     redirect_to dashboard_path if session[:user_id]
 
     @featured_articles = Article.featured
-    @public_articles = Article.only_public.limit(3)
+    @public_articles = Article.only_public.order('created_at DESC').limit(3)
   end
 
   def readiness_library
