@@ -41,7 +41,7 @@ Feature: Homepage
     Given a user
     And I have started an assessment
     And I am on the home page
-    When I follow "Get Started"
+    When I follow "Continue"
     Then I should be on the assessment page
 
   Scenario: Finished assessment
