@@ -1,3 +1,10 @@
+def login(email,password)
+  visit(sign_in_path)
+  fill_in 'email', with: email
+  fill_in 'password', with: password
+  click_on 'Sign In'
+end
+
 Given /^a visitor$/ do
 end
 
@@ -10,10 +17,7 @@ Given /^a user$/ do
   password = 'password'
   @current_user = Factory(:user, :email => email, :password => password)
 
-  And %{I am on the sign_in page}
-  And %{I fill in "email" with "#{email}"}
-  And %{I fill in "password" with "#{password}"}
-  And %{I press "Sign In"}
+  login(email,password)
 end
 
 Given /^an executive$/ do
@@ -21,10 +25,7 @@ Given /^an executive$/ do
   password = 'password'
   @current_user = Factory(:executive, :email => email, :password => password)
 
-  And %{I am on the sign_in page}
-  And %{I fill in "email" with "#{email}"}
-  And %{I fill in "password" with "#{password}"}
-  And %{I press "Sign In"}
+  login(email,password)
 end
 
 Given /^a manager$/ do
@@ -32,10 +33,7 @@ Given /^a manager$/ do
   password = 'password'
   @current_user = Factory(:manager, :email => email, :password => password)
 
-  And %{I am on the sign_in page}
-  And %{I fill in "email" with "#{email}"}
-  And %{I fill in "password" with "#{password}"}
-  And %{I press "Sign In"}
+  login(email,password)
 end
 
 Given /^a editor$/ do
@@ -43,10 +41,7 @@ Given /^a editor$/ do
   password = 'password'
   @current_user = Factory(:editor, :email => email, :password => password)
 
-  And %{I am on the sign_in page}
-  And %{I fill in "email" with "#{email}"}
-  And %{I fill in "password" with "#{password}"}
-  And %{I press "Sign In"}
+  login(email,password)
 end
 
 
@@ -54,10 +49,8 @@ Given /^a crisis user$/ do
   email = 'user@test.host'
   password = 'password'
   @crisis_user = Factory(:crisis_user, :email => email, :password => password)
-  And %{I am on the sign_in page}
-  And %{I fill in "email" with "#{email}"}
-  And %{I fill in "password" with "#{password}"}
-  And %{I press "Sign In"}
+
+  login(email,password)
 end
 
 Given /^I am a member of an unapproved organization with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
