@@ -48,7 +48,6 @@ group :test do
   gem 'mocha'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
-  gem 'spork'
   gem 'launchy'    # So you can do Then show me the page
   gem 'cucumber-rails'
   gem 'capybara'
