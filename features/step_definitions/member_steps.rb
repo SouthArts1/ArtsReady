@@ -48,8 +48,10 @@ end
 Given /^a crisis user$/ do
   email = 'crisis_user@test.host'
   password = 'password'
-  @crisis_user = Factory(:crisis_user, :email => email, :password => password)
-
+  org = Factory(:organization, :name => 'Crisis Organization', :battle_buddy_enabled => true)
+  user = Factory(:user, :email => email, :password => password, :organization => org)
+  Factory(:crisis, :user => user, :organization => org )
+  @current_user = user
   login(email,password)
 end
 

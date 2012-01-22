@@ -29,7 +29,6 @@ Feature: Homepage
     Given a crisis user
     When I go to the root page
     Then I should see "Crisis Console"
-    #Then I should be on the crisis console
     
   Scenario: Create assessment
     Given a user
