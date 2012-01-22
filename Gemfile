@@ -34,11 +34,11 @@ group :test, :development do
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'forgery'
+  gem 'ruby-debug19'
 end
 
 group :development do
   gem 'rails-footnotes', '>= 3.7'
-  gem 'ruby-debug19'
 end
 
 group :test do
