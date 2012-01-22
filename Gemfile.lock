@@ -31,7 +31,7 @@ GEM
     activesupport (3.0.11)
     acts-as-taggable-on (2.0.6)
     addressable (2.2.6)
-    airbrake (3.0.4)
+    airbrake (3.0.9)
       activesupport
       builder
     archive-tar-minitar (0.5.2)
