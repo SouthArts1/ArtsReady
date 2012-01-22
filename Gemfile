@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
-gem 'mysql2', '0.2.6'
+gem 'rails', '3.0.11'
+gem 'mysql2', '0.2.18'
 gem 'jquery-rails'
 
 gem 'bcrypt-ruby', '2.1.4', :require => 'bcrypt'
-gem 'cancan', '1.6.5'
+gem 'cancan', '1.6.7'
 
 gem 'carrierwave', '0.5.7'
 gem 'fog', '0.11.0'
