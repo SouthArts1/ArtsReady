@@ -46,7 +46,7 @@ end
 
 
 Given /^a crisis user$/ do
-  email = 'user@test.host'
+  email = 'crisis_user@test.host'
   password = 'password'
   @crisis_user = Factory(:crisis_user, :email => email, :password => password)
 
