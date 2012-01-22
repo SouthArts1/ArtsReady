@@ -27,7 +27,7 @@ gem 'delayed_job'
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'
-  gem 'growl_notify'
+  gem 'ruby_gntp'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-cucumber'
