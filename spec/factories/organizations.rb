@@ -12,10 +12,12 @@ FactoryGirl.define do
     gmaps true
     organizational_status 'test'
     operating_budget 'test'
+    battle_buddy_enabled true
     
     factory :new_organization do
       name "New Organization"
       active false
+      battle_buddy_enabled false
     end
     
     factory :crisis_organization do

@@ -18,7 +18,7 @@ Feature: Homepage
   Scenario: A visitor can register
     Given a visitor
     When I go to the root page
-    Then I should see "Join Today"
+    Then I should see "Join the Movement"
     
   Scenario: redirect to member home if logged in
     Given a user

@@ -11,7 +11,7 @@ When /^I resolve a crisis$/ do
 end
 
 When /^I declare a crisis$/ do
-  When %{I follow "Activate"}
-  And %{I choose "crisis_visibility_public"}
-  And %{I press "Declare Crisis"}
+  step 'I follow "Activate"'
+  step 'I choose "crisis_visibility_public"'
+  step 'I press "Declare Crisis"'
 end
