@@ -496,19 +496,6 @@ header nav li input[type="text"] {
 header nav input[type="text"] {
   background: white url("../images/icon-search.png") 7px 5px no-repeat; }
 
-.areyou {
-  height: 275px;
-  background: url("../images/areyou.png") center bottom no-repeat;
-  border: 1px solid #eee;
-  border-bottom-color: #ddd;
-  margin: 0 10px 20px;
-  box-shadow: 0 2px 2px #ddd;
-  -webkit-box-shadow: 0 2px 2px #ddd;
-  -moz-box-shadow: 0 2px 2px #ddd; }
-  .areyou p {
-    width: 175px;
-    padding: 200px 0 0 15px; }
-
 .content .container {
   background: #fff;
   border: 1px solid #ddd;
@@ -1263,7 +1250,7 @@ input.datepicker, table input.datepicker {
 .logos {
   overflow: hidden;
   margin-bottom: 50px; }
-  .logos h5 {
+  .logos p {
     margin: 0;
     padding: 0; }
   .logos img {
@@ -1460,3 +1447,53 @@ td.actions {
 
 .log {
   margin-bottom: 20px; }
+
+/* Landing page home#index */
+#landing #headline {
+  font-size: 15px;
+  text-align: right;
+  font-family: "AdelleRegular";
+}
+
+#landing #headline h1 {
+  color: #241b73;
+  font-size: 22px;
+}
+
+#landing #subhead {
+  margin-bottom: 30px;
+}
+
+#landing h2, h3 {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+#landing #dont-risk-it {
+  height: 275px;
+  background: url("../images/dont-risk-it.jpg") center bottom no-repeat;
+  margin: 0 10px 20px;
+}
+
+#landing #dont-risk-it h1, #landing #dont-risk-it p {
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#landing #dont-risk-it h1 {
+  padding-top: 20px;
+  text-shadow: #000 2px 2px 5px;
+}
+
+#landing #dont-risk-it p {
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+#landing #dont-risk-it .button {
+  margin-top: 30px;
+  font-size: 17px;
+  width: 200px;
+  padding: 10px 10px;
+}
