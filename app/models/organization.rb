@@ -2,20 +2,20 @@ class Organization < ActiveRecord::Base
   acts_as_gmappable
   geocoded_by :full_street_address
 
-  has_one :assessment
+  has_one :assessment, :dependent => :destroy
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
-  has_many :articles
+  has_many :articles, :dependent => :destroy
   has_many :comments, :through => :articles
-  has_many :battle_buddy_requests
+  has_many :battle_buddy_requests, :dependent => :destroy
   has_many :battle_buddies, :through => :battle_buddy_requests, :conditions => ["battle_buddy_requests.accepted IS true"]
   has_many :battle_buddy_requests_received, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
   has_many :battle_buddy_requests_sent, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest'
-  has_many :crises
-  has_many :messages
-  has_many :resources
-  has_many :todos
-  has_many :updates
-  has_many :users
+  has_many :crises, :dependent => :destroy
+  has_many :messages, :dependent => :destroy
+  has_many :resources, :dependent => :destroy
+  has_many :todos, :dependent => :destroy
+  has_many :updates, :dependent => :destroy
+  has_many :users, :dependent => :destroy
   has_many :managers, :conditions => ["users.role = 'manager'"], :class_name => 'User'
   has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
