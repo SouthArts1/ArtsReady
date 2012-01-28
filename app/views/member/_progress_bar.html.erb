@@ -1,4 +1,4 @@
 <p class="progress" style="float:left;">
   <span class="progress-complete" style="right:<%= (100-percent.to_i) %>%"></span>
-  <span class="progress-percent"> <%= "#{message} #{percent}" %>% complete</span>
+  <span class="progress-percent"> <%= "#{message} #{percent.nil? ? 0 : percent}" %>% complete</span>
 </p>
