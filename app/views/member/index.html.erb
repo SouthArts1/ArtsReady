@@ -14,10 +14,10 @@
 
   <div class="grid_4 alpha">
     <section>
-      <h3 class="icon-action">Our Most Urgent To-Dos</h3>
+      <h3 class="icon-action">My Most Urgent To-Dos</h3>
       <ul class="list-actionitems">
         <% @todos.each do |todo| %>
-        <li class="urgent-todo"><span class="urgent">Due</span><%= link_to todo.description, todo_path(todo) %></li>
+        <li class="urgent-todo"><span class="urgent"><%= todo.due_on.to_formatted_s(:short) %></span><%= link_to todo.description, todo_path(todo) %></li>
         <% end %>
       </ul>
     </section>
