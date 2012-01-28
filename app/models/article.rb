@@ -7,7 +7,7 @@ class Article < ActiveRecord::Base
   belongs_to :user
   belongs_to :todo
 
-  has_many :comments
+  has_many :comments, :dependent => :destroy
   
 #  attr_accessible :title, :body, :tags, :link, :user, :visibility
 # Article.all.group_by(&:critical_function).each { |fn, x| puts "#{fn} #{x}"}

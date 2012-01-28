@@ -5,7 +5,7 @@ class Answer < ActiveRecord::Base
   belongs_to :assessment, :counter_cache => true
   belongs_to :question
   belongs_to :organization
-  has_many :todos
+  has_many :todos, :dependent => :destroy
   has_many :action_items, :through => :question
 
   delegate :description, :to => :question, :allow_nil => true, :prefix => true

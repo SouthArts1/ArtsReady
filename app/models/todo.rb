@@ -5,7 +5,7 @@ class Todo < ActiveRecord::Base
   belongs_to :user
   belongs_to :last_user, :class_name => 'User'
   has_many :articles
-  has_many :todo_notes
+  has_many :todo_notes, :dependent => :destroy
 
   validates_presence_of :description
   validates_presence_of :critical_function
