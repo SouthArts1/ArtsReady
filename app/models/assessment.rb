@@ -11,7 +11,8 @@ class Assessment < ActiveRecord::Base
   after_create :populate_empty_answers
 
   def is_complete?
-    complete
+    return false unless answers_count > 0
+    (completed_answers_count + skipped_answers_count) == answers_count
   end
   
   def initial_critical_functions
