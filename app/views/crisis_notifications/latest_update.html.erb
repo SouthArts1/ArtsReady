@@ -1,8 +1,20 @@
-<p><%= @crisis.organization.name %> is in crisis!</p>
+<p>Dear <%= @user.name %></p>
 
-<p>Here's the latest update:</p>
+<p>Your Battle Buddy, <%= @crisis.organization.name %>, has updated their current crisis!</p>
+
+<p>Here is what <%= @crisis.organization.name %> said:</p>
 
 <p><%= @update.message %></p>
 
-<p>- From: <%= @update.user.name %> (<%= @update.user.organization_name %>)</p>
-<p>- <%= @update.created_at %></p>
+<p>Please visit ArtsReady’s Lend a Hand page to see what Organization can do to help your Battle Buddy in need.
+</p>
+
+<p>To contact Crisis Organization’s ArtsReady administrator: 
+
+<%= @crisis.organization.contact_name %><br>
+<%= @crisis.organization.email %><br>
+<%= @crisis.organization.phone_number %><br>
+</p>
+
+<p>Best Regards-<br>
+The ArtsReady Team</p>
