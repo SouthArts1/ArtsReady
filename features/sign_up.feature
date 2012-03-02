@@ -16,12 +16,11 @@ Feature: New organization registration
      | Email            | newuser@test.host |
      | Password         | password          |
      | Confirm Password | password          |
-    And I select "02 Organization - Non-profit" from "Organizational status"
-    And I select "Less than $1,000,000" from "budget"
+    And I select "02 Organization - Non-profit" from "organization_organizational_status"
+    And I select "Less than $1,000,000" from "organization_operating_budget"
     And I check "terms"
     And I press "Create Organization"
     Then I should be on the welcome page
-    And I should see "organization has been registered and is awaiting approval"
     
   Scenario: A visitor tries to sign up without entering any information
     When I go to the sign up page

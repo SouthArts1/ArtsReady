@@ -24,7 +24,7 @@
             <%= truncate(a.body) %>
             <% end %>
           </p></td>
-          <td class="function"><p><a href="#"><%= a.critical_function %></a></p></td>
+          <td class="function"><p><a href="#"><%= a.critical_function.capitalize %></a></p></td>
           <td class="tags"><p><%= a.tag_list.to_s %></p></td>
           <td>
             <%= button_to 'Disable Article?', admin_article_path(a), :method => :delete, :class => 'button white' unless a.disabled? %>

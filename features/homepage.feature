@@ -18,7 +18,7 @@ Feature: Homepage
   Scenario: A visitor can register
     Given a visitor
     When I go to the root page
-    Then I should see "Join Today"
+    Then I should see "Join the Movement"
     
   Scenario: redirect to member home if logged in
     Given a user
@@ -29,7 +29,6 @@ Feature: Homepage
     Given a crisis user
     When I go to the root page
     Then I should see "Crisis Console"
-    #Then I should be on the crisis console
     
   Scenario: Create assessment
     Given a user
@@ -41,7 +40,7 @@ Feature: Homepage
     Given a user
     And I have started an assessment
     And I am on the home page
-    When I follow "Get Started"
+    When I follow "Continue"
     Then I should be on the assessment page
 
   Scenario: Finished assessment

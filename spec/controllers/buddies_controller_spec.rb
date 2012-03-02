@@ -2,15 +2,14 @@ require 'spec_helper'
 
 describe BuddiesController do
 
+  let(:organization) { Factory(:organization)}
   context "when not logged in" do
     it "requires authentication" do
       controller.expects :authenticate!
-      get 'get_help'
     end
   end
 
   context "logged in" do
-    let(:organization) { Factory(:organization)}
     before(:each) do
       controller.stubs :authenticate!
       controller.stub(:current_org).and_return(organization)

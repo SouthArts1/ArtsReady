@@ -26,8 +26,9 @@ class CrisisNotifications < ActionMailer::Base
   def latest_update(user,crisis,update)
     @crisis = crisis
     @update = update
+    @user = user
     begin
-      mail :to => user.email, :subject => "#{@crisis.organization.name} has a crisis update."
+      mail :to => user.email, :subject => "ALERT! #{@crisis.organization.name} has updated their crisis in ArtsReady!"
     rescue
       logger.debug("Failed to send crisis update to #{user.inspect}")
     end

@@ -10,7 +10,7 @@ Feature: Admin features a public article
   Scenario: Admin can see the admin toolbar with the feature article link 
     Given a public article exists with a title of "A public article"
     When I view the article page for "A public article"
-    Then I should see the button "Feature Article?" within "#admin-article-toobar"
+    Then I should see the button "Feature Article?"
 
   Scenario: Admin can feature a public article
     Given a public article exists with a title of "A public article"

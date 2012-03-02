@@ -11,4 +11,10 @@ describe Assessment do
     it {subject.percentage_complete.should be_zero} 
   end
   
+  context "#is_complete?" do
+    it { Assessment.new(answers_count: 10, completed_answers_count: 0).is_complete?.should be_false }
+    it { Assessment.new(answers_count: 10, completed_answers_count: 5).is_complete?.should be_false }
+    it { Assessment.new(answers_count: 10, completed_answers_count: 10).is_complete?.should be_true }
+  end
+  
 end

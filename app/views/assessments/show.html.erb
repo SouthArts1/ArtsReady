@@ -32,7 +32,7 @@
              <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
              <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
-             <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green" %></p></td>
+             <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green",:style => 'width:50px' %></p></td>
            </tr>
        </tbody>
      </table>
@@ -40,7 +40,6 @@
 
   </section>
   <div class="asses-actions">
-    <%= link_to raw("Continue to #{@next_function[0]}  &raquo;"), "/wireframe/assess?tab=#{Assesment.critical_functions.index(@next_function)}", :class => 'button blue', :style => 'margin-bottom:10px;' if @next_function %>
-    <br /> <%= link_to "View To-Do List &raquo;".html_safe, todos_path %>
+    <%= link_to "View To-Do List &raquo;".html_safe, todos_path %>
   </div>
 </div>
