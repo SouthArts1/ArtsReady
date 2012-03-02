@@ -23,6 +23,8 @@ Artsready::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   config.action_mailer.default_url_options = { :host => 'artsready.dev' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 end
 
 unless $rails_rake_task
@@ -37,3 +39,4 @@ end
 S3_UPLOAD_BUCKET = 'artsready-dev'
 MAILCHIMP_API_KEY = '5f70b48cbd31f3cab0d4d24ca8d5acde-us2'
 MAILCHIMP_LIST_ID = '91aa1b2d44'
+
