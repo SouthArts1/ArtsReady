@@ -8,3 +8,6 @@ rerun.txt
 *.DS_Store
 doc/comps
 doc/comps.zip
+TAGS
+coverage
+
