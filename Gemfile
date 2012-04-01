@@ -49,4 +49,5 @@ group :test do
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'shoulda'
+  gem 'simplecov'
 end

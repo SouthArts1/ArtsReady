@@ -207,6 +207,9 @@ GEM
       json_pure
       rubyzip
     shoulda (2.11.3)
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.5)
     term-ansicolor (1.0.7)
     thor (0.14.6)
     treetop (1.4.10)
@@ -254,3 +257,4 @@ DEPENDENCIES
   ruby-debug19
   ruby_gntp
   shoulda
+  simplecov
