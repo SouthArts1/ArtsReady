@@ -43,6 +43,7 @@ end
 
 group :test do
   gem 'mocha'
+  gem 'factory_girl', '~> 2.5.1'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page

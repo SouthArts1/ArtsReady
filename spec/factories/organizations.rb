@@ -14,6 +14,36 @@ FactoryGirl.define do
     operating_budget 'test'
     battle_buddy_enabled true
     
+    ignore do
+      member_count nil
+      assessment_usage nil
+      to_do_usage nil
+    end
+
+    after_build do |org, evaluator|
+      if evaluator.member_count
+        org.users << FactoryGirl.build_list(
+          :member, evaluator.member_count.to_i,
+          :organization => org)
+      end
+
+      if evaluator.assessment_usage
+        done, total = evaluator.assessment_usage.split('/').map(&:to_i)
+        org.assessment = Factory.build(:assessment,
+          :organization => nil,
+          :answers_count => total,
+          :completed_answers_count => done)
+      end
+
+      if evaluator.to_do_usage
+        done, total = evaluator.to_do_usage.split('/').map(&:to_i)
+        org.todos << FactoryGirl.build_list(:todo, done,
+          :organization => nil, :complete => true)
+        org.todos << FactoryGirl.build_list(:todo, total - done,
+          :organization => nil, :complete => false)
+      end
+    end
+
     factory :new_organization do
       name "New Organization"
       active false

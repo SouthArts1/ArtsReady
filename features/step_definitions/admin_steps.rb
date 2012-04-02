@@ -13,3 +13,16 @@ When /^I view the admin article page for "([^"]*)"$/ do |title|
   article = Article.find_by_title(title)
   visit admin_articles_path(article)
 end
+
+Then /^I should see the following organizations:$/ do |table|
+  table.diff!(
+    [
+      ['Name', 'Members', 'Assessment %', 'To-Do %'],
+      *page.all('table.resource tbody tr').map do |tr|
+        ['.name', '.members', '.assessment', '.todo'].map do |selector|
+          tr.first(selector).try(:text).try(:strip)
+        end
+      end
+    ]
+  )
+end

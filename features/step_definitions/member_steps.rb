@@ -1,4 +1,4 @@
-def login(email,password)
+def login(email, password = 'password')
   visit(sign_in_path)
   fill_in 'email', with: email
   fill_in 'password', with: password
@@ -58,3 +58,8 @@ end
 Given /^I am a member of an unapproved organization with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
   Factory(:new_user, :email => email, :password => password)
 end
+
+Given /^I am signed in as "([^"]*)"$/ do |email|
+  login(email)
+end
+
