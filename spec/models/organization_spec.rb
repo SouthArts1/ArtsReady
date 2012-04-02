@@ -61,4 +61,19 @@ describe Organization do
       end
     end
   end
+
+  describe '#last_activity' do
+    it 'is the activity of the last-logged-in user, or never' do
+      subject = Factory.create(:organization)
+      subject.last_activity.should == 'Never'
+
+      time = Time.zone.parse('Mon, 02 Apr 2012 04:24:14 UTC +00:00')
+      subject.users = [
+        Factory.create(:member,
+          :organization => subject,
+          :last_login_at => time)
+      ]
+      subject.last_activity.should == time
+    end
+  end
 end

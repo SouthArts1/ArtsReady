@@ -75,15 +75,11 @@ class Organization < ActiveRecord::Base
   end
 
   def last_activity
-    users.order('last_login_at DESC').first.last_activity
+    users.order('last_login_at DESC').first.try(:last_activity) || 'Never'
   end
 
   def declared_crisis?
     crises.where(:resolved_on => nil).count == 1 ? true : false
-  end
-
-  def last_activity_at
-    users.order('created_at DESC').first.created_at
   end
 
   def todo_percentage_complete
