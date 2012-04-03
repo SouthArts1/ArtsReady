@@ -14,7 +14,7 @@
           <li>Join the Battle Buddy Network</li>
           <li>Safely store your organization’s Critical Stuff, accessible anytime, from anywhere</li>
           <li>Contribute to the Library and the ongoing national readiness discussion</li>
-          <li><strong>Cost: </strong>$300/year for non-profits, $500/year for for-profits (unless subsidized by an ArtsReady Partner)</li>
+          <li><strong>Cost: </strong>$300 for the first year, $225/year after that (unless subsidized by an ArtsReady Partner)</li>
       </div>
       <div class="grid_4 omega">
         <h2>Basic Membership</h2>
@@ -97,9 +97,6 @@
         </p>
         <p>
           <%= org.label :organizational_status, 'Organizational Status *', :class => 'required' %> <%= org.select :organizational_status, ArtsreadyDomain::ORGANIZATIONAL_STATUSES, :include_blank => true %>
-        </p>
-        <p>
-          <%= org.label :operating_budget, "Last year my organization's operating budget was: *", :class => 'required'  %> <%= org.select :operating_budget, ArtsreadyDomain::OPERATING_BUDGETS, :include_blank => true, :id => 'budget' %>
         </p>
         <p>
           <%= org.label :nsic_code, 'National Standard Institution Code' %>

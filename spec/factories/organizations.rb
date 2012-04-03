@@ -11,7 +11,6 @@ FactoryGirl.define do
     longitude -84.3933 
     gmaps true
     organizational_status 'test'
-    operating_budget 'test'
     battle_buddy_enabled true
     
     ignore do

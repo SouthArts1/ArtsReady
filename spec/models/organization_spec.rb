@@ -16,7 +16,6 @@ describe Organization do
   it { should validate_presence_of(:state)} 
   it { should validate_presence_of(:zipcode)}
   it { should validate_presence_of(:organizational_status)}
-  it { should validate_presence_of(:operating_budget)}
   
   it {subject.assessment_is_complete?.should be_false} 
   it {subject.assessment_percentage_complete.should be_nil}

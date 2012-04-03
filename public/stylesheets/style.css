@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*  HTML5 ✰ Boilerplate  */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
   margin: 0;
@@ -116,10 +117,8 @@ ul.plain li {
   list-style-type: none;
   margin: 0;
   padding: 0; }
-
 ul.indented li {
-	margin-left:15px;
-}
+  margin-left: 15px; }
 
 .blue-box {
   padding: 10px;
@@ -238,8 +237,9 @@ time {
 
 label {
   display: block;
-  margin-left: 5px; }
-  label, label.label {
+  margin-left: 5px;
+  font-weight: bold; }
+  label.label {
     font-weight: bold; }
 
 .f-left {
@@ -434,7 +434,6 @@ header .user-nav {
   header .user-nav li {
     list-style: none;
     float: left;
-    padding: 5px 10px;
     border-right: 1px solid #ccc;
     box-shadow: 1px 0 #fff;
     -moz-box-shadow: 1px 0 #fff;
@@ -446,7 +445,9 @@ header .user-nav {
       -webkit-box-shadow: none; }
   header .user-nav a {
     color: #444;
-    font-weight: normal; }
+    font-weight: normal;
+    display: block;
+    padding: 5px 10px; }
 header nav {
   float: right;
   clear: right; }
@@ -613,7 +614,6 @@ thead td {
   font-size: 80%;
   text-transform: uppercase;
   color: #fff; }
-
 thead th {
   background-color: #525e96;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#525e96), to(#28387d));
@@ -625,7 +625,7 @@ thead th {
   border: 1px solid #28387d;
   font-size: 80%;
   text-transform: uppercase;
-	margin: 5px, 10px;
+  margin: 5px, 10px;
   color: #fff; }
 
 table p {
@@ -890,6 +890,8 @@ tbody tr:hover td {
   width: 75px;
   width: 95px; }
 
+.add-actionitem .description input {
+  width: 190px; }
 .add-actionitem .item input {
   width: 400px; }
 .add-actionitem .assigned input, .add-actionitem .due {
@@ -919,8 +921,7 @@ tbody tr:hover td {
 
 .editable {
   padding-right: 20px;
-/*  background: url("../images/icon-pencil.png") right top no-repeat; */
-}
+  /*  background: url("../images/icon-pencil.png") right top no-repeat; */ }
 
 .filter {
   text-align: right;
@@ -988,25 +989,34 @@ tbody tr:hover td {
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
-  .button.weak, a.button.weak, input[type="submit"].weak {
-    background: #999;
-    font-weight: normal;
-    border: none; }
-  .button.white, a.button.white, input[type="submit"].white {
-    color: #333;
-    background-color: #eee;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
-    background-image: -moz-linear-gradient(center top, white, #eeeeee); }
-  .button.blue, a.button.blue, input[type="submit"].blue {
-    background-color: #525e96;
-    background: -webkit-gradient(linear, left top, left bottom, from(#525e96), to(#28387d));
-    background: -moz-linear-gradient(top, #525e96, #28387d); }
-  .button.green, a.button.green, input[type="submit"].green {
-    background-color: #84983d;
-    border: 1px solid #84983d;
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a8b653), to(#84983d));
-    background-image: -moz-linear-gradient(100% 100% 90deg, #84983d, #a8b653); }
 
+.button.weak, a.button.weak, input[type="submit"].weak {
+  background: #999;
+  font-weight: normal;
+  border: none; }
+
+.button.white, a.button.white, input[type="submit"].white {
+  color: #333;
+  background-color: #eee;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#eeeeee));
+  background-image: -moz-linear-gradient(center top, white, #eeeeee); }
+
+.button.blue, a.button.blue, input[type="submit"].blue {
+  background-color: #525e96;
+  background: -webkit-gradient(linear, left top, left bottom, from(#525e96), to(#28387d));
+  background: -moz-linear-gradient(top, #525e96, #28387d); }
+
+.button.green, a.button.green {
+  background-color: #84983d;
+  border: 1px solid #84983d;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a8b653), to(#84983d));
+  background-image: -moz-linear-gradient(100% 100% 90deg, #84983d, #a8b653); }
+
+input[type="submit"].green {
+  background-color: #84983d;
+  border: 1px solid #84983d;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a8b653), to(#84983d));
+  background-image: -moz-linear-gradient(100% 100% 90deg, #84983d, #a8b653); }
 input.button {
   padding: 5px 8px; }
 
@@ -1284,11 +1294,11 @@ footer {
   margin-bottom: 20px; }
 
 #map_canvas_large {
- height: 500px;
- clear: both;
- width: 270px;
- margin: 0 auto;
- margin-bottom: 20px; }
+  height: 500px;
+  clear: both;
+  width: 270px;
+  margin: 0 auto;
+  margin-bottom: 20px; }
 
 .map-address {
   text-align: left;
@@ -1378,7 +1388,6 @@ table#messages {
   text-align: right; }
 
 #distress-switch {
-  padding: 15px;
   background: #ccc;
   color: #333;
   -moz-border-radius: 5px;
@@ -1389,6 +1398,8 @@ table#messages {
     color: #fff; }
   #distress-switch span#distress-status {
     font-weight: bold; }
+  #distress-switch .join_button {
+    padding: 15px; }
 
 #some-buddies {
   background: #ccc;
@@ -1418,25 +1429,29 @@ ul.library {
 
 table#edit_todos, table#edit_questions {
   border: none; }
-  table#edit_todos tr, table#edit_questions tr {
-    border-bottom: 1px solid #ccc; }
-    table#edit_todos tr.expanded td, table#edit_todos tr.expanded:hover td, table#edit_questions tr.expanded td, table#edit_questions tr.expanded:hover td {
-      background: #fff; }
-  table#edit_todos td, table#edit_questions td {
-    text-align: left;
-    padding: 10px;
-    border: none; }
-    table#edit_todos td.respond, table#edit_questions td.respond {
-      width: 100px;
-      text-align: left; }
-    table#edit_todos td .edit label, table#edit_questions td .edit label {
-      font-weight: bold; }
-    table#edit_todos td .edit p, table#edit_questions td .edit p {
-      margin-bottom: 20px; }
-    table#edit_todos td .edit input[type="text"], table#edit_todos td .edit textarea, table#edit_questions td .edit input[type="text"], table#edit_questions td .edit textarea {
-      width: 600px; }
-    table#edit_todos td .delete, table#edit_questions td .delete {
-      float: right; }
+table#edit_todos tr, table#edit_questions tr {
+  border-bottom: 1px solid #ccc; }
+table#edit_todos tr.expanded td, table#edit_todos tr.expanded:hover td {
+  background: #fff; }
+table#edit_questions tr.expanded td, table#edit_questions tr.expanded:hover td {
+  background: #fff; }
+table#edit_todos td, table#edit_questions td {
+  text-align: left;
+  padding: 10px;
+  border: none; }
+table#edit_todos td.respond, table#edit_questions td.respond {
+  width: 100px;
+  text-align: left; }
+table#edit_todos td .edit label, table#edit_questions td .edit label {
+  font-weight: bold; }
+table#edit_todos td .edit p, table#edit_questions td .edit p {
+  margin-bottom: 20px; }
+table#edit_todos td .edit input[type="text"], table#edit_todos td .edit textarea {
+  width: 600px; }
+table#edit_questions td .edit input[type="text"], table#edit_questions td .edit textarea {
+  width: 600px; }
+table#edit_todos td .delete, table#edit_questions td .delete {
+  float: right; }
 
 td.actions {
   text-align: right; }
@@ -1452,48 +1467,37 @@ td.actions {
 #landing #headline {
   font-size: 15px;
   text-align: right;
-  font-family: "AdelleRegular";
-}
-
-#landing #headline h1 {
-  color: #241b73;
-  font-size: 22px;
-}
-
+  font-family: "AdelleRegular"; }
+  #landing #headline h1 {
+    color: #241b73;
+    font-size: 22px; }
 #landing #subhead {
-  margin-bottom: 30px;
-}
-
-#landing h2, h3 {
+  margin-bottom: 30px; }
+#landing h2 {
   border-bottom: 1px solid #EEE;
   margin-bottom: 5px;
-  padding-bottom: 5px;
-}
+  padding-bottom: 5px; }
+
+h3 {
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 5px;
+  padding-bottom: 5px; }
 
 #landing #dont-risk-it {
   height: 275px;
   background: url("../images/dont-risk-it.jpg") center bottom no-repeat;
-  margin: 0 10px 20px;
-}
-
-#landing #dont-risk-it h1, #landing #dont-risk-it p {
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-#landing #dont-risk-it h1 {
-  padding-top: 20px;
-  text-shadow: #000 2px 2px 5px;
-}
-
-#landing #dont-risk-it p {
-  font-size: 17px;
-  margin-bottom: 20px;
-}
-
-#landing #dont-risk-it .button {
-  margin-top: 30px;
-  font-size: 17px;
-  width: 200px;
-  padding: 10px 10px;
-}
+  margin: 0 10px 20px; }
+  #landing #dont-risk-it h1, #landing #dont-risk-it p {
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif; }
+  #landing #dont-risk-it h1 {
+    padding-top: 20px;
+    text-shadow: #000 2px 2px 5px; }
+  #landing #dont-risk-it p {
+    font-size: 17px;
+    margin-bottom: 20px; }
+  #landing #dont-risk-it .button {
+    margin-top: 30px;
+    font-size: 17px;
+    width: 200px;
+    padding: 10px 10px; }

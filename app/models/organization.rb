@@ -23,7 +23,7 @@ class Organization < ActiveRecord::Base
 
   accepts_nested_attributes_for :users
 
-  validates_presence_of :name, :address, :city, :state, :zipcode, :organizational_status, :operating_budget
+  validates_presence_of :name, :address, :city, :state, :zipcode, :organizational_status
 
   after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
