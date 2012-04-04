@@ -39,6 +39,7 @@ end
 
 group :development do
   gem 'rails-footnotes', '>= 3.7'
+  gem 'sass'
 end
 
 group :test do
