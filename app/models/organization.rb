@@ -4,7 +4,13 @@ class Organization < ActiveRecord::Base
 
   has_one :assessment, :dependent => :destroy
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
-  has_many :articles, :dependent => :destroy
+  has_many :articles
+  has_many :public_articles, :class_name => 'Article',
+    :conditions => "visibility = 'public'",
+    :dependent => :nullify
+  has_many :non_public_articles, :class_name => 'Article',
+    :conditions => "visibility <> 'public'",
+    :dependent => :destroy
   has_many :comments, :through => :articles
   has_many :battle_buddy_requests, :dependent => :destroy
   has_many :battle_buddies, :through => :battle_buddy_requests, :conditions => ["battle_buddy_requests.accepted IS true"]
@@ -62,8 +68,8 @@ class Organization < ActiveRecord::Base
   end
 
   def deletable?
-    # organization needs to be inactive with only a single disabled user which describes new org
-    !active? && users.count == 1 && users.first.disabled? rescue false
+    # must deactivate an organization before deleting it
+    !active? && users.all(&:disabled?)
   end
   
   def is_my_buddy?

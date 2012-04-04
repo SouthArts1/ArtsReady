@@ -11,6 +11,8 @@ module NavigationHelpers
         '/'
       when /^the dashboard page$/
         '/member/index'
+      when /^the public library page$/
+        readiness_library_path
       when /^the crisis console$/
         crisis_path(Crisis.first)
       when /^the profile page$/
@@ -32,6 +34,11 @@ module NavigationHelpers
           "Now, go and add a mapping in #{__FILE__}"
       end
     end
+  end
+
+  def be_on(page)
+    path = path_to(page) rescue url_for(page)
+    visit path unless current_path == path
   end
 end
 

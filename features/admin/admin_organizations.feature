@@ -18,3 +18,19 @@ Feature: Admin organization management
       | MyOrg | 2 members | 50%          | 50%     |
       # 2 members including the admin
 
+  Scenario: Delete organization
+    Given the following organization exists:
+      | Name   | Active |
+      | MyOrg  | false  |
+    And all users for "MyOrg" are disabled
+    And the following articles exist:
+      | Organization | Title        | Visibility |
+      | Name: MyOrg  | Secret Stuff | executive  |
+      | Name: MyOrg  | Open Stuff   | public     |
+    And I am signed in as a sysadmin
+
+    When I delete the organization "MyOrg"
+    Then the organization "MyOrg" should be deleted
+    #And the "Secret Stuff" article should be deleted
+    And the "Open Stuff" article should still be in the public library
+

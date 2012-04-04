@@ -75,4 +75,23 @@ describe Organization do
       subject.last_activity.should == time
     end
   end
+
+  describe '#destroy' do
+    let(:organization) { Factory.create(:organization) }
+    let!(:public_article) {
+      Factory.create(:article, :organization => organization,
+        :visibility => 'public')
+    }
+    let!(:executive_article) {
+      Factory.create(:article, :organization => organization,
+        :visibility => 'executive')
+    }
+
+    before { Organization.find(organization.id).destroy }
+
+    it 'destroys private articles but not public ones' do
+      Article.find_by_id(executive_article.id).should be_nil
+      Article.find_by_id(public_article.id).organization_id.should be_nil
+    end
+  end
 end

@@ -845,6 +845,11 @@ tbody tr:hover td {
     float: left;
     margin-right: 20px; }
 
+/*  Org Admin */
+.admin-actions form {
+  float: left;
+  margin-right: 10px; }
+
 /*  Assess Admin  */
 .edit_question label {
   font-weight: bold; }

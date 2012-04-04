@@ -1,4 +1,4 @@
-Given /^a sysadmin$/ do
+Given /^(?:I am signed in as )?a sysadmin$/ do
   email = 'admin@test.host'
   password = 'password'
   @current_user = Factory.create(:sysadmin, :email => email, :password => password)
@@ -7,6 +7,11 @@ end
 
 Given /^I am a sysadmin with email "([^"]*)"$/ do |email|
   Factory.create(:sysadmin, :email => email)
+end
+
+Given /^all users .* "(.*)" are disabled$/ do |org|
+  Organization.find_by_name(org).users.
+    update_all(:disabled => true)
 end
 
 When /^I view the admin article page for "([^"]*)"$/ do |title|
@@ -26,3 +31,18 @@ Then /^I should see the following organizations:$/ do |table|
     ]
   )
 end
+
+When /^I delete the organization "(.*)"$/ do |org|
+  be_on 'the admin organizations page'
+  with_scope table_row_where('name' => org) do
+    click_link 'Edit'
+  end
+
+  click_button 'DELETE'
+end
+
+Then /^the organization "(.*)" should be deleted$/ do |name|
+  be_on 'the admin organizations page'
+  page.should_not have_content(name)
+end
+

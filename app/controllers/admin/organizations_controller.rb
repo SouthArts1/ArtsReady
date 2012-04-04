@@ -22,8 +22,7 @@ class Admin::OrganizationsController < Admin::AdminController
   def destroy
     @organization = Organization.find(params[:id])
     if @organization.deletable?
-      @organization.users.destroy_all
-      @organization.delete
+      @organization.destroy
       redirect_to(admin_organizations_path, :notice => 'Organization was successfully destroyed.')
     else
       logger.warn("Admin had trouble destroying #{@organization.name}")

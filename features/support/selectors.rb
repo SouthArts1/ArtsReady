@@ -8,6 +8,8 @@ module HtmlSelectorsHelpers
   def selector_for(locator)
     case locator
 
+    when Array
+      locator
     when "the page"
       "html > body"
 
@@ -33,6 +35,13 @@ module HtmlSelectorsHelpers
       raise "Can't find mapping from \"#{locator}\" to a selector.\n" +
         "Now, go and add a mapping in #{__FILE__}"
     end
+  end
+
+  def table_row_where(cells)
+    predicates = cells.map do |klass, contents|
+      "[./td[@class='#{klass}'][contains(., '#{contents}')]]"
+    end
+    [:xpath, "//tr#{predicates.join}"]
   end
 end
 
