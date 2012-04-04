@@ -17,7 +17,6 @@ Feature: New organization registration
      | Password         | password          |
      | Confirm Password | password          |
     And I select "02 Organization - Non-profit" from "organization_organizational_status"
-    And I select "Less than $1,000,000" from "organization_operating_budget"
     And I check "terms"
     And I press "Create Organization"
     Then I should be on the welcome page

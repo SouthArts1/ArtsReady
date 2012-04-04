@@ -449,7 +449,6 @@ header {
     li {
       list-style: none;
       float: left;
-      padding: 5px 10px;
       border-right: 1px solid #ccc;
       box-shadow: 1px 0 #fff;
       -moz-box-shadow: 1px 0 #fff;
@@ -461,7 +460,9 @@ header {
         -webkit-box-shadow: none; } }
     a {
       color: #444;
-      font-weight: normal; } }
+      font-weight: normal;
+      display: block;
+      padding: 5px 10px; } }
   nav {
     float: right;
     clear: right; } }
@@ -913,6 +914,8 @@ tbody {
     width: 95px; } }
 
 .add-actionitem {
+  .description input {
+    width: 190px; }
   .item input {
     width: 400px; }
   .assigned input, .due {
@@ -1420,7 +1423,6 @@ table#messages {
   text-align: right; }
 
 #distress-switch {
-  padding: 15px;
   background: #ccc;
   color: #333;
   -moz-border-radius: 5px;
@@ -1430,7 +1432,8 @@ table#messages {
     background: #C31D29;
     color: #fff; }
   span#distress-status {
-    font-weight: bold; } }
+    font-weight: bold; } 
+  .join_button { padding: 15px; } }
 
 #some-buddies {
   background: #ccc;

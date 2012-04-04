@@ -25,6 +25,7 @@ class Todo < ActiveRecord::Base
 
   PRIORITY = ['critical', 'non-critical']
   PREPAREDNESS = ['not-ready', 'needs work', 'ready', 'unknown']
+  NEXT_ACTIONS = { 'Review' => 'Ready', 'Start' => 'Not Ready', 'Learn About' => 'Unknown', 'Work On' => 'Needs Work' }
 
   TRACKED_ATTRIBUTES = %w{description critical_function priority due_on review_on completed status}
   

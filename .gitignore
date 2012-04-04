@@ -10,4 +10,6 @@ doc/comps
 doc/comps.zip
 TAGS
 coverage
+.powder
+public/stylesheets/.sass-cache
 

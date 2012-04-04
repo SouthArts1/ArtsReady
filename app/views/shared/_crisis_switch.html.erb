@@ -8,11 +8,11 @@
 </div>
 <% elsif current_org.battle_buddy_enabled? %>
 <div id="distress-switch" style="float:left;">
-  <span style="float:left;">Crisis Mode: <span id="distress-status">OFF</span> &nbsp;</span>
-  <%= link_to('Activate', new_crisis_path, :class => 'button', :html => { :style => 'float:left;'}) %>
+  <span style="float:left; padding: 15px;">Crisis Mode: <span id="distress-status">OFF</span> &nbsp;</span>
+  <%= link_to('Activate', new_crisis_path, :class => 'button',:style => 'float:left; margin: 10px;') %>
 </div>
 <% else %>
 <div id="distress-switch" style="float:left;">
-  <span style="float:left;"><%= link_to "Join the Battle Buddy Network", edit_organization_path(current_org) %></span>
+  <span style="float:left;"><%= link_to "Join the Battle Buddy Network", edit_organization_path(current_org), :class => 'join_button' %></span>
 </div>
 <% end %>

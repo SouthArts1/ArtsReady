@@ -13,6 +13,7 @@ Feature: Todo list
   Scenario: A user adds a todo
     Given a user
     When I go to the todos page
+    And I select "Start" from "todo[status]"
     And I fill in "todo[description]" with "some task"
     And I select "People Resources" from "todo[critical_function]"
     And I press "Add"
