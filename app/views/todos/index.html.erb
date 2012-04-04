@@ -34,7 +34,7 @@
         </thead>
         <tbody>
           <% @todos.each do |todo| %>
-          <tr>
+          <tr class="<%= 'complete' if todo.complete? %>">
             <td class="item"><p><%= todo.description %></p></td>
             <td class="assigned"><p>
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>

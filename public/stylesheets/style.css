@@ -905,6 +905,11 @@ tbody tr:hover td {
   padding-top: 1px;
   width: 75px;
   width: 95px; }
+.actionitems .complete td a.button {
+  background-color: #84983D;
+  background-image: -moz-linear-gradient(100% 100% 90deg, #84983d, #a8b653);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#84983d), to(#a8b653));
+  border: 1px solid #84983D; }
 
 .add-actionitem .description input {
   width: 190px; }
