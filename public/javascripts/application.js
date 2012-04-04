@@ -198,6 +198,9 @@ $(function () {
 
     // set the mouseover and mouseout on both element
     $([trigger.get(0), popup.get(0)]).mouseover(function () {
+      // ignore spurious mouseovers while the item is hidden
+      if (trigger.filter(':visible').length == 0) return;
+
       // stops the hide event if we move from the trigger to the popup element
       if (hideDelayTimer) {clearTimeout(hideDelayTimer);}
 

@@ -116,8 +116,8 @@
     <p>Please rate the priority and preparedness of this topic for your organization.</p>
     <% unless answer.question.help.blank? %>
     <p class="info-bubble">
-      <%= link_to 'Learn more about this topic', '', :class => 'button weak', :onclick => 'return false;' %>
-      <span class="info-bubble-text-disabled">
+      <%= link_to 'Learn more about this topic', '', :class => 'button weak info-bubble-trigger', :onclick => 'return false;' %>
+      <span class="info-bubble-text">
         <%= RedCloth.new(answer.question.help).to_html.html_safe if answer.question.help.present?%>
       </span>
     </p>
