@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe OrganizationMailer do
   describe "sign_up" do
-    let(:organization) { Factory(:new_organization, :users => [Factory(:new_user)]) }
+    let(:organization) { Factory.create(:new_organization, :users => [Factory.create(:new_user)]) }
     let(:mail) { OrganizationMailer.sign_up(organization) }
 
     it "renders the headers" do
@@ -16,7 +16,7 @@ describe OrganizationMailer do
   end
 
   describe "approved" do
-    let(:organization) { Factory(:organization, :users => [Factory(:user)]) }
+    let(:organization) { Factory.create(:organization, :users => [Factory.create(:user)]) }
     let(:mail) { OrganizationMailer.approved(organization) }
 
     it "renders the headers" do

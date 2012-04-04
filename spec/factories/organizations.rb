@@ -52,7 +52,7 @@ FactoryGirl.define do
     
     factory :crisis_organization do
       name "Crisis Organization"
-      crises { [Factory(:crisis)] }
+      crises
     end
     
   end

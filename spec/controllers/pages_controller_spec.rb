@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe PagesController do
 
-  let(:page) { Factory(:page) }
+  let(:page) { Factory.create(:page) }
   
   describe "GET 'show'" do
     it "should be successful" do

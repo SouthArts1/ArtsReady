@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe CrisisNotifications do
   describe "announcement" do
-    let(:user) { Factory(:user) }
-    let(:crisis) { Factory(:crisis) }
+    let(:user) { Factory.create(:user) }
+    let(:crisis) { Factory.create(:crisis) }
     let(:mail) { CrisisNotifications.announcement(user,crisis) }
 
     it "renders the headers" do
@@ -17,8 +17,8 @@ describe CrisisNotifications do
   end
 
   describe "resolved" do
-    let(:user) { Factory(:user) }
-    let(:crisis) { Factory(:crisis) }
+    let(:user) { Factory.create(:user) }
+    let(:crisis) { Factory.create(:crisis) }
     let(:mail) { CrisisNotifications.resolved(user,crisis) }
 
     it "renders the headers" do
@@ -32,8 +32,8 @@ describe CrisisNotifications do
   end
 
   describe "latest_update" do
-    let(:user) { Factory(:user) }
-    let(:crisis) { Factory(:crisis) }
+    let(:user) { Factory.create(:user) }
+    let(:crisis) { Factory.create(:crisis) }
     let(:mail) { CrisisNotifications.latest_update(user,crisis,crisis.updates.build(:user => user)) }
 
     it "renders the headers" do

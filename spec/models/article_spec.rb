@@ -17,10 +17,10 @@ describe Article do
   it { subject.on_critical_list?.should be_false}
 
   context "scopes" do
-    let(:private_article) { Factory(:private_article) }
-    let(:public_article) { Factory(:public_article) }
-    let(:featured_article) { Factory(:featured_article) }
-    let(:disabled_article) { Factory(:disabled_article) }
+    let(:private_article) { Factory.create(:private_article) }
+    let(:public_article) { Factory.create(:public_article) }
+    let(:featured_article) { Factory.create(:featured_article) }
+    let(:disabled_article) { Factory.create(:disabled_article) }
   
     context "for_public" do
       subject { Article.for_public }
@@ -45,8 +45,8 @@ describe Article do
   context "recent scope" do
 
     it "should sort newer articles first" do
-      older = Factory(:article, :created_at => 1.day.ago)
-      newer = Factory(:article, :created_at => 1.hour.ago)
+      older = Factory.create(:article, :created_at => 1.day.ago)
+      newer = Factory.create(:article, :created_at => 1.hour.ago)
       Article.recent.first.should == newer
       Article.recent.should == [newer,older]
     end

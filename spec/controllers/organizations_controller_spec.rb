@@ -20,7 +20,7 @@ describe OrganizationsController do
   end
 
   context "logged in" do
-    let(:organization) { Factory(:organization)}
+    let(:organization) { Factory.create(:organization)}
     before(:each) do
       controller.stubs :authenticate!
       controller.stub(:current_org).and_return(organization)

@@ -10,7 +10,7 @@ describe Answer do
   it { should validate_presence_of(:question)}
   
   context "after initial creation" do
-    subject { Factory(:answer) }
+    subject { Factory.create(:answer) }
     
     specify {subject.assessment_id.should_not be_nil}
     specify {subject.question_id.should_not be_nil}
@@ -23,7 +23,7 @@ describe Answer do
   context "valid answer" do
     it "should be valid" do
       pending
-      answer = Factory(:answer)
+      answer = Factory.create(:answer)
       answer.priority='critical'
       answer.preparedness='ready'
       answer.should be_valid
@@ -31,17 +31,17 @@ describe Answer do
   end
   
   context "with no action items" do
-    let(:question) { Factory(:question) }
+    let(:question) { Factory.create(:question) }
     it "should not create any todos" do
       Todo.count.should be_zero
     end
   end
 
   context "with one action item" do
-    let(:question) { Factory(:question, :action_items => [Factory(:action_item)]) }
+    let(:question) { Factory.create(:question, :action_items => [Factory.create(:action_item)]) }
     it "should create one todo" do
       pending
-      expect {Answer.create(:preparedness => 'not ready', :priority => 'critical', :organization => Factory(:organization), :question => question) }.to change { Todo.count }.by(1)
+      expect {Answer.create(:preparedness => 'not ready', :priority => 'critical', :organization => Factory.create(:organization), :question => question) }.to change { Todo.count }.by(1)
     end
   end
   

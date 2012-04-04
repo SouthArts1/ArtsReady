@@ -33,7 +33,7 @@ describe Organization do
     end
 
     context "on changed address fields" do
-      let(:organization) { Factory(:organization) }
+      let(:organization) { Factory.create(:organization) }
       before {organization.should_receive(:geocode)}
       it "should geocode address if address is changed" do
         organization.address = 'New Address'
@@ -55,7 +55,7 @@ describe Organization do
     
     context "on other changes" do
       it "should not geocode address if name is changed" do
-        organization = Factory(:organization)
+        organization = Factory.create(:organization)
         organization.should_not_receive(:geocode)
         organization.update_attribute(:address, 'New Address')
       end

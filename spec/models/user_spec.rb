@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  subject { Factory(:user) }
+  subject { Factory.create(:user) }
   
   it { should have_many(:articles) }
   it { should have_many(:todo_notes) }
@@ -35,7 +35,7 @@ describe User do
   
   
   context "first user for an organization should be a manager" do
-    let(:organization) {Factory(:new_organization)}
+    let(:organization) { Factory.create(:new_organization) }
     
     it "should set the first user for an organization to a manager" do
       u=organization.users.create(:first_name => 'First', :last_name => 'Last', :email => 'first_user@test.host')
@@ -46,53 +46,53 @@ describe User do
   
   context "#can_set_battlebuddy_permission_for_article?" do
     it "should be false for user" do
-      @member = Factory(:user)
+      @member = Factory.create(:user)
       @member.can_set_battlebuddy_permission_for_article?.should be_false
     end
     it "should be false for reader" do
-      @member = Factory(:reader)
+      @member = Factory.create(:reader)
       @member.can_set_battlebuddy_permission_for_article?.should be_false
     end
     it "should be true for editor" do
-      @member = Factory(:editor)
+      @member = Factory.create(:editor)
       @member.can_set_battlebuddy_permission_for_article?.should be_true
     end
     it "should be true for executive" do
-      @member = Factory(:executive)
+      @member = Factory.create(:executive)
       @member.can_set_battlebuddy_permission_for_article?.should be_true
     end
     it "should be true for manager" do
-      @member = Factory(:manager)
+      @member = Factory.create(:manager)
       @member.can_set_battlebuddy_permission_for_article?.should be_true
     end
   end
   
   context "#can_set_executive_permission_for_article?" do
     it "should be false for user" do
-      @member = Factory(:user)
+      @member = Factory.create(:user)
       @member.can_set_executive_permission_for_article?.should be_false
     end
     it "should be false for reader" do
-      @member = Factory(:reader)
+      @member = Factory.create(:reader)
       @member.can_set_executive_permission_for_article?.should be_false
     end
     it "should be false for editor" do
-      @member = Factory(:editor)
+      @member = Factory.create(:editor)
       @member.can_set_executive_permission_for_article?.should be_false
     end
     it "should be true for executive" do
-      @member = Factory(:executive)
+      @member = Factory.create(:executive)
       @member.can_set_executive_permission_for_article?.should be_true
     end
     it "should be true for manager" do
-      @member = Factory(:manager)
+      @member = Factory.create(:manager)
       @member.can_set_executive_permission_for_article?.should be_true
     end
   end
   
   context "#authenticate" do
     before do
-      @member = Factory(:user, :email => 'member@test.host', :password => 'secret')
+      @member = Factory.create(:user, :email => 'member@test.host', :password => 'secret')
     end
     
     it "should authenticate successfully when the password hash matches the encrypted password" do
@@ -127,8 +127,8 @@ describe User do
   end
 
   context "#admin?" do
-    let(:member) {Factory(:user, :email => 'member@test.host', :password => 'secret')}
-    let(:admin) {Factory(:user, :email => 'admin@test.host', :password => 'secret', :admin => true)}
+    let(:member) { Factory.create(:user, :email => 'member@test.host', :password => 'secret') }
+    let(:admin) { Factory.create(:user, :email => 'admin@test.host', :password => 'secret', :admin => true) }
 
     it "should not be an admin by default" do
       member.admin?.should be_false
@@ -153,7 +153,7 @@ describe User do
   end
   
   context "#send_password_reset" do
-    let(:user) { Factory(:user) }
+    let(:user) { Factory.create(:user) }
 
     it "generates a unique password_reset_token each time" do
       user.send_password_reset

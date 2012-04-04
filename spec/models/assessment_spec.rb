@@ -6,7 +6,7 @@ describe Assessment do
   it {should have_many(:todos)}
   
   context "default values" do
-    subject {Factory(:assessment)}
+    subject { Factory.create(:assessment) }
     it {subject.is_complete?.should be_false} 
     it {subject.percentage_complete.should be_zero} 
   end

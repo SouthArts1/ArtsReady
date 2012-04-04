@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :assessment do
-    organization { Factory(:organization)}
+    organization
     
     factory :completed_assessment do
       complete true

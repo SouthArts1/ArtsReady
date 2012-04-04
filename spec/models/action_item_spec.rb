@@ -10,13 +10,13 @@ describe ActionItem do
   
   context "#create" do
     it "should be valid with required params" do
-      ActionItem.create(:description => 'New Action Item', :question => Factory(:question)).should be_valid
+      ActionItem.create(:description => 'New Action Item', :question => Factory.create(:question)).should be_valid
     end
     it "should fail without required params" do
       ActionItem.create(:description => 'New Action Item').should_not be_valid
     end
     it "should fail without required params" do
-      ActionItem.create(:question => Factory(:question)).should_not be_valid
+      ActionItem.create(:question => Factory.create(:question)).should_not be_valid
     end
     
   end
