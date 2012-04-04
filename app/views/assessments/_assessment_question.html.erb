@@ -7,77 +7,26 @@
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
 </div>
-<% elsif answer.was_skipped? %>
-<div class="question not-applicable">
+<% else %>
+<div class="question <%= 'not-applicable' if answer.was_skipped? %>">
   <div class="response">
     <div class="answers">
     </div>
+    <% if answer.was_skipped? %>
     <%= form_for(answer, :url => reconsider_answer_path(answer), :html => {:method => :put}) do |a| %>
     <%= a.hidden_field :was_skipped, :value => false %>
     <%= link_to 'reconsider', '#', :class => 'does-not-apply reconsider-question', :style => 'color:#666;text-decoration:underline;', :onclick => "this.submit()"%>
     <% end %>
-  </div>
-  <h3 class="prompt plain"><%= answer.question_description %></h3>
-  <div class="answer" style="display:none;">
-    <%= form_for answer do |a| %>
-    <table>
-      <tr>
-        <td>
-          <strong>Preparedness: *</strong>
-        </td>
-        <td>
-          <label><%= a.radio_button :preparedness, 'not ready' %> not ready</label>
-        </td>
-        <td>
-          <label><%= a.radio_button :preparedness, 'needs work' %> needs work</label>
-        </td>
-        <td>
-          <label><%= a.radio_button :preparedness, 'ready' %> ready</label>
-        </td>
-        <td>
-          <label><%= a.radio_button :preparedness, 'unknown' %> unknown</label>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Priority: *</strong>
-        </td>
-        <td>
-          <label><%= a.radio_button :priority, 'critical' %> critical</label>
-        </td>
-        <td>
-          <label><%= a.radio_button :priority, 'non-critical' %> non-critical</label>
-        </td>
-      </tr>
-    </table>
-    <%= a.submit 'Save answer', :class => 'button blue save-response' %>
-    <% end %>
-  </div>
-  <div class="explain" style="display:none">
-    <p>Please rate the priority and preparedness of this topic for your organization.</p>
-    <div class="info-bubble">
-      <%= link_to 'Learn more about this topic', '', :class => 'button weak info-bubble-trigger' %>
-      <div class="info-bubble-text-disabled">
-        <%= RedCloth.new(answer.question.help).to_html.html_safe if answer.question.help %>
-        <br /><br />
-      </div>
-    </div>
-  </div>
-  <div style="clear: both;"></div>
-</div>
-<% else %>
-<div class="question">
-  <div class="response">
-    <div class="answers">
-    </div>
+    <% else %>
     &nbsp; <%= link_to 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
     <%= form_for(answer, :url => skip_answer_path(answer), :html => {:method => :put}) do |a| %>
     <%= a.hidden_field :was_skipped, :value => true %>
     <%= link_to 'not applicable', '#', :class => 'does-not-apply skip-question', :style => 'color:#666;text-decoration:underline;' %>
     <% end %>
+    <% end %>
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
-  <div class="answer answer-<%= answer.id %>" style="display:none;">
+  <div class="answer <%= dom_id(answer) %>" style="display:none;">
     <%= form_for answer do |a| %>
     <table>
       <tr>
@@ -112,7 +61,7 @@
     <%= a.submit 'save answer', :class => 'button blue save-response' %>
     <% end %>
   </div>
-  <div class="explain explain-<%= answer.id %>" style="display:none;">
+  <div class="explain <%= "explain_#{answer.id}" if answer.id %>" style="display:none;">
     <p>Please rate the priority and preparedness of this topic for your organization.</p>
     <% unless answer.question.help.blank? %>
     <div class="info-bubble">
@@ -126,5 +75,4 @@
   </div>
   <div style="clear: both;"></div>
 </div>
-
 <% end %>
