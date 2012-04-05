@@ -12,6 +12,7 @@ class Todo < ActiveRecord::Base
   validates_presence_of :priority
 
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
+  delegate :preparedness, :to => :answer, :allow_nil => true, :prefix => false
   delegate :recurrence, :to => :action_item, :allow_nil => true, :prefix => false
 
   before_save :set_status
@@ -25,8 +26,7 @@ class Todo < ActiveRecord::Base
   scope :nearing_due_date, where("complete IS NOT true AND due_on < ?",2.days.from_now.end_of_day)
 
   PRIORITY = ['critical', 'non-critical']
-  PREPAREDNESS = ['not-ready', 'needs work', 'ready', 'unknown']
-  NEXT_ACTIONS = { 'Review' => 'Ready', 'Start' => 'Not Ready', 'Learn About' => 'Unknown', 'Work On' => 'Needs Work' }
+  NEXT_ACTIONS = { 'Review' => 'ready', 'Start' => 'not ready', 'Learn About' => 'unknown', 'Work On' => 'needs work' }
 
   TRACKED_ATTRIBUTES = %w{description critical_function priority due_on review_on completed status}
   
@@ -40,6 +40,10 @@ class Todo < ActiveRecord::Base
     end
 
     self.status = 'Complete' if complete?
+  end
+
+  def next_action
+    NEXT_ACTIONS.invert[preparedness]
   end
 
   def check_user_change

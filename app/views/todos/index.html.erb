@@ -23,6 +23,7 @@
       <table class="actionitems">
         <thead>
           <tr>
+            <th><p>Action</p></th>
             <th><p>Item</p></th>
             <th><p>Assigned To</p></th>
             <th><p>Due Date</p></th>
@@ -35,6 +36,15 @@
         <tbody>
           <% @todos.each do |todo| %>
           <tr class="<%= 'complete' if todo.complete? %>">
+            <td class="action">
+              <% if todo.complete? %>
+                <p>You're done with</p>
+              <% elsif todo.next_action.present? %>
+                <p><%= todo.next_action %></p>
+              <% else %>
+                <p>Work On</p>
+              <% end %>
+            </td>
             <td class="item"><p><%= todo.description %></p></td>
             <td class="assigned"><p>
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>

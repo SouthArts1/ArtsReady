@@ -32,6 +32,13 @@ describe Todo do
     todo.update_attribute(:priority, "non-critical").should be_true
   end
   
+  it "should know what its next action is" do
+    todo = Factory.build(:todo, 
+      :answer => Factory.build(:answer, :preparedness => 'unknown'))
+
+    todo.next_action.should == 'Learn About'
+  end
+  
   it "should accept being set to complete" do
     todo = Factory.create(:todo)
     todo.update_attribute(:complete, false).should be_true

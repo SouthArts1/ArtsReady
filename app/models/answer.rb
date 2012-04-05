@@ -1,6 +1,6 @@
 class Answer < ActiveRecord::Base
 
-  PREPAREDNESS = %w{unknown not_ready needs_work ready}
+  PREPAREDNESS = ['unknown', 'not ready', 'needs work', 'ready']
   PRIORITY = %w{critical non-critical}
   belongs_to :assessment, :counter_cache => true
   belongs_to :question
@@ -14,6 +14,7 @@ class Answer < ActiveRecord::Base
   validates_presence_of :question
   validates_presence_of :preparedness, :on => :update
   validates_presence_of :priority, :on => :update
+  validates_inclusion_of :preparedness, :in => Answer::PREPAREDNESS
 
 
   after_update :add_todo_items#, :unless => "was_skipped == true"
