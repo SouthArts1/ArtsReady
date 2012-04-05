@@ -27,7 +27,7 @@
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
   <div class="answer <%= dom_id(answer) %>" style="display:none;">
-    <%= form_for answer do |a| %>
+    <%= form_for answer, :remote => true, :html => {:'data-type' => 'html'} do |a| %>
     <table>
       <tr>
         <td>
