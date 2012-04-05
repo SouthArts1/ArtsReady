@@ -139,30 +139,27 @@ $('.button.respond, .question .prompt, .answers .button').live('click', function
 	return false;
 });
 
-$('a.does-not-apply').live('click', function() {
-	var question = $(this).parents('.question');
-	question.addClass('not-applicable');
-	question.find('.respond').hide();
-	question.find('.answer').hide();
-	question.find('.does-not-apply').hide();
-	question.find('.explain').hide();
-	question.find('.answers').html("<a href='#' class='button weak reconsider'>reconsider</a>");
-});
-
 $(function() {
-  $('form.edit_answer').live('ajax:complete',
+  $('.questions .question form').live('ajax:complete',
     function(event, xhr) {
-      $(this).closest('.question').replaceWith(xhr.responseText);
+      var $html = $(xhr.responseText);
+      manageSubmitButton($html.find('form.edit_answer'));
+      $(this).closest('.question').replaceWith($html);
     }
-  ).find('input[type=radio]').live('change',
-    function(event) {
-      var $form = $(this).closest('form');
-      $form.find('input[type=submit]').attr('disabled',
-        $form.find('input[type=radio]:checked').length < 2);
-    }
-  ).end().each(function() {
-    $(this).find('input[type=radio]:first').change();
-  });
+  );
+
+  var manageSubmitButton = function(form) {
+    var $form = $(form);
+
+    $form.find('input[type=radio]').change(
+      function(event) {
+        $form.find('input[type=submit]').attr('disabled',
+          $form.find('input[type=radio]:checked').length < 2);
+      }
+    ).filter(':first').change();
+  };
+
+  $('form.edit_answer').each(function() { manageSubmitButton(this); });
 });
 
 function toggleQuestion(button) {

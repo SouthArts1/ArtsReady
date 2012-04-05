@@ -13,16 +13,16 @@
     <div class="answers">
     </div>
     <% if answer.was_skipped? %>
-    <%= form_for(answer, :url => reconsider_answer_path(answer), :html => {:method => :put}) do |a| %>
-    <%= a.hidden_field :was_skipped, :value => false %>
-    <%= link_to 'reconsider', '#', :class => 'does-not-apply reconsider-question', :style => 'color:#666;text-decoration:underline;', :onclick => "this.submit()"%>
-    <% end %>
+      <%= form_for [:reconsider, answer], :method => :put, :remote => 'true', 
+            :html => {:'data-type' => :html, :class => 'reconsider_answer'} do |form| %>
+        <%= form.submit 'reconsider', :class => 'linklike' %>
+      <% end %>
     <% else %>
-    &nbsp; <%= link_to 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
-    <%= form_for(answer, :url => skip_answer_path(answer), :html => {:method => :put}) do |a| %>
-    <%= a.hidden_field :was_skipped, :value => true %>
-    <%= link_to 'not applicable', '#', :class => 'does-not-apply skip-question', :style => 'color:#666;text-decoration:underline;' %>
-    <% end %>
+      &nbsp; <%= link_to 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
+      <%= form_for [:skip, answer], :method => :put, :remote => 'true', 
+            :html => {:'data-type' => :html, :class => 'skip_answer'} do |form| %>
+        <%= form.submit 'not applicable', :class => 'linklike' %>
+      <% end %>
     <% end %>
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
