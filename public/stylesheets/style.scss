@@ -1325,6 +1325,45 @@ input.datepicker, table input.datepicker {
   img {
     padding-right: 10px; } }
 
+/* To-dos */
+.todo-details {
+  ul { list-style: none; }
+  li { display: inline;
+    font-size: 125%;
+    select { padding: 10px; } }
+  table, tr, td {
+    border: none;
+    background: none; }
+  table { 
+    margin: 40px 20px;
+    width: 60%; }
+  .check-box {
+    position: absolute;
+    top: 160px;
+    right: 70px; }
+}
+
+.todo-submit {
+  position: absolute;
+  right: 20px;
+  bottom: 35px;
+}
+
+input[type="submit"].todo-note-submit {
+  background: none;
+  border: none;
+  color: #C31D29;
+  font-weight: normal;}
+
+.log {
+  li { list-style: none;}}
+
+.todo-nav {
+  position: absolute;
+  bottom: 0px;
+  right: 185px;
+}
+
 /* Sticky Footer */
 
 .wrapper {

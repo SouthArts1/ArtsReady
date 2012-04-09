@@ -1,79 +1,75 @@
-<div class="grid_12">
-  <hgroup>
-    <%= link_to 'Edit To-Do', edit_todo_path(@todo), :class => 'button', :style => 'float:right;' %>
-    
-    <h1>To-Do Item</h1>
-    <p><%= link_to "Return to List", todos_path %></p>
-    <p><%= link_to "Need help?", page_path('help_todos') %></p>
-    <p><%= @todo.description %></p>
+<div class="grid_12 clearfix">
+  <%= form_for @todo do |f| %>  
+    <div class="todo-details">
+      <h1>To-Do Item</h1>
+        <ul>
+          <li><%= f.select(:status, options_for_select(Todo::NEXT_ACTIONS)) %></li>
+          <li><%= @todo.description %></li>
+        </ul>
+
+      <div class="field">
+        <table>
+          <tr>
+            <td>
+              <label>Assigned To</label>
+              <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
+            </td>
+            <td>
+              <label>Due Date</label>
+              <%= f.text_field :due_on, :class => 'updateable datepicker', :id => "todo_due_on_#{@todo.id}" %>
+            </td>
+            <td>
+              <label>Priority</label>
+              <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class='check-box'>
+        Completed?<%= f.check_box( :complete? )%>
+      </div>
+    </div>
+    <div class='todo-submit'>
+      <%= f.submit "Save and Return to List", :class => 'button' %>
+    </div>
+  <% end %>
+
+  <div class="grid_6 alpha">
+    <section>
+      <h3>Log Your Progress</h3>
+      <ol class="log">
+        <% @todo.todo_notes.each do |note| %>
+          <li>
+            <div><%= note.message %> </div>
+            <time><%= time_ago_in_words(note.created_at.to_s) %>  ago by <%= note.user_name %> </time>
+          </li>
+        <% end %>
+      </ol>
+      <%= form_for TodoNote.new do |f| %>
+        <div class="field">
+          <%= f.text_field :message, :html => "style='width:200px" %>
+        </div>
+          <%= f.hidden_field :user_id, :value => current_user.id %>
+          <%= f.hidden_field :todo_id, :value => @todo.id %>
+          <%= f.submit 'Save to Log', :class => 'todo-note-submit' %>
+      <% end %>
+      <%= link_to "Add a new article", new_article_path(:todo_id => @todo.id) %>
+    </section>
+  </div>
+
+  <div class="grid_6 omega ">
     <% if @todo.action_item_id %>
     <h3>From Assessment Statement</h3>
     <p><%= @todo.related_assessment_question %></p>
     <h3>Learn More</h3>
     <p><%= @todo.related_assessment_question_help %></p>
     <% end %>
-  </hgroup>
-</div>
-
-<div class="grid_6 todo-details">
-  <section>
-    <div class="grid_3 alpha">
-      <h3>Assigned to</h3>
-      <%= @todo.user_name %>
-    </div>
-    <div class="grid_3 omega">
-      <h3>Status</h3>
-      <%= @todo.status %>
-    </div>
-  </section>
-  <section>
-    <div class="grid_3 alpha">
-      <h3>Due Date</h3>
-      <%= @todo.due_on ||= 'Unassigned' %>
-    </div>
-    <div class="grid_3 omega">
-      <h3>Review Date</h3>
-      <%= @todo.review_on ||= 'None'  %>
-    </div>
-  </section>
-
-  <h3>Related Articles</h3>
-  <section class="list-kb">
-		<% @todo.articles.each do |article| %>
-			<article>
-	      <% if article.on_critical_list? %>
-	      <h5><%= link_to "*#{article.title}", article_path(article) %></h5>
-	      <% else %>
-	      <h5><%= link_to article.title, article_path(article) %> </h5>
-	      <% end %>
-	      <p><time><%= article.created_at.strftime("%B %e, %Y") %></time></p>
-	    </article>
-		<% end %>
-		<p>* Article is part of Critical Stuff</p>
-	</section>
-	<%= link_to "Add a new article", new_article_path(:todo_id => @todo.id), :class => "button" %>
-</div>
-
-<div class="grid_6 todo-logs">
-	<section>
-	  <h3 style="">Log</h3>
-    <div class="log">
-	  <% @todo.todo_notes.each do |note| %>
-      <div><%= note.message %></div>
-      <time><%= time_ago_in_words((Date.parse(Time.now.to_s) - Date.parse(note.updated_at.to_s)).days.ago) %> ago by <%= note.user_name %></time>
-	  <% end %>
   </div>
-		<%= form_for TodoNote.new do |f| %>
-				<h3 style="">Add a new note</h3>
-			  <div class="field" style="width:400px;">
-			    <%= f.text_field :message, :html => "style='width:200px" %>
-			  </div>
-				<%= f.hidden_field :user_id, :value => current_user.id %>
-				<%= f.hidden_field :todo_id, :value => @todo.id %>
-			  <div class="actions">
-			    <%= f.submit 'Save note', :class => 'button' %>
-			  </div>
-		<% end %>
-	</section>
 
+  <div class="todo-nav">
+    <p><%= link_to "Research this", articles_path, :class => 'button' %></p>
+    <p><%= link_to "Need help?", page_path('help_todos'), :target => '_blank' %></p>
+  </div>
 </div>
+
+

@@ -1289,6 +1289,44 @@ input.datepicker, table input.datepicker {
   .logos img {
     padding-right: 10px; }
 
+/* To-dos */
+.todo-details ul {
+  list-style: none; }
+.todo-details li {
+  display: inline;
+  font-size: 125%; }
+  .todo-details li select {
+    padding: 10px; }
+.todo-details table, .todo-details tr, .todo-details td {
+  border: none;
+  background: none; }
+.todo-details table {
+  margin: 40px 20px;
+  width: 60%; }
+.todo-details .check-box {
+  position: absolute;
+  top: 160px;
+  right: 70px; }
+
+.todo-submit {
+  position: absolute;
+  right: 20px;
+  bottom: 35px; }
+
+input[type="submit"].todo-note-submit {
+  background: none;
+  border: none;
+  color: #C31D29;
+  font-weight: normal; }
+
+.log li {
+  list-style: none; }
+
+.todo-nav {
+  position: absolute;
+  bottom: 0px;
+  right: 185px; }
+
 /* Sticky Footer */
 .wrapper {
   min-height: 100%; }
