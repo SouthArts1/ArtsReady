@@ -35,6 +35,21 @@ class Assessment < ActiveRecord::Base
     answers.where(:was_skipped => true).count
   end
 
+  def self.critical_function_attribute(function)
+    OPTIONAL_CRITICAL_FUNCTION_ATTRIBUTES[function.to_s]
+  end
+
+private
+
+  OPTIONAL_CRITICAL_FUNCTION_ATTRIBUTES = {
+    'productions' => :has_performances,
+    'ticketing' => :has_tickets,
+    'facilities' => :has_facilities,
+    'programs' => :has_programs,
+    'grantmaking' => :has_grants,
+    'exhibits' => :has_exhibits
+  }
+
   def populate_empty_answers
     logger.debug("initial critical functions => #{initial_critical_functions}")
     Question.active.each do |q|
