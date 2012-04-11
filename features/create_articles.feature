@@ -21,7 +21,7 @@ Feature: Create articles
 		Then I should not see "Executive"
 	
 	Scenario: Editor cannot set executive visibility
-	  Given a editor
+	  Given an editor
 	  When I go to the new article page
 		Then I should not see "Executive" within "#organization"
 
@@ -42,7 +42,7 @@ Feature: Create articles
 		And I should not see "#battle-buddies"
 		
 	Scenario: Editor can set battle buddy visibility
-	  Given a editor
+	  Given an editor
 	  When I go to the new article page
 		Then I should see "All Battle Buddies" within "#battle-buddies"
 

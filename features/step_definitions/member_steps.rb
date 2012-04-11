@@ -36,7 +36,7 @@ Given /^a manager$/ do
   login(email,password)
 end
 
-Given /^a editor$/ do
+Given /^(?:I am signed in as )?an editor$/ do
   email = 'editor@test.host'
   password = 'password'
   @current_user = Factory.create(:editor, :email => email, :password => password)
