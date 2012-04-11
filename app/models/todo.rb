@@ -17,6 +17,7 @@ class Todo < ActiveRecord::Base
 
   before_save :set_status
   before_save :check_user_change
+  before_create :initialize_action
   after_create :send_assignment_email, :add_create_note
   after_update :add_update_note
 
@@ -40,10 +41,6 @@ class Todo < ActiveRecord::Base
     end
 
     self.status = 'Complete' if complete?
-  end
-
-  def next_action
-    NEXT_ACTIONS.invert[preparedness]
   end
 
   def check_user_change
@@ -106,4 +103,8 @@ class Todo < ActiveRecord::Base
     todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
   end
   
+  def initialize_action
+    self.action = NEXT_ACTIONS.invert[preparedness]
+  end
+
 end

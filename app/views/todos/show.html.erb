@@ -3,7 +3,7 @@
     <div class="todo-details">
       <h1>To-Do Item</h1>
         <ul>
-          <li><%= f.select(:status, options_for_select(Todo::NEXT_ACTIONS)) %></li>
+          <li><%= f.select(:action, Todo::NEXT_ACTIONS.keys) %></li>
           <li><%= @todo.description %></li>
         </ul>
 
