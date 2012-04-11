@@ -33,10 +33,10 @@ describe Todo do
   end
   
   it "should know what its next action is" do
-    todo = Factory.build(:todo, 
-      :answer => Factory.build(:answer, :preparedness => 'unknown'))
+    todo = Factory.create(:todo, 
+      :answer => Factory.create(:answer, :preparedness => 'unknown'))
 
-    todo.next_action.should == 'Learn About'
+    todo.action.should == 'Learn About'
   end
   
   it "should accept being set to complete" do
