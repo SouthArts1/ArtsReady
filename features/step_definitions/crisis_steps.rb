@@ -6,6 +6,14 @@ Given /^I (?:am|should be) in crisis mode$/ do
   step 'I should see "ON" within "#distress-switch"'
 end
 
+And /^I have a Battle Buddy$/ do
+  org = Factory.create(:organization)
+  Factory.create(:battle_buddy_request,
+    :organization => @current_user.organization,
+    :battle_buddy => org,
+    :accepted => true)
+end
+
 When /^I resolve a crisis$/ do
   click_button 'crisis-deactivate'
 end
