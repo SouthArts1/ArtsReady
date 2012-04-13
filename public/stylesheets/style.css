@@ -1308,6 +1308,9 @@ input.datepicker, table input.datepicker {
   top: 160px;
   right: 70px; }
 
+td.action {
+  white-space: nowrap; }
+
 .todo-submit {
   position: absolute;
   right: 20px;
