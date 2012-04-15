@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
+  delegate :assessment, :to => :organization
 
   scope :admins, where(:admin => true)
   scope :active, where(:disabled => false)

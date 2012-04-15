@@ -21,6 +21,26 @@ Feature: Assessment
     | Action      | Item            |
     | Learn About | hire counselors |
 
+  Scenario: Export assessment
+    Given I am signed in as an editor
+    And the following questions exist:
+      | critical function | description               |
+      | people            | men, women, and children  |
+      | finance           | remote banking            |
+      | productions       | something about tickets   |
+    And I have provided the following answers:
+      | question                              | preparedness | priority | was skipped |
+      | description: men, women, and children |        ready | critical |             |
+      | description: something about tickets  |              |          |        true |
+
+    When I follow "Assess"
+    And I follow "Export"
+    Then I should receive the following CSV:
+      | Critical Function    | Question                 | Preparedness | Priority |
+      | People Resources     | men, women, and children | ready        | critical |
+      | Finances & Insurance | remote banking           |              |          |
+      | Productions          | something about tickets  | N/A          | N/A      |
+
   Scenario: I should be able to answer an assessment question
   Scenario: I should get feedback if I don't supply a complete answer
   Scenario: I should be able to skip a question

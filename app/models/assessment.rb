@@ -55,10 +55,10 @@ private
     Question.active.each do |q|
       if initial_critical_functions.include?(q.critical_function)
         logger.debug("Adding question #{q.id}, #{q.critical_function}")
-        self.answers.create(:question => q, :critical_function => q.critical_function) 
+        self.answers.create(:question => q) 
       else
         logger.debug("Skipping question #{q.id}, #{q.critical_function}")
-        self.answers.create(:question => q, :critical_function => q.critical_function, :was_skipped => true) 
+        self.answers.create(:question => q) 
       end
     end
   end

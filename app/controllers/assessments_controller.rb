@@ -17,7 +17,16 @@ class AssessmentsController < ApplicationController
     redirect_to new_assessment_path unless current_org.assessment.present?
     @assessment = current_org.assessment
     critical_function = (params[:tab] ||= 'people')
-    @answers = @assessment.answers.includes(:question).for_critical_function(critical_function)
+    @answers = @assessment.answers.includes(:question)
+
+    respond_to do |format|
+      format.csv do
+        render :layout => nil
+      end
+      format.html do
+        @answers = @answers.for_critical_function(critical_function)
+      end
+    end
   end
 
 end

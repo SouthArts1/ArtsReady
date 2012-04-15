@@ -24,6 +24,7 @@ RSpec.configure do |config|
   # instead of true.
   # config.use_transactional_fixtures = true
   config.include(MailerMacros)
+  config.include(AuthenticationSpecHelper)
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

@@ -13,6 +13,7 @@ gem 'fog', '0.11.0'
 gem 'geocoder', '1.0.2'
 gem 'gmaps4rails', '1.3.1'
 
+gem 'csv_builder'
 gem 'RedCloth'
 gem 'acts-as-taggable-on', '2.0.6'
 
