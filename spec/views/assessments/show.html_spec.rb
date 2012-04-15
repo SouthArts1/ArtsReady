@@ -5,7 +5,7 @@ describe "assessments/show" do
 
   before do
     view.stubs(:current_org).returns(current_org)
-    assign :answers, Factory.create_list(:answer, 1)
+    assign :answers, FactoryGirl.create_list(:answer, 1)
     assign :critical_function, 'productions'
 
     render
