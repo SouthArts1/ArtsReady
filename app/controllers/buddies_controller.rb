@@ -14,7 +14,7 @@ class BuddiesController < ApplicationController
   end
 
   def index
-    redirect_to(:get_help)
+    @buddies = current_org.battle_buddies
   end
 
   def show

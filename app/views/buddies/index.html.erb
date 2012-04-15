@@ -1,0 +1,30 @@
+<div class="grid_8" style="margin-bottom:20px;">
+  <h1>Battle Buddy Network</h1>
+  <p><%= link_to "Need help?", page_path('help_battle_buddies') %></p>
+</div>
+<div class="grid_4 alpha">
+  <div style="margin-left:20px">
+  <%= render :partial => '/shared/crisis_switch', :locals => {:float => 'left'} %>
+  </div>
+</div>
+
+<div class="grid_12 alpha">
+  <ul class="top-nav battle">
+    <li class="active"><%= link_to "Lend a Hand" %></li>
+    <li><%= link_to "Find a Buddy", get_help_path %></li>
+    <li><%= link_to "Crisis Console", crisis_path(current_org.crisis) if current_org.declared_crisis?%></li>
+    <li><%= link_to "Our Profile", buddies_profile_path %></li>
+  </ul>
+</div>
+
+<div class="grid_6"> 
+  <% if current_org.battle_buddies.present? %>
+    <% current_org.battle_buddies.each do |buddy| %>
+      <%= buddy.name %>, 
+      <%= buddy.address %>
+      <%= button_to('Remove Battle Buddy', organization_battle_buddy_request_path(current_org, current_org.battle_buddy_request_for(buddy)), :method => :delete ) %>
+    <% end %>
+    <% else %> <p>You have no Battle Buddies.</p>
+  <% end %>
+</div>
+

@@ -8,6 +8,13 @@
   </div>
 </div>
 
+<div class="grid_6"> 
+  Some content
+  <% current_org.battle_buddies.each do |buddy| %>
+    <%= buddy.name %>, <%= buddy.address %>
+  <% end %>
+</div>
+
 <div class="grid_12 alpha">
   <ul class="top-nav battle">
     <li><%= link_to "Lend a Hand", lend_a_hand_path if current_org.battle_buddy_enabled?  %></li>

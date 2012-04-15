@@ -39,7 +39,7 @@ Artsready::Application.routes.draw do
         get 'summary'
       end
     end
-    resources :battle_buddy_requests, :only => [:create, :show, :update]
+    resources :battle_buddy_requests, :only => [:create, :show, :index, :update, :destroy]
     resources :messages, :only => [:create]
     resources :users
   end

@@ -6,12 +6,20 @@ Given /^I (?:am|should be) in crisis mode$/ do
   step 'I should see "ON" within "#distress-switch"'
 end
 
-And /^I have a Battle Buddy$/ do
+And /^I have a Battle Buddy$/i do
   org = Factory.create(:organization)
   Factory.create(:battle_buddy_request,
     :organization => @current_user.organization,
     :battle_buddy => org,
     :accepted => true)
+  Factory.create(:battle_buddy_request,
+    :organization => org,
+    :battle_buddy => @current_user.organization,
+    :accepted => true)
+end
+
+And /^I should have no battle Buddies$/i do
+  page.should have_content 'You have no Battle Buddies'
 end
 
 When /^I resolve a crisis$/ do

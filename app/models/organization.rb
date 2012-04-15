@@ -71,13 +71,13 @@ class Organization < ActiveRecord::Base
     # must deactivate an organization before deleting it
     !active? && users.all(&:disabled?)
   end
-  
-  def is_my_buddy?
-    false
-  end
-  
+    
   def battle_buddy_list
     battle_buddies.collect(&:id).uniq
+  end
+
+  def battle_buddy_request_for(buddy)
+    battle_buddy_requests.find_by_battle_buddy_id(buddy)
   end
 
   def last_activity

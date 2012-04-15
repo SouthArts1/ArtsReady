@@ -43,6 +43,7 @@
       </div>
     </div>
     <div class="grid_4 omega">
+      <%= button_to('Remove Battle Buddy', organization_battle_buddy_request_path(current_org.battle_buddy_request_for(@buddy)), :method => :delete ) %>
       <% unless current_org.battle_buddies.include?(@buddy) %>
         <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
         <%= f.hidden_field :battle_buddy_id, :value => @buddy.id %>
