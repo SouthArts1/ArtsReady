@@ -1301,12 +1301,22 @@ input.datepicker, table input.datepicker {
   border: none;
   background: none; }
 .todo-details table {
-  margin: 40px 20px;
-  width: 60%; }
-.todo-details .check-box {
-  position: absolute;
-  top: 160px;
-  right: 70px; }
+  margin: 40px 20px; }
+.todo-details .todo-description {
+  float: left;
+  width: 700px;
+  display: block;
+  margin-bottom: 30px; }
+.todo-details .actions {
+  float: left; }
+.todo-details .field {
+  clear: left; }
+
+.short-details {
+  margin: 0 10px 30px; }
+  .short-details .icon {
+    float: left;
+    padding: 8px 8px 8px 0; }
 
 td.action {
   white-space: nowrap; }

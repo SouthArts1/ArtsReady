@@ -3,8 +3,8 @@
     <div class="todo-details">
       <h1>To-Do Item</h1>
         <ul>
-          <li><%= f.select(:action, Todo::NEXT_ACTIONS.keys) %></li>
-          <li><%= @todo.description %></li>
+          <li class="actions"><%= f.select(:action, Todo::NEXT_ACTIONS.keys) %></li>
+          <li class="todo-description"><%= @todo.description %></li>
         </ul>
 
       <div class="field">
@@ -22,11 +22,10 @@
               <label>Priority</label>
               <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
             </td>
+            <td style="width:200px;"></td>
+            <td><div>Completed?<%= f.check_box( :complete? )%></div></td>
           </tr>
         </table>
-      </div>
-      <div class='check-box'>
-        Completed?<%= f.check_box( :complete? )%>
       </div>
     </div>
     <div class='todo-submit'>
@@ -57,12 +56,17 @@
     </section>
   </div>
 
-  <div class="grid_6 omega ">
+  <div class="grid_6 omega" style="margin-bottom: 90px;">
     <% if @todo.action_item_id %>
     <h3>From Assessment Statement</h3>
     <p><%= @todo.related_assessment_question %></p>
+    <div class="short-details">
+      <div class="icon"><%= @todo.complete ? image_tag("icon-check.png") : image_tag("icon-notice.png") %></div>
+      <%= @todo.priority.downcase %><br />
+      <%= @todo.status.downcase %>
+    </div>
     <h3>Learn More</h3>
-    <p><%= @todo.related_assessment_question_help %></p>
+  <p><%= @todo.related_assessment_question_help %></p>
     <% end %>
   </div>
 

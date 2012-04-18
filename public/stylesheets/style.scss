@@ -1334,14 +1334,22 @@ input.datepicker, table input.datepicker {
   table, tr, td {
     border: none;
     background: none; }
-  table { 
-    margin: 40px 20px;
-    width: 60%; }
-  .check-box {
-    position: absolute;
-    top: 160px;
-    right: 70px; }
+  table { margin: 40px 20px;}
+  .todo-description {
+    float: left;
+    width: 700px;
+    display: block;
+    margin-bottom: 30px;
+  }
+  .actions { float: left;}
+  .field { clear: left; }
 }
+
+.short-details { 
+  margin: 0 10px 30px;
+  .icon { 
+    float: left;
+    padding: 8px 8px 8px 0;} }
 
 td.action {white-space: nowrap;}
 
