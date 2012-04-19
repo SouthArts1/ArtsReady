@@ -1479,6 +1479,10 @@ table#messages {
   background: #ccc;
   padding: 10px; }
 
+/*Crises*/
+.crisis_advice p {
+  margin: 10px 10px 10px 0; }
+
 /*Library (knowledgebase)*/
 input.library-search {
   width: 75%; }
