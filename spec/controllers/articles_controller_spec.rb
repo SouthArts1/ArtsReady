@@ -5,24 +5,17 @@ describe ArticlesController do
   render_views
   
   def valid_attributes
-    {
-      :title => 'Title',
-      :description => 'Description'
-    }
-  end
-
-  context "when not logged in" do
-    it "requires authentication" do
-      controller.expects :authenticate!
-      get 'index'
-    end
+    Factory.attributes_for(:article)
   end
 
   context "logged in" do
     let(:organization) { Factory(:organization)}
+    let(:user) { Factory.create(:user, :organization => organization) }
+
     before(:each) do
       controller.stubs :authenticate!
       controller.stub(:current_org).and_return(organization)
+      controller.stub(:current_user).and_return(user)
     end
 
     it "renders :index template" do
@@ -31,7 +24,9 @@ describe ArticlesController do
     end
 
     it "show action should render show template" do
-      get :show, :id => Article.first
+      article = Factory.create(:article,
+        :organization => organization, :user => user)
+      get :show, :id => article.id
       response.should render_template(:show)
     end
 
@@ -84,7 +79,7 @@ describe ArticlesController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested article" do
-          article = Article.create! valid_attributes
+          article = Factory.create(:article, :organization => organization)
           # Assuming there are no other articles in the database, this
           # specifies that the Article created on the previous line
           # receives the :update_attributes message with whatever params are
@@ -94,13 +89,13 @@ describe ArticlesController do
         end
 
         it "assigns the requested article as @article" do
-          article = Article.create! valid_attributes
+          article = Factory.create(:article, :organization => organization)
           put :update, :id => article.id, :article => valid_attributes
           assigns(:article).should eq(article)
         end
 
         it "redirects to the article" do
-          article = Article.create! valid_attributes
+          article = Factory.create(:article, :organization => organization)
           put :update, :id => article.id, :article => valid_attributes
           response.should redirect_to(article)
         end
@@ -108,7 +103,7 @@ describe ArticlesController do
 
       describe "with invalid params" do
         it "assigns the article as @article" do
-          article = Article.create! valid_attributes
+          article = Factory.create(:article, :organization => organization)
           # Trigger the behavior that occurs when invalid params are submitted
           Article.any_instance.stub(:save).and_return(false)
           put :update, :id => article.id.to_s, :article => {}
@@ -116,7 +111,7 @@ describe ArticlesController do
         end
 
         it "re-renders the 'edit' template" do
-          article = Article.create! valid_attributes
+          article = Factory.create(:article, :organization => organization)
           # Trigger the behavior that occurs when invalid params are submitted
           Article.any_instance.stub(:save).and_return(false)
           put :update, :id => article.id.to_s, :article => {}
@@ -129,35 +124,41 @@ describe ArticlesController do
 
     it "create action should render new template when model is invalid" do
       Article.any_instance.stubs(:valid?).returns(false)
-      post :create
+      post :create, :article => {}
       response.should render_template(:new)
     end
 
     it "create action should redirect when model is valid" do
-      Article.any_instance.stubs(:valid?).returns(true)
-      post :create
+      post :create, :article => Factory.attributes_for(:article)
       response.should redirect_to(article_url(assigns[:article]))
     end
+
     it "edit action should render edit template" do
-      get :edit, :id => Article.first
+      article = Factory.create(:article,
+        :organization => organization, :user => user)
+      get :edit, :id => article.id
       response.should render_template(:edit)
     end
 
     it "update action should render edit template when model is invalid" do
-      Article.any_instance.stubs(:valid?).returns(false)
-      put :update, :id => Article.first
+      article = Factory.create(:article,
+        :organization => organization, :user => user)
+      put :update, :id => article.id, :article => {:title => ''}
       response.should render_template(:edit)
     end
 
     it "update action should redirect when model is valid" do
       Article.any_instance.stubs(:valid?).returns(true)
-      put :update, :id => Article.first
+      article = Factory.create(:article,
+        :organization => organization, :user => user)
+      put :update, :id => article.id
       response.should redirect_to(article_url(assigns[:article]))
     end
 
     it "destroy action should destroy model and redirect to index action" do
-      article = Article.first
-      delete :destroy, :id => article
+      article = Factory.create(:article,
+        :organization => organization, :user => user)
+      delete :destroy, :id => article.id
       response.should redirect_to(articles_url)
       Article.exists?(article.id).should be_false
     end
