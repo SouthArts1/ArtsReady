@@ -1301,7 +1301,10 @@ input.datepicker, table input.datepicker {
   border: none;
   background: none; }
 .todo-details table {
-  margin: 40px 20px; }
+  margin-left: 15px;
+  width: 910px; }
+.todo-details .complete-box {
+  font-size: 12pt; }
 .todo-details .todo-description {
   float: left;
   width: 700px;

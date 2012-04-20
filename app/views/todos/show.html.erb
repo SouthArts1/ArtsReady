@@ -23,7 +23,7 @@
               <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
             </td>
             <td style="width:200px;"></td>
-            <td><div>Completed?<%= f.check_box( :complete? )%></div></td>
+            <td><div class="complete-box">Completed?<%= f.check_box( :complete? )%></div></td>
           </tr>
         </table>
       </div>

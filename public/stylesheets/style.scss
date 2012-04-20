@@ -1334,7 +1334,11 @@ input.datepicker, table input.datepicker {
   table, tr, td {
     border: none;
     background: none; }
-  table { margin: 40px 20px;}
+  table { 
+    margin-left: 15px;
+    width: 910px;
+  }
+  .complete-box { font-size: 12pt; }
   .todo-description {
     float: left;
     width: 700px;
