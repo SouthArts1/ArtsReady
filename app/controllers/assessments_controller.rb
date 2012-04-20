@@ -21,7 +21,7 @@ class AssessmentsController < ApplicationController
 
     respond_to do |format|
       format.csv do
-        render :layout => nil
+        render :layout => false
       end
       format.html do
         @answers = @answers.for_critical_function(critical_function)

@@ -14,6 +14,7 @@ class Todo < ActiveRecord::Base
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
   delegate :preparedness, :to => :answer, :allow_nil => true, :prefix => false
   delegate :recurrence, :to => :action_item, :allow_nil => true, :prefix => false
+  delegate :title, :to => :critical_function, :prefix => true
 
   before_save :set_status
   before_save :check_user_change
@@ -85,6 +86,10 @@ class Todo < ActiveRecord::Base
 
   def related_assessment_question_help
     RedCloth.new(action_item.question.help).to_html.html_safe rescue ""
+  end
+
+  def critical_function_title
+    Assessment.critical_function_title(critical_function)
   end
   
   private

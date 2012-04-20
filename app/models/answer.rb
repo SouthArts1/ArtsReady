@@ -45,8 +45,6 @@ class Answer < ActiveRecord::Base
   end
 
   def critical_function_title
-    ArtsreadyDomain::CRITICAL_FUNCTIONS.detect do |hash|
-      hash[:name] == critical_function
-    end.try(:[], :title)
+    Assessment.critical_function_title(critical_function)
   end
 end

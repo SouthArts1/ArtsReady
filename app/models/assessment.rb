@@ -15,6 +15,12 @@ class Assessment < ActiveRecord::Base
     (completed_answers_count + skipped_answers_count) == answers_count
   end
   
+  def self.critical_function_title(critical_function)
+    ArtsreadyDomain::CRITICAL_FUNCTIONS.detect do |hash|
+      hash[:name] == critical_function
+    end.try(:[], :title)
+  end
+
   def initial_critical_functions
     cf = ['people', 'finance', 'technology']
     cf << 'productions' if has_performances?

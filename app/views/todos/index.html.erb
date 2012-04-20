@@ -6,7 +6,8 @@
     <div class="grid_6 omega">
 			  <div class="progress-container">
 			    <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.todo_percentage_complete, :message => 'To-Dos are'} %>
-			    <p class="progress-sub"><%= @todos.reject {|q| !q.complete?}.count %>/<%= @todos.count %> completed in section</p>
+          <p class="progress-sub"><%= @todos.reject {|q| !q.complete?}.count %>/<%= @todos.count %> completed in section</p>
+          <p><%= link_to 'Export', :format => :csv %></p>
 			  </div>
 			</div>
 

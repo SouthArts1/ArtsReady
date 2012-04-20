@@ -1,9 +1,18 @@
 class TodosController < ApplicationController
 
   def index
-    critical_function = (params[:tab] ||= 'people')
-    @todos = current_org.todos.in_action_order.for_critical_function(critical_function)
-    @todo = current_org.todos.new
+    @todos = current_org.todos.in_action_order
+
+    respond_to do |format|
+      format.csv do
+        render :layout => false
+      end
+      format.html do
+        critical_function = (params[:tab] ||= 'people')
+        @todos = @todos.for_critical_function(critical_function)
+        @todo = current_org.todos.new
+      end
+    end
   end
 
   def show

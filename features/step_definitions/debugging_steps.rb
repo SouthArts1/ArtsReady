@@ -12,5 +12,9 @@ end
 
 When /^(I )?debug$/ do |who|
   debugger
+
+  # If we just say 'debugger', the debugger ends up in some weird
+  # context. So we do something after the debugger line.
   1
 end
+

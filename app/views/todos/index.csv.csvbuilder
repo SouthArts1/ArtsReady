@@ -1,0 +1,18 @@
+csv << [
+  'Critical Function', 'Action', 'Description',
+  'Assigned To', 'Due Date', 'Priority', 'Updated'
+]
+
+@todos.find_each do |todo|
+  csv << [
+    todo.critical_function_title,
+    todo.action,
+    todo.description,
+    todo.user_name,
+    todo.due_on,
+    todo.priority,
+    todo.updated_at
+  ]
+end
+
+

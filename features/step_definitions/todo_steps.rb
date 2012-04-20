@@ -3,6 +3,16 @@ Given /^I have created a todo item$/ do
     :user => @current_user, :organization => @current_user.organization)
 end
 
+Given /^I have created the following to-?do items:$/ do |table|
+  table.hashes.each do |human_hash|
+    attributes = 
+      convert_human_hash_to_attribute_hash(human_hash, 
+        FactoryGirl.factory_by_name(:todo).associations)
+    todo = @current_user.organization.todos.build(attributes)
+    todo.save!
+  end
+end
+
 When /^I add an article titled "(.*)" to the todo item$/ do |title|
   be_on todo_path(@current_todo)
   click_link "Add an Article"
