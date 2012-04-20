@@ -1297,18 +1297,22 @@ input.datepicker, table input.datepicker {
   font-size: 125%; }
   .todo-details li select {
     padding: 10px; }
-.todo-details table, .todo-details tr, .todo-details td {
-  border: none;
-  background: none; }
-.todo-details table {
-  margin: 40px 20px; }
+.todo-details .attributes {
+  clear: both;
+  margin-bottom: 30px; }
+  .todo-details .attributes li {
+    display: inline-block;
+    margin-right: 40px; }
+  .todo-details .attributes li.complete {
+    float: right; }
 .todo-details .todo-description {
   float: left;
   width: 700px;
   display: block;
   margin-bottom: 30px; }
 .todo-details .actions {
-  float: left; }
+  float: left;
+  margin-right: 0.5em; }
 .todo-details .field {
   clear: left; }
 
@@ -1327,13 +1331,22 @@ td.action {
   bottom: 35px; }
 
 input[type="submit"].todo-note-submit {
+  padding-left: 0;
   background: none;
   border: none;
   color: #C31D29;
   font-weight: normal; }
 
+.log ol {
+  margin-bottom: 0px; }
 .log li {
-  list-style: none; }
+  list-style: none;
+  margin-bottom: 5px; }
+.log form, .log .add {
+  margin-left: 10px;
+  margin-bottom: 20px; }
+.log .field {
+  margin-bottom: 0; }
 
 .todo-nav {
   position: absolute;
@@ -1533,9 +1546,6 @@ td.actions {
 .todo-details h3, .todo-logs h3 {
   margin: 0;
   padding: 0; }
-
-.log {
-  margin-bottom: 20px; }
 
 /* Landing page home#index */
 #landing #headline {

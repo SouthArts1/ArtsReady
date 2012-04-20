@@ -2,31 +2,30 @@
   <%= form_for @todo do |f| %>  
     <div class="todo-details">
       <h1>To-Do Item</h1>
-        <ul>
-          <li class="actions"><%= f.select(:action, Todo::NEXT_ACTIONS.keys) %></li>
-          <li class="todo-description"><%= @todo.description %></li>
-        </ul>
+      <ul>
+        <li class="actions"><%= f.select(:action, Todo::NEXT_ACTIONS.keys) %></li>
+        <li class="todo-description"><%= @todo.description %></li>
+      </ul>
 
-      <div class="field">
-        <table>
-          <tr>
-            <td>
-              <label>Assigned To</label>
-              <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
-            </td>
-            <td>
-              <label>Due Date</label>
-              <%= f.text_field :due_on, :class => 'updateable datepicker', :id => "todo_due_on_#{@todo.id}" %>
-            </td>
-            <td>
-              <label>Priority</label>
-              <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
-            </td>
-            <td style="width:200px;"></td>
-            <td><div>Completed?<%= f.check_box( :complete? )%></div></td>
-          </tr>
-        </table>
-      </div>
+      <ul class="attributes">
+        <li>
+          <%= f.label :user_id, 'Assigned To' %>
+          <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
+        </li>
+        <li>
+          <%= f.label :due_on, 'Due Date' %>
+          <%= f.text_field :due_on, :class => 'updateable datepicker', :id => "todo_due_on_#{@todo.id}" %>
+        </li>
+        <li>
+          <%= f.label :priority %>
+          <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
+        </li>
+        <li class="complete">
+          <%= f.label :complete?, 'Completed?' %>
+          <%= f.check_box( :complete? )%>
+        </li>
+        <li>
+      </ul>
     </div>
     <div class='todo-submit'>
       <%= f.submit "Save and Return to List", :class => 'button' %>
@@ -34,13 +33,15 @@
   <% end %>
 
   <div class="grid_6 alpha">
-    <section>
+    <section class="log">
       <h3>Log Your Progress</h3>
-      <ol class="log">
+      <ol>
         <% @todo.todo_notes.each do |note| %>
           <li>
-            <div><%= note.message %> </div>
-            <time><%= time_ago_in_words(note.created_at.to_s) %>  ago by <%= note.user_name %> </time>
+            <div><%= todo_note_message(note) %> </div>
+            <time><%= time_ago_in_words(note.created_at.to_s) %>  ago
+              <% if note.user_name.present? %>by <%= note.user_name %><% end %>
+            </time>
           </li>
         <% end %>
       </ol>
