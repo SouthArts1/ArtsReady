@@ -104,7 +104,6 @@ class Todo < ActiveRecord::Base
   end
   
   def initialize_action
-    self.action = NEXT_ACTIONS.invert[preparedness]
+    self.action = NEXT_ACTIONS.invert[preparedness] if preparedness
   end
-
 end
