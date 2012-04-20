@@ -6,6 +6,7 @@ class Article < ActiveRecord::Base
   belongs_to :organization
   belongs_to :user
   belongs_to :todo
+  has_one :todo_note
 
   has_many :comments, :dependent => :destroy
   
@@ -30,6 +31,7 @@ class Article < ActiveRecord::Base
   scope :disabled, where(:disabled => true)
   scope :with_critical_function, lambda { |cf| where(:critical_function => cf)}
   after_save :notify_admin, :if => "is_public?"
+  after_save :create_todo_note, :if => :todo
 
   def self.search_public(phrase)
     term = "%#{phrase}%"
@@ -99,5 +101,9 @@ class Article < ActiveRecord::Base
       AdminMailer.review_public(self,admin).deliver
     end    
   end
-  
+
+  def create_todo_note
+    todo.todo_notes.create(:article => self)
+  end
 end
+

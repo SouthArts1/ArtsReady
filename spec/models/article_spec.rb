@@ -53,6 +53,15 @@ describe Article do
     
   end
   
+  context 'given a todo' do
+    subject { Factory.build(:article, :todo => Factory.create(:todo)) }
+
+    it 'should create a todo note when saved' do
+      subject.save!
+      subject.todo.todo_notes.all.last.article.should == subject
+    end
+  end
+
   context ""
   # scope :recent, order("created_at DESC")
 end

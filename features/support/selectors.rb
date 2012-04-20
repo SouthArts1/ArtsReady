@@ -12,6 +12,8 @@ module HtmlSelectorsHelpers
       locator
     when "the page"
       "html > body"
+    when "the log"
+      '.log'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

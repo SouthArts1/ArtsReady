@@ -13,7 +13,16 @@ Feature: Create articles
 		And I press "Save"
 		Then I should see "created article"
 		And I should see "this is a test"
-		
+	
+  Scenario: User adds an article from the to-do page
+    Given a user
+    And I have created a todo item
+    When I add an article titled "This is an article" to the todo item
+    Then I should be on the todo item
+
+    When I follow "This is an article" within the log
+    Then I should be on the article page
+
 	#TODO most of these should probably be view tests	
 	Scenario: User cannot set executive visibility
 	  Given a user

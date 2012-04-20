@@ -11,6 +11,8 @@ module NavigationHelpers
         '/'
       when /^the dashboard page$/
         '/member/index'
+      when /^the todo item$/
+        todo_path(@current_todo)
       when /^the public library page$/
         readiness_library_path
       when /^the crisis console$/
@@ -18,7 +20,9 @@ module NavigationHelpers
       when /^the profile page$/
         buddies_profile_path
       when /^the new article page$/
-        new_article_path      
+        new_article_path
+      when /^the article page$/
+        article_path(@current_article)
       when /^the our buddies page$/i
         buddies_path
 

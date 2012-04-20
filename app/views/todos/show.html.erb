@@ -52,7 +52,7 @@
           <%= f.hidden_field :todo_id, :value => @todo.id %>
           <%= f.submit 'Save to Log', :class => 'todo-note-submit' %>
       <% end %>
-      <%= link_to "Add a new article", new_article_path(:todo_id => @todo.id) %>
+      <%= link_to "Add an Article", new_article_path(:todo_id => @todo.id), :class => 'add' %>
     </section>
   </div>
 

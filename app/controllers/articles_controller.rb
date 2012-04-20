@@ -38,7 +38,8 @@ class ArticlesController < ApplicationController
     @article = current_org.articles.new(params[:article].merge({:user => current_user}))
 
     if @article.save
-      redirect_to @article, :notice => "Successfully created article."
+      redirect_to @article.todo || @article,
+        :notice => "Successfully created article."
     else
       render 'new'
     end

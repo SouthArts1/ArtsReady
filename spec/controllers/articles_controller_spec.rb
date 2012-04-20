@@ -133,6 +133,13 @@ describe ArticlesController do
       response.should redirect_to(article_url(assigns[:article]))
     end
 
+    it "create action should redirect to todo when article has a todo" do
+      todo = Factory.create(:todo)
+      post(:create, :article =>
+        Factory.attributes_for(:article, :todo_id => todo.id))
+      response.should redirect_to todo
+    end
+    
     it "edit action should render edit template" do
       article = Factory.create(:article,
         :organization => organization, :user => user)
