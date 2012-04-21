@@ -15,6 +15,10 @@ describe Todo do
   subject { Factory.create(:todo) }
   it {subject.complete?.should be_false}
   it {subject.status.should_not == 'Complete'}
+
+  it "should default to 'Work On'" do
+    subject.action.should == 'Work On'
+  end
   
   it "should accept a due date" do
     todo = Factory.build(:todo)
