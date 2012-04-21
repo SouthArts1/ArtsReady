@@ -30,7 +30,7 @@ class Todo < ActiveRecord::Base
   PRIORITY = ['critical', 'non-critical']
   NEXT_ACTIONS = { 'Review' => 'ready', 'Start' => 'not ready', 'Learn About' => 'unknown', 'Work On' => 'needs work' }
 
-  TRACKED_ATTRIBUTES = %w{description critical_function priority due_on review_on completed status}
+  TRACKED_ATTRIBUTES = %w{description critical_function priority due_on review_on completed status action}
   
   def set_status
     if answer.nil?
