@@ -7,7 +7,7 @@ class BattleBuddyRequestsController < ApplicationController
   
   def update
     @bb_request = BattleBuddyRequest.find(params[:id])
-    redirect_to(get_help_path, :notice => "There is a problem with that battle buddy request #{@bb_request.inspect}") unless @bb_request.battle_buddy == current_org
+    return redirect_to(get_help_path, :notice => "There is a problem with that battle buddy request #{@bb_request.inspect}") unless @bb_request.battle_buddy == current_org
 
     if @bb_request.update_attributes({:accepted => true}) && current_org.battle_buddy_requests.create(:battle_buddy_id => @bb_request.organization_id, :accepted => true)
       redirect_to get_help_path, :notice => "Battle buddy added"
@@ -20,13 +20,13 @@ class BattleBuddyRequestsController < ApplicationController
 
   def destroy
     @bb_request = BattleBuddyRequest.find(params[:id])
-    redirect_to(get_help_path, :notice => "There is a problem with that battle buddy request #{@bb_request.inspect}") unless @bb_request.organization == current_org
+    return redirect_to(:back, :notice => "There is a problem with that battle buddy request #{@bb_request.inspect}") unless @bb_request.can_be_deleted_by?(current_org)
 
     if @bb_request.update_attributes({:accepted => false}) && current_org.battle_buddy_requests.create(:battle_buddy_id => @bb_request.organization_id, :accepted => false)
-      redirect_to buddies_path, :notice => "Battle buddy removed."
+      redirect_to :back, :notice => "Battle buddy removed."
     else
       logger.debug(@bb_request.errors.inspect)
-      redirect_to buddies_path, :notice => "Problem updating buddy"
+      redirect_to :back, :notice => "Problem updating buddy"
     end
 
   end

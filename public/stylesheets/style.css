@@ -1415,6 +1415,15 @@ h3.buddy {
 h3.nopad {
   padding: 0; }
 
+.buddies h4 {
+  padding: 5px 65px 10px; }
+.buddies ul {
+  list-style: none;
+  padding: 0 50px; }
+.buddies li {
+  display: inline-block;
+  margin: 0 5px; }
+
 .button.buddy-action {
   width: 100px;
   text-align: center;

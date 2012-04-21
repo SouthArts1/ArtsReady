@@ -14,7 +14,11 @@
   <div class="contact"><%= buddy.email %> <%= buddy.phone_number %></div>
   <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(buddy.id) %>
   RECEIVED on <%= current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id).created_at.to_date %>
-  <%= button_to "Accept", organization_battle_buddy_request_path(current_org,current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)) , :method => :put%>
+  <h4>This organization wants to add you as a Battle Buddy.</h4>
+  <ul>
+    <li><%= button_to "Accept", organization_battle_buddy_request_path(current_org, current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)) , :method => :put %></li>
+    <li><%= button_to 'Decline', organization_battle_buddy_request_path(current_org, current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)), :method => :delete %></li>
+  </ul>
   <% elsif current_org.battle_buddy_requests_sent.collect(&:battle_buddy_id).include?(buddy.id) %>
   SENT on <%= current_org.battle_buddy_requests_sent.find_by_battle_buddy_id(buddy.id).created_at.to_date %>
   <% elsif current_org.battle_buddy_enabled? %>

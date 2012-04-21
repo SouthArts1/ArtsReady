@@ -3,6 +3,14 @@ Feature: Battle Buddies
   As an organization
   I want to find and manage battle buddies
 
+  Scenario: Rejecting Buddies
+    Given I am signed in as an editor
+    And I have a pending battle buddy request
+    When I follow "Battle Buddy Network"
+    And I follow "Find a Buddy"
+    And I press "Decline"
+    Then I should have no pending battle buddy requests
+
   Scenario: Unbuddying
     Given I am signed in as an editor
       And I have a battle buddy
