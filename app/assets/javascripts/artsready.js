@@ -5,15 +5,6 @@ $(function(){
 	$(".questionnaire tbody, .resource tbody").hide().eq(0).show();
 	
 	$("table").tablesorter();
-	
-	$('.datepicker').datepicker({
-	  showOn: 'both',
-	  buttonImage: '/images/calendar.gif',
-	  changeMonth: true,
-	  changeYear: true,
-	  dateFormat: "yy-mm-dd",
-	});
-	
 });
 
 

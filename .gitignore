@@ -12,4 +12,5 @@ TAGS
 coverage
 .powder
 public/stylesheets/.sass-cache
+.sass-cache
 

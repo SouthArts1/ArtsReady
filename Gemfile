@@ -25,6 +25,12 @@ gem 'gibbon', '0.3.0'
 gem 'rack-ssl', :require => 'rack/ssl'
 gem 'delayed_job'
 
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'

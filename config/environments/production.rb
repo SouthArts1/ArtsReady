@@ -54,6 +54,15 @@ Artsready::Application.configure do
   config.action_mailer.raise_delivery_errors = false
     
   config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
+
+  # Compress JavaScript and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
 end
 
 S3_UPLOAD_BUCKET = 'artsready-production'
