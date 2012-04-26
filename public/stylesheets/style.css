@@ -1552,6 +1552,12 @@ table#edit_questions td .edit input[type="text"], table#edit_questions td .edit 
   width: 600px; }
 table#edit_todos td .delete, table#edit_questions td .delete {
   float: right; }
+table .icon {
+  text-align: center;
+  white-space: nowrap; }
+
+.articles td {
+  border: none; }
 
 td.actions {
   text-align: right; }

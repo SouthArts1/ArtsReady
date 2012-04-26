@@ -1593,7 +1593,11 @@ table {
     input[type="text"], textarea {
       width: 600px; } }
   &#edit_todos td .delete, &#edit_questions td .delete {
-    float: right; } }
+    float: right; } 
+  .icon{ 
+    text-align: center;
+    white-space: nowrap;} }
+.articles td{ border: none; }
 
 td.actions {
   text-align: right; }

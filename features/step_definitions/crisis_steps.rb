@@ -6,8 +6,8 @@ Given /^I (?:am|should be) in crisis mode$/ do
   step 'I should see "ON" within "#distress-switch"'
 end
 
-And /^I have a Battle Buddy$/i do
-  org = Factory.create(:organization)
+And /^I have a Battle Buddy(?: with a name of "(.*)")?$/i do |name|
+  org = Factory.create(:organization, :name => name || "Default Org")
   Factory.create(:battle_buddy_request,
     :organization => @current_user.organization,
     :battle_buddy => org,
