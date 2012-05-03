@@ -1,14 +1,21 @@
-<h1>Test:
-  <%= completed_answers_count %>
-  /
-  <%= answers_count %>
-</h1>
-
-<ul>
-  <% _.each(answers, function(answer) { %>
-     <div class="section">
-      <%= answer.question_description %>
+<% _.each(answers, function(answer) { %>
+  <div class="section">
+    <div class="question">
+      <div class="response">
+        <% if (answer.answered) { %>
+          TK ANSWERED
+        <% } else if (answer.answering) { %>
+          TK ANSWERING
+        <% } else if (answer.was_skipped) { %>
+          TK SKIPPED
+        <% } else { %>
+          <a href='#' class='button respond'>answer</a>
+          <a href='#' class='skip_answer'>not applicable</a>
+        <% } %>
+      </div>
+      <h3 class="prompt plain"><%= answer.question_description %></h3>
+      <div style="clear: both;"></div>
     </div>
- <% }); %>
-</ul>
+  </div>
+<% }); %>
 
