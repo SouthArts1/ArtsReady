@@ -6,10 +6,13 @@ class Artsready.Views.AnswersShow extends Backbone.View
   events:
     'click .respond': 'startResponding'
 
+  initialize: ->
+    @model.on('change:answering', @render)
+
   render: =>
     @$el.html(@template(answer: @model.toJSON()))
     return this
 
   startResponding: =>
-    alert('respond')
+    @model.set('answering', true)
 
