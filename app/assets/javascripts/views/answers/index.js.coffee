@@ -1,8 +1,9 @@
 class Artsready.Views.AnswersIndex extends Backbone.View
 
-  template: JST['answers/index']
-
   render: =>
-    @$el.html(@template(@model.toJSON()))
+    template = @template
+    @collection.each (answer) =>
+      view = new Artsready.Views.AnswersShow(model: answer)
+      @$el.append(view.render().el)
     return this
 
