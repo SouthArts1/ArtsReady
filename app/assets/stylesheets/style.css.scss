@@ -841,6 +841,8 @@ tbody {
     &.not-applicable {
       background: #eee; } }
   input[type=submit].linklike { color: #666; }
+  .respond { margin-bottom: 10px; }
+  .skip_answer { display: block; }
   .response {
     float: left;
     margin-right: 20px;

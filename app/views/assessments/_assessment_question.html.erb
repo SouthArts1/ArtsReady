@@ -18,7 +18,7 @@
         <%= form.submit 'reconsider', :class => 'linklike' %>
       <% end %>
     <% else %>
-      &nbsp; <%= link_to 'answer', "", :class => 'button respond', :style => 'margin-bottom:10px;', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
+      &nbsp; <%= link_to 'answer', "", :class => 'button respond', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
       <%= form_for [:skip, answer], :method => :put, :remote => 'true', 
             :html => {:'data-type' => :html, :class => 'skip_answer'} do |form| %>
         <%= form.submit 'not applicable', :class => 'linklike' %>
