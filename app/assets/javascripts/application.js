@@ -1,12 +1,14 @@
 //= require jquery
 //= require jquery_ujs
-//= require vendor
 
-//= require artsready
 
 //= require underscore
 //= require backbone
+//= require backbone/backbone-relational
 //
+//= require vendor
+//
+//= require artsready
 //= require artsready-backbone
 //
 //= require_tree ../templates/

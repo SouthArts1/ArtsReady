@@ -4,3 +4,11 @@
   <%= answers_count %>
 </h1>
 
+<ul>
+  <% _.each(answers, function(answer) { %>
+     <div class="section">
+      <%= answer.question_description %>
+    </div>
+ <% }); %>
+</ul>
+
