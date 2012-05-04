@@ -170,9 +170,9 @@ $('.checker').live('click', function() {
 });
 
 // Tooltips
-$(function () {
-  $('.info-bubble').each(function () {	
-	
+var initializeInfoBubbles = function($scope) {
+  $('.info-bubble', $scope).each(function () {	
+  
     // options
     var distance = 10;
     var time = 250;
@@ -237,8 +237,11 @@ $(function () {
           popup.css('display', 'none');
         });
       }, hideDelay);
-		
-		$(this).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
+    
+      $(this).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
     });
   });
-});
+};
+
+$(function() { initializeInfoBubbles(null) });
+

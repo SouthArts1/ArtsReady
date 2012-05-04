@@ -8,8 +8,6 @@ window.Artsready =
     new Artsready.Routers.Assessments(model: @assessment)
     Backbone.history.start(pushState: true)
 
-    alert 'Hello from Backbone!'
-
 $(document).ready ->
   Artsready.init
     assessment:
@@ -17,7 +15,8 @@ $(document).ready ->
       completed_answers_count: 6
       answers: [
         {
-          question_description: "Ready means not unready."
+          question_description: "Ready means not unready.",
+          question_help_html: "Some more info about not being unready.",
           was_skipped: false
         },
         {

@@ -4,15 +4,27 @@ class Artsready.Views.AnswersShow extends Backbone.View
   template: JST['answers/show']
 
   events:
-    'click .respond': 'startResponding'
+    'click .respond': 'startAnswer'
+    'change .answer input': 'updateAnswer'
+    'submit .answer form': 'submitAnswer'
 
   initialize: ->
     @model.on('change:answering', @render)
+    @model.on('change:preparedness, change:priority', @validateAnswer)
 
   render: =>
     @$el.html(@template(answer: @model.toJSON()))
+    initializeInfoBubbles(@$el)
     return this
 
-  startResponding: =>
+  startAnswer: =>
     @model.set('answering', true)
 
+  updateAnswer: (event) =>
+    @model.set(event.target.name, event.target.value)
+
+  validateAnswer: =>
+    this.$('input[type=submit]').attr('disabled', !@model.isComplete)
+
+  submitAnswer: =>
+    @model.set(answering: false, answered: true)
