@@ -3,8 +3,6 @@
     <div class="response">
       <% if (answer.answered) { %>
         TK ANSWERED
-      <% } else if (answer.answering) { %>
-        TK ANSWERING
       <% } else if (answer.was_skipped) { %>
         TK SKIPPED
       <% } else { %>
@@ -13,6 +11,55 @@
       <% } %>
     </div>
     <h3 class="prompt plain"><%= answer.question_description %></h3>
+    <% if (answer.answering) { %>
+      <div class="answer">
+        <form>
+          <table>
+            <tr>
+              <td>
+                <strong>Preparedness: *</strong>
+              </td>
+              <td>
+                <label><input type="radio" name="preparedness" value="not ready"> not ready</label>
+              </td>
+              <td>
+                <label><input type="radio" name="preparedness" value="needs work"> needs work</label>
+              </td>
+              <td>
+                <label><input type="radio" name="preparedness" value="ready"> ready</label>
+              </td>
+              <td>
+                <label><input type="radio" name="preparedness" value="unknown"> unknown</label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Priority: *</strong>
+              </td>
+              <td>
+                <label><input type="radio" name="priority" value="critical"> critical</label>
+              </td>
+              <td>
+                <label><input type="radio" name="priority" value="non-critical"> non-critical</label>
+              </td>
+            </tr>
+          </table>
+          <input type="submit" disabled class="button blue save-response" value="save answer">
+        </form>
+      </div>
+      <div class="explain">
+        <p>Please rate the priority and preparedness of this topic for your organization.</p>
+        <% if (answer.question_help_html) { %>
+          <div class="info-bubble">
+            <a class='button weak info-bubble-trigger'>Learn more about this topic</a>
+            <div class="info-bubble-text">
+              <%= answer.question_help_html %>
+            </div>
+          </div>
+        <% } %>
+        <p>Not sure? Select unknown</p>
+      </div>
+    <% } %>
     <div style="clear: both;"></div>
   </div>
 </div>
