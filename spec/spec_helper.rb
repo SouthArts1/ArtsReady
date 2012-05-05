@@ -34,6 +34,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.start
     reset_email
+    Organization.any_instance.stub(:geocode)
   end
 
   config.after(:each) do
