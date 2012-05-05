@@ -31,6 +31,9 @@ class AnswersController < ApplicationController
   def update
     @answer = current_org.assessment.answers.find(params[:id])
 
+    # Handle params from both Rails' `form_for` and Backbone's `save`.
+    params[:answer] = params.dup if request.content_type == 'application/json'
+
     if @answer.update_attributes(params[:answer])
       flash.notice = 'Answer was successfully updated.'
     else
@@ -45,7 +48,8 @@ private
   def respond
     if request.xhr?
       render :partial => 'assessments/assessment_question',
-        :locals => {:answer => @answer}
+        :locals => {:answer => @answer},
+        :status => @answer.valid? ? :ok : :unprocessable_entity
     else
       redirect_to :back
     end

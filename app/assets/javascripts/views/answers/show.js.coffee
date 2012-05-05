@@ -26,5 +26,8 @@ class Artsready.Views.AnswersShow extends Backbone.View
   validateAnswer: =>
     this.$('input[type=submit]').attr('disabled', !@model.isComplete)
 
-  submitAnswer: =>
+  submitAnswer: (event) =>
+    event.preventDefault()
+
+    @model.save()
     @model.set(answering: false, answered: true)
