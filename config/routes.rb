@@ -51,7 +51,7 @@ Artsready::Application.routes.draw do
   end
 
   resource :assessment, :only => [:new, :create, :show]
-  resources :answers, :only => [:update] do
+  resources :answers, :only => [:index, :update] do
     member do
       put 'skip'
       put 'reconsider'

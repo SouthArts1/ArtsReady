@@ -6,9 +6,10 @@ class Artsready.Routers.Assessments extends Backbone.Router
   initialize: (options) =>
     @$el = $('.questions')
     @model = options.model
-    @answersView = new Artsready.Views.AnswersIndex(
-      collection: @model.get('answers'))
 
   show: =>
-    @$el.empty().append(@answersView.render().el)
-
+    answers = new Artsready.Collections.Answers
+    answers.fetch
+      success: =>
+        @answersView = new Artsready.Views.AnswersIndex(collection: answers)
+        @$el.empty().append(@answersView.render().el)

@@ -8,7 +8,8 @@ class Answer < ActiveRecord::Base
   has_many :todos, :dependent => :destroy
   has_many :action_items, :through => :question
 
-  delegate :description, :to => :question, :allow_nil => true, :prefix => true
+  delegate :description, :help_html,
+    :to => :question, :allow_nil => true, :prefix => true
   delegate :critical_function, :to => :question
 
   validates_presence_of :assessment
@@ -32,6 +33,7 @@ class Answer < ActiveRecord::Base
   def answered?
     preparedness.present? && priority.present?
   end
+  alias_method :answered, :answered?
 
   def add_todo_items
     question.action_items.active.each do |i|
@@ -46,5 +48,12 @@ class Answer < ActiveRecord::Base
 
   def critical_function_title
     Assessment.critical_function_title(critical_function)
+  end
+
+  def as_json(options = {})
+    super(options.merge(:methods => [
+      :answered, :question_help_html,
+      :question_description
+    ]))
   end
 end
