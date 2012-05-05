@@ -842,7 +842,10 @@ tbody {
       background: #eee; } }
   input[type=submit].linklike { color: #666; }
   .respond { margin-bottom: 10px; }
-  .skip_answer { display: block; }
+  .skip_answer, .reconsider_answer {
+    display: block; color: #666;
+    cursor: pointer; text-decoration: underline;
+  }
   .response {
     float: left;
     margin-right: 20px;
