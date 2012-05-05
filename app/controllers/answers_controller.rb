@@ -47,9 +47,13 @@ private
 
   def respond
     if request.xhr?
-      render :partial => 'assessments/assessment_question',
-        :locals => {:answer => @answer},
-        :status => @answer.valid? ? :ok : :unprocessable_entity
+      respond_to do |format|
+        format.html do
+          render :partial => 'assessments/assessment_question',
+            :locals => {:answer => @answer}
+        end
+        format.json { render :json => @answer }
+      end
     else
       redirect_to :back
     end

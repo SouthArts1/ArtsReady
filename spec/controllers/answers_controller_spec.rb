@@ -34,11 +34,5 @@ describe AnswersController do
         should render_template(:partial => 'assessments/_assessment_question')
       }
     end
-
-    context '(with invalid params)' do
-      let(:valid?) { false }
-
-      it { should respond_with(:unprocessable_entity) }
-    end
   end
 end

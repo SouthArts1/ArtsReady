@@ -11,6 +11,9 @@ class Artsready.Views.AnswersShow extends Backbone.View
   initialize: ->
     @model.on('change:answering', @render)
     @model.on('change:preparedness, change:priority', @validateAnswer)
+    @model.on('sync', @answerSaved)
+    @model.on('error', @answerError)
+    # TODO: unbind on removal
 
   render: =>
     @$el.html(@template(answer: @model.toJSON()))
@@ -30,4 +33,10 @@ class Artsready.Views.AnswersShow extends Backbone.View
     event.preventDefault()
 
     @model.save()
-    @model.set(answering: false, answered: true)
+
+  answerSaved: (answer) =>
+    @model.set(answering: false)
+
+  answerError: (answer) =>
+    console.log(event)
+
