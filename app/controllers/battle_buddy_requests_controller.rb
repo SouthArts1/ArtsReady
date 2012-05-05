@@ -22,7 +22,7 @@ class BattleBuddyRequestsController < ApplicationController
     @bb_request = BattleBuddyRequest.find(params[:id])
     return redirect_to(:back, :notice => "There is a problem with that battle buddy request #{@bb_request.inspect}") unless @bb_request.can_be_deleted_by?(current_org)
 
-    if @bb_request.update_attributes({:accepted => false}) && current_org.battle_buddy_requests.create(:battle_buddy_id => @bb_request.organization_id, :accepted => false)
+    if @bb_request.update_attributes({:accepted => false}) && current_org.battle_buddy_requests.update_attributes(:battle_buddy_id => @bb_request.organization_id, :accepted => false)
       redirect_to :back, :notice => "Battle buddy removed."
     else
       logger.debug(@bb_request.errors.inspect)
