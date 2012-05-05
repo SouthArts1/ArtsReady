@@ -33,7 +33,7 @@
               <td class="icon">
                 <% if user_signed_in? %>
                   <%= current_org.battle_buddies.include?(a.organization) ? image_tag('bbn_icon.png', :alt => 'Battle Buddy') : nil %>
-                  <% if a.on_critical_list %>
+                  <% if a.on_critical_list && a.organization == current_org %>
                     <%= image_tag('crit_stuff_icon.png', :alt => 'Critical') %>
                   <% end %>
                 <% end %>
