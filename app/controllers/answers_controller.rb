@@ -1,4 +1,10 @@
 class AnswersController < ApplicationController
+  respond_to :html, :json
+
+  def index
+    @answers = current_org.assessment.answers # TODO: select by critical function
+    respond_with @answers
+  end
 
   def reconsider
     @answer = current_org.assessment.answers.find(params[:id])

@@ -1,10 +1,10 @@
 <div class="section">
   <div class="question">
     <div class="response">
-      <% if (answer.answered) { %>
-        TK ANSWERED
-      <% } else if (answer.was_skipped) { %>
+      <% if (answer.was_skipped) { %>
         TK SKIPPED
+      <% } else if (answer.answered) { %>
+        TK ANSWERED
       <% } else { %>
         <a href='#' class='button respond'>answer</a>
         <a href='#' class='skip_answer'>not applicable</a>

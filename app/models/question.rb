@@ -7,4 +7,8 @@ class Question < ActiveRecord::Base
   scope :active, where(:deleted => false)
   
   validates_presence_of :description, :critical_function
+
+  def help_html
+    RedCloth.new(help) if help
+  end
 end

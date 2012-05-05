@@ -3,8 +3,8 @@ require "spec_helper"
 describe AnswersController do
   describe "routing" do
 
-    it "does not route to #index" do
-      get("/answers").should_not be_routable
+    it "routes to #index" do
+      get("/answers").should be_routable
     end
 
     it "does not route to #new" do
