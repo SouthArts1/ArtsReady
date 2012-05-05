@@ -22,12 +22,23 @@ describe AnswersController do
     before do
       controller.stubs :authenticate!
       controller.stub(:current_org).and_return(answer.assessment.organization)
+      Answer.any_instance.stub(:save).and_return(valid?)
 
       xhr :put, :update, :id => answer, :answer => answer_params
     end
 
-    it { 
-      should render_template(:partial => 'assessments/_assessment_question')
-    }
+    context '(with valid params)' do
+      let(:valid?) { true }
+
+      it { 
+        should render_template(:partial => 'assessments/_assessment_question')
+      }
+    end
+
+    context '(with invalid params)' do
+      let(:valid?) { false }
+
+      it { should respond_with(:unprocessable_entity) }
+    end
   end
 end

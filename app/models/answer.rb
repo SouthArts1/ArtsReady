@@ -17,6 +17,7 @@ class Answer < ActiveRecord::Base
   validates_presence_of :preparedness, :on => :update, :unless => :was_skipped?
   validates_presence_of :priority, :on => :update, :unless => :was_skipped?
 
+  attr_accessible :preparedness, :priority
 
   after_update :add_todo_items#, :unless => "was_skipped == true"
   after_update :answered_count
