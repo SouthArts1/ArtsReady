@@ -2,12 +2,12 @@
   <div class="question">
     <div class="response">
       <% if (answer.was_skipped) { %>
-        TK SKIPPED
+        <a class='reconsider_answer'>reconsider</a>
       <% } else if (answer.answered) { %>
         TK ANSWERED
       <% } else { %>
-        <a href='#' class='button respond'>answer</a>
-        <a href='#' class='skip_answer'>not applicable</a>
+        <a class='button respond'>answer</a>
+        <a class='skip_answer'>not applicable</a>
       <% } %>
     </div>
     <h3 class="prompt plain"><%= answer.question_description %></h3>

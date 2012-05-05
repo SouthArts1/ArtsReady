@@ -14,12 +14,12 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :assessment
   validates_presence_of :question
-  validates_presence_of :preparedness, :on => :update, :unless => :was_skipped?
-  validates_presence_of :priority, :on => :update, :unless => :was_skipped?
+  validates_presence_of :preparedness, :on => :update, :unless => :was_skipped_changed?
+  validates_presence_of :priority, :on => :update, :unless => :was_skipped_changed?
 
-  attr_accessible :preparedness, :priority
+  attr_accessible :preparedness, :priority, :was_skipped
 
-  after_update :add_todo_items#, :unless => "was_skipped == true"
+  after_update :add_todo_items, :if => :answered?
   after_update :answered_count
 
   scope :for_critical_function, proc {|critical_function| 

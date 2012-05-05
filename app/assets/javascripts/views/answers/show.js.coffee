@@ -7,9 +7,11 @@ class Artsready.Views.AnswersShow extends Backbone.View
     'click .respond': 'startAnswer'
     'change .answer input': 'updateAnswer'
     'submit .answer form': 'submitAnswer'
+    'click .skip_answer': 'skipAnswer'
+    'click .reconsider_answer': 'reconsiderAnswer'
 
   initialize: ->
-    @model.on('change:answering', @render)
+    @model.on('change:answering, change:was_skipped', @render)
     @model.on('change:preparedness, change:priority', @validateAnswer)
     @model.on('sync', @answerSaved)
     @model.on('error', @answerError)
@@ -39,4 +41,10 @@ class Artsready.Views.AnswersShow extends Backbone.View
 
   answerError: (answer) =>
     console.log(event)
+
+  skipAnswer: (event) =>
+    @model.save({was_skipped: true}, wait: true)
+
+  reconsiderAnswer: (event) =>
+    @model.save({was_skipped: false}, wait: true)
 
