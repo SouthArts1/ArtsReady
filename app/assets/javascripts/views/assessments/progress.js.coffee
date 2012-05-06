@@ -3,18 +3,22 @@ class Artsready.Views.AssessmentsProgress extends Backbone.View
 
   initialize: ->
     # TODO: use an assessment instead of a collection of answers
-    @percent = @collection.first().get('assessment_percentage_complete')
-    @collection.on('change:assessment_percentage_complete', @updatePercent)
+    @updateFromAnswer(@collection.first())
+    @collection.on(
+      'change:assessment_percentage_complete change:section_progress',
+      @updateFromAnswer)
     # TODO: unbind
 
   render: =>
     @$el.html(@template(
       message: 'Assessment is'
       percent: @percent
+      section_progress: @section_progress
     ))
     return this
 
-  updatePercent: (model) =>
+  updateFromAnswer: (model) =>
+    @section_progress = model.get('section_progress')
     @percent = model.get('assessment_percentage_complete')
     @render()
 

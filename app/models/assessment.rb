@@ -42,7 +42,14 @@ class Assessment < ActiveRecord::Base
   end
   
   def skipped_answers_count
-    answers.where(:was_skipped => true).count
+    answers.skipped.size
+  end
+
+  def section_progress_for(function)
+    [
+      answers.for_critical_function(function).answered.size,
+      answers.for_critical_function(function).not_skipped.size
+    ]
   end
 
   def self.critical_function_attribute(function)
