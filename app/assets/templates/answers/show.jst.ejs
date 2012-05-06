@@ -1,10 +1,12 @@
 <div class="section">
-  <div class="question">
+  <div class="question <%= answer.was_skipped ? 'not-applicable' : (answer.answered && 'answered') %>">
     <div class="response">
       <% if (answer.was_skipped) { %>
         <a class='reconsider_answer'>reconsider</a>
       <% } else if (answer.answered) { %>
-        TK ANSWERED
+        <%= answer.priority %>
+        <br/>
+        <%= answer.preparedness %>
       <% } else { %>
         <a class='button respond'>answer</a>
         <a class='skip_answer'>not applicable</a>
