@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @answers = current_org.assessment.answers # TODO: select by critical function
+    @answers = current_org.assessment.answers.includes(:question) # TODO: select by critical function
     respond_with @answers
   end
 
@@ -37,6 +37,7 @@ class AnswersController < ApplicationController
     if @answer.update_attributes(params[:answer])
       flash.notice = 'Answer was successfully updated.'
     else
+      logger.debug("ERRORS #{@answer.errors.inspect}")
       flash.notice = 'All fields are required for your answer'
     end
 
