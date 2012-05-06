@@ -829,6 +829,9 @@ tbody {
       color: #ccc; } }
   &.answered {
     background: #fff;
+    .response {
+      background: image-url("icon-check.png") no-repeat 0px center;
+    }
     &.not-applicable {
       background: #eee; } }
   input[type=submit].linklike { color: #666; }
@@ -843,10 +846,7 @@ tbody {
     padding: 10px;
     padding-left: 30px;
     width: 90px;
-    height: 50px;
-    margin-bottom: 20px;
-    &.answered {
-      background: image-url("icon-check.png") no-repeat 0px center; } }
+  }
   .explain {
     float: left;
     width: 200px;
@@ -870,7 +870,9 @@ tbody {
   .answer {
     width: 500px;
     float: left;
-    margin-right: 20px; } }
+    margin-right: 20px; }
+  .prompt { border: none; }
+}
 
 /*  Org Admin */
 
