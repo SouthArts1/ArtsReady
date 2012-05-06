@@ -2,4 +2,11 @@
   <span class="progress-complete" style="right:<%= 100 - percent %>%"></span>
   <span class="progress-percent"> <%= message %> <%= percent || 0 %>% complete</span>
 </p>
+<p class="progress-sub">
+  <%= section_progress[0] %>/<%= section_progress[1] %>
+  answered in section
+</p>
+<% /* TODO: make the server provide the export link */ %>
+<p><a href="<%= window.location.pathname + '.csv' %>">Export</a></p>
+
 

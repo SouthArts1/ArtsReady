@@ -28,6 +28,10 @@ class Answer < ActiveRecord::Base
     where(['questions.critical_function = ?', critical_function])
   }
 
+  def section_progress
+    assessment.section_progress_for(critical_function)
+  end
+
   def ready?
     preparedness=='ready'
   end
@@ -36,6 +40,11 @@ class Answer < ActiveRecord::Base
     preparedness.present? && priority.present?
   end
   alias_method :answered, :answered?
+
+  scope :answered,
+    :conditions => 'priority IS NOT NULL AND preparedness IS NOT NULL'
+  scope :not_skipped, :conditions => 'was_skipped IS NOT TRUE'
+  scope :skipped, :conditions => 'was_skipped'
 
   def add_todo_items
     question.action_items.active.each do |i|
@@ -58,6 +67,7 @@ class Answer < ActiveRecord::Base
       :answered,
       :question_help_html,
       :question_description,
+      :section_progress,
       :assessment_percentage_complete
     ]))
   end
