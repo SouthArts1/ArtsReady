@@ -11,6 +11,7 @@ class Answer < ActiveRecord::Base
   delegate :description, :help_html,
     :to => :question, :allow_nil => true, :prefix => true
   delegate :critical_function, :to => :question
+  delegate :percentage_complete, :to => :assessment, :prefix => true
 
   validates_presence_of :assessment
   validates_presence_of :question
@@ -20,7 +21,7 @@ class Answer < ActiveRecord::Base
   attr_accessible :preparedness, :priority, :was_skipped
 
   after_update :add_todo_items, :if => :answered?
-  after_update :answered_count
+  after_update :update_answered_count
 
   scope :for_critical_function, proc {|critical_function| 
     includes(:question).
@@ -43,8 +44,8 @@ class Answer < ActiveRecord::Base
     end
   end
 
-  def answered_count
-    Assessment.increment_counter(:completed_answers_count,assessment.id) if answered?
+  def update_answered_count
+    assessment.increment_completed_answers_count if answered?
   end
 
   def critical_function_title
@@ -54,8 +55,11 @@ class Answer < ActiveRecord::Base
   def as_json(options)
     options ||= {}
     super(options.merge(:methods => [
-      :answered, :question_help_html,
-      :question_description
+      :answered,
+      :question_help_html,
+      :question_description,
+      :assessment_percentage_complete
     ]))
   end
 end
+
