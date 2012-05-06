@@ -1,9 +1,5 @@
 <div class="grid_12">
-  <div class="progress-container">
-    <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.assessment_percentage_complete, :message => 'Assessment is'} %>
-    <p class="progress-sub"><%= @answers.reject {|q| !q.answered?}.count %>/<%= @answers.reject {|q| q.was_skipped?}.count %> answered in section</p>
-    <p><%= link_to 'Export', :format => :csv %></p>
-  </div>
+  <%= render :partial => 'progress' %>
   <h1>Readiness Assessment</h1>
   <%= link_to('Archive and Re-Assess', new_assessment_path, :class => 'button reassessment_button') if @assessment.complete? %>
   <p><%= link_to "Need help?", page_path('help_assessment') %></p>

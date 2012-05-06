@@ -38,6 +38,11 @@ class Answer < ActiveRecord::Base
     preparedness.present? && priority.present?
   end
 
+  scope :answered,
+    :conditions => 'priority IS NOT NULL AND preparedness IS NOT NULL'
+  scope :not_skipped, :conditions => 'was_skipped IS NOT TRUE'
+  scope :skipped, :conditions => 'was_skipped'
+
   def add_todo_items
     question.action_items.active.each do |i|
       todos.create_or_restart(:answer => self, :action_item => i, :organization => assessment.organization, :description => i.description, :critical_function => question.critical_function, :priority => priority)

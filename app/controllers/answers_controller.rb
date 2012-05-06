@@ -38,6 +38,8 @@ private
 
   def respond
     if request.xhr?
+      @assessment = @answer.assessment
+      @critical_function = @answer.critical_function
       render 'update'
     else
       redirect_to :back
