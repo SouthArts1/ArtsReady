@@ -51,7 +51,8 @@ class Answer < ActiveRecord::Base
     Assessment.critical_function_title(critical_function)
   end
 
-  def as_json(options = {})
+  def as_json(options)
+    options ||= {}
     super(options.merge(:methods => [
       :answered, :question_help_html,
       :question_description

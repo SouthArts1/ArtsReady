@@ -45,3 +45,8 @@
     <%= link_to "View To-Do List &raquo;".html_safe, todos_path %>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  window.answers = <%= raw @answers.to_json %>
+<% end %>
+

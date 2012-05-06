@@ -4,8 +4,9 @@ window.Artsready =
   Views: {}
   Routers: {}
   init: (data) ->
-    @assessment = new Artsready.Models.Assessment(data.assessment)
-    new Artsready.Routers.Assessments(model: @assessment)
+    @answers = new Artsready.Collections.Answers(data.answers)
+    #@assessment = new Artsready.Models.Assessment(data.assessment)
+    new Artsready.Routers.Assessments(answers: @answers)
     Backbone.history.start(pushState: true)
 
 $(document).ready ->
@@ -13,16 +14,5 @@ $(document).ready ->
     assessment:
       answers_count: 100
       completed_answers_count: 6
-      answers: [
-        {
-          question_description: "Ready means not unready.",
-          question_help_html: "Some more info about not being unready.",
-          was_skipped: false
-        },
-        {
-          question_description: "Ready means after readx."
-          was_skipped: true
-        }
-      ]
-
-
+  
+    answers: window.answers
