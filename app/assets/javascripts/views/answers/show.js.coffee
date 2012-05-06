@@ -11,8 +11,7 @@ class Artsready.Views.AnswersShow extends Backbone.View
     'click .reconsider_answer': 'reconsiderAnswer'
 
   initialize: ->
-    @model.on('change:answering, change:was_skipped', @render)
-    @model.on('change:preparedness, change:priority', @validateAnswer)
+    @model.on('change:answering change:was_skipped', @render)
     @model.on('sync', @answerSaved)
     @model.on('error', @answerError)
     # TODO: unbind on removal
@@ -26,15 +25,17 @@ class Artsready.Views.AnswersShow extends Backbone.View
     @model.set('answering', true)
 
   updateAnswer: (event) =>
-    @model.set(event.target.name, event.target.value)
-
-  validateAnswer: =>
-    this.$('input[type=submit]').attr('disabled', !@model.isComplete)
+    this.$('input[type=submit]').attr('disabled',
+      this.$('input[name=preparedness]:checked, input[name=priority]:checked')
+        .length < 2)
 
   submitAnswer: (event) =>
     event.preventDefault()
 
-    @model.save()
+    @model.save(
+      preparedness: this.$('input[name=preparedness]:checked').val()
+      priority: this.$('input[name=priority]:checked').val()
+    )
 
   answerSaved: (answer) =>
     @model.set(answering: false)
@@ -43,8 +44,8 @@ class Artsready.Views.AnswersShow extends Backbone.View
     console.log(event)
 
   skipAnswer: (event) =>
-    @model.save({was_skipped: true}, wait: true)
+    @model.save({was_skipped: true, answering: false}, wait: true)
 
   reconsiderAnswer: (event) =>
-    @model.save({was_skipped: false}, wait: true)
+    @model.save({was_skipped: false, answering: false}, wait: true)
 
