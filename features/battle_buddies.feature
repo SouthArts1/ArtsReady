@@ -10,7 +10,8 @@ Feature: Battle Buddies
     And I follow "Find a Buddy"
     And I follow "Another Org"
     And I press "Add as Battle Buddy"
-    # Then I don't know what should happen I guess
+    And I follow "Find a Buddy"
+    Then I should see "SENT"
 
   Scenario: Rejecting Buddies
     Given I am signed in as an editor
@@ -28,3 +29,14 @@ Feature: Battle Buddies
     And I press "Remove Battle Buddy"
     Then I should be on the Our Buddies page
     And I should have no battle buddies
+
+  Scenario: Remove buddy via profile page
+    Given I am signed in as an editor
+    And I have a battle buddy with a name of "My Buddy"
+    When I follow "Battle Buddy Network"
+    And I follow "Find a Buddy"
+    And I follow "My Buddy"
+    #And I debug
+    And I press "Remove Battle Buddy"
+    Then I should see "removed"
+
