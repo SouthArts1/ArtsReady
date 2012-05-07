@@ -21,7 +21,7 @@ class BattleBuddyRequest < ActiveRecord::Base
   def reject!
     # destroy both ends of the reciprocal relationship
     destroy
-    BattleBuddyRequest.find_reciprocal_request.destroy
+    find_reciprocal_request.try(:destroy)
   end
 
   def can_be_deleted_by?(org)
