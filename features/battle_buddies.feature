@@ -3,6 +3,15 @@ Feature: Battle Buddies
   As an organization
   I want to find and manage battle buddies
 
+  Scenario: Finding Buddies
+    Given I am signed in as an editor
+    And an organization exists with a name of "Another Org"
+    When I follow "Battle Buddy Network"
+    And I follow "Find a Buddy"
+    And I follow "Another Org"
+    And I press "Add as Battle Buddy"
+    # Then I don't know what should happen I guess
+
   Scenario: Rejecting Buddies
     Given I am signed in as an editor
     And I have a pending battle buddy request
