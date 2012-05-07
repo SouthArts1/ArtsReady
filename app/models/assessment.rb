@@ -56,6 +56,23 @@ class Assessment < ActiveRecord::Base
     OPTIONAL_CRITICAL_FUNCTION_ATTRIBUTES[function.to_s]
   end
 
+  def sections_as_json(options = {})
+    ArtsreadyDomain::CRITICAL_FUNCTIONS.map do |hash|
+      #if options[:include_answers].include? hash[:name]
+        hash[:answers] = answers.for_critical_function(hash[:name])
+      #end
+      hash
+    end
+  end
+
+  def as_json(options)
+    options ||= {}
+    #sections = options.delete(:include_answers)
+    super(options).tap do |hash|
+      hash[:sections] = sections_as_json#(:include_answers => sections)
+    end
+  end
+
 private
 
   OPTIONAL_CRITICAL_FUNCTION_ATTRIBUTES = {

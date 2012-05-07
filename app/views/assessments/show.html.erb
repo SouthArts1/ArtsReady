@@ -8,17 +8,12 @@
   <p><%= link_to "Need help?", page_path('help_assessment') %></p>
   <ul class="top-nav">
     <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
-      <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(:tab => critical_function[:name]) %></li>
+      <li id="" class="<%= @critical_function == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(:tab => critical_function[:name]) %></li>
     <% end %>
   </ul>
   <div class="critical-function-toggle">
   </div>
   <div class="questions">
-    <% @answers.each do |a| %>
-    <div class="section">
-      <%= render :partial => 'assessment_question', :locals => {:answer => a, :learn_more => 'Learn more'} %>
-    </div>
-    <% end %>
   </div>
   <section>
     <%= form_for(current_org.todos.new) do |f|%>
@@ -30,7 +25,7 @@
          <tr>
              <td class="action"><p><%= f.select(:action, options_for_select(Todo::NEXT_ACTIONS.keys)) %></p></td>
              <td class="description"><p><%= f.text_field :description %></p></td>
-             <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => params[:tab]) %></td>
+             <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => @critical_function) %></td>
              <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
              <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
@@ -47,6 +42,7 @@
 </div>
 
 <%= javascript_tag do %>
-  window.answers = <%= raw @answers.to_json %>
+  window.assessment = <%= raw @assessment.to_json %>;
+  window.current_section = <%= raw @critical_function.to_json ;%>
 <% end %>
 
