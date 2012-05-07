@@ -65,10 +65,12 @@ class Assessment < ActiveRecord::Base
     end
   end
 
+  def default_section; 'people'; end
+
   def as_json(options)
     options ||= {}
     #sections = options.delete(:include_answers)
-    super(options).tap do |hash|
+    super(options.merge(:methods => :default_section)).tap do |hash|
       hash[:sections] = sections_as_json#(:include_answers => sections)
     end
   end

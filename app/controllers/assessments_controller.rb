@@ -16,7 +16,7 @@ class AssessmentsController < ApplicationController
   def show
     redirect_to new_assessment_path unless current_org.assessment.present?
     @assessment = current_org.assessment
-    @critical_function = (params[:tab] ||= 'people')
+    @critical_function = (params[:tab] ||= @assessment.default_section)
     @answers = @assessment.answers.includes(:question)
 
     respond_to do |format|
