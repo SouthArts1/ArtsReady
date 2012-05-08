@@ -7,8 +7,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'Problem with considering the question'
     end
-
-    respond
+    redirect_to :back
   end
   
   def skip
@@ -18,8 +17,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'Problem with considering the question'
     end
-
-    respond
+    redirect_to :back
   end
 
   def update
@@ -31,12 +29,6 @@ class AnswersController < ApplicationController
       flash.notice = 'All fields are required for your answer'
     end
 
-    respond
-  end
-
-private
-
-  def respond
     if request.xhr?
       render :partial => 'assessments/assessment_question',
         :locals => {:answer => @answer}
@@ -44,4 +36,6 @@ private
       redirect_to :back
     end
   end
+  
+
 end
