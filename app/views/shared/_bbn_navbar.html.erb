@@ -1,7 +1,9 @@
 <ul class="top-nav battle">
   <li class="<%= (:active if current_bbn_tab == :lend_a_hand) %>"><%= link_to "Lend a Hand", lend_a_hand_path if current_org.battle_buddy_enabled?  %></li>
   <li class="<%= (:active if current_bbn_tab == :find_a_buddy) %>"><%= link_to "Find a Buddy", get_help_path %></li>
-  <li class="<%= (:active if current_bbn_tab == :our_buddies) %>"><%= link_to "Our Buddies", buddies_path %></li>    
+  <% if false # disabled until we have time to finish it %>
+    <li class="<%= (:active if current_bbn_tab == :our_buddies) %>"><%= link_to "Our Buddies", buddies_path %></li>    
+  <% end %>
   <li class="<%= (:active if current_bbn_tab == :crisis_console) %>"><%= link_to "Crisis Console", crisis_path(current_org.crisis) if current_org.declared_crisis?%></li>
   <li class="<%= (:active if current_bbn_tab == :our_profile) %>"><%= link_to "Our Profile", buddies_profile_path %></li>
 </ul>
