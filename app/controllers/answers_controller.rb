@@ -28,13 +28,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'All fields are required for your answer'
     end
-
-    if request.xhr?
-      render :partial => 'assessments/assessment_question',
-        :locals => {:answer => @answer}
-    else
-      redirect_to :back
-    end
+    redirect_to :back
   end
   
 

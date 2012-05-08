@@ -149,20 +149,22 @@ $('a.does-not-apply').live('click', function() {
 	question.find('.answers').html("<a href='#' class='button weak reconsider'>reconsider</a>");
 });
 
-$(function() {
-  $('form.edit_answer').live('ajax:complete',
-    function(event, xhr) {
-      $(this).closest('.question').replaceWith(xhr.responseText);
-    }
-  ).find('input[type=radio]').live('change',
-    function(event) {
-      var $form = $(this).closest('form');
-      $form.find('input[type=submit]').attr('disabled',
-        $form.find('input[type=radio]:checked').length < 2);
-    }
-  ).end().each(function() {
-    $(this).find('input[type=radio]:first').change();
-  });
+$('.button.save-response').live('click', function() {
+	var question     = $(this).parents('.question');
+	var response     = question.find('.response');
+	var preparedness = $(this).prev().find('input:radio[name=preparedness]:checked').val();
+	var priority     = $(this).prev().find('input:radio[name=priority]:checked').val();
+	var answers      = priority + '<br />' + preparedness;
+	var na_link      = question.find('.does-not-apply');
+
+	if ((typeof priority != 'undefined') && (typeof preparedness != 'undefined')) {
+		question.addClass('answered');
+		response.addClass('answered');
+		response.find('.respond').hide();
+		response.find('.answers').html(answers);
+		toggleQuestion(this);
+		na_link.hide();
+	}
 });
 
 function toggleQuestion(button) {

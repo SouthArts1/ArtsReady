@@ -999,8 +999,6 @@ tbody tr:hover td {
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
-  .button:disabled, a.button:disabled, input[type="submit"]:disabled {
-    opacity: 0.3; }
 
 .button.weak, a.button.weak, input[type="submit"].weak {
   background: #999;
