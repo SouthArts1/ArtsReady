@@ -1,0 +1,102 @@
+<h1>Edit Billing Information</h1>
+
+<ul class="top-nav settings">
+    <li><%= link_to 'My Info', profile_path %></li>    
+    <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
+    <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
+    <li class=""><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
+		<li class="active"><%= link_to "Billing", billing_my_organization_path %></li>
+</ul>
+
+<div class="grid_8">
+  <section>
+    <%= form_for @payment, url: billing_path, method: "PUT" do |f| %>
+			<%= f.hidden_field :id, value: @payment.id %>
+			<p>
+				<%= f.label :billing_first_name %><br />
+				<%= f.text_field :billing_first_name %><br />
+			</p>
+			<p>
+				<%= f.label :billing_last_name %><br />
+				<%= f.text_field :billing_last_name %><br />
+			</p>
+			<p>
+				<%= f.label :billing_address %><br />
+				<%= f.text_field :billing_address %><br />
+			</p>
+			<p>
+				<%= f.label :billing_city %><br />
+				<%= f.text_field :billing_city %><br />
+			</p>
+			<p>
+				<%= f.label :billing_state %><br />
+				<%= f.text_field :billing_state %><br />
+			</p>
+			<p>
+				<%= f.label :billing_zipcode %><br />
+				<%= f.text_field :billing_zipcode %><br />
+			</p>
+			
+			Payment information:
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				This information will not be saved.<br /> 
+				Each subscription will be processed individually on its given timeline.<br />
+				You may only change payment information of the same type.<br />  
+				If it is necessary to change between a credit/debit card and a bank account, please contact ArtsReady.
+			</p><br /><br />
+			</table>
+			<% if @payment.payment_method == "Credit Card" %>
+				<div id="cc_info">
+					<table>
+						<tr>
+							<td>Credit Card Number:</td>
+							<td><%= f.text_field :number %></td>
+						</tr>
+						<tr>
+							<td>Expiration Date:</td>
+							<td><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]) %> <%= f.date_select :expiry_year, :order => [:year] %></td>
+						</tr>
+						<tr>
+							<td>Verification Number (CCV):</td>
+							<td><%= f.text_field :ccv %></td>
+						</tr>
+					</table>
+					<br />
+				</div>
+			<% else %>
+				<div id="bank_info">
+					<table>
+						<tr>
+							<td>Bank Name:</td>
+							<td><%= f.text_field :bank_name %></td>
+						</tr>
+						<tr>
+							<td>Account Type:</td>
+							<td><%= f.select :account_type, ["Checking", "Savings"] %></td>
+						</tr>
+						<tr>
+							<td>ABA Routing Number:</td>
+							<td><%= f.text_field :routing_number %></td>
+						</tr>
+						<tr>
+							<td>Account Number:</td>
+							<td><%= f.text_field :account_number %></td>
+						</tr>
+					</table>
+					<br />
+				</div>
+			<% end %>
+			<br />
+			<%= f.submit %>
+		<% end %>
+  </section>
+</div>
+<script type="text/javascript">
+	$("#payment_type").change(function() {
+		var type = "#" + $("#payment_type").val() + "_info";
+		$("#cc_info").slideUp();
+		$("#bank_info").slideUp();
+
+		$(type).slideDown();
+	});
+</script>

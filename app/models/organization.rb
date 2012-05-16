@@ -26,6 +26,7 @@ class Organization < ActiveRecord::Base
   has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
+  has_one :payment
 
   accepts_nested_attributes_for :users
 
@@ -96,7 +97,12 @@ class Organization < ActiveRecord::Base
   def is_approved?
     active
   end
-
+  
+  def active_subscription_end_date
+    return "Not subscribed, please vising billing!" if !self.payment
+    return (self.payment.start_date + 365.days)
+  end
+  
   private 
    
   def send_admin_notification

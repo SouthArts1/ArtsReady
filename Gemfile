@@ -25,6 +25,8 @@ gem 'gibbon', '0.3.0'
 gem 'rack-ssl', :require => 'rack/ssl'
 gem 'delayed_job'
 
+gem 'authorize-net', '1.5.2', :path => "vendor/gems/authorize-net-1.5.2"
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'

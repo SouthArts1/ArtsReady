@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Key:</b>
+  <%= @payment_variable.key %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @payment_variable.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_variable_path(@payment_variable) %> |
+<%= link_to 'Back', payment_variables_path %>

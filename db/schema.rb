@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421203732) do
+ActiveRecord::Schema.define(:version => 20120516140115) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -195,6 +195,29 @@ ActiveRecord::Schema.define(:version => 20120421203732) do
     t.string   "title"
     t.string   "slug"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "discount_code_id"
+    t.integer  "starting_amount_in_cents"
+    t.integer  "regular_amount_in_cents"
+    t.integer  "arb_id"
+    t.string   "payment_method"
+    t.string   "payment_number"
+    t.integer  "expiry_month"
+    t.integer  "expiry_year"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "active"
+    t.string   "billing_first_name"
+    t.string   "billing_last_name"
+    t.string   "billing_address"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

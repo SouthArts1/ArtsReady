@@ -1,0 +1,43 @@
+<h1>Organization</h1>
+
+<ul class="top-nav settings">
+  <li><%= link_to 'My Info', profile_path %></li>
+  <li><%= link_to "Organization", edit_organization_path(current_org) %></li>
+  <li><%= link_to "Our Team", organization_users_path(current_org) %></li>
+  <li><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
+	<li class="active"><%= link_to "Billing", billing_my_organization_path %></li>
+</ul>
+
+<div class="grid_8">
+  <section>
+		<p>
+			First billing date: <%= @payment.start_date.strftime("%B %d, %Y") %>
+			<br />
+			Next date for billing occurs in  <%= @payment.days_left_until_rebill %> days.<br />
+			<br />
+		</p>
+		
+		<p>
+			Billed to:<br />
+			<%= "#{@payment.billing_first_name} #{@payment.billing_last_name}" %><br />
+			<%= @payment.billing_address %><br />
+			<%= "#{@payment.billing_city}, #{@payment.billing_state} #{@payment.billing_zipcode}" %><br />
+			<br />
+			<% if @payment.payment_method == "Credit Card" %>
+				Card ending in <%= @payment.payment_number %><br />
+			<% else %>
+				<%= @payment.payment_method %> ending in <%= @payment.payment_number %>
+			<% end %>
+		</p>
+		
+		<p>
+			Next billing amount: 
+			<% if @payment.days_left_until_rebill >= 365 %> 
+				<%= money_from_cents @payment.starting_amount_in_cents %>
+			<% else %>
+				<%= money_from_cents @payment.regular_amount_in_cents %>
+			<% end %>
+		</p>
+  </section>
+	<p><%= link_to "Update Billing/Payment Information", edit_billing_path(@payment) %></p>
+</div>

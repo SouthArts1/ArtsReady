@@ -12,6 +12,7 @@
     <% if @user != current_user %>
     <li class="active"><%= link_to "Edit User", edit_organization_user_path(@user) %></li>
     <% end %>
+		<li><%= link_to "Billing", billing_my_organization_path %></li>
 </ul>
 
 <div class="grid_8">
