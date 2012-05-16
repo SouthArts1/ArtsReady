@@ -124,12 +124,13 @@ class Payment < ActiveRecord::Base
       self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
     elsif self.payment_type == "bank"
       arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
+      logger.debug("Account Number: #{self.account_number}")
       self.payment_method = "#{self.account_type.capitalize} Account"
       self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
     end
     arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
     arb_tran.set_address(self.billing_address_for_transaction)
-    
+    logger.debug("UPdated Payment Number to #{self.payment_number}")
     # fire away!
     response = arb_tran.update(arb_sub)
     # response logging
