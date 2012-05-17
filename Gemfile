@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0'
+gem 'rails', '~> 3.2.0'
 gem 'mysql2', '~> 0.3.0'
 gem 'jquery-rails'
 gem 'backbone-on-rails'
@@ -16,7 +16,7 @@ gem 'gmaps4rails', '1.3.1'
 
 gem 'csv_builder'
 gem 'RedCloth'
-gem 'acts-as-taggable-on', '2.0.6'
+gem 'acts-as-taggable-on'
 
 gem 'heroku'
 gem 'airbrake'
