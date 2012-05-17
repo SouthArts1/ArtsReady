@@ -5,6 +5,7 @@ FactoryGirl.define do
     resolution "MyText"
     organization
     user
+    visibility "public"
   end
 
 end
