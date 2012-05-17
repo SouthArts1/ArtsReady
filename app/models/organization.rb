@@ -119,7 +119,7 @@ class Organization < ActiveRecord::Base
   
   def setup_initial_todo
     logger.debug("setup_initial_todo: #{self.todos.count}")
-    self.todos.create(:critical_function => 'people', :description => 'Add a second manager using the Settings menu to ensure access to the ArtsReady site', :priority => 'critical', :user => users.first) if self.todos.count == 0
+    self.todos.create(:critical_function => 'people', :description => 'Add a second manager using the Settings menu to ensure access to the ArtsReady site', :priority => 'critical', :user => users.first, :due_on => Time.zone.now) if self.todos.count == 0
   end
 
 end
