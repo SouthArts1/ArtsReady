@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120516140115) do
     t.text     "resolution"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "visibility",      :default => "private"
+    t.string   "visibility"
     t.integer  "user_id"
     t.string   "description"
     t.string   "buddy_list"
