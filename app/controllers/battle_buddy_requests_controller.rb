@@ -9,7 +9,7 @@ class BattleBuddyRequestsController < ApplicationController
     @bb_request = BattleBuddyRequest.find(params[:id])
     return redirect_to(get_help_path, :notice => "There is a problem with that battle buddy request #{@bb_request.inspect}") unless @bb_request.battle_buddy == current_org
 
-    if @bb_request.update_attributes({:accepted => true}) && current_org.battle_buddy_requests.create(:battle_buddy_id => @bb_request.organization_id, :accepted => true)
+    if @bb_request.accept!
       redirect_to get_help_path, :notice => "Battle buddy added"
     else
       logger.debug(@bb_request.errors.inspect)
