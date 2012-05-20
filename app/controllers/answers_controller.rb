@@ -31,9 +31,6 @@ class AnswersController < ApplicationController
   def update
     @answer = current_org.assessment.answers.find(params[:id])
 
-    # Handle params from both Rails' `form_for` and Backbone's `save`.
-    params[:answer] = params.dup if request.content_type == 'application/json'
-
     if @answer.update_attributes(params[:answer])
       flash.notice = 'Answer was successfully updated.'
     else
