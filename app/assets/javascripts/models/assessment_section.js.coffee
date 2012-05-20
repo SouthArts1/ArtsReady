@@ -7,6 +7,7 @@ class Artsready.Models.AssessmentSection extends Backbone.RelationalModel
       collectionType: 'Artsready.Collections.Answers'
       reverseRelation:
         key: 'section'
+        includeInJSON: false
     }
   ]
 
