@@ -36,9 +36,13 @@ class BillingController < ApplicationController
     @payment = Payment.new({organization_id: obj[:organization_id], billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode],  expiry_month: obj["expiry_month(2i)"], expiry_year: obj["expiry_year(1i)"], payment_type: params[:payment_type]})
     
     if obj[:discount_code_id]
-      d = DiscountCode.find(obj[:discount_code_id])
-      @payment.discount_code_id = d.id
-      @payment.validate_discount_code!
+      begin
+        d = DiscountCode.find(obj[:discount_code_id])
+        @payment.discount_code_id = d.id
+        @payment.validate_discount_code!
+      rescue
+        # do nothing
+      end
     end
     
     if params[:payment_type] == "cc"
@@ -108,9 +112,13 @@ class BillingController < ApplicationController
     @payment.expiry_year = obj["expiry_year(1i)"]
     
     if obj[:discount_code_id]
-      d = DiscountCode.find(obj[:discount_code_id])
-      @payment.discount_code_id = d.id
-      @payment.validate_discount_code!
+      begin
+        d = DiscountCode.find(obj[:discount_code_id])
+        @payment.discount_code_id = d.id
+        @payment.validate_discount_code!
+      rescue 
+        # do nothing
+      end
     end
     
     if @payment.save
