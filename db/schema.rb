@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421203732) do
+ActiveRecord::Schema.define(:version => 20120521151320) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120421203732) do
     t.text     "resolution"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "visibility",      :default => "private"
+    t.string   "visibility"
     t.integer  "user_id"
     t.string   "description"
     t.string   "buddy_list"
@@ -130,6 +130,19 @@ ActiveRecord::Schema.define(:version => 20120421203732) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "discount_codes", :force => true do |t|
+    t.string   "discount_code"
+    t.integer  "deduction_value"
+    t.string   "deduction_type"
+    t.integer  "redemption_max"
+    t.datetime "active_on"
+    t.datetime "expires_on"
+    t.boolean  "apply_to_first_year"
+    t.boolean  "apply_to_post_first_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", :force => true do |t|
     t.integer  "user_id"
@@ -195,6 +208,36 @@ ActiveRecord::Schema.define(:version => 20120421203732) do
     t.string   "title"
     t.string   "slug"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_variables", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "discount_code_id"
+    t.integer  "starting_amount_in_cents"
+    t.integer  "regular_amount_in_cents"
+    t.integer  "arb_id"
+    t.string   "payment_method"
+    t.string   "payment_number"
+    t.integer  "expiry_month"
+    t.integer  "expiry_year"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "active"
+    t.string   "billing_first_name"
+    t.string   "billing_last_name"
+    t.string   "billing_address"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

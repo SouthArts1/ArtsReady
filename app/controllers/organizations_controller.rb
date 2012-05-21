@@ -13,7 +13,9 @@ class OrganizationsController < ApplicationController
     logger.debug(params[:organization].inspect)
     @organization = Organization.new(params[:organization])
     if @organization.save
-      redirect_to welcome_path, :notice => "Signed up!"
+      session[:organization_id] = @organization.id
+      session[:user_id] = User.find_by_email(user[:email]).id
+      redirect_to new_billing_path, :notice => "Signed up!"
     else
       render "new"
     end    

@@ -20,6 +20,7 @@ class Crisis < ActiveRecord::Base
 
   validates_presence_of :user_id
   validates_presence_of :organization_id
+  validates_presence_of :visibility
   
   # TODO validate buddy_list if permission is set to only my buddies
 

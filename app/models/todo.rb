@@ -99,13 +99,13 @@ class Todo < ActiveRecord::Base
   end
 
   def add_update_note
-    message = ''
+    messages = []
     self.changes.each do |key, value|
-      message += "#{key.humanize} changed from #{value[0].blank? ? 'nothing' : value[0]} to #{value[1]}\n" if TRACKED_ATTRIBUTES.include?(key)
+      messages << "'#{key.humanize}' changed from #{value[0].blank? ? 'nothing' : value[0]} to #{value[1]}" if TRACKED_ATTRIBUTES.include?(key)
     end
-    message += "Assigned to #{user_name}" if self.changes["user_id"]
+    messages << "Assigned to #{user_name}" if self.changes["user_id"]
     
-    todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
+    todo_notes.create(:user_id => last_user_id, :message => messages.join('; ')) if messages.present?
   end
   
   def initialize_action

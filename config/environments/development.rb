@@ -40,3 +40,8 @@ S3_UPLOAD_BUCKET = 'artsready-dev'
 MAILCHIMP_API_KEY = '5f70b48cbd31f3cab0d4d24ca8d5acde-us2'
 MAILCHIMP_LIST_ID = '91aa1b2d44'
 
+# For Sandbox account kevin.found 
+ANET_API_LOGIN_ID = "2F3w8JFj3"
+ANET_TRANSACTION_KEY = "88fbL6HwN759b2Mb"
+ANET_MODE = :test
+

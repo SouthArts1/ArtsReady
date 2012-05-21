@@ -1,0 +1,39 @@
+<h2>Create a new Discount Code!</h2>
+<div class="grid_8">
+  <section>
+    <%= form_for([:admin, @discount_code]) do |f| %>
+      <legend>Discount Information</legend>
+      <p>
+        <%= f.label :discount_code %>
+        <%= f.text_field :discount_code %>
+      </p>
+      <p>
+        <%= f.label :deduction_value, "Amount to discount (in percentage or dollars)" %>
+        <%= f.text_field :deduction_value %>
+      </p>
+      <p>
+        <%= f.label :deduction_type %>
+        <%= f.select :deduction_type, ["percentage", "dollars"] %>
+      </p>
+      <p>
+        <%= f.label :redemption_max, "Max # of Usages (enter 0 for unlimited)" %>
+        <%= f.text_field :redemption_max %>
+      </p>
+      <p>
+        <%= f.label :active_on %>
+        <%= f.datetime_select :active_on %>
+      </p>
+      <p>
+        <%= f.label :expires_on %>
+        <%= f.datetime_select :expires_on %>
+      </p>
+			<p>
+				<%= f.check_box :apply_to_first_year %> <%= f.label :apply_to_first_year %>
+			</p>
+			<p>
+				<%= f.check_box :apply_to_post_first_year %> <%= f.label :apply_to_post_first_year %>
+			</p>
+      <%= f.submit 'Save Settings' %>
+    <% end %>
+  </section>
+</div>

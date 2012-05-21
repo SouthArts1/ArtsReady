@@ -26,6 +26,7 @@ class Organization < ActiveRecord::Base
   has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
+  has_many :payments
 
   accepts_nested_attributes_for :users
 
@@ -96,7 +97,18 @@ class Organization < ActiveRecord::Base
   def is_approved?
     active
   end
-
+  
+  def active_subscription_end_date
+    return "Not subscribed, please vising billing!" if !self.payment || !self.payment.active?
+    return (self.payment.start_date + 365.days)
+  end
+  
+  def payment
+    logger.debug("Number of payments: #{self.payments.count rescue 0} return: #{self.payments.last.inspect rescue "nil"}")
+    return self.payments.last unless self.payments.nil?
+    return nil
+  end
+  
   private 
    
   def send_admin_notification
@@ -119,7 +131,7 @@ class Organization < ActiveRecord::Base
   
   def setup_initial_todo
     logger.debug("setup_initial_todo: #{self.todos.count}")
-    self.todos.create(:critical_function => 'people', :description => "adding a second manager through the Settings menu to ensure your organization's access to the ArtsReady site", :priority => 'critical', :user => users.first) if self.todos.count == 0
+    self.todos.create(:critical_function => 'people', :description => "adding a second manager through the Settings menu to ensure your organization's access to the ArtsReady site", :priority => 'critical', :user => users.first, :due_on => Time.zone.now) if self.todos.count == 0
   end
 
 end
