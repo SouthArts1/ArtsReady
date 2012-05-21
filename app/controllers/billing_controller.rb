@@ -112,9 +112,13 @@ class BillingController < ApplicationController
     @payment.expiry_year = obj["expiry_year(1i)"]
     
     if obj[:discount_code_id]
-      d = DiscountCode.find(obj[:discount_code_id])
-      @payment.discount_code_id = d.id
-      @payment.validate_discount_code!
+      begin
+        d = DiscountCode.find(obj[:discount_code_id])
+        @payment.discount_code_id = d.id
+        @payment.validate_discount_code!
+      rescue 
+        # do nothing
+      end
     end
     
     if @payment.save
