@@ -12,7 +12,7 @@ class BillingController < ApplicationController
       start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
       regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
       
-      @payment ||= Payment.new({organization_id: @organization.id, billing_first_name: @organization.name, billing_last_name: "", billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
+      @payment ||= Payment.new({organization_id: @organization.id, billing_first_name: current_user.first_name, billing_last_name: current_user.last_name, billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
       
       if params[:code]
         d = DiscountCode.find_by_discount_code(params[:code])
