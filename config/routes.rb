@@ -3,7 +3,8 @@ Artsready::Application.routes.draw do
   resources :payment_variables
 
   match "/billing/my_organization" => "billing#my_organization"
-  resources :billing 
+  match "/billing/cancel/(:id)" => "billing#cancel", :as => "billing_cancel"
+  resources :billing
 
   get "messages/create"
   get "needs/create"

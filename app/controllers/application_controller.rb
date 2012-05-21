@@ -8,11 +8,19 @@ class ApplicationController < ActionController::Base
 
     unless user_signed_in?
       msg = 'You must sign in to access that page'
-      if (current_user.present? && !current_org.active?) then msg = 'Your organization has not been approved or is inactive.' end
-      if (current_user.present? && current_user.disabled?) then msg = 'Your user account is inactive' end
-      redirect_to :sign_in, :notice => msg
+      if (current_user.present? && !current_org.active?) 
+        msg = 'Your organization has not been approved or is inactive.' 
+        if !current_org.payment
+          redirect_to new_billing_path
+        else
+          redirect_to :sign_in, notice: msg
+        end
+      end
+      if (current_user.present? && current_user.disabled?) 
+        msg = 'Your user account is inactive' 
+        redirect_to :sign_in, :notice => msg
+      end
     end
-
   end
   
   rescue_from CanCan::AccessDenied do |exception|  
@@ -26,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_org
-    @current_org ||= current_user.organization
+    @current_org ||= current_user.organization || User.find(session[:user_id]).organization
   end
 
   def user_signed_in?

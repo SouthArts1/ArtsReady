@@ -89,6 +89,8 @@
 			<br />
 			<%= f.submit %>
 		<% end %>
+		<br />
+		<%= link_to "I would like to cancel my automated billing entirely.", billing_cancel_path, confirm: "Are you sure?  This will affect your ArtsReady access." %>
   </section>
 </div>
 <script type="text/javascript">

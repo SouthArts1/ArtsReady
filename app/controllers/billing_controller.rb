@@ -1,9 +1,14 @@
 class BillingController < ApplicationController
   skip_before_filter :authenticate!, only: [:new, :create]
   def new
-    if session[:organization_id] != nil && session[:organization_id] != ""
+    if current_org || (session[:organization_id] != nil && session[:organization_id] != "")
       @page = Page.find_by_slug('billing') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
-      @organization = Organization.find(session[:organization_id])
+      if current_org
+        @organization = current_org
+      else
+        @organization = Organization.find(session[:organization_id])
+      end 
+      
       @payment ||= Payment.new({organization_id: @organization.id, billing_first_name: @organization.name, billing_last_name: "", billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode })
     else 
       redirect_to "/", notice: "Please contact ArtsReady for sign-in assistance."
@@ -78,5 +83,23 @@ class BillingController < ApplicationController
   def my_organization
     @organization = current_org
     @payment = current_org.payment
+  end
+  
+  def cancel
+    if current_user.is_admin? && params[:id] != nil
+      @payment = Organization.find(params[:id]).payment
+    else
+      @payment = current_org.payment
+    end
+    
+    if @payment.cancel
+      if current_user.is_admin?
+        redirect_to "/admin/organizations", notice: "You've successfully cancelled the subscription."
+      else
+        redirect_to "/", notice: "You have successfully cancelled your subscription.  Thanks for using ArtsReady!"
+      end
+    else 
+      redirect_to :back, notice: "There was a problem cancelling your subscription.  Please contact ArtsReady for assistance."
+    end
   end
 end

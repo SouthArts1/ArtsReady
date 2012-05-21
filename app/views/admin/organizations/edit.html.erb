@@ -10,10 +10,13 @@
   <%= form_for([:admin, @organization]) do |f| %>
     <%= f.hidden_field :active, :value => false %>
     <%= f.submit "Disable" %>
-  <% end if @organization.active?%>
+  <% end if @organization.active? %>
   <%= button_to("DELETE", admin_organization_path(@organization),
                 :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
                 :method => :delete) if @organization.deletable? %>
+	<%= button_to("Cancel Billing", billing_cancel_path(@organization),
+                :confirm => "THIS CAN NOT BE UNDONE.",
+                :method => :delete) %>
 </div>
 <div class="grid_12">
 <ul class="top-nav settings">

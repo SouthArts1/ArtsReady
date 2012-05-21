@@ -10,34 +10,44 @@
 
 <div class="grid_8">
   <section>
-		<p>
-			First billing date: <%= @payment.start_date.strftime("%B %d, %Y") %>
-			<br />
-			Next date for billing occurs in  <%= @payment.days_left_until_rebill %> days.<br />
-			<br />
-		</p>
+		<% if @payment && @payment.active? %>
+			<p>
+				First billing date: <%= @payment.start_date.strftime("%B %d, %Y") rescue "" %>
+				<br />
+				Next date for billing occurs in  <%= @payment.days_left_until_rebill rescue "" %> days.<br />
+				<br />
+			</p>
 		
+			<p>
+				Billed to:<br />
+				<%= "#{@payment.billing_first_name rescue ""} #{@payment.billing_last_name rescue ""}" %><br />
+				<%= @payment.billing_address rescue "" %><br />
+				<%= "#{@payment.billing_city rescue ""}, #{@payment.billing_state rescue ""} #{@payment.billing_zipcode rescue ""}" %><br />
+				<br />
+				<% if @payment && @payment.payment_method == "Credit Card" %>
+					Card ending in <%= @payment.payment_number %><br />
+				<% else %>
+					<%= @payment.payment_method rescue "" %> ending in <%= @payment.payment_number rescue "" %>
+				<% end %>
+			</p>
+		
+			<p>
+				Next billing amount: 
+				<% if @payment && @payment.days_left_until_rebill >= 365 %> 
+					<%= money_from_cents @payment.starting_amount_in_cents rescue "" %>
+				<% else %>
+					<%= money_from_cents @payment.regular_amount_in_cents rescue "" %>
+				<% end %>
+			</p>
+	  </section>
 		<p>
-			Billed to:<br />
-			<%= "#{@payment.billing_first_name} #{@payment.billing_last_name}" %><br />
-			<%= @payment.billing_address %><br />
-			<%= "#{@payment.billing_city}, #{@payment.billing_state} #{@payment.billing_zipcode}" %><br />
-			<br />
-			<% if @payment.payment_method == "Credit Card" %>
-				Card ending in <%= @payment.payment_number %><br />
+			<% if @payment %>
+				<%= link_to "Update Billing/Payment Information", edit_billing_path(@payment) %>
 			<% else %>
-				<%= @payment.payment_method %> ending in <%= @payment.payment_number %>
+				<%= link_to "Setup your billing information", new_billing_path %>
 			<% end %>
 		</p>
-		
-		<p>
-			Next billing amount: 
-			<% if @payment.days_left_until_rebill >= 365 %> 
-				<%= money_from_cents @payment.starting_amount_in_cents %>
-			<% else %>
-				<%= money_from_cents @payment.regular_amount_in_cents %>
-			<% end %>
-		</p>
-  </section>
-	<p><%= link_to "Update Billing/Payment Information", edit_billing_path(@payment) %></p>
+	<% else %>
+		<p>Your subscription has been cancelled!  <%= link_to "Setup your billing information", new_billing_path %></p>
+	<% end %>
 </div>

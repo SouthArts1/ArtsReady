@@ -83,6 +83,18 @@ class Payment < ActiveRecord::Base
     }
   end
   
+  def cancel
+    if self.cancel_subscription
+      if self.update_attributes({ active: false, end_date: Time.now })
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+  
   protected
   
   def create_and_process_subscription
@@ -116,29 +128,43 @@ class Payment < ActiveRecord::Base
   end
   
   def update_arb_subscription
-    arb_sub = build_subscription_object_for_update(self)
-    if self.payment_type == "cc"
-      expiry = get_expiry(self.expiry_month, self.expiry_year)
-      arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
-      self.payment_method = "Credit Card"
-      self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
-    elsif self.payment_type == "bank"
-      arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
-      logger.debug("Account Number: #{self.account_number}")
-      self.payment_method = "#{self.account_type.capitalize} Account"
-      self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
+    if self.end_date == nil && self.active?
+      arb_sub = build_subscription_object_for_update(self)
+      if self.payment_type == "cc"
+        expiry = get_expiry(self.expiry_month, self.expiry_year)
+        arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
+        self.payment_method = "Credit Card"
+        self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
+      elsif self.payment_type == "bank"
+        arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
+        logger.debug("Account Number: #{self.account_number}")
+        self.payment_method = "#{self.account_type.capitalize} Account"
+        self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
+      end
+      arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+      arb_tran.set_address(self.billing_address_for_transaction)
+      logger.debug("UPdated Payment Number to #{self.payment_number}")
+      # fire away!
+      response = arb_tran.update(arb_sub)
+      # response logging
+      logger.debug("Response: \n #{response.inspect}")
+      if response.success?
+        return true
+      else
+        return false
+      end
+      return true
     end
-    arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-    arb_tran.set_address(self.billing_address_for_transaction)
-    logger.debug("UPdated Payment Number to #{self.payment_number}")
-    # fire away!
-    response = arb_tran.update(arb_sub)
-    # response logging
-    logger.debug("Response: \n #{response.inspect}")
+  end
+  
+  def cancel_subscription
+    logger.debug("THIS IS WHERE DESTROY GOES")
+    arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
+    logger.debug("This is the ARB Id: #{self.arb_id}")
+    response = arb_tran.cancel(self.arb_id)
     if response.success?
       return true
-    else
-      return false
     end
+    return false
   end
 end
