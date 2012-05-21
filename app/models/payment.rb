@@ -136,6 +136,10 @@ class Payment < ActiveRecord::Base
     
     # Payment Authorization
     aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+    aim_tran.set_address(self.billing_address_for_transaction)
+    
+    logger.debug("Amount to authorize: #{(self.starting_amount_in_cents.to_f / 100)}")
+    
     if self.payment_method == "Credit Card"
       aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
     elsif self.payment_type == "bank"
@@ -143,6 +147,9 @@ class Payment < ActiveRecord::Base
     else
       return false
     end
+    
+    logger.debug("AIM RESPONSE SUCCESS????")
+    logger.debug("#{aim_response.inspect}")
     
     if aim_response.success?
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
@@ -160,6 +167,7 @@ class Payment < ActiveRecord::Base
         return false
       end
     else
+      logger.debug("aim response was not successful")
       return false
     end
   end

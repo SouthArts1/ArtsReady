@@ -33,7 +33,7 @@ class BillingController < ApplicationController
     start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
     regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
     
-    @payment = Payment.new({organization_id: obj[:organization_id], billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode],  expiry_month: obj["expiry_month(2i)"], expiry_year: obj["expiry_year(1i)"], payment_type: params[:payment_type]})
+    @payment = Payment.new({organization_id: obj[:organization_id], billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode],  expiry_month: obj["expiry_month(2i)"], expiry_year: obj["expiry_year(1i)"], payment_type: params[:payment_type], starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
     
     if obj[:discount_code_id]
       begin
