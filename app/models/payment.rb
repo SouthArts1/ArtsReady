@@ -133,17 +133,32 @@ class Payment < ActiveRecord::Base
       self.payment_method = "#{self.account_type.capitalize} Account"
       self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
     end
-    arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-    arb_tran.set_address(self.billing_address_for_transaction)
-    # fire away!
-    response = arb_tran.create(arb_sub)
-    # response logging
-    logger.debug("Response: \n #{response.inspect}")
-    if response.success?
-      self.arb_id = response.subscription_id
-      self.organization.update_attribute(:active, true)
-      self.active = true
-      return true
+    
+    # Payment Authorization
+    aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+    if self.payment_method == "Credit Card"
+      aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
+    elsif self.payment_type == "bank"
+      aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.bank_account)
+    else
+      return false
+    end
+    
+    if aim_response.success?
+      arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+      arb_tran.set_address(self.billing_address_for_transaction)
+      # fire away!
+      response = arb_tran.create(arb_sub)
+      # response logging
+      logger.debug("Response: \n #{response.inspect}")
+      if response.success?
+        self.arb_id = response.subscription_id
+        self.organization.update_attribute(:active, true)
+        self.active = true
+        return true
+      else
+        return false
+      end
     else
       return false
     end
@@ -163,19 +178,34 @@ class Payment < ActiveRecord::Base
         self.payment_method = "#{self.account_type.capitalize} Account"
         self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
       end
-      arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-      arb_tran.set_address(self.billing_address_for_transaction)
-      logger.debug("UPdated Payment Number to #{self.payment_number}")
-      # fire away!
-      response = arb_tran.update(arb_sub)
-      # response logging
-      logger.debug("Response: \n #{response.inspect}")
-      if response.success?
+      
+      # Payment Authorization
+      aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+      if self.payment_method == "Credit Card"
+        aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
+      elsif self.payment_type == "bank"
+        aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.bank_account)
+      else
+        return false
+      end
+      
+      if aim_response.success?
+        arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+        arb_tran.set_address(self.billing_address_for_transaction)
+        logger.debug("UPdated Payment Number to #{self.payment_number}")
+        # fire away!
+        response = arb_tran.update(arb_sub)
+        # response logging
+        logger.debug("Response: \n #{response.inspect}")
+        if response.success?
+          return true
+        else
+          return false
+        end
         return true
       else
         return false
       end
-      return true
     end
   end
   
