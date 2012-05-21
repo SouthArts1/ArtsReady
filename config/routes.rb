@@ -1,9 +1,9 @@
 Artsready::Application.routes.draw do
 
-  resources :payment_variables
-
   match "/billing/my_organization" => "billing#my_organization"
   match "/billing/cancel/(:id)" => "billing#cancel", :as => "billing_cancel"
+  match "/billing/new/(:code)" => "billing#new", :as => 'billing_new'
+  match "/billing/(:id)/edit/(:code)" => "billing#edit", :as => "billing_edit"
   resources :billing
 
   get "messages/create"
@@ -26,6 +26,8 @@ Artsready::Application.routes.draw do
     resources :pages, :only => [:index, :edit, :update]
     resources :questions
     resources :action_items
+    resources :discount_codes
+    resources :payment_variables
     root :to => 'home#dashboard', :as => "dashboard"
   end
 

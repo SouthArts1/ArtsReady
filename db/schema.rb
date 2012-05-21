@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516195606) do
+ActiveRecord::Schema.define(:version => 20120521151320) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -130,6 +130,19 @@ ActiveRecord::Schema.define(:version => 20120516195606) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "discount_codes", :force => true do |t|
+    t.string   "discount_code"
+    t.integer  "deduction_value"
+    t.string   "deduction_type"
+    t.integer  "redemption_max"
+    t.datetime "active_on"
+    t.datetime "expires_on"
+    t.boolean  "apply_to_first_year"
+    t.boolean  "apply_to_post_first_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", :force => true do |t|
     t.integer  "user_id"

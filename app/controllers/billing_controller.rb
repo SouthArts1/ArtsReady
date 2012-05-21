@@ -9,7 +9,18 @@ class BillingController < ApplicationController
         @organization = Organization.find(session[:organization_id])
       end 
       
-      @payment ||= Payment.new({organization_id: @organization.id, billing_first_name: @organization.name, billing_last_name: "", billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode })
+      start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
+      regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+      
+      @payment ||= Payment.new({organization_id: @organization.id, billing_first_name: @organization.name, billing_last_name: "", billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
+      
+      if params[:code]
+        d = DiscountCode.find_by_discount_code(params[:code])
+        if d
+          @payment.discount_code_id = d.id
+          @payment.validate_discount_code!
+        end
+      end
     else 
       redirect_to "/", notice: "Please contact ArtsReady for sign-in assistance."
     end
@@ -18,19 +29,27 @@ class BillingController < ApplicationController
   def create
     obj = params[:payment]
     @organization = Organization.find(obj[:organization_id])
-    @payment = Payment.new({organization_id: obj[:organization_id], billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode],  expiry_month: obj["expiry_month(2i)"], expiry_year: obj["expiry_year(1i)"], starting_amount_in_cents: 30000, regular_amount_in_cents: 22500, payment_type: params[:payment_type]})
+    
+    start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
+    regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+    
+    @payment = Payment.new({organization_id: obj[:organization_id], billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode],  expiry_month: obj["expiry_month(2i)"], expiry_year: obj["expiry_year(1i)"], payment_type: params[:payment_type]})
+    
+    if obj[:discount_code_id]
+      d = DiscountCode.find(obj[:discount_code_id])
+      @payment.discount_code_id = d.id
+      @payment.validate_discount_code!
+    end
+    
     if params[:payment_type] == "cc"
-      logger.debug("Payment via CC")
       @payment.number = obj[:number]
       @payment.ccv = obj[:ccv]
     elsif params[:payment_type] == "bank"
-      logger.debug("Payment via account")
       @payment.account_type = obj[:account_type].downcase
       @payment.bank_name = obj[:bank_name]
       @payment.routing_number = obj[:routing_number]
       @payment.account_number = obj[:account_number]
     else
-      logger.debug("No Payment")
       redirect_to :back, error: "There was a problem processing your request.  Please try again or contact ArtsReady"
     end
     if @payment.save
@@ -47,31 +66,54 @@ class BillingController < ApplicationController
     if current_user.organization != @payment.organization
       redirect_to :back, warning: "You cannot access that."
     end
+    if params[:code]
+      d = DiscountCode.find_by_discount_code(params[:code])
+      if d
+        @payment.discount_code_id = d.id
+        @payment.validate_discount_code!
+      end
+    end
   end
   
   def update
     obj = params[:payment]
     @organization = current_org
+    
+    start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
+    regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+    
     @payment = Payment.find(params[:payment][:id])
     
     if obj[:number] != nil
-      logger.debug("Payment via CC")
       @payment.number = obj[:number]
       @payment.ccv = obj[:ccv]
       @payment.payment_type = "cc"
     elsif obj[:account_number] != nil
-      logger.debug("Payment via account")
       @payment.account_type = obj[:account_type].downcase
       @payment.bank_name = obj[:bank_name]
       @payment.routing_number = obj[:routing_number]
       @payment.account_number = obj[:account_number]
       @payment.payment_type = "bank"
     else
-      logger.debug("No Payment")
       redirect_to :back, notice: "There was a problem processing your request.  Please try again or contact ArtsReady"
     end
-    logger.debug("Try updating")
-    if @payment.update_attributes({billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode],  expiry_month: obj[:expiry_month], expiry_year: obj["expiry_year(1i)"]})
+    
+    @payment.billing_first_name = obj[:billing_first_name] 
+    @payment.billing_last_name = obj[:billing_last_name] 
+    @payment.billing_address = obj[:billing_address] 
+    @payment.billing_city = obj[:billing_city] 
+    @payment.billing_state = obj[:billing_state] 
+    @payment.billing_zipcode = obj[:billing_zipcode]  
+    @payment.expiry_month = obj[:expiry_month] 
+    @payment.expiry_year = obj["expiry_year(1i)"]
+    
+    if obj[:discount_code_id]
+      d = DiscountCode.find(obj[:discount_code_id])
+      @payment.discount_code_id = d.id
+      @payment.validate_discount_code!
+    end
+    
+    if @payment.save
       logger.debug("G2G")
       redirect_to billing_my_organization_path
     else

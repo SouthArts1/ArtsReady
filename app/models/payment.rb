@@ -1,5 +1,6 @@
 class Payment < ActiveRecord::Base
   belongs_to :organization
+  belongs_to :discount_code
   
   attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
   
@@ -20,6 +21,25 @@ class Payment < ActiveRecord::Base
   
   def amount
     return self.amount_in_cents.to_f / 100
+  end
+  
+  def validate_discount_code!
+    start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
+    regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+    
+    d = self.discount_code
+    if d && d.is_valid?
+      if d.deduction_type == "percentage"
+        start_amount = start_amount.to_f * ((100 - d.deduction_value).to_f / 100) if d.apply_to_first_year?
+        regular_amount = regular_amount.to_f * ((100 - d.deduction_value).to_f / 100) if d.apply_to_post_first_year?
+      elsif d.deduction_type == "dollars"
+        start_amount = start_amount.to_f - (d.deduction_value * 100) if d.apply_to_first_year?
+        regular_amount = regular_amount.to_f - (d.deduction_value * 100) if d.apply_to_post_first_year?
+      end
+    end
+    
+    self.starting_amount_in_cents = start_amount
+    self.regular_amount_in_cents = regular_amount
   end
   
   def get_expiry(expiry_month, expiry_year)
@@ -56,6 +76,8 @@ class Payment < ActiveRecord::Base
   def build_subscription_object_for_update(payment)
     sub = AuthorizeNet::ARB::Subscription.new(
       subscription_id: self.arb_id,
+      amount: self.regular_amount_in_cents.to_f / 100,
+      trial_amount: self.starting_amount_in_cents.to_f / 100,
       billing_address: {
         first_name: (payment.billing_first_name rescue ""),
         last_name: (payment.billing_last_name rescue ""),

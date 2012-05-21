@@ -1,4 +1,4 @@
-class PaymentVariablesController < ApplicationController
+class Admin::PaymentVariablesController < Admin::AdminController
   # GET /payment_variables
   # GET /payment_variables.xml
   def index
@@ -44,7 +44,7 @@ class PaymentVariablesController < ApplicationController
 
     respond_to do |format|
       if @payment_variable.save
-        format.html { redirect_to(@payment_variable, :notice => 'Payment variable was successfully created.') }
+        format.html { redirect_to admin_payment_variables_path, :notice => 'Payment variable was successfully created.' }
         format.xml  { render :xml => @payment_variable, :status => :created, :location => @payment_variable }
       else
         format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class PaymentVariablesController < ApplicationController
 
     respond_to do |format|
       if @payment_variable.update_attributes(params[:payment_variable])
-        format.html { redirect_to(@payment_variable, :notice => 'Payment variable was successfully updated.') }
+        format.html { redirect_to admin_payment_variable_path(@payment_variable), :notice => 'Payment variable was successfully updated.' }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -76,7 +76,7 @@ class PaymentVariablesController < ApplicationController
     @payment_variable.destroy
 
     respond_to do |format|
-      format.html { redirect_to(payment_variables_url) }
+      format.html { redirect_to admin_payment_variables_path }
       format.xml  { head :ok }
     end
   end
