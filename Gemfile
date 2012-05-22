@@ -30,6 +30,10 @@ gem 'delayed_job'
 
 gem 'authorize-net', '1.5.2', :path => "vendor/gems/authorize-net-1.5.2"
 
+# Production dependencies. Keeping these in the default gem group so
+# we'll automatically keep them compatible while developing.
+gem 'thin'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'
