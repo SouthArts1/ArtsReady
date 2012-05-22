@@ -13,14 +13,27 @@ Feature: Todo list
   Scenario: A user adds a todo
     Given a user
     When I go to the todos page
-    And I select "Start" from "todo[status]"
+    And I select "Start" from "todo[action]"
     And I fill in "todo[description]" with "some task"
     And I select "People Resources" from "todo[critical_function]"
     And I press "Add"
     Then I should be on the todos page
     And I should see "some task" within ".item"
+    And I should see "Start" within ".action"
     #And there should only be one item
     And I should see "successfully created" within ".flash-notice"
+
+  Scenario: A user adds a todo from the assessment
+    Given a user
+    And I have started an assessment
+    When I go to the assessment page
+    And I select "Start" from "todo[action]"
+    And I fill in "todo[description]" with "some task"
+    And I select "People Resources" from "todo[critical_function]"
+    And I press "Add"
+    And I go to the todos page
+    Then I should see "some task" within ".item"
+    And I should see "Start" within ".action"
 
   Scenario: Export todos
     Given I am signed in as an editor
