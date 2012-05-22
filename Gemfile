@@ -30,6 +30,7 @@ gem 'delayed_job'
 # we'll automatically keep them compatible while developing.
 gem 'thin'
 gem 'newrelic_rpm'
+gem 'foreman'
 
 group :assets do
   gem 'sass-rails'
