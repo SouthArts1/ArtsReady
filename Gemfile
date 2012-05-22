@@ -25,6 +25,11 @@ gem 'gibbon', '0.3.0'
 gem 'rack-ssl', :require => 'rack/ssl'
 gem 'delayed_job'
 
+# Production dependencies. Keeping these in the default gem group so
+# we'll automatically keep them compatible while developing.
+gem 'thin'
+gem 'newrelic_rpm'
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -60,3 +65,4 @@ group :test do
   gem 'shoulda'
   gem 'simplecov'
 end
+
