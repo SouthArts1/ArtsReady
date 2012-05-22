@@ -7,6 +7,7 @@
       <thead>
         <tr>
           <th><p>Code</p></th>
+					<th><p>Description</p></th>
           <th><p>Deduction</p></th>
           <th><p>Max Usages</p></th>
           <th><p>Active</p></th>
@@ -18,6 +19,7 @@
         <% @discount_codes.each do |code| %>
           <tr>
             <td class="name"><p><%= code.discount_code %></p></td>
+						<td class="description"><p><%= code.description %></p></td>
             <td class="members"><p><%= code.total_deduction %></p></td>
             <td class="activity"><p><%= code.redemption_max %></p></td>
             <td class="assessment"><p><%= code.active_on.strftime("%m/%d/%Y") %></p></td>

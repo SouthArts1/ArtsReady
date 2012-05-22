@@ -58,7 +58,7 @@ class Payment < ActiveRecord::Base
       amount: self.regular_amount_in_cents.to_f / 100,
       trial_amount: self.starting_amount_in_cents.to_f / 100,
       trial_occurrences: 1,
-      description: "#{payment.organization.name} subscription for ArtsReady to help arts organizations plan for the best, and prepare for the worst",
+      description: "#{payment.organization.name} subscription for ArtsReady",
       billing_address: {
         first_name: (payment.billing_first_name rescue ""),
         last_name: (payment.billing_last_name rescue ""),
@@ -138,8 +138,6 @@ class Payment < ActiveRecord::Base
     aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
     aim_tran.set_address(self.billing_address_for_transaction)
     
-    logger.debug("Amount to authorize: #{(self.starting_amount_in_cents.to_f / 100)}")
-    
     if self.payment_method == "Credit Card"
       aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
     elsif self.payment_type == "bank"
@@ -148,16 +146,12 @@ class Payment < ActiveRecord::Base
       return false
     end
     
-    logger.debug("AIM RESPONSE SUCCESS????")
-    logger.debug("#{aim_response.inspect}")
-    
     if aim_response.success?
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
       arb_tran.set_address(self.billing_address_for_transaction)
       # fire away!
       response = arb_tran.create(arb_sub)
       # response logging
-      logger.debug("Response: \n #{response.inspect}")
       if response.success?
         self.arb_id = response.subscription_id
         self.organization.update_attribute(:active, true)
@@ -167,7 +161,6 @@ class Payment < ActiveRecord::Base
         return false
       end
     else
-      logger.debug("aim response was not successful")
       return false
     end
   end

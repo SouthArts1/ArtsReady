@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521151320) do
+ActiveRecord::Schema.define(:version => 20120522011247) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20120521151320) do
     t.boolean  "apply_to_post_first_year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
   create_table "messages", :force => true do |t|
