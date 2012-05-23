@@ -13,7 +13,7 @@ class Message < ActiveRecord::Base
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
   
   def self.for_organization(org)
-    for_public + from_buddy(org.battle_buddy_list)
+    (for_public + from_buddy(org.battle_buddy_list)).sort_by(&:created_at).reverse
   end
 
 end

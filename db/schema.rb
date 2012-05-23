@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421203732) do
+ActiveRecord::Schema.define(:version => 20120516024255) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120421203732) do
     t.text     "resolution"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "visibility",      :default => "private"
+    t.string   "visibility"
     t.integer  "user_id"
     t.string   "description"
     t.string   "buddy_list"
