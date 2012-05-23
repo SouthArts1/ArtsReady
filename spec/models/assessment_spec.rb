@@ -17,4 +17,14 @@ describe Assessment do
     it { Assessment.new(answers_count: 10, completed_answers_count: 10).is_complete?.should be_true }
   end
   
+  context 'on creation' do
+    let!(:question) { Factory.create(:question) }
+    let(:assessment) { Factory.create(:assessment) }
+
+    it 'should generate blank answers to all questions' do
+      assessment.answers.should be_present
+      assessment.answers.answered.should be_blank
+      assessment.questions.should == Question.all
+    end
+  end
 end
