@@ -31,11 +31,9 @@ gem 'thin'
 gem 'newrelic_rpm'
 gem 'foreman'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 group :test, :development do
   gem 'rspec-rails'
