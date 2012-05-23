@@ -49,6 +49,9 @@ module Artsready
     # Don't require DB when precpiling (because Heroku doesn't supply it).
     config.assets.initialize_on_precompile = false
 
+    # Precompile scripts not included in application.js.
+    config.assets.precompile += %w(gmaps4rails/*.js)
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
