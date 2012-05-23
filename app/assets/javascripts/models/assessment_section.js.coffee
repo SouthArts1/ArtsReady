@@ -11,3 +11,5 @@ class Artsready.Models.AssessmentSection extends Backbone.RelationalModel
     }
   ]
 
+  isCurrent: =>
+    @get('assessment').get('current_section') == @get('name')

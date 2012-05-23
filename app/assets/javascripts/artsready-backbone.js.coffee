@@ -5,7 +5,8 @@ window.Artsready =
   Routers: {}
   init: (data) ->
     @assessment = new Artsready.Models.Assessment(data.assessment)
-    new Artsready.Routers.Assessments(assessment: @assessment)
+    @assessmentsRouter =
+      new Artsready.Routers.Assessments(assessment: @assessment)
     Backbone.history.start(pushState: true)
 
 $(document).ready ->
