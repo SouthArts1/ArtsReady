@@ -3,6 +3,9 @@ class Artsready.Views.AssessmentsNav extends Backbone.View
   tagName: 'ul'
   className: 'top-nav'
 
+  initialize: =>
+    @model.on('change:current_section', @render)
+
   events:
     'click a': 'changeSection'
 
