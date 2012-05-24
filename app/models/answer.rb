@@ -65,6 +65,7 @@ class Answer < ActiveRecord::Base
   def as_json(options = nil)
     options ||= {}
 
+    # TODO: hide irrelevant attributes
     super(options.merge(:methods => [
       :answered,
       :question_help_html,
