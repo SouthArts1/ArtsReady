@@ -62,7 +62,7 @@
     </div>
     
     <table id="messages">
-    <%= render :partial => 'message', :collection => @messages %>
+    <%= render :partial => 'message', :collection => @messages.first(5) %>
     </table>
   </section>
 </div>
