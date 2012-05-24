@@ -1031,6 +1031,8 @@ tbody {
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
 
+p.button { padding: 0; border: none; } // why do we even have p.buttons?
+
 .button.weak, a.button.weak, input[type="submit"].weak {
   background: #999;
   font-weight: normal;
