@@ -1346,6 +1346,9 @@ td.action {white-space: nowrap;}
   bottom: 35px;
 }
 
+#todo_user_id {
+  max-width: 100px; }
+
 input[type="submit"].todo-note-submit {
   padding-left: 0;
   background: none;

@@ -6,6 +6,7 @@ class CrisesController < ApplicationController
   
   def new
     @crisis = current_org.crises.build(:user_id => current_user.id)
+    @crisis.visibility = 'public' if current_org.battle_buddies.empty?
   end
   
   def edit
@@ -44,7 +45,7 @@ class CrisesController < ApplicationController
     if @crisis.save
       redirect_to dashboard_path, :notice => 'Crisis declared!'
     else
-      redirect_to dashboard_path, :notice => 'Crisis could not be declared'
+      render :action => "new"
     end
   end
 
