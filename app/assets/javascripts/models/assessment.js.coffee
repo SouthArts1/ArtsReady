@@ -11,4 +11,5 @@ class Artsready.Models.Assessment extends Backbone.RelationalModel
   ]
 
   section: (name) => @get('sections').findByName(name)
+  currentSection: => @section(@get('current_section'))
 
