@@ -1,3 +1,13 @@
+module TodoStepHelper
+  def go_to_todo(label)
+    click_link 'To-Do'
+    within find('tr', :text => Regexp.new(Regexp.quote(label))) do
+      click_link 'Details'
+    end
+  end
+end
+World(TodoStepHelper)
+
 Given /^I have created a todo item$/ do
   @current_todo = Factory.create(:todo,
     :user => @current_user, :organization => @current_user.organization)
@@ -11,6 +21,12 @@ Given /^I have created the following to-?do items:$/ do |table|
     todo = @current_user.organization.todos.build(attributes)
     todo.save!
   end
+end
+
+Given /^I have completed the "([^"]*)" todo$/ do |label|
+  go_to_todo(label)
+  check 'Completed?'
+  click_button 'Save and Return to List'
 end
 
 When /^I add an article titled "(.*)" to the todo item$/ do |title|
@@ -39,4 +55,15 @@ Then /^I should see the following todos:$/ do |table|
 
     table.diff!([table.headers, *actual_cells])
   end
+end
+
+Then /^the "([^"]*)" todo should be recreated$/ do |label|
+  go_to_todo(label)
+  find_field('Completed?')['checked'].should be_true
+  find('.log').should have_content('Recreated')
+end
+
+Then /^the "([^"]*)" todo's history should be preserved$/ do |label|
+  go_to_todo(label)
+  find('.log').should have_content('to Complete') # status changed...
 end

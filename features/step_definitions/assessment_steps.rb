@@ -47,6 +47,11 @@ When /^I answer "(.*)" with "(.*)"$/ do |question, answer|
   end
 end
 
+When /^I answer the "(.*)" question$/ do |question|
+  be_on assessment_path
+  step %{I answer "#{question}" with "ready/critical"}
+end
+
 Then /^I should (?:get|have) a(nother)? re-assessment to-do$/ do |nother|
   visit path_to 'the todos page'
   page.should have_xpath('//*', :text => 'Archive and Re-Assess', :count => nother ? 2 : 1)
@@ -59,7 +64,7 @@ When /^I initiate a re-assessment$/ do
   click_button 'Archive and Re-Assess'
 end
 
-When /^I start the re\-assessment$/ do
+When /^I start (?:the|a) re\-assessment$/ do
   be_on 'the new assessment page'
   click_button 'Begin Assessment &raquo;'
 end
