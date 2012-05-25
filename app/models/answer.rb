@@ -20,6 +20,12 @@ class Answer < ActiveRecord::Base
   after_update :add_todo_items#, :unless => "was_skipped == true"
   after_update :answered_count
 
+  scope :pending, where(
+    '(NOT was_skipped OR was_skipped IS NULL) AND
+    preparedness IS NULL AND
+    priority IS NULL'
+  )
+  
   scope :for_critical_function, proc {|critical_function| 
     includes(:question).
     where(['questions.critical_function = ?', critical_function])

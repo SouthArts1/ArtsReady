@@ -49,3 +49,23 @@ Feature: Assessment
   Scenario: I should be able to navigate the required critical functions
   Scenario: I should be able to choose the optional critical functions by default
   Scenario: I should not be able to navigate to critical functions I skipped
+
+  Scenario: Re-assessment
+    Given an active question exists
+    And I have signed in as an editor
+    And I have started an assessment
+    When a week passes
+    And I finish the assessment
+    And 340 days pass
+    Then I should have a re-assessment to-do
+    
+    When I initiate a re-assessment
+    Then the re-assessment sections should be based on the previous assessment
+    
+    When I start the re-assessment
+    Then I should have 1 archived assessment
+    
+    When I finish the re-assessment
+    And 11 months pass
+    Then I should have another re-assessment to-do
+        

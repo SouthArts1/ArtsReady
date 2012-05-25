@@ -11,6 +11,16 @@ Given /^I have finished an assessment$/ do
   Factory.create(:completed_assessment, :organization => @current_user.organization)
 end
 
+When /^I finish the (?:re-)?assessment$/ do
+  answers = @current_user.assessment.answers
+  last_answer = answers.last
+  answers.pending.where(['id <> ?', last_answer]).update_all('was_skipped = true')
+  visit assessment_path(:tab => last_answer.critical_function)
+  choose "critical"
+  choose "needs work"
+  click_button "save answer"
+end
+
 Given /^I have provided the following answers:$/ do |table|
   step "I have started an assessment"
 
@@ -35,4 +45,31 @@ When /^I answer "(.*)" with "(.*)"$/ do |question, answer|
       click_button('save answer')
     end
   end
+end
+
+Then /^I should (?:get|have) a(nother)? re-assessment to-do$/ do |nother|
+  visit path_to 'the todos page'
+  page.should have_xpath('//*', :text => 'Archive and Re-Assess', :count => nother ? 2 : 1)
+  click 'details'
+  Date.parse(find_field('Due Date').value).should == @current_user.assessment.completed_at
+end
+
+When /^I initiate a re-assessment$/ do
+  visit path_to 'the assessment'
+  click_button 'Archive and Re-Assess'
+end
+
+When /^I start the re\-assessment$/ do
+  be_on 'the new assessment page'
+  click_button 'Begin Assessment &raquo;'
+end
+
+Then /^the re-assessment sections should be based on the previous assessment$/ do
+  pending # wait until we figure out how this UI should work
+end
+
+Then /^I should have (\d+) archived assessments?$/ do |count|
+  follow 'Settings'
+  follow 'Archived Assessments'
+  page.should have_selector('table.assessments tbody tr', :count => count)
 end
