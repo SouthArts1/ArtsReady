@@ -1492,6 +1492,14 @@ table#messages {
   padding: 10px; }
 
 /*Crises*/
+.needs .need_call {
+  padding: 0; }
+  .needs .need_call .need_description {
+    font-weight: bold;
+    font-size: 1.1em; }
+  .needs .need_call .need_provided {
+    color: #888; }
+
 .crisis_advice p {
   margin: 10px 10px 10px 0; }
 

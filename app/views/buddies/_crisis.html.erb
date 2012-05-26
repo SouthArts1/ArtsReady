@@ -1,9 +1,7 @@
 <% unless crisis.organization == current_org %>
 <div class="buddy">
   <h3 class="name plain"><%= link_to crisis.organization.name, buddy_path(crisis.organization) %></h3>
-  <div class="address"><%= crisis.organization.full_street_address %></div>
-  <div class="privacy">Privacy setting: <%= crisis.visibility.humanize %></div>
-  <div class="needs">Needs: <%= crisis.needs.collect(&:resource).join(",")  %></div>
+  <div class="address"><%= crisis.organization.full_street_address %></div>  
   <% if current_org.battle_buddies.collect(&:id).include?(crisis.organization.id) %>
   <div class="contact"><%= crisis.organization.email %> <%= crisis.organization.phone_number %></div>
   <% elsif current_org.battle_buddy_requests_received.collect(&:organization_id).include?(crisis.organization.id) %>
@@ -17,5 +15,13 @@
     <%= f.submit 'Add as Battle Buddy' %>
     <% end %>
   <% end %>
+  <div class="privacy">Privacy setting: <%= crisis.visibility.humanize %></div>
+  <div class="needs">Needs: 
+    <ul class="need_call">    
+      <% crisis.needs.each do |need| %>
+        <li><span class="<%= 'need_provided' if need.provided? %>"><span class='need_description'><%= need.resource  %></span>: <%= need.description %></span></li>
+      <% end %>
+    </ul>
   </div>
+</div>
 <% end %>
