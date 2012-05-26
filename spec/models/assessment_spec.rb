@@ -51,4 +51,15 @@ describe Assessment do
       todo.due_on.should == completed_at.to_date + 1.year
     end
   end
+  
+  describe '.pending_reassessment_todo' do
+    it 'means 11 months since completion and not yet served a reassessment todo' do
+      too_new = Factory.create(:assessment, :completed_at => 45.weeks.ago)
+      already_served = Factory.create(:assessment, :completed_at => 50.weeks.ago)
+      already_served.create_reassessment_todo
+      in_need = Factory.create(:assessment, :completed_at => 50.weeks.ago)
+      
+      Assessment.pending_reassessment_todo.should == [in_need]
+    end
+  end
 end
