@@ -1460,6 +1460,9 @@ table#messages {
       width: 5%; }
       table#messages td.badge .date {
         color: #777; }
+      table#messages td.badge .message_delete input[type="submit"] {
+        font-size: .75em;
+        padding: 3px 5px; }
     table#messages td.from {
       vertical-align: top;
       width: 35%; }
