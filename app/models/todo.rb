@@ -25,7 +25,9 @@ class Todo < ActiveRecord::Base
   scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
   scope :in_action_order, order('complete')
   scope :completed, where(:complete => true)
-  scope :nearing_due_date, where("complete IS NOT true AND due_on < ?",2.days.from_now.end_of_day)
+  scope :nearing_due_date, lambda {
+    where("complete IS NOT true AND due_on < ?", 2.days.from_now.end_of_day)
+  }
 
   PRIORITY = ['critical', 'non-critical']
   NEXT_ACTIONS = { 'Review' => 'ready', 'Start' => 'not ready', 'Learn About' => 'unknown', 'Work On' => 'needs work' }
