@@ -1,6 +1,7 @@
 class Assessment < ActiveRecord::Base
 
   belongs_to :organization
+  has_many :users, :through => :organization
   has_many :answers, :dependent => :destroy
   has_many :todos, :through => :answers
 
@@ -15,6 +16,21 @@ class Assessment < ActiveRecord::Base
     (completed_answers_count + skipped_answers_count) == answers_count
   end
   
+  def check_complete
+    if !completed_at && is_complete?
+      update_attribute :completed_at, Time.zone.now
+    end
+  end
+  
+  def create_reassessment_todo
+    organization.todos.create(
+      :critical_function => 'people', :user => users.first,
+      :priority => 'critical', :due_on => completed_at.to_date + 1.year,
+      :description => 'Review your readiness assessment annually.
+      To begin, go to your assessment and click "Archive and Re-Assess".'
+    )
+  end
+
   def self.critical_function_title(critical_function)
     ArtsreadyDomain::CRITICAL_FUNCTIONS.detect do |hash|
       hash[:name] == critical_function

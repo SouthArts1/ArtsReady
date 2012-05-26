@@ -16,7 +16,7 @@ class Answer < ActiveRecord::Base
   validates_presence_of :preparedness, :on => :update, :unless => :was_skipped?
   validates_presence_of :priority, :on => :update, :unless => :was_skipped?
 
-
+  before_update :check_assessment_complete
   after_update :add_todo_items#, :unless => "was_skipped == true"
   after_update :answered_count
 
@@ -52,5 +52,13 @@ class Answer < ActiveRecord::Base
 
   def critical_function_title
     Assessment.critical_function_title(critical_function)
+  end
+  
+  def check_assessment_complete
+    if (was_skipped? && was_skipped_changed?) ||
+      (preparedness.present? && priority.present? &&
+      (preparedness_changed? && priority_changed?))
+      assessment.check_complete
+    end
   end
 end
