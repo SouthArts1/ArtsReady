@@ -6,7 +6,7 @@
     <%= link_to "Get Started &raquo;".html_safe , new_assessment_path, :class => "button button-join"  %>
   </p>
 </section>
-<% elsif current_org.assessment && !current_org.assessment_is_complete? %>
+<% elsif current_org.assessment && !current_org.assessment_complete? %>
 <section class="readiness-intro">
   <h2>Welcome Back!</h2>
   <p style="margin-bottom:20px;">Continue with your organization's readiness planning, check out your Critical Stuff, or just browse the Library for the latest additions.</p>

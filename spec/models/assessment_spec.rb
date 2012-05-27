@@ -7,31 +7,31 @@ describe Assessment do
   
   context "default values" do
     subject { Factory.create(:assessment) }
-    it {subject.is_complete?.should be_false} 
+    it {subject.complete?.should be_false} 
     it {subject.percentage_complete.should be_zero} 
   end
   
-  describe "#is_complete?" do
-    it { Assessment.new(answers_count: 10, completed_answers_count: 0).is_complete?.should be_false }
-    it { Assessment.new(answers_count: 10, completed_answers_count: 5).is_complete?.should be_false }
-    it { Assessment.new(answers_count: 10, completed_answers_count: 10).is_complete?.should be_true }
+  describe "#complete?" do
+    it { Assessment.new(answers_count: 10, completed_answers_count: 0).should_not be_complete }
+    it { Assessment.new(answers_count: 10, completed_answers_count: 5).should_not be_complete }
+    it { Assessment.new(answers_count: 10, completed_answers_count: 10).should be_complete }
   end
   
   describe '#check_complete' do
     it 'records when the last question is answered or skipped' do
       assessment = Factory.create(:assessment)
-      assessment.stub(:is_complete?) { false }
+      assessment.stub(:complete?) { false }
       assessment.check_complete
       assessment.completed_at.should be_nil
       
       time = Time.now
       Timecop.freeze(time)
-      assessment.stub(:is_complete?) { true }
+      assessment.stub(:complete?) { true }
       assessment.check_complete
       assessment.completed_at.should == time
       
       Timecop.freeze(time + 1.day)
-      assessment.stub(:is_complete?) { true }
+      assessment.stub(:complete?) { true }
       assessment.check_complete
       assessment.completed_at.should == time # still
     end

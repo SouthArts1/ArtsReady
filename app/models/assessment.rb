@@ -11,13 +11,13 @@ class Assessment < ActiveRecord::Base
 
   after_create :populate_empty_answers
 
-  def is_complete?
+  def complete?
     return false unless answers_count > 0
     (completed_answers_count + skipped_answers_count) == answers_count
   end
   
   def check_complete
-    if !completed_at && is_complete?
+    if !completed_at && complete?
       update_attribute :completed_at, Time.zone.now
     end
   end

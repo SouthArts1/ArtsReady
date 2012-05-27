@@ -43,7 +43,7 @@ class Organization < ActiveRecord::Base
   scope :nearing_expiration, where('0=1')
   scope :in_crisis, includes(:crisis).where('crises.resolved_on IS NULL')
   
-  delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
+  delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
   
