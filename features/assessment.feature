@@ -53,14 +53,15 @@ Feature: Assessment
   Scenario: Re-assessment
     Given an active question exists
     And I have signed in as an editor
-    And I have started an assessment
+    And I have started an assessment with facilities
     When a week passes
     And I finish the assessment
     And 340 days pass
+    And the scheduled tasks have run
     Then I should have a re-assessment to-do
     
     When I initiate a re-assessment
-    Then the re-assessment sections should be based on the previous assessment
+    Then "We have our own space/facility" should be checked
     
     When I start the re-assessment
     Then I should have 1 archived assessment
