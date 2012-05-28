@@ -1,11 +1,8 @@
 <h1>Our Team</h1>
 
-<ul class="top-nav settings">
-    <li><%= link_to 'My Info', profile_path %></li>
-    <li><%= link_to "Organization", edit_organization_path(current_org) %></li>
-    <li class="active"><%= link_to "Our Team", organization_users_path(current_org) %></li>
-    <li><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
-</ul>
+<div class="grid_12 alpha">
+  <%= render :partial => '/shared/settings_navbar', :locals => {:current_settings_tab => :our_team} %>
+</div>
 
 <div class="grid_12">
   <section>
