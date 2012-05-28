@@ -61,10 +61,11 @@ Feature: Assessment
     Then I should have a re-assessment to-do
     
     When I initiate a re-assessment
-    Then "We have our own space/facility" should be checked
+    Then the "We have our own space/facility" checkbox should be checked
     
     When I start the re-assessment
     Then I should have 1 archived assessment
+    And I should be able to view the archived assessment
     
     When I finish the re-assessment
     And 11 months pass

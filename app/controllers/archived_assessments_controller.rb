@@ -1,0 +1,3 @@
+class ArchivedAssessmentsController < ApplicationController
+
+end

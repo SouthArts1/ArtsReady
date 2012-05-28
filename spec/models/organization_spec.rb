@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Organization do
-
   subject { Organization.new }
   
   it { should have_many(:articles) }
+  it { should have_many(:assessments) }
   it { should have_many(:battle_buddy_requests) }
   it { should have_many(:crises) }
   it { should have_many(:resources) }
@@ -23,6 +23,28 @@ describe Organization do
   it {subject.declared_crisis?.should be_false}
   it {subject.active?.should be_false}
   it {subject.is_approved?.should be_false}
+  
+  context 'given multiple assessments' do
+    let(:organization) { Factory.create(:organization) }
+    let!(:first_assessment) {
+      Factory.create(:assessment, :organization => organization)
+    }
+    let!(:second_assessment) {
+      Factory.create(:assessment, :organization => organization)
+    }
+
+    describe '.assessment' do
+      it 'is the latest assessment' do
+        organization.assessment.should == second_assessment
+      end
+    end
+    
+    describe '.archived_assessments' do
+      it 'are all but the latest assessment' do
+        organization.archived_assessments.should == [first_assessment]
+      end
+    end
+  end
   
   context "geocoding address" do
     it "should geocode address when created" do

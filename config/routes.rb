@@ -49,6 +49,7 @@ Artsready::Application.routes.draw do
     resources :needs, :only => [:create, :edit, :update]
   end
 
+  resources :archived_assessments, :only => [:index, :show]
   resource :assessment, :only => [:new, :create, :show]
   resources :answers, :only => [:update] do
     member do

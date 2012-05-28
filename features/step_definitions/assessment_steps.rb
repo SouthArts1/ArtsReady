@@ -78,3 +78,10 @@ Then /^I should have (\d+) archived assessments?$/ do |count|
   follow 'Archived Assessments'
   page.should have_selector('table.assessments tbody tr', :count => count)
 end
+
+Then /^I should be able to view the archived assessments?$/ do
+  be_on archived_assessments_path
+  click_link 'details'
+  assessment = @current_user.organization.archived_assessments.last
+  current_path.should == archived_assessment_path(assessment)
+end
