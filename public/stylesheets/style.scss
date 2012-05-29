@@ -315,24 +315,24 @@ button {
 
 @font-face {
   font-family: 'AdelleLight';
-  src: font-url("typetogether_adelle-light-webfont.eot");
-  src: font-url("typetogether_adelle-light-webfont.eot?iefix") format("eot"), font-url("typetogether_adelle-light-webfont.woff") format("woff"), font-url("typetogether_adelle-light-webfont.ttf") format("truetype"), font-url("typetogether_adelle-light-webfont.svg#webfontauKhmN1B") format("svg");
+  src: url("../fonts/typetogether_adelle-light-webfont.eot");
+  src: url("../fonts/typetogether_adelle-light-webfont.eot?iefix") format("eot"), url("../fonts/typetogether_adelle-light-webfont.woff") format("woff"), url("../fonts/typetogether_adelle-light-webfont.ttf") format("truetype"), url("../fonts/typetogether_adelle-light-webfont.svg#webfontauKhmN1B") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 
 @font-face {
   font-family: 'AdelleRegular';
-  src: font-url("typetogether_adelle-regular-webfont.eot");
-  src: font-url("typetogether_adelle-regular-webfont.eot?iefix") format("eot"), font-url("typetogether_adelle-regular-webfont.woff") format("woff"), font-url("typetogether_adelle-regular-webfont.ttf") format("truetype"), font-url("typetogether_adelle-regular-webfont.svg#webfont4Tg7qTLx") format("svg");
+  src: url("../fonts/typetogether_adelle-regular-webfont.eot");
+  src: url("../fonts/typetogether_adelle-regular-webfont.eot?iefix") format("eot"), url("../fonts/typetogether_adelle-regular-webfont.woff") format("woff"), url("../fonts/typetogether_adelle-regular-webfont.ttf") format("truetype"), url("../fonts/typetogether_adelle-regular-webfont.svg#webfont4Tg7qTLx") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 
 @font-face {
   font-family: 'AdelleSemiBold';
-  src: font-url("typetogether_adelle-semibold-webfont.eot");
-  src: font-url("typetogether_adelle-semibold-webfont.eot?iefix") format("eot"), font-url("typetogether_adelle-semibold-webfont.woff") format("woff"), font-url("typetogether_adelle-semibold-webfont.ttf") format("truetype"), font-url("typetogether_adelle-semibold-webfont.svg#webfontszW17qU2") format("svg");
+  src: url("../fonts/typetogether_adelle-semibold-webfont.eot");
+  src: url("../fonts/typetogether_adelle-semibold-webfont.eot?iefix") format("eot"), url("../fonts/typetogether_adelle-semibold-webfont.woff") format("woff"), url("../fonts/typetogether_adelle-semibold-webfont.ttf") format("truetype"), url("../fonts/typetogether_adelle-semibold-webfont.svg#webfontszW17qU2") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -412,7 +412,7 @@ h1.logo {
     height: 90px;
     margin: 10px 5px 0 0;
     text-indent: -9999px;
-    background: image-url("logo.png") no-repeat; }
+    background: url("../images/logo.png") no-repeat; }
   .company-name {
     color: #28387d;
     display: block;
@@ -512,7 +512,7 @@ header nav {
     width: 75px;
     border: none; }
   input[type="text"] {
-    background: white image-url("icon-search.png") 7px 5px no-repeat; } }
+    background: white url("../images/icon-search.png") 7px 5px no-repeat; } }
 
 .content .container {
   background: #fff;
@@ -549,19 +549,19 @@ header nav {
   background-repeat: no-repeat; }
 
 .icon-print {
-  background-image: image-url("icon-printer.png"); }
+  background-image: url("../images/icon-printer.png"); }
 
 .icon-share {
-  background-image: image-url("icon-share.png"); }
+  background-image: url("../images/icon-share.png"); }
 
 .icon-email {
-  background-image: image-url("icon-email.png"); }
+  background-image: url("../images/icon-email.png"); }
 
 .icon-list {
-  background-image: image-url("icon-list.png"); }
+  background-image: url("../images/icon-list.png"); }
 
 .icon-delete {
-  background-image: image-url("icon-delete.png"); }
+  background-image: url("../images/icon-delete.png"); }
 
 .icon-action, .icon-resources {
   padding: 5px 0 5px 40px;
@@ -569,10 +569,10 @@ header nav {
   background-repeat: no-repeat; }
 
 .icon-action {
-  background-image: image-url("icon-action.png"); }
+  background-image: url("../images/icon-action.png"); }
 
 .icon-resources {
-  background-image: image-url("icon-resources.png"); }
+  background-image: url("../images/icon-resources.png"); }
 
 .comments li {
   list-style: none;
@@ -764,7 +764,7 @@ tbody {
   margin-top: -30px;
   height: 20px;
   width: 20px;
-  background: image-url("icon-check.png") no-repeat;
+  background: url("../images/icon-check.png") no-repeat;
   text-indent: -9999px; }
 
 .top-nav {
@@ -777,6 +777,7 @@ tbody {
     a {
       list-style: none;
       display: block;
+      float: left;
       padding: 5px 10px;
       color: #444;
       box-shadow: 0px 1px 2px rgba(255, 255, 255, 0.5) inset;
@@ -828,24 +829,18 @@ tbody {
       color: #ccc; } }
   &.answered {
     background: #fff;
-    .response {
-      background: image-url("icon-check.png") no-repeat 0px center;
-    }
     &.not-applicable {
       background: #eee; } }
-  input[type=submit].linklike { color: #666; }
-  .respond { margin-bottom: 10px; }
-  .skip_answer, .reconsider_answer {
-    display: block; color: #666;
-    cursor: pointer; text-decoration: underline;
-  }
   .response {
     float: left;
     margin-right: 20px;
     padding: 10px;
     padding-left: 30px;
     width: 90px;
-  }
+    height: 50px;
+    margin-bottom: 20px;
+    &.answered {
+      background: url("../images/icon-check.png") no-repeat 0px center; } }
   .explain {
     float: left;
     width: 200px;
@@ -869,9 +864,7 @@ tbody {
   .answer {
     width: 500px;
     float: left;
-    margin-right: 20px; }
-  .prompt { border: none; }
-}
+    margin-right: 20px; } }
 
 /*  Org Admin */
 
@@ -968,7 +961,7 @@ tbody {
 
 .editable {
   padding-right: 20px;
-  /*  background: image-url("icon-pencil.png") right top no-repeat; */ }
+  /*  background: url("../images/icon-pencil.png") right top no-repeat; */ }
 
 .filter {
   text-align: right;
@@ -999,7 +992,7 @@ tbody {
   left: 0;
   display: block;
   z-index: 2;
-  background: #cbe2f2 image-url("bg-progress.png"); }
+  background: #cbe2f2 url("../images/bg-progress.png"); }
 
 .progress-percent {
   position: relative;
@@ -1036,13 +1029,7 @@ tbody {
   background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #c31d29);
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  &:disabled {
-    opacity: 0.3;
-  }
-}
-
-p.button { padding: 0; border: none; } // why do we even have p.buttons?
+  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
 
 .button.weak, a.button.weak, input[type="submit"].weak {
   background: #999;
@@ -1122,7 +1109,7 @@ table .selector {
   float: left;
   margin: 9px 5px 0;
   cursor: pointer;
-  background: image-url("icon-arrows.png") no-repeat;
+  background: url("../images/icon-arrows.png") no-repeat;
   text-indent: -9999px; }
 
 .ui-datepicker-next {
@@ -1132,7 +1119,7 @@ table .selector {
   float: left;
   margin: 9px 5px 0;
   cursor: pointer;
-  background: image-url("icon-arrows.png") no-repeat;
+  background: url("../images/icon-arrows.png") no-repeat;
   text-indent: -9999px;
   float: right;
   background-position: -4px 0; }
@@ -1193,7 +1180,7 @@ input.datepicker, table input.datepicker {
   border: 1px solid #ddd;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  background: #fafafa image-url("icon-weather.png") 10px 10px no-repeat;
+  background: #fafafa url("../images/icon-weather.png") 10px 10px no-repeat;
   box-shadow: 0px 1px 2px #fff inset;
   -moz-box-shadow: 0px 1px #fff inset;
   -webkit-box-shadow: 0px 1px 2px #fff inset;
@@ -1206,7 +1193,7 @@ input.datepicker, table input.datepicker {
   border: 1px solid #ddd;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  background: #9ccb83 image-url("icon-notice.png") 10px 10px no-repeat;
+  background: #9ccb83 url("../images/icon-notice.png") 10px 10px no-repeat;
   box-shadow: 0px 1px 2px #fff inset;
   -moz-box-shadow: 0px 1px #fff inset;
   -webkit-box-shadow: 0px 1px 2px #fff inset;
@@ -1219,7 +1206,7 @@ input.datepicker, table input.datepicker {
   border: 1px solid #ddd;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  background: #e1e591 image-url("icon-warning.png") 10px 10px no-repeat;
+  background: #e1e591 url("../images/icon-warning.png") 10px 10px no-repeat;
   box-shadow: 0px 1px 2px #fff inset;
   -moz-box-shadow: 0px 1px #fff inset;
   -webkit-box-shadow: 0px 1px 2px #fff inset;
@@ -1232,7 +1219,7 @@ input.datepicker, table input.datepicker {
   border: 1px solid #ddd;
   border-radius: 5px;
   -moz-border-radius: 5px;
-  background: #f4aaa1 image-url("icon-error.png") 10px 10px no-repeat;
+  background: #f4aaa1 url("../images/icon-error.png") 10px 10px no-repeat;
   box-shadow: 0px 1px 2px #fff inset;
   -moz-box-shadow: 0px 1px #fff inset;
   -webkit-box-shadow: 0px 1px 2px #fff inset;
@@ -1360,7 +1347,8 @@ td.action {white-space: nowrap;}
 }
 
 #todo_user_id {
-  max-width: 100px; }
+  max-width: 100px;
+}
 
 input[type="submit"].todo-note-submit {
   padding-left: 0;
@@ -1509,9 +1497,7 @@ table#messages {
         color: #777; }
       .message_delete input[type="submit"] {
         font-size: .75em;
-        padding: 3px 5px;
-      }
-    }
+        padding: 3px 5px;}}
     &.from {
       vertical-align: top;
       width: 35%; }
@@ -1543,15 +1529,14 @@ table#messages {
   padding: 10px; }
 
 /*Crises*/
+
 .needs .need_call {
   padding: 0;
   .need_description {
     font-weight: bold;
     font-size: 1.1em;
   }
-  .need_provided {
-    color: #ccc;
-  }
+  .need_provided { color: #ccc; }
 }
 
 .crisis_advice {
@@ -1647,7 +1632,7 @@ h3 {
 
 #landing #dont-risk-it {
   height: 275px;
-  background: image-url("dont-risk-it.jpg") center bottom no-repeat;
+  background: url("../images/dont-risk-it.jpg") center bottom no-repeat;
   margin: 0 10px 20px;
   h1, p {
     color: #fff;

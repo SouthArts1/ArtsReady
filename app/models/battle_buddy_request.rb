@@ -6,18 +6,26 @@ class BattleBuddyRequest < ActiveRecord::Base
   scope :pending, where('accepted IS NULL')
   
   after_create :email_potential_buddy, :unless => "accepted?" #only email on the intial request, not the reciprocal one
-  #before_destroy :email_spurned_buddy
+  before_destroy :email_spurned_buddy
+  
+  def find_reciprocal_request
+    BattleBuddyRequest.where(:organization_id => battle_buddy, :battle_buddy_id => organization).first
+  end
 
   def accept!
-    self.accepted = true
-    # create a reciprocal relationship
-    BattleBuddyRequest.create(:organization => battle_buddy, :battle_buddy => organization, :accepted => true)
+    self.update_attributes(:accepted => true) &&
+      # create a reciprocal relationship
+      BattleBuddyRequest.create(:organization => battle_buddy, :battle_buddy => organization, :accepted => true)
   end
 
   def reject!
-    self.accepted = false
     # destroy both ends of the reciprocal relationship
-    BattleBuddyRequest.destroy(:organization => battle_buddy, :battle_buddy => organization, :accepted => false)
+    destroy
+    find_reciprocal_request.try(:destroy)
+  end
+
+  def can_be_deleted_by?(org)
+    org = organization || battle_buddy
   end
   
   private

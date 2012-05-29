@@ -19,6 +19,7 @@ class Answer < ActiveRecord::Base
   validates_presence_of :priority, :on => :update, :unless => :was_skipped_changed?
 
   attr_accessible :preparedness, :priority, :was_skipped
+  attr_accessible :question # for use when creating the assessment
 
   after_update :add_todo_items, :if => :answered?
   after_update :update_answered_count
@@ -64,6 +65,7 @@ class Answer < ActiveRecord::Base
   def as_json(options = nil)
     options ||= {}
 
+    # TODO: hide irrelevant attributes
     super(options.merge(:methods => [
       :answered,
       :question_help_html,

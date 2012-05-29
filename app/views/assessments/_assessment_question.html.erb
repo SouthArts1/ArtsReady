@@ -13,10 +13,10 @@
     <div class="answers">
     </div>
     <% if answer.was_skipped? %>
-      <%= form_for [:reconsider, answer], :method => :put, :remote => 'true', 
-            :html => {:'data-type' => :html, :class => 'reconsider_answer'} do |form| %>
-        <%= form.submit 'reconsider', :class => 'linklike' %>
-      <% end %>
+    <%= form_for(answer, :url => reconsider_answer_path(answer), :html => {:method => :put}) do |a| %>
+    <%= a.hidden_field :was_skipped, :value => false %>
+    <%= link_to 'reconsider', '#', :class => 'does-not-apply reconsider-question', :style => 'color:#666;text-decoration:underline;', :onclick => "this.submit()"%>
+    <% end %>
     <% else %>
       &nbsp; <%= link_to 'answer', "", :class => 'button respond', :onclick => "$('.answer-#{answer.id}').toggle();$('.explain-#{answer.id}').toggle();"%><br />
       <%= form_for [:skip, answer], :method => :put, :remote => 'true', 
@@ -27,7 +27,7 @@
   </div>
   <h3 class="prompt plain"><%= answer.question_description %></h3>
   <div class="answer <%= dom_id(answer) %>" style="display:none;">
-    <%= form_for answer, :remote => true, :html => {:'data-type' => 'html'} do |a| %>
+    <%= form_for answer do |a| %>
     <table>
       <tr>
         <td>

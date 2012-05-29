@@ -12,6 +12,7 @@
         <a class='skip_answer'>not applicable</a>
       <% } %>
     </div>
+    <% /* TODO: HTML-escape strings for display */ %>
     <h3 class="prompt plain"><%= answer.question_description %></h3>
     <% if (answer.answering) { %>
       <div class="answer">

@@ -24,7 +24,8 @@ class OrganizationMailer < ActionMailer::Base
   def battle_buddy_dissolution(user, target_organization, requesting_organization)
     @requesting_organization = requesting_organization
     @target_organization = target_organization
-    mail :to => user.email, :subject => "#{requesting_organizaiton.name} is no longer your Battle Buddy"
+    @other_organization = user.organization == @requesting_organization ? @target_organization : @requesting_organization
+    mail :to => user.email, :subject => "#{requesting_organization.name} is no longer your Battle Buddy"
   end
 
 end

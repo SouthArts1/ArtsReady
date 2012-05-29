@@ -2,6 +2,7 @@ class Assessment < ActiveRecord::Base
 
   belongs_to :organization
   has_many :answers, :dependent => :destroy
+  has_many :questions, :through => :answers, :source => :question
   has_many :todos, :through => :answers
 
   attr_accessor :critical_functions

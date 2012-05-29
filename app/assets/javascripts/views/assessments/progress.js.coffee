@@ -2,9 +2,12 @@ class Artsready.Views.AssessmentsProgress extends Backbone.View
   template: JST['assessments/progress']
 
   initialize: ->
-    # TODO: use an assessment instead of a collection of answers
-    @updateFromAnswer(@collection.first())
-    @collection.on(
+    @model.on('change:current_section', @updateSection)
+
+  updateSection: =>
+    answers = @model.currentSection().get('answers')
+    @updateFromAnswer(answers.first())
+    answers.on(
       'change:assessment_percentage_complete change:section_progress',
       @updateFromAnswer)
     # TODO: unbind

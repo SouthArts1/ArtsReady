@@ -30,3 +30,17 @@ Then /^the "(.*)" article should(?: still)? be in the public library$/ do |title
   click_link title
 end
 
+Then /^I should see the Battle Buddy article icon$/ do
+  page.should have_selector(".icon img[alt='Battle Buddy']")
+end
+
+Then /^I should see the critical article icon$/i do
+  page.should have_selector(".icon img[alt='Critical']")
+end
+
+Then /^I should see no article icons$/ do
+  page.should_not have_selector(".icon img[alt='Battle Buddy']")
+  page.should_not have_selector(".icon img[alt='Critical']")
+end
+
+

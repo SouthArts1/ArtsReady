@@ -10,7 +10,7 @@
           <th><p>Title</p></th>
           <th><p>Description</p></th>
           <th><p>Type</p></th>
-          <th><p>Critical Function</p></th>
+          <th colspan="2"><p>Critical Function</p></th>
           <th><p>Privacy</p></th>
           <th><p>Tags</p></th>
           </tr>
@@ -30,6 +30,14 @@
                 <% end %>
               </p></td>
               <td class="function"><p><a href="#"><%= a.critical_function.capitalize %></a></p></td>
+              <td class="icon">
+                <% if user_signed_in? %>
+                  <%= current_org.battle_buddies.include?(a.organization) ? image_tag('bbn_icon.png', :alt => 'Battle Buddy') : nil %>
+                  <% if a.on_critical_list && a.organization == current_org %>
+                    <%= image_tag('crit_stuff_icon.png', :alt => 'Critical') %>
+                  <% end %>
+                <% end %>
+              </td>
               <td class="privacy"><p><%= a.visibility.humanize %></p></td>
               <td class="tags"><p><%= a.tag_list.to_s %></p></td>
             </tr>

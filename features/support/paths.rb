@@ -23,8 +23,12 @@ module NavigationHelpers
         new_article_path
       when /^the article page$/
         article_path(@current_article)
+      when /^the "(.*)" articles page$/i
+        organization_articles_path(@current_user.organization, :critical_function => $1)
       when /^the our buddies page$/i
         buddies_path
+      when /^the lend-a-hand page$/i
+        lend_a_hand_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

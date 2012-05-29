@@ -13,7 +13,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'Problem with considering the question'
     end
-
+    
     respond
   end
   
@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'Problem with considering the question'
     end
-
+    
     respond
   end
 
@@ -40,7 +40,7 @@ class AnswersController < ApplicationController
 
     respond
   end
-
+  
 private
 
   def respond

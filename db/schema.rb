@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419220927) do
+ActiveRecord::Schema.define(:version => 20120516024255) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120419220927) do
     t.text     "resolution"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "visibility",      :default => "private"
+    t.string   "visibility"
     t.integer  "user_id"
     t.string   "description"
     t.string   "buddy_list"
@@ -263,10 +263,10 @@ ActiveRecord::Schema.define(:version => 20120419220927) do
     t.string   "priority"
     t.date     "review_on"
     t.string   "critical_function"
-    t.boolean  "complete",          :default => false, :null => false
+    t.boolean  "complete",          :default => false,     :null => false
     t.string   "status"
     t.integer  "last_user_id"
-    t.string   "action"
+    t.string   "action",            :default => "Work On"
   end
 
   add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"

@@ -23,7 +23,7 @@
        </thead>
        <tbody>
          <tr>
-             <td class="action"><p><%= f.select(:action, options_for_select(Todo::NEXT_ACTIONS)) %></p></td>
+             <td class="action"><p><%= f.select(:action, options_for_select(Todo::NEXT_ACTIONS.keys)) %></p></td>
              <td class="description"><p><%= f.text_field :description %></p></td>
              <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => @critical_function) %></td>
              <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
