@@ -59,7 +59,7 @@ end
 
 Then /^the "([^"]*)" todo should be recreated$/ do |label|
   go_to_todo(label)
-  find_field('Completed?')['checked'].should be_true
+  find_field('Completed?')['checked'].should be_false
   find('.log').should have_content('Recreated')
 end
 
