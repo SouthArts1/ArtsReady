@@ -1495,7 +1495,12 @@ table#messages {
       vertical-align: top;
       width: 5%;
       .date {
-        color: #777; } }
+        color: #777; }
+      .message_delete input[type="submit"] {
+        font-size: .75em;
+        padding: 3px 5px;
+      }
+    }
     &.from {
       vertical-align: top;
       width: 35%; }
@@ -1527,6 +1532,16 @@ table#messages {
   padding: 10px; }
 
 /*Crises*/
+.needs .need_call {
+  padding: 0;
+  .need_description {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .need_provided {
+    color: #ccc;
+  }
+}
 
 .crisis_advice {
   p { margin: 10px 10px 10px 0; }

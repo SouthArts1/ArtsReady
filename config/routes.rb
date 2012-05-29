@@ -18,6 +18,7 @@ Artsready::Application.routes.draw do
     resources :password_resets, :only => [:create]
     resources :articles, :only => [:update, :destroy, :index]
     resources :comments, :only => [:destroy]
+    resources :messages, :only => [:destroy]
     resources :pages, :only => [:index, :edit, :update]
     resources :questions
     resources :action_items
