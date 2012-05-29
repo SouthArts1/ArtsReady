@@ -1036,7 +1036,11 @@ tbody {
   background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #c31d29);
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
+  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+  &:disabled {
+    opacity: 0.3;
+  }
+}
 
 p.button { padding: 0; border: none; } // why do we even have p.buttons?
 
