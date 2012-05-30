@@ -1,6 +1,6 @@
 <% assessment.get('sections').each(function(section) { %>
   <li class="<%= section.isCurrent() ? 'active' : null %>">
-    <a href="<%= window.location.pathname %>?tab=<%= section.get('name') %>">
+    <a href="?tab=<%= section.get('name') %>">
       <%= section.escape('title') %>
     </a>
   </li>

@@ -1,7 +1,7 @@
 class Artsready.Routers.Assessments extends Backbone.Router
   routes:
-    'assessment': 'show'
-    'assessment?tab=:tab': 'show'
+    '': 'show'
+    '?tab=:tab': 'show'
 
   initialize: (options) =>
     @$el = $('.questions')
