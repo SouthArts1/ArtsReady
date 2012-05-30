@@ -7,7 +7,7 @@ window.Artsready =
     @assessment = new Artsready.Models.Assessment(data.assessment)
     @assessmentsRouter =
       new Artsready.Routers.Assessments(assessment: @assessment)
-    Backbone.history.start(pushState: true)
+    Backbone.history.start(root: '/assessment')
 
 $(document).ready ->
   Artsready.init
