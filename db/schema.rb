@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120526012411) do
+ActiveRecord::Schema.define(:version => 20120528205425) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -269,6 +269,7 @@ ActiveRecord::Schema.define(:version => 20120526012411) do
     t.string   "status"
     t.integer  "last_user_id"
     t.string   "action",            :default => "Work On"
+    t.string   "key"
   end
 
   add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"

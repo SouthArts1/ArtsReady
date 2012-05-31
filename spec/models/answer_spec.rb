@@ -42,34 +42,6 @@ describe Answer do
     end
   end
   
-  describe 'check_assessment_complete' do
-    let(:answer) { Factory.create(:answer) }
-    let(:assessment) { answer.assessment }
-    
-    context 'when answered' do
-      before do
-        answer.preparedness = 'ready'
-        answer.priority = 'critical'
-      end
-      
-      it 'calls assessment.check_complete' do
-        assessment.should_receive :check_complete
-        answer.check_assessment_complete
-      end
-    end
-    
-    context 'when skipped' do
-      before do
-        answer.was_skipped = true
-      end
-      
-      it 'calls assessment.check_complete' do
-        assessment.should_receive :check_complete
-        answer.check_assessment_complete
-      end
-    end
-  end
-  
   context "with no action items" do
     let(:question) { Factory.create(:question) }
     it "should not create any todos" do

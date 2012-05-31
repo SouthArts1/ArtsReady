@@ -54,9 +54,10 @@ end
 
 Then /^I should (?:get|have) a(nother)? re-assessment to-do$/ do |nother|
   visit path_to 'the todos page'
-  page.should have_xpath('//*', :text => 'Archive and Re-Assess', :count => nother ? 2 : 1)
-  click 'details'
-  Date.parse(find_field('Due Date').value).should == @current_user.assessment.completed_at
+  page.should have_xpath('//tr', :text => 'Archive and Re-Assess', :count => nother ? 2 : 1)
+  click_link 'Details'
+  Date.parse(find_field('Due Date').value).should ==
+    @current_user.assessment.reload.completed_at.to_date + 1.year
 end
 
 When /^I initiate a re-assessment$/ do
