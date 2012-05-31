@@ -41,6 +41,30 @@ describe Answer do
       answer.should be_valid
     end
   end
+    
+  describe '#add_todo_items' do
+    context 'given an existing todo item' do
+      it 'reuses it' do
+        action_item = Factory.create(:action_item)
+        question = action_item.question
+        existing_answer = Factory.create(:answer, :question => question)
+        existing_answer.update_attributes(
+          :preparedness => 'ready', :priority => 'non-critical')
+        
+        answer = Factory.create(:answer, :question => question,
+          :organization => existing_answer.organization)
+        answer.update_attributes(
+          :preparedness => 'not ready', :priority => 'critical')
+        
+        answer.todos.should == [existing_answer.todos.first]
+        
+        existing_todo.reload
+        existing_todo.should_not be_complete
+        existing_todo.action.should == 'Start'
+        existing_todo.todo_notes.last.message.should =~ /recreated/i
+      end
+    end
+  end
   
   context "with no action items" do
     let(:question) { Factory.create(:question) }
