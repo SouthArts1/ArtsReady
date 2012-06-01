@@ -28,6 +28,22 @@ class Article < ActiveRecord::Base
   scope :recent, order("created_at DESC")
   scope :matching, lambda { |term| includes(:tags).where("articles.title LIKE ? OR articles.body LIKE ? OR tags.name LIKE ?","%#{term}%","%#{term}%","%#{term}%") }  
   scope :executive, where(:visibility => 'executive')
+  scope :visible_to_organization, lambda { |organization|
+    where("
+          articles.organization_id = :organization
+          OR articles.visibility = 'public'
+          OR (articles.visibility = 'buddies'
+              AND (SELECT id FROM battle_buddy_requests
+                   WHERE battle_buddy_requests.organization_id = articles.organization_id
+                     AND battle_buddy_requests.battle_buddy_id = :organization
+                     AND battle_buddy_requests.accepted
+                   LIMIT 1))
+          OR (articles.visibility = 'shared'
+              AND POSITION(',:id,' IN CONCAT(',', buddy_list, ',')))
+          ", 
+          :organization => organization,
+          :id => organization.id)
+  }
   scope :disabled, where(:disabled => true)
   scope :with_critical_function, lambda { |cf| where(:critical_function => cf)}
   after_save :notify_admin, :if => "is_public?"

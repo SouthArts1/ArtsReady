@@ -13,6 +13,14 @@ FactoryGirl.define do
       visibility 'public'
     end
     
+    factory :shared_article do
+      visibility 'shared'
+    end
+
+    factory :buddies_article do
+      visibility 'buddies'
+    end
+
     factory :featured_article do
       visibility 'public'
       featured true
