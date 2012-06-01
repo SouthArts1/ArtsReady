@@ -21,6 +21,18 @@ Feature: View articles
     When I go to the articles page
     Then I should not see "Disabled article"
 
+  Scenario: View an article shared by a buddy
+    Given I am signed in as a reader
+    And I have a battle buddy with a name of "Bob"
+    And Bob has shared the following article with me:
+      | critical function | title   | body                     |
+      | people            | hey pal | let me tell you a secret |
+    
+    When I go to the library
+    And I follow "People Resources (1)"
+    And I follow "hey pal"
+    Then I should see "a secret"
+    
   Scenario: Articles written by a buddy should have the buddy icon
     Given I am signed in as a reader
     And I have a battle buddy with a name of "Bob"
