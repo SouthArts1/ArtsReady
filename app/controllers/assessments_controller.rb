@@ -1,7 +1,8 @@
 class AssessmentsController < ApplicationController
 
   def new
-    if current_org.assessment.present?
+    current = current_org.assessment
+    if current && !current.complete?
       redirect_to assessment_path
     else
       @assessment = Assessment.new

@@ -1,19 +1,20 @@
 require 'spec_helper'
 
 describe "assessments/show" do
-  let(:current_org) { Factory.create(:organization) }
-  
+  let!(:questions) { 2.times { Factory.create(:question) } }
+  let(:assessment) { Factory.create(:assessment) }
+
   before do
-    view.stubs(:current_org).returns(current_org)
-      
-    assign :answers, FactoryGirl.create_list(:answer, 1)
-    assign :critical_function, 'productions'
+    view.stubs(:current_org).returns(assessment.organization)
+
+    assign :assessment, assessment
+    assign :answers, assessment.answers
+    assign :critical_function, assessment.answers.first.critical_function
   end
   
   context 'given a complete assessment' do
     before do
-      current_org.stubs(:complete?) { true }
-      
+      assessment.stubs(:complete?).returns(true)
       render
     end
     
@@ -24,7 +25,7 @@ describe "assessments/show" do
   
   context 'given an incomplete assessment' do
     before do
-      current_org.stubs(:complete?) { false }
+      assessment.stubs(:complete?).returns(false)
       
       render
     end

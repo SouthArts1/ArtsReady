@@ -62,12 +62,12 @@ end
 
 When /^I initiate a re-assessment$/ do
   visit path_to 'the assessment'
-  click_button 'Archive and Re-Assess'
+  click_link 'Archive and Re-Assess'
 end
 
 When /^I start (?:the|a) re\-assessment$/ do
   be_on 'the new assessment page'
-  click_button 'Begin Assessment &raquo;'
+  click_button 'Begin Assessment'
 end
 
 Then /^the re-assessment sections should be based on the previous assessment$/ do
@@ -75,8 +75,8 @@ Then /^the re-assessment sections should be based on the previous assessment$/ d
 end
 
 Then /^I should have (\d+) archived assessments?$/ do |count|
-  follow 'Settings'
-  follow 'Archived Assessments'
+  click_link 'Settings'
+  click_link 'Archived Assessments'
   page.should have_selector('table.assessments tbody tr', :count => count)
 end
 
