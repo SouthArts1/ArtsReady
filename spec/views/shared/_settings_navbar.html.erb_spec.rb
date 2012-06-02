@@ -10,7 +10,7 @@ describe "shared/_settings_navbar" do
 
   context 'given archived assessments' do
     before do
-      2.times { Factory.create(:assessment, :organization => current_org) }
+      2.times { Factory.create(:completed_assessment, :organization => current_org) }
       
       render
     end

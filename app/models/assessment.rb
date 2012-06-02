@@ -14,6 +14,8 @@ class Assessment < ActiveRecord::Base
 
   after_create :populate_empty_answers
 
+  scope :complete, where('completed_at IS NOT NULL')
+
   scope :pending_reassessment_todo, lambda {
     where(['completed_at < ?', 11.months.ago]).
       joins(:organization).

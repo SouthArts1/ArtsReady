@@ -76,7 +76,7 @@ end
 
 Then /^I should have (\d+) archived assessments?$/ do |count|
   click_link 'Settings'
-  click_link 'Archived Assessments'
+  click_link 'Completed Assessments'
   page.should have_selector('table.assessments tbody tr', :count => count)
 end
 

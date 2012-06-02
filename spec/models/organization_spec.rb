@@ -27,7 +27,8 @@ describe Organization do
   context 'given multiple assessments' do
     let(:organization) { Factory.create(:organization) }
     let!(:first_assessment) {
-      Factory.create(:assessment, :organization => organization)
+      Factory.create(:assessment, :organization => organization,
+        :created_at => 1.year.ago)
     }
     let!(:second_assessment) {
       Factory.create(:assessment, :organization => organization)
@@ -36,12 +37,6 @@ describe Organization do
     describe '.assessment' do
       it 'is the latest assessment' do
         organization.assessment.should == second_assessment
-      end
-    end
-    
-    describe '.archived_assessments' do
-      it 'are all but the latest assessment' do
-        organization.archived_assessments.should == [first_assessment]
       end
     end
   end
