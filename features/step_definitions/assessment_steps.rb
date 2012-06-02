@@ -82,7 +82,7 @@ end
 
 Then /^I should be able to view the archived assessments?$/ do
   be_on archived_assessments_path
-  click_link 'details'
+  click_link 'Details'
   assessment = @current_user.organization.archived_assessments.last
   current_path.should == archived_assessment_path(assessment)
 end

@@ -9,7 +9,7 @@ describe ArchivedAssessmentsController do
     context '(authorized)' do
       let(:user) { Factory.create(:reader) }
       
-      it { should assign_to(:assessments).with_kind_of(Enumerable) }
+      it { should assign_to(:assessments) }
       it { should render_template :index }
     end
   end

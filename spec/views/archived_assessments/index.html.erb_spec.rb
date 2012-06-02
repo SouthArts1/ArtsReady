@@ -2,12 +2,14 @@ require 'spec_helper'
 
 describe "archived_assessments/index" do
   let(:current_org) { Factory.create(:organization) }
-  let(:first_assessment) { Factory.create(:assessment, :organization => current_org) }
-  let(:second_assessment) { Factory.create(:assessment, :organization => current_org) }
+  let(:first_assessment) { Factory.create(:completed_assessment, :organization => current_org) }
+  let(:second_assessment) { Factory.create(:completed_assessment, :organization => current_org) }
   
   before do
     view.stub(:current_org) { current_org }
-    view.stub(:assessments) { [first_assessment, second_assessment] }
+    assign :assessments, [first_assessment, second_assessment]
+
+    render
   end
 
   it 'links to each assessment' do
