@@ -10,6 +10,6 @@ describe "archived_assessments/show" do
   end
 
   it 'displays each answer' do
-    rendered.should have_selector(".answers tbody tr", 2)
+    rendered.should have_selector(".answers tbody tr", :count => 2)
   end
 end

@@ -5,7 +5,7 @@ describe AssessmentsController do
 
   describe 'new' do
     before do
-      assessment.stub(:complete?, :assessment_complete) if assessment
+      assessment # make sure it's created first
       get :new
     end
     
@@ -14,25 +14,27 @@ describe AssessmentsController do
       
       context '(no existing assessment)' do
         let(:assessment) { nil }
-        
+
         it { should assign_to :assessment }
         it { should render_template :new }
       end
       
       context '(assessment in progress)' do
         let(:assessment) {
-          user.organization.create_assessment
+          Factory.create(:assessment,
+            :organization => user.organization)
+
         }
-        let(:assessment_complete) { false }
         
-        it { should redirect_to assessment }
+        it { should redirect_to assessment_path }
       end
       
       context '(assessment complete)' do
         let(:assessment) {
-          user.organization.create_assessment(:has_exhibits => true)
+          Factory.create(:completed_assessment,
+            :organization => user.organization,
+            :has_exhibits => true)
         }
-        let(:assessment_complete) { true }
 
         it 'builds a new assessment' do
           assigns[:assessment].should be_present

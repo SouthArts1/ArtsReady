@@ -15,11 +15,13 @@ describe ArchivedAssessmentsController do
   end
   
   describe 'show' do
-    let(:assessment) { Factory.create(:assessment) }
+    let(:assessment) { Factory.create(:completed_assessment) }
     before { get :show, :id => assessment.id }
     
     context '(authorized)' do
-      let(:user) { Factory.create(:reader) }
+      let(:user) {
+        Factory.create(:reader, :organization => assessment.organization)
+      }
 
       it { should assign_to(:assessment).with(assessment) }
       it { should render_template :show }
