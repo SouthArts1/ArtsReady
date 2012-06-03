@@ -11,27 +11,27 @@ describe Assessment do
     it {subject.percentage_complete.should be_zero} 
   end
   
-  describe "#complete?" do
-    it { Assessment.new(answers_count: 10, completed_answers_count: 0).should_not be_complete }
-    it { Assessment.new(answers_count: 10, completed_answers_count: 5).should_not be_complete }
-    it { Assessment.new(answers_count: 10, completed_answers_count: 10).should be_complete }
+  describe "#completed?" do
+    it { Assessment.new(answers_count: 10, completed_answers_count: 0).should_not be_completed }
+    it { Assessment.new(answers_count: 10, completed_answers_count: 5).should_not be_completed }
+    it { Assessment.new(answers_count: 10, completed_answers_count: 10).should be_completed }
   end
   
   describe '#check_complete' do
     it 'records when the last question is answered or skipped' do
       assessment = Factory.create(:assessment)
-      assessment.stub(:complete?) { false }
+      assessment.stub(:completed?) { false }
       assessment.check_complete
       assessment.completed_at.should be_nil
       
       time = Time.now
       Timecop.freeze(time)
-      assessment.stub(:complete?) { true }
+      assessment.stub(:completed?) { true }
       assessment.check_complete
       assessment.completed_at.should == time
       
       Timecop.freeze(time + 1.day)
-      assessment.stub(:complete?) { true }
+      assessment.stub(:completed?) { true }
       assessment.check_complete
       assessment.completed_at.should == time # still
     end

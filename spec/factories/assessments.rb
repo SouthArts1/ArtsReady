@@ -4,7 +4,6 @@ FactoryGirl.define do
     organization
     
     factory :completed_assessment do
-      complete true
       completed_at { Time.now }
 
       after_create do |proxy|

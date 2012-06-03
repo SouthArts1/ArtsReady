@@ -25,9 +25,17 @@ class Assessment < ActiveRecord::Base
       where('todos.organization_id IS NULL')
   }
 
-  def complete?
+  # internal method checks whether all questions are skipped or answered
+  private
+  def completed?
     return false unless answers_count > 0
     (completed_answers_count + skipped_answers_count) == answers_count
+  end
+  public
+
+  # public method: true if the assessment has already been declared complete
+  def complete?
+    completed_at
   end
 
   def answer_was_answered
@@ -40,7 +48,7 @@ class Assessment < ActiveRecord::Base
   end
   
   def check_complete
-    if !completed_at && complete?
+    if !completed_at && completed?
       update_attribute :completed_at, Time.zone.now
     end
   end
