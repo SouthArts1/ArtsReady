@@ -1,2 +1,0 @@
-module PaymentVariablesHelper
-end
