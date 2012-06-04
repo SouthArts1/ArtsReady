@@ -82,7 +82,7 @@ end
 
 Then /^I should be able to view the archived assessments?$/ do
   be_on archived_assessments_path
-  click_link 'Details'
+  click_link 'View CSV'
   assessment = @current_user.organization.assessments.complete.last
-  current_path.should == archived_assessment_path(assessment)
+  current_path.should == archived_assessment_path(assessment, :format => :csv)
 end

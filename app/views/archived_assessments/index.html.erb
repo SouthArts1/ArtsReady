@@ -5,16 +5,16 @@
   <section>
     <table class="resource side-nav-panels assessments">
       <thead>
-        <td><p>Started at</p></td>
-        <td><p>Completed at</p></td>
+        <td><p>Started on</p></td>
+        <td><p>Completed on</p></td>
         <th>&nbsp;</th>
       </thead>
       <tbody>
         <% @assessments.each do |assessment| %>
           <tr>
-            <td class="date"><p><%= assessment.created_at %></p></td>
-            <td class="date"><p><%= assessment.completed_at %></p></td>
-            <td><p><%= link_to 'Details', archived_assessment_path(assessment), :class => 'button' %></p></td>
+            <td class="date"><p><%= assessment.created_at.strftime("%B %d, %Y") %></p></td>
+            <td class="date"><p><%= assessment.completed_at.strftime("%B %d, %Y") %></p></td>
+            <td><p><%= link_to 'View CSV', archived_assessment_path(assessment, :format => :csv), :class => 'button' %></p></td>
           </tr>
         <% end %>
       </tbody>
