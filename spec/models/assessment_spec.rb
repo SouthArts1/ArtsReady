@@ -62,4 +62,44 @@ describe Assessment do
       Assessment.pending_reassessment_todo.should == [in_need]
     end
   end
+
+  describe 'initialize_critical_functions' do
+    let(:assessment) { Factory.build(:assessment) }
+
+    context '(given no previous assessments)' do
+      it 'uses the default' do
+        assessment.initialize_critical_functions
+
+        assessment.should_not have_performances
+        assessment.should_not have_tickets
+        assessment.should_not have_exhibits
+        assessment.should_not have_facilities
+        assessment.should_not have_programs
+        assessment.should_not have_grants
+      end
+    end
+    context '(given previous assessments)' do
+      before do
+        Factory.create(:completed_assessment, 
+                       :organization => assessment.organization, 
+                       :has_facilities => true,
+                       :has_programs => false,
+                       :completed_at => 1.month.ago)
+
+        Factory.create(:completed_assessment, 
+                       :organization => assessment.organization, 
+                       :has_programs => true,
+                       :has_facilities => false,
+                       :completed_at => 1.year.ago)
+      end
+      it 'copies from the latest assessment' do
+        assessment.initialize_critical_functions
+
+        assessment.should_not have_programs
+        assessment.should have_facilities
+      end
+
+    end
+  end
+
 end

@@ -86,6 +86,18 @@ class Assessment < ActiveRecord::Base
     cf
   end
 
+  def initialize_critical_functions
+    previous = organization.assessments.complete.order('completed_at ASC').last
+    return unless previous
+
+    self.has_performances = previous.has_performances if self.has_performances.nil?
+    self.has_tickets = previous.has_tickets if self.has_tickets.nil?
+    self.has_facilities = previous.has_facilities if self.has_facilities.nil?
+    self.has_programs = previous.has_programs if self.has_programs.nil?
+    self.has_grants = previous.has_grants if self.has_grants.nil?
+    self.has_exhibits = previous.has_exhibits if self.has_exhibits.nil?
+  end
+
   def percentage_complete
     # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
     (((completed_answers_count +  skipped_answers_count).to_f / (answers_count).to_f)*100).to_i rescue 0
