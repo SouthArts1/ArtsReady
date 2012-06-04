@@ -14,8 +14,8 @@ describe "archived_assessments/index" do
 
   it 'links to each assessment' do
     rendered.should have_selector(
-      "a[href='#{archived_assessment_path(first_assessment)}']")
+      "a[href='#{archived_assessment_path(first_assessment, :format => :csv)}']")
     rendered.should have_selector(
-      "a[href='#{archived_assessment_path(second_assessment)}']")
+      "a[href='#{archived_assessment_path(second_assessment, :format => :csv)}']")
   end
 end

@@ -10,7 +10,8 @@ describe AssessmentsController do
     end
     
     context '(authorized)' do
-      let(:user) { Factory.create(:editor) }
+      let(:organization) { Factory.create(:organization) }
+      let(:user) { Factory.create(:editor, :organization => organization) }
       
       context '(no existing assessment)' do
         let(:assessment) { nil }
