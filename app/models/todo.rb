@@ -93,6 +93,32 @@ class Todo < ActiveRecord::Base
   def critical_function_title
     Assessment.critical_function_title(critical_function)
   end
+
+  def self.create_or_reset(attributes)
+    matching_attributes = {
+      :organization_id => attributes[:organization].id,
+      :action_item_id => attributes[:action_item].id
+    }
+    existing = with_exclusive_scope { where(matching_attributes).first }
+    
+    if existing
+      matching_keys = matching_attributes.keys
+      with_exclusive_scope do
+        existing.reset(attributes.reject { |k, v| matching_keys.include? k })
+      end
+      existing
+    else
+      create(attributes.merge(matching_attributes))
+    end
+  end
+
+  def reset(attributes = {})
+    @reset_in_progress = true
+    update_attributes(attributes.merge(
+      :complete => false, :due_on => nil))
+  ensure
+    @reset_in_progress = false
+  end
   
   private
   
@@ -103,11 +129,16 @@ class Todo < ActiveRecord::Base
   def add_update_note
     messages = []
     self.changes.each do |key, value|
-      messages << "'#{key.humanize}' changed from #{value[0].blank? ? 'nothing' : value[0]} to #{value[1]}" if TRACKED_ATTRIBUTES.include?(key)
+      messages << "'#{key.humanize}' changed from #{value[0].presence || 'nothing'} to #{value[1].presence || 'nothing'}" if TRACKED_ATTRIBUTES.include?(key)
     end
     messages << "Assigned to #{user_name}" if self.changes["user_id"]
-    
-    todo_notes.create(:user_id => last_user_id, :message => messages.join('; ')) if messages.present?
+
+    message = messages.join('; ')
+
+    if @reset_in_progress
+      message = message.present? ? "Reset: #{message}" : 'Reset'
+    end
+    todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
   end
   
   def initialize_action

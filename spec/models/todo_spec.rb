@@ -85,4 +85,62 @@ describe Todo do
       Todo.nearing_due_date.should_not include(todo)
     end
   end
+
+  describe '.create_or_reset' do
+    context 'given no matching todo item' do
+      it 'creates a new one' do
+        count = Todo.count
+        todo = Todo.create_or_reset(
+          Factory.attributes_for(:todo).merge(
+            :organization => Factory.create(:organization),
+            :action_item => Factory.create(:action_item)))
+        Todo.count.should == count + 1
+      end
+    end
+
+    context 'given a matching todo item' do
+      let(:existing) {
+        Factory.create(:todo,
+          :organization => Factory.create(:organization),
+          :action_item => Factory.create(:action_item))
+      }
+
+      it 'resets it' do
+        todo = Todo.create_or_reset(
+          :organization => existing.organization,
+          :action_item => existing.action_item)
+        todo.should == existing
+      end
+    end
+  end
+
+  describe '.reset' do
+    let(:todo) {
+      Factory.create(:todo,
+        :action => 'Review',
+        :complete => true,
+        :due_on => 6.months.ago)
+    }
+
+    before do
+      todo.reset(:action => 'Work On')
+    end
+
+    it 'saves the changes' do
+      todo.should_not be_changed
+    end
+
+    it 'resets default attributes' do
+      todo.should_not be_complete
+      todo.due_on.should be_nil
+    end
+
+    it 'updates provided attributes' do
+      todo.action.should == 'Work On'
+    end
+
+    it 'adds a note' do
+      todo.todo_notes.order('id ASC').last.message.should =~ /reset/i
+    end
+  end
 end

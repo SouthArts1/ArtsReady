@@ -57,10 +57,10 @@ Then /^I should see the following todos:$/ do |table|
   end
 end
 
-Then /^the "([^"]*)" todo should be recreated$/ do |label|
+Then /^the "([^"]*)" todo should be reset/ do |label|
   go_to_todo(label)
   find_field('Completed?')['checked'].should be_false
-  find('.log').should have_content('Recreated')
+  find('.log').should have_content('Reset')
 end
 
 Then /^the "([^"]*)" todo's history should be preserved$/ do |label|
