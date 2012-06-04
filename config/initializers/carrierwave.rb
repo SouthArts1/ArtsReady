@@ -11,8 +11,8 @@ else
     config.cache_dir = "#{Rails.root}/tmp/uploads"
     config.fog_credentials = {
       :provider               => 'AWS',
-      :aws_access_key_id      => 'AKIAIQOM47FHJ7KVTS3Q',
-      :aws_secret_access_key  => '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',
+      :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],
+      :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],
       :region                 => 'us-east-1'
     }
     config.fog_directory  = S3_UPLOAD_BUCKET

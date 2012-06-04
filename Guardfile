@@ -34,6 +34,7 @@ guard 'pow' do
   watch('.rvmrc')
   watch('Gemfile')
   watch('Gemfile.lock')
+  watch('config/application.yml')
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.*\.rb$})

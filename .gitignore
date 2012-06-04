@@ -14,3 +14,6 @@ coverage
 public/stylesheets/.sass-cache
 
 .redcar
+
+# Ignore application configuration
+/config/application.yml

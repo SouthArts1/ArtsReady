@@ -17,6 +17,13 @@ When /^I view the article page for "([^"]*)"$/ do |title|
   visit article_path(article)
 end
 
+Given /^(.*) has shared the article "(.*)" with me$/ do |org, title|
+  article = Organization.find_by_name(org).articles.find_by_title(title)
+  article.update_attributes!(
+    :visibility => 'shared', 
+    :buddy_list => @current_user.organization.id.to_s)
+end
+
 Then /^I should(?: still)? be able to view the "([^"]*)" article$/ do |title|
   step %{I view the article page for "#{title}"}
   page.should have_content(title)

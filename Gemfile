@@ -4,6 +4,8 @@ gem 'rails', '3.0.12'
 gem 'mysql2', '0.2.18'
 gem 'jquery-rails'
 
+gem 'figaro'
+
 gem 'bcrypt-ruby', '2.1.4', :require => 'bcrypt'
 gem 'cancan', '1.6.7'
 
