@@ -86,3 +86,8 @@ Then /^I should be able to view the archived assessments?$/ do
   assessment = @current_user.organization.assessments.complete.last
   current_path.should == archived_assessment_path(assessment, :format => :csv)
 end
+
+Then /^all "(.*)" questions should be skipped$/ do |cf|
+  click_link cf
+  page.all('.question:not(.not-applicable)').should be_empty
+end

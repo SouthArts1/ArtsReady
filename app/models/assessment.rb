@@ -130,7 +130,7 @@ private
         self.answers.create(:question => q) 
       else
         logger.debug("Skipping question #{q.id}, #{q.critical_function}")
-        self.answers.create(:question => q) 
+        self.answers.create(:question => q, :was_skipped => true)
       end
     end
   end

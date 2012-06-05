@@ -217,5 +217,15 @@ Then /^I should see the button "([^"]*)"$/ do |text|
   end
 end
 
+Then /^I should not see the button "([^"]*)"$/ do |text|
+  debugger
+  if page.respond_to? :should
+    page.should_not have_button(text)
+  else
+    assert !page.has_button?(text)
+  end
+end
+
+
 # ^I click the (\d+)\w\w button labelled "([^"]*)"$
 # ^Given I have found an? (\w+ \w+)$
