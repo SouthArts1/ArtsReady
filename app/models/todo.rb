@@ -115,7 +115,9 @@ class Todo < ActiveRecord::Base
   def reset(attributes = {})
     @reset_in_progress = true
     update_attributes(attributes.merge(
-      :complete => false, :due_on => nil))
+      :complete => false, :due_on => nil, :user_id => nil ))
+    initialize_action
+    save
   ensure
     @reset_in_progress = false
   end

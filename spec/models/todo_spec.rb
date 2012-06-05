@@ -123,7 +123,9 @@ describe Todo do
     }
 
     before do
-      todo.reset(:action => 'Work On')
+      answer = Factory.create(:answer, 
+                              :preparedness => 'unknown')
+      todo.reset(:answer => answer)
     end
 
     it 'saves the changes' do
@@ -136,7 +138,7 @@ describe Todo do
     end
 
     it 'updates provided attributes' do
-      todo.action.should == 'Work On'
+      todo.action.should == 'Learn About'
     end
 
     it 'adds a note' do
