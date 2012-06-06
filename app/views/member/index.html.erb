@@ -2,7 +2,14 @@
   <h1>Your Dashboard</h1>
   <p>
 		<%= link_to "Need help?", page_path('help_dashboard') %>
-		Your account will expire on <%= current_org.active_subscription_end_date.strftime("%B %d, %Y") rescue current_org.active_subscription_end_date %>. <%= link_to "Visit Billing", "/billing/my_organization" %>
+		<% if current_user.is_executive? %>
+			<% if current_org.active_subscription_end_date %>
+			Your account will expire on <%= current_org.active_subscription_end_date.strftime("%B %d, %Y") rescue current_org.active_subscription_end_date %>. <%= link_to "Visit Billing", "/billing/my_organization" %>
+			<% else %>
+				<br />
+				You have not subscribed for automatic renewal!<br />  Before your account expires, visit <%= link_to "billing", "/billing/my_organization" %> to sign up.
+			<% end %>
+		<% end %>
 	</p>
 </div>
 <div class="grid_4 alpha">

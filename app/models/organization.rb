@@ -99,7 +99,7 @@ class Organization < ActiveRecord::Base
   end
   
   def active_subscription_end_date
-    return "Not subscribed, please vising billing!" if !self.payment || !self.payment.active?
+    return nil if !self.payment || !self.payment.active?
     return (self.payment.start_date + 365.days)
   end
   
@@ -121,7 +121,8 @@ class Organization < ActiveRecord::Base
 
   def send_sign_up_email
     logger.debug("Sending sign_up email for organization #{name}")
-    OrganizationMailer.sign_up(self).deliver rescue logger.debug("send sign_up email failed")
+    # OrganizationMailer.sign_up(self).deliver rescue logger.debug("send sign_up email failed")
+    # No longer need to do this with proper billing set up. - KH
   end
 
   def send_approval_email

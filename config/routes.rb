@@ -17,6 +17,8 @@ Artsready::Application.routes.draw do
 
   namespace :admin do
     get 'home/dashboard', :as => "dashboard"
+    get "/organizations/billing/(:id)" => "organizations#billing"
+    
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
     end

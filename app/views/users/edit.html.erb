@@ -8,11 +8,13 @@
     <% end %>
     <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
     <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
+		<% if current_user.is_executive? %>
+			<li><%= link_to "Billing", billing_my_organization_path %></li>
+		<% end %>
     <li class=""><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
     <% if @user != current_user %>
     <li class="active"><%= link_to "Edit User", edit_organization_user_path(@user) %></li>
     <% end %>
-		<li><%= link_to "Billing", billing_my_organization_path %></li>
 </ul>
 
 <div class="grid_8">

@@ -126,11 +126,12 @@ class BillingController < ApplicationController
       redirect_to billing_my_organization_path
     else
       logger.debug("Failed")
-      redirect_to :back, error: "There was a problem processing your request.  Please try again or contact ArtsReady"
+      redirect_to :back, notice: "There was a problem processing your request.  Please try again or contact ArtsReady"
     end
   end
   
   def my_organization
+    redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator." unless current_user.is_executive?
     @organization = current_org
     @payment = current_org.payment
   end
@@ -140,6 +141,7 @@ class BillingController < ApplicationController
       @payment = Organization.find(params[:id]).payment
     else
       @payment = current_org.payment
+      redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator" and return unless current_user.is_executive?
     end
     
     if @payment.cancel

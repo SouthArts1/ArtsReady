@@ -18,6 +18,11 @@ class Admin::OrganizationsController < Admin::AdminController
     end
 
   end
+  
+  def billing
+    @organization = Organization.find(params[:id])
+    @payment = @organization.payment
+  end
 
   def destroy
     @organization = Organization.find(params[:id])

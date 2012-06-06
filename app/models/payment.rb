@@ -208,6 +208,8 @@ class Payment < ActiveRecord::Base
         return false
       end
     end
+    
+    
   end
   
   def cancel_subscription
