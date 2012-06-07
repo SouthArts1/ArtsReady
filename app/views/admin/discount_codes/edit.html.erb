@@ -1,8 +1,7 @@
-<h2>Editing Discount Code!</h2>
+<h2>Editing Discount Code</h2>
 <div class="grid_8">
   <section>
     <%= form_for([:admin, @discount_code]) do |f| %>
-      <legend>Discount Information</legend>
       <p>
         <%= f.label :discount_code %>
         <%= f.text_field :discount_code %>
