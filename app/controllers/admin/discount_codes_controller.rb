@@ -34,4 +34,13 @@ class Admin::DiscountCodesController < Admin::AdminController
     @discount_codes = DiscountCode.all.select{ |c| !c.is_valid? }
   end
   
+  def usage
+    @discount_codes = DiscountCode.all
+    @payments = Payment.all
+  end
+  
+  def show_usage
+    @discount_code = DiscountCode.find(params[:id])
+  end
+  
 end

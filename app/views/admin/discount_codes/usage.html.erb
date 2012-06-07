@@ -1,0 +1,37 @@
+<h1>Discount Code Usage</h1>
+
+<ul class="top-nav settings">
+  <li><%= link_to 'Active', admin_discount_codes_path %></li>
+	<li><%= link_to "Disabled", "/admin/discount_codes/disabled" %></li>	
+	<li class="active"><%= link_to "Usage", "/admin/discount_codes/usage" %></li>
+</ul>
+
+<div class="grid_12">
+     
+  <section>
+    <table class="resource side-nav-panels">
+      <thead>
+        <tr>
+          <th><p>Code</p></th>
+					<th><p>Description</p></th>
+          <th><p>Usages</p></th>
+          <th><p>Max Usages</p></th>
+          <th><p>&nbsp;</p></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @discount_codes.each do |code| %>
+          <tr>
+            <td class="name"><p><%= code.discount_code %></p></td>
+						<td class="description"><p><%= code.description %></p></td>
+            <td class="activity"><p>
+							<%= code.payments.count %>
+						</p></td>
+						<td class="activity"><p><%= code.redemption_max %></p></td>
+            <td class="actions"><p><%= link_to "Show Usage", "/admin/discount_codes/show_usage/#{code.id}" %></p></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

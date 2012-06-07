@@ -19,6 +19,8 @@ Artsready::Application.routes.draw do
     get 'home/dashboard', :as => "dashboard"
     get "/organizations/billing/(:id)" => "organizations#billing"
     get "/discount_codes/disabled" => "discount_codes#disabled"
+    get "/discount_codes/usage" => "discount_codes#usage"
+    get "/discount_codes/show_usage/(:id)" => "discount_codes#show_usage"
     
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
