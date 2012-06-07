@@ -84,18 +84,18 @@
 			</p>
 			<% if @payment.payment_method == "Credit Card" %>
 				<div id="cc_info">
-					<table>
+					<table style="border:none;">
 						<tr>
-							<td>Credit Card Number:</td>
-							<td><%= f.text_field :number %></td>
+							<td><p>Credit Card Number:</p></td>
+							<td><p><%= f.text_field :number %> <%= image_tag "cc_image.jpg", :width => "120px" %></p></td>
 						</tr>
 						<tr>
-							<td>Expiration Date:</td>
-							<td><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]) %> <%= f.date_select :expiry_year, :order => [:year] %></td>
+							<td><p>Expiration Date:</p></td>
+							<td><p><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]) %> <%= f.date_select :expiry_year, :order => [:year] %></p></td>
 						</tr>
 						<tr>
-							<td>Verification Number (CCV):</td>
-							<td><%= f.text_field :ccv %></td>
+							<td><p>Verification Number (CCV):</p></td>
+							<td><p><%= f.text_field :ccv %></p></td>
 						</tr>
 					</table>
 					<br />
@@ -104,20 +104,20 @@
 				<div id="bank_info">
 					<table>
 						<tr>
-							<td>Bank Name:</td>
-							<td><%= f.text_field :bank_name %></td>
+							<td><p>Bank Name:</p></td>
+							<td><p><%= f.text_field :bank_name %></p></td>
 						</tr>
 						<tr>
-							<td>Account Type:</td>
-							<td><%= f.select :account_type, ["Checking", "Savings"] %></td>
+							<td><p>Account Type:</p></td>
+							<td><p><%= f.select :account_type, ["Checking", "Savings"] %></p></td>
 						</tr>
 						<tr>
-							<td>ABA Routing Number:</td>
-							<td><%= f.text_field :routing_number %></td>
+							<td><p>ABA Routing Number:</p></td>
+							<td><p><%= f.text_field :routing_number %></p></td>
 						</tr>
 						<tr>
-							<td>Account Number:</td>
-							<td><%= f.text_field :account_number %></td>
+							<td><p>Account Number:</p></td>
+							<td><p><%= f.text_field :account_number %></p></td>
 						</tr>
 					</table>
 					<br />

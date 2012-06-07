@@ -104,14 +104,14 @@
 			<table style="border:none;">
 				<tr>
 					<td><p>Credit Card Number:</p></td>
-					<td><p><%= f.text_field :number %></p></td>
+					<td><p><%= f.text_field :number %> <%= image_tag "cc_image.jpg", :width => "120px" %></p></td>
 				</tr>
 				<tr>
 					<td><p>Expiration Date:</p></td>
-					<td><p><%= f.date_select :expiry_month, :order => [:month] %> <%= f.date_select :expiry_year, :order => [:year] %></p></td></td>
+					<td><p><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]) %> <%= f.date_select :expiry_year, :order => [:year] %></p></td>
 				</tr>
 				<tr>
-					<td><p>Verification Number (CVV2):</p></td>
+					<td><p>Verification Number (CCV):</p></td>
 					<td><p><%= f.text_field :ccv %></p></td>
 				</tr>
 			</table>

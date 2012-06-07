@@ -64,13 +64,6 @@
 				<% end %>
 			</p>
 	  </section>
-		<p>
-			<% if @payment %>
-				<%= link_to "Update Billing/Payment Information", edit_billing_path(@payment) %>
-			<% else %>
-				<%= link_to "Setup your billing information", new_billing_path %>
-			<% end %>
-		</p>
 	<% else %>
 		<p>This organization has not setup their billing yet!</p>
 	<% end %>
