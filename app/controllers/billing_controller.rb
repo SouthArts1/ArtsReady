@@ -54,14 +54,14 @@ class BillingController < ApplicationController
       @payment.routing_number = obj[:routing_number]
       @payment.account_number = obj[:account_number]
     else
-      redirect_to :back, error: "There was a problem processing your request.  Please try again or contact ArtsReady"
+      redirect_to :back, error: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     if @payment.save
       @current_user = @organization.managers.first
       session[:user_id] = @current_user.id
       redirect_to "/"
     else
-      redirect_to :back, error: "There was a problem processing your request.  Please try again or contact ArtsReady"
+      redirect_to :back, error: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
   end
   
@@ -99,7 +99,7 @@ class BillingController < ApplicationController
       @payment.account_number = obj[:account_number]
       @payment.payment_type = "bank"
     else
-      redirect_to :back, notice: "There was a problem processing your request.  Please try again or contact ArtsReady"
+      redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     
     @payment.billing_first_name = obj[:billing_first_name] 
@@ -126,7 +126,7 @@ class BillingController < ApplicationController
       redirect_to billing_my_organization_path
     else
       logger.debug("Failed")
-      redirect_to :back, notice: "There was a problem processing your request.  Please try again or contact ArtsReady"
+      redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
   end
   

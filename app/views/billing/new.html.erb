@@ -12,7 +12,7 @@
 	
 	<% if @organization.errors.any? %>
   <div class="error_messages">
-      <h2>Form is invalid</h2>
+      <h4>Form is invalid</h4>
       <ul>
         <% for message in @organization.errors.full_messages %>
           <li><%= message %></li>
@@ -40,17 +40,51 @@
 		<%= f.text_field :billing_zipcode %><br /></p>
 		<br />
 		Payment information:
-		<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
-			This information will not be saved.<br /> 
-			Each subscription will be processed individually on its given timeline.<br />
-			You may use a Credit/Debit Card for processing, or your checking or savings account.
-		</p><br /><br />
-		<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
-			By entering your payment information, you agree to be billed <strong id="starting_value"><%= money_from_cents @payment.starting_amount_in_cents %></strong> for the first year of service, and <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (prices including discounts).
+		<br />
+		<table style="border:none;">
+			<tr>
+				<td style="border:none; width:60px;"></td>
+				<td style="border:none; width:200px;"><h4>Annual Subscription:</h4></td>
+				<td style="border:none;">
+					<h4>
+					<% if @payment.starting_amount_in_cents > 7500 %>
+						<%= money_from_cents(@payment.starting_amount_in_cents - 7500) %>
+					<% else %>
+						<%= money_from_cents(@payment.starting_amount_in_cents) %>
+					<% end %>
+					</h4>
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none; width:60px;"></td>
+				<td style="border:none; width:200px;"><h4>First Year Fee:</h4></td>
+				<td style="border:none;">
+					<h4>
+						<% if @payment.starting_amount_in_cents > 7500 %>
+							$75.00
+						<% else %>
+							Waived!
+						<% end %>
+					</h4>
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none; width:60px;"></td>
+				<td style="border:none; width:200px;"><h4>Total Due:</h4></td>
+				<td style="border:none;"><h4><%= money_from_cents @payment.starting_amount_in_cents %></h4></td>
+			</tr>
+		</table>
+		<br />
+		<p>
+			Have a discount code? <input type="text" id="discount_code" style="width:200px;" /><br />
+			<br />
+			<p style="margin-left:138px;">
+				<input type="button" id="discount_submit" value="Use my discount code!" style="text-decoration: none; border: 1px solid #C31D29; padding: 5px 8px; font-weight: bold; vertical-align: middle; cursor: pointer; color: white; font-size: 12px; text-decoration: none; letter-spacing: normal; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; background-color: #C31D29; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.25)), to(#C31D29)); background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #C31D29); box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;" /><br /><br />
+				<em>If you have been subsidized by an <span style="color:#C31D29;">ArtsReady Partner</span>, please contact the <span  style="color:#C31D29;">ArtsReady Team</span> for your discount code.</em>
+			</p>
 		</p>
-		<p>Have a discount code? <input type="text" id="discount_code" style="width:200px;" />
-			<br /><input type="button" id="discount_submit" value="Use my discount code!" /></p>
 		</script>
+		<br /><br />
 		<table style="border:none;">
 			<tr>
 				<td>
@@ -81,6 +115,15 @@
 					<td><p><%= f.text_field :ccv %></p></td>
 				</tr>
 			</table>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				By entering your payment information, you agree to be billed <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (prices including discounts).
+			</p>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				This information will not be saved.<br /> 
+				Each subscription will be processed individually on its given timeline.<br />
+				You may only change payment information of the same type.<br />  
+				If it is necessary to change between a credit/debit card and a bank account, please contact ArtsReady.
+			</p>
 			<br />
 		</div>
 		<div id="bank_info" style="display:none;">
@@ -102,6 +145,15 @@
 					<td><p><%= f.text_field :account_number %></p></td>
 				</tr>
 			</table>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				By entering your payment information, you agree to be billed <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (prices including discounts).
+			</p>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				This information will not be saved.<br /> 
+				Each subscription will be processed individually on its given timeline.<br />
+				You may only change payment information of the same type.<br />  
+				If it is necessary to change between a credit/debit card and a bank account, please contact ArtsReady.
+			</p>
 		</div>
 		<br />
 		<%= f.submit %>
@@ -118,8 +170,8 @@
 				window.location.href = ("/billing/new/"+ $("#discount_code").val())
 			})
 				
-			$("#payment_billing_first_name").animateHighlight("#dd0000", 2000);
-			$("#payment_billing_last_name").animateHighlight("#dd0000", 2000);
+			// $("#payment_billing_first_name").animateHighlight("#dd0000", 2000);
+			// 		$("#payment_billing_last_name").animateHighlight("#dd0000", 2000);
 			
 			$("#payment_type").change(function() {
 				var type = "#" + $("#payment_type").val() + "_info";

@@ -1,6 +1,6 @@
 class Admin::DiscountCodesController < Admin::AdminController
   def index
-    @discount_codes = DiscountCode.all
+    @discount_codes = DiscountCode.all.select{ |c| c.is_valid? }
   end
   
   def new
@@ -28,6 +28,10 @@ class Admin::DiscountCodesController < Admin::AdminController
     else
       redirect_to :back, notice: "There was a problem updating that discount code.  Please try again!"
     end
+  end
+  
+  def disabled
+    @discount_codes = DiscountCode.all.select{ |c| !c.is_valid? }
   end
   
 end
