@@ -11,10 +11,11 @@
 		<p><strong>Code:</strong> <%= @discount_code.discount_code %></p>
 		<p><strong>Description:</strong> <%= @discount_code.description %></p>
 		<p><strong>Value:</strong> <%= "#{@discount_code.deduction_value} #{@discount_code.deduction_type == "percentage" ? "%" : "dollars" } off" %></p>
+		<p><strong>Maximum Uses: </strong><%= @discount_code.redemption_max %> uses max.</p>
 		<p><strong>Usage:</strong> <%= @discount_code.payments.count %> uses in total.
 			<ul style="margin-left:120px;">
 				<% @discount_code.payments.each do |p| %>
-					<li><strong><%= p.organization.name rescue "" %></strong> on <%= p.start_date.strftime("%m/%d/%Y") rescue "" %></li>
+					<li><strong><%= p.organization.name rescue "No longer found" %></strong> on <%= p.start_date.strftime("%m/%d/%Y") rescue "" %></li>
 				<% end %>
 			</ul>
 		</p>
