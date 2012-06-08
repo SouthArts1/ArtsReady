@@ -58,8 +58,8 @@ class Assessment < ActiveRecord::Base
       :critical_function => 'people', :user => users.first,
       :priority => 'critical', :due_on => completed_at.to_date + 1.year,
       :key => 'reassessment',
-      :description => 'Review your readiness assessment annually.
-      To begin, go to your assessment and click "Archive and Re-Assess".'
+      :description => "repeating your assessment for your organization's 
+      annual review."
     }
 
     if self.reassessment_todo(true)
