@@ -86,11 +86,11 @@ describe Todo do
     end
   end
 
-  describe '.create_or_reset' do
+  describe '.create_or_restart' do
     context 'given no matching todo item' do
       it 'creates a new one' do
         count = Todo.count
-        todo = Todo.create_or_reset(
+        todo = Todo.create_or_restart(
           Factory.attributes_for(:todo).merge(
             :organization => Factory.create(:organization),
             :action_item => Factory.create(:action_item)))
@@ -105,8 +105,8 @@ describe Todo do
           :action_item => Factory.create(:action_item))
       }
 
-      it 'resets it' do
-        todo = Todo.create_or_reset(
+      it 'restart it' do
+        todo = Todo.create_or_restart(
           :organization => existing.organization,
           :action_item => existing.action_item)
         todo.should == existing
@@ -114,7 +114,7 @@ describe Todo do
     end
   end
 
-  describe '.reset' do
+  describe '.restart' do
     let(:todo) {
       Factory.create(:todo,
         :action => 'Review',
@@ -125,7 +125,7 @@ describe Todo do
     before do
       answer = Factory.create(:answer, 
                               :preparedness => 'unknown')
-      todo.reset(:answer => answer)
+      todo.restart(:answer => answer)
     end
 
     it 'saves the changes' do
@@ -142,7 +142,7 @@ describe Todo do
     end
 
     it 'adds a note' do
-      todo.todo_notes.order('id ASC').last.message.should =~ /reset/i
+      todo.todo_notes.order('id ASC').last.message.should =~ /restart/i
     end
   end
 end

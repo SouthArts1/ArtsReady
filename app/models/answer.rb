@@ -40,7 +40,7 @@ class Answer < ActiveRecord::Base
 
   def add_todo_items
     question.action_items.active.each do |i|
-      todos.create_or_reset(:answer => self, :action_item => i, :organization => assessment.organization, :description => i.description, :critical_function => question.critical_function, :priority => priority)
+      todos.create_or_restart(:answer => self, :action_item => i, :organization => assessment.organization, :description => i.description, :critical_function => question.critical_function, :priority => priority)
       logger.debug("Added To-Do for question #{question}")
     end
   end

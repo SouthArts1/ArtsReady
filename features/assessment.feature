@@ -78,6 +78,7 @@ Feature: Assessment
     And I should be able to view the archived assessment
     
     When I finish the re-assessment
+    And I complete the "Archive and Re-Assess" todo
     And 340 days pass
     And the scheduled tasks have run
     Then I should have another re-assessment to-do

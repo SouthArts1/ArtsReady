@@ -22,7 +22,7 @@ class Assessment < ActiveRecord::Base
       joins("LEFT OUTER JOIN todos
         ON todos.organization_id = organizations.id
        AND todos.key = 'reassessment'").
-      where('todos.organization_id IS NULL')
+      where('todos.organization_id IS NULL OR todos.complete')
   }
 
   # internal method checks whether all questions are skipped or answered
@@ -54,13 +54,20 @@ class Assessment < ActiveRecord::Base
   end
   
   def create_reassessment_todo
-    organization.todos.create(
+    attrs = {
       :critical_function => 'people', :user => users.first,
       :priority => 'critical', :due_on => completed_at.to_date + 1.year,
       :key => 'reassessment',
       :description => 'Review your readiness assessment annually.
       To begin, go to your assessment and click "Archive and Re-Assess".'
-    )
+    }
+
+    if self.reassessment_todo(true)
+      reassessment_todo.restart(attrs)
+      reassessment_todo
+    else
+      return organization.todos.create(attrs)
+    end
   end
 
   def self.create_reassessment_todos

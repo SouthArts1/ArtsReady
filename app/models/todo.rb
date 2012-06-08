@@ -94,7 +94,7 @@ class Todo < ActiveRecord::Base
     Assessment.critical_function_title(critical_function)
   end
 
-  def self.create_or_reset(attributes)
+  def self.create_or_restart(attributes)
     matching_attributes = {
       :organization_id => attributes[:organization].id,
       :action_item_id => attributes[:action_item].id
@@ -104,7 +104,7 @@ class Todo < ActiveRecord::Base
     if existing
       matching_keys = matching_attributes.keys
       with_exclusive_scope do
-        existing.reset(attributes.reject { |k, v| matching_keys.include? k })
+        existing.restart(attributes.reject { |k, v| matching_keys.include? k })
       end
       existing
     else
@@ -112,14 +112,15 @@ class Todo < ActiveRecord::Base
     end
   end
 
-  def reset(attributes = {})
-    @reset_in_progress = true
-    update_attributes(attributes.merge(
+  def restart(attributes = {})
+    @restart_in_progress = true
+    update_attributes(attributes.reverse_merge(
       :complete => false, :due_on => nil, :user_id => nil ))
     initialize_action
     save
   ensure
-    @reset_in_progress = false
+    @restart_in_progress = false
+    self
   end
   
   private
@@ -137,8 +138,8 @@ class Todo < ActiveRecord::Base
 
     message = messages.join('; ')
 
-    if @reset_in_progress
-      message = message.present? ? "Reset: #{message}" : 'Reset'
+    if @restart_in_progress
+      message = message.present? ? "Restarted: #{message}" : 'Restarted'
     end
     todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
   end

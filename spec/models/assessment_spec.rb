@@ -40,6 +40,7 @@ describe Assessment do
   describe '#create_reassessment_todo' do
     let(:completed_at) { Time.now }
     let(:assessment) { Factory.create(:assessment, :completed_at => completed_at) }
+    let!(:user) { Factory.create(:user, :organization => assessment.organization) }
     let(:todo) { assessment.create_reassessment_todo }
     subject { todo }
     
@@ -50,6 +51,21 @@ describe Assessment do
     it 'is due one year after the assessment is completed' do
       todo.due_on.should == completed_at.to_date + 1.year
     end
+
+    context 'given an existing todo' do
+      let(:existing) { assessment.create_reassessment_todo }
+
+      before do
+        existing.update_attributes(:complete => true)
+      end
+
+      it 'restarts it' do
+        todo.should == existing
+        todo.should_not be_complete
+        todo.user.should == user
+        todo.should_not be_changed
+      end
+    end
   end
   
   describe '.pending_reassessment_todo' do
@@ -58,8 +74,12 @@ describe Assessment do
       already_served = Factory.create(:assessment, :completed_at => 50.weeks.ago)
       already_served.create_reassessment_todo
       in_need = Factory.create(:assessment, :completed_at => 50.weeks.ago)
-      
-      Assessment.pending_reassessment_todo.should == [in_need]
+      in_need_again = Factory.create(:assessment, :completed_at => 100.weeks.ago)
+      in_need_again.create_reassessment_todo.
+        update_attributes(:complete => true)
+
+      Assessment.pending_reassessment_todo.order(:id).
+        should == [in_need, in_need_again]
     end
   end
 

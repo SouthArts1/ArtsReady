@@ -47,7 +47,7 @@ Feature: Todo list
     When 6 months pass
     And I start a re-assessment
     And I answer the "org chart" question
-    Then the "org chart" todo should be reset
+    Then the "org chart" todo should be restarted
     And the "org chart" todo's history should be preserved
 
   Scenario: Export todos

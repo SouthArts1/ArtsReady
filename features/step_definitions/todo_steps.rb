@@ -23,7 +23,7 @@ Given /^I have created the following to-?do items:$/ do |table|
   end
 end
 
-Given /^I have completed the "([^"]*)" todo$/ do |label|
+Given /^I (?:complete|have completed) the "([^"]*)" todo$/ do |label|
   go_to_todo(label)
   check 'Completed?'
   click_button 'Save and Return to List'
@@ -57,10 +57,10 @@ Then /^I should see the following todos:$/ do |table|
   end
 end
 
-Then /^the "([^"]*)" todo should be reset/ do |label|
+Then /^the "([^"]*)" todo should be restarted$/ do |label|
   go_to_todo(label)
   find_field('Completed?')['checked'].should be_false
-  find('.log').should have_content('Reset')
+  find('.log').should have_content('Restarted')
 end
 
 Then /^the "([^"]*)" todo's history should be preserved$/ do |label|
