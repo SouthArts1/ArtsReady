@@ -66,6 +66,12 @@ describe AssessmentsController do
         it { should_not render_with_layout }
       end
     end
+
+    context '(no assessment yet)' do
+      let(:user) { Factory.create(:reader) }
+
+      it { should redirect_to new_assessment_path }
+    end
   end
 end
 

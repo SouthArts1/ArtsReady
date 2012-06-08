@@ -61,7 +61,7 @@ Then /^I should (?:get|have) a(?:nother)? re-assessment to-do$/ do
 end
 
 When /^I initiate a re-assessment$/ do
-  visit path_to 'the assessment'
+  click_link 'Assess'
   click_link 'Archive and Re-Assess'
 end
 
