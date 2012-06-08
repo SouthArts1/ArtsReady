@@ -40,6 +40,50 @@ describe Article do
       specify {subject.should_not include(disabled_article)}    
     end
     
+    context 'visible_to_organization' do
+      let(:organization) { Factory.create(:organization) }
+
+      let!(:public_article) { Factory.create(:public_article, :title => 'public article') }
+      let!(:own_public_article) { Factory.create(:public_article, :title => 'own public article', :organization => organization) }
+      let!(:private_article) { Factory.create(:private_article, :title => 'private article') }
+      let!(:own_private_article) { Factory.create(:private_article, :title => 'own private article', :organization => organization) }
+      let!(:buddies_article) { Factory.create(:buddies_article, :title => 'buddies article') }
+      let!(:own_buddies_article) { Factory.create(:buddies_article, :title => 'own buddies article', :organization => organization) }
+      let!(:allowed_buddies_article) { Factory.create(:buddies_article, :title => 'allowed buddies article', :organization => Factory.create(:organization, :battle_buddies => [organization])) }
+      let!(:shared_article) { Factory.create(:shared_article, :title => 'shared article') }
+      let!(:shared_by_article) { Factory.create(:shared_article, :title => 'shared-by article', :organization => organization) }
+      let!(:shared_with_article) { Factory.create(:shared_article, :title => 'shared-with article', :buddy_list => organization.id.to_s) }
+
+      subject { Article.visible_to_organization(organization) }
+
+      it 'includes own and shared articles' do
+        allowed_buddies_article.organization.battle_buddy_requests.first.accept!
+        [
+          :public_article, :own_public_article,
+          :own_private_article,
+          :own_buddies_article, :allowed_buddies_article,
+          :shared_by_article, :shared_with_article
+        ].each do |article|
+          subject.should include(send(article))
+        end
+
+        [
+          :private_article, :buddies_article, :shared_article 
+        ].each do |article|
+          subject.should_not include(send(article))
+        end
+      end
+    end
+
+    context 'visible_to_user' do
+      context 'for an executive' do
+        it 'includes executive articles'
+      end
+
+      context 'for a manager' do
+        it 'does not include executive articles'
+      end
+    end
   end
 
   context "recent scope" do

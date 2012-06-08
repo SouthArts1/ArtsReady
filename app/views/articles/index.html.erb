@@ -32,7 +32,7 @@
               <td class="function"><p><a href="#"><%= a.critical_function.capitalize %></a></p></td>
               <td class="icon">
                 <% if user_signed_in? %>
-                  <%= current_org.battle_buddies.include?(a.organization) ? image_tag('bbn_icon.png', :alt => 'Battle Buddy') : nil %>
+                  <%= bbn_icon?(a) %>
                   <% if a.on_critical_list && a.organization == current_org %>
                     <%= image_tag('crit_stuff_icon.png', :alt => 'Critical') %>
                   <% end %>

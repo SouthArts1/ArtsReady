@@ -59,6 +59,9 @@
 
   <div class="grid_6 omega" style="margin-bottom: 90px;">
     <% if @todo.action_item_id %>
+      <h3>From Assessment Statement</h3>
+      <p><%= @todo.related_assessment_question %></p>
+      
     <h3>Learn More</h3>
   <p><%= @todo.related_assessment_question_help %></p>
     <% end %>
