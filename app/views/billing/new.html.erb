@@ -188,7 +188,7 @@
 
 			$(document).ready(function() {
 				$("#discount_submit").click(function() {
-					window.location.href = ("/billing/<%= @payment.id %>/edit/"+ $("#discount_code").val())
+					window.location.href = ("/billing/new/"+ $("#discount_code").val())
 				})
 
 				// $("#payment_billing_first_name").animateHighlight("#dd0000", 2000);
