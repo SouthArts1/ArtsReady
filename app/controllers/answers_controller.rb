@@ -40,6 +40,7 @@ private
     if request.xhr?
       @assessment = @answer.assessment
       @critical_function = @answer.critical_function
+      @notice = flash.delete(:notice)
       render 'update'
     else
       redirect_to :back
