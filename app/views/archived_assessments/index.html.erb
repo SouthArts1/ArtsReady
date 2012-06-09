@@ -14,7 +14,7 @@
           <tr>
             <td class="date"><p><%= assessment.created_at.strftime("%B %d, %Y") %></p></td>
             <td class="date"><p><%= assessment.completed_at.strftime("%B %d, %Y") %></p></td>
-            <td><p><%= link_to 'View CSV', archived_assessment_path(assessment, :format => :csv), :class => 'button' %></p></td>
+            <td><p><%= link_to 'View Assessment', archived_assessment_path(assessment, :format => :csv), :class => 'button' %></p></td>
           </tr>
         <% end %>
       </tbody>
