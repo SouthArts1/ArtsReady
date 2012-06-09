@@ -38,8 +38,7 @@ private
 
   def respond
     if request.xhr?
-      render :partial => 'assessments/assessment_question',
-        :locals => {:answer => @answer}
+      render 'update'
     else
       redirect_to :back
     end

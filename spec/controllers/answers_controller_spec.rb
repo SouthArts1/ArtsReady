@@ -12,7 +12,7 @@ describe AnswersController do
     end
 
     it { 
-      should render_template(:partial => 'assessments/_assessment_question')
+      should render_template('update')
     }
   end
 end

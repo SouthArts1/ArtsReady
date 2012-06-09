@@ -1,0 +1,2 @@
+$('#<%= dom_id(@answer.question) %>').replaceWith("<%= escape_javascript(render :partial => 'assessments/assessment_question', :object => @answer, :as => :answer) %>");
+

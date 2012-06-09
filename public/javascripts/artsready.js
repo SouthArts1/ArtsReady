@@ -140,14 +140,6 @@ $('.button.respond, .question .prompt, .answers .button').live('click', function
 });
 
 $(function() {
-  $('.questions .question form').live('ajax:complete',
-    function(event, xhr) {
-      var $html = $(xhr.responseText);
-      manageSubmitButton($html.find('form.edit_answer'));
-      $(this).closest('.question').replaceWith($html);
-    }
-  );
-
   var manageSubmitButton = function(form) {
     var $form = $(form);
 
