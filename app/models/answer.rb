@@ -45,9 +45,13 @@ class Answer < ActiveRecord::Base
     end
   end
 
+  def skip!
+    self.update_attribute(:was_skipped, true)
+    assessment.answer_was_skipped
+  end
+
   def notify_assessment
     assessment.answer_was_answered if answered?
-    assessment.answer_was_skipped if (was_skipped? && was_skipped_changed?)
   end
 
   def critical_function_title

@@ -38,7 +38,7 @@ describe Assessment do
   end
   
   describe '#create_reassessment_todo' do
-    let(:completed_at) { Time.now }
+    let(:completed_at) { Time.zone.now }
     let(:assessment) { Factory.create(:assessment, :completed_at => completed_at) }
     let!(:user) { Factory.create(:user, :organization => assessment.organization) }
     let(:todo) { assessment.create_reassessment_todo }
@@ -46,7 +46,7 @@ describe Assessment do
     
     it { should be_a_kind_of Todo }
     it 'tells you what button to press' do
-      todo.description.should =~ /Archive and Re-Assess/
+      todo.description.should =~ /repeating your assessment/
     end
     it 'is due one year after the assessment is completed' do
       todo.due_on.should == completed_at.to_date + 1.year

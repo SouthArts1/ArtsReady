@@ -12,7 +12,7 @@ class AnswersController < ApplicationController
   
   def skip
     @answer = current_org.assessment.answers.find(params[:id])
-    if @answer.update_attribute(:was_skipped,true)
+    if @answer.skip!
       flash.notice = 'You skipped that question, but you can always reconsider.'
     else
       flash.notice = 'Problem with considering the question'
