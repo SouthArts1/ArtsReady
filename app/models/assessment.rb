@@ -58,8 +58,11 @@ class Assessment < ActiveRecord::Base
       :critical_function => 'people', :user => users.first,
       :priority => 'critical', :due_on => completed_at.to_date + 1.year,
       :key => 'reassessment',
-      :description => "repeating your assessment for your organization's 
-      annual review."
+      :description =>
+        "repeating your assessment for your organization's annual review.
+        (To begin, choose the Assess tab at the top of your Dashboard.
+        To view your past Assessments visit your Settings'
+        \"Completed Assessments\" tab.)"
     }
 
     if self.reassessment_todo(true)
