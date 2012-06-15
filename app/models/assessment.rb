@@ -39,7 +39,6 @@ class Assessment < ActiveRecord::Base
   end
 
   def answer_was_answered
-    update_attribute(:completed_answers_count, completed_answers_count + 1)
     check_complete
   end
 
@@ -109,10 +108,13 @@ class Assessment < ActiveRecord::Base
   end
 
   def percentage_complete
-    # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
     (((completed_answers_count +  skipped_answers_count).to_f / (answers_count).to_f)*100).to_i rescue 0
   end
   
+  def completed_answers_count
+    answers.answered.count
+  end
+
   def skipped_answers_count
     answers.skipped.size
   end

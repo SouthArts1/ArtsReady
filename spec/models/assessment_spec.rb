@@ -12,9 +12,31 @@ describe Assessment do
   end
   
   describe "#completed?" do
-    it { Assessment.new(answers_count: 10, completed_answers_count: 0).should_not be_completed }
-    it { Assessment.new(answers_count: 10, completed_answers_count: 5).should_not be_completed }
-    it { Assessment.new(answers_count: 10, completed_answers_count: 10).should be_completed }
+    before { 2.times { Factory.create(:question) } }
+
+    let(:assessment) { Factory.create(:assessment) }
+    let(:first_answer) { assessment.answers.first }
+    let(:second_answer) { 
+      assessment.answers.where(['id <> ?', first_answer]).last
+    }
+
+    it 'should be true if all the questions are answered or skipped' do
+      assessment.should_not be_completed
+
+      first_answer.update_attributes(
+          :priority => 'critical', :preparedness => 'not ready')
+      assessment.reload.should_not be_completed
+
+      second_answer.update_attribute(:was_skipped, true)
+      assessment.reload.should be_completed
+
+      second_answer.update_attribute(:was_skipped, false)
+      assessment.reload.should_not be_completed
+
+      second_answer.update_attributes(
+        :priority => 'critical', :preparedness => 'not ready')
+      assessment.reload.should be_completed
+    end
   end
   
   describe '#check_complete' do
