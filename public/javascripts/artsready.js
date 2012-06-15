@@ -1,6 +1,6 @@
 $(function(){
 	// $("select, input[type='checkbox'], input[type='radio'], input:file").uniform();
-	$("input[type='checkbox'], input[type='radio'], input:file").uniform();
+	$("input[type='checkbox'], input:file").uniform();
 	
 	$(".questionnaire tbody, .resource tbody").hide().eq(0).show();
 	
