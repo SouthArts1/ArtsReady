@@ -855,6 +855,8 @@ tbody tr:hover td {
     width: 500px;
     float: left;
     margin-right: 20px; }
+  .question .prompt {
+    border: none; }
 
 /*  Org Admin */
 .admin-actions form {
