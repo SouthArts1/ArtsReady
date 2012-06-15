@@ -2,7 +2,8 @@ class Organization < ActiveRecord::Base
   acts_as_gmappable
   geocoded_by :full_street_address
 
-  has_one :assessment, :dependent => :destroy
+  has_one :assessment, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :assessments, :dependent => :destroy
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
   has_many :public_articles, :class_name => 'Article',
@@ -43,7 +44,7 @@ class Organization < ActiveRecord::Base
   scope :nearing_expiration, where('0=1')
   scope :in_crisis, includes(:crisis).where('crises.resolved_on IS NULL')
   
-  delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
+  delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
   

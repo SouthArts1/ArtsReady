@@ -85,4 +85,64 @@ describe Todo do
       Todo.nearing_due_date.should_not include(todo)
     end
   end
+
+  describe '.create_or_restart' do
+    context 'given no matching todo item' do
+      it 'creates a new one' do
+        count = Todo.count
+        todo = Todo.create_or_restart(
+          Factory.attributes_for(:todo).merge(
+            :organization => Factory.create(:organization),
+            :action_item => Factory.create(:action_item)))
+        Todo.count.should == count + 1
+      end
+    end
+
+    context 'given a matching todo item' do
+      let(:existing) {
+        Factory.create(:todo,
+          :organization => Factory.create(:organization),
+          :action_item => Factory.create(:action_item))
+      }
+
+      it 'restart it' do
+        todo = Todo.create_or_restart(
+          :organization => existing.organization,
+          :action_item => existing.action_item)
+        todo.should == existing
+      end
+    end
+  end
+
+  describe '.restart' do
+    let(:todo) {
+      Factory.create(:todo,
+        :action => 'Review',
+        :complete => true,
+        :due_on => 6.months.ago)
+    }
+
+    before do
+      answer = Factory.create(:answer, 
+                              :preparedness => 'unknown')
+      todo.restart(:answer => answer)
+    end
+
+    it 'saves the changes' do
+      todo.should_not be_changed
+    end
+
+    it 'resets default attributes' do
+      todo.should_not be_complete
+      todo.due_on.should be_nil
+    end
+
+    it 'updates provided attributes' do
+      todo.action.should == 'Learn About'
+    end
+
+    it 'adds a note' do
+      todo.todo_notes.order('id ASC').last.message.should =~ /restart/i
+    end
+  end
 end

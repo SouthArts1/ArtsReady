@@ -9,6 +9,18 @@ describe Answer do
   it { should validate_presence_of(:assessment)}
   it { should validate_presence_of(:question)}
   
+  describe '.pending' do
+    it 'includes answers that are neither answered nor skipped' do
+      answered = Factory.create(:answered_answer)
+      skipped = Factory.create(:skipped_answer)
+      pending = Factory.create(:pending_answer)
+      reconsidered = Factory.create(:reconsidered_answer)
+      Answer.where(['id NOT IN (?)', [answered, skipped, pending, reconsidered]]).destroy_all
+      
+      Answer.pending.should == [pending, reconsidered]
+    end
+  end
+  
   context "after initial creation" do
     subject { Factory.create(:answer) }
     

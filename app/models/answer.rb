@@ -16,10 +16,15 @@ class Answer < ActiveRecord::Base
   validates_presence_of :preparedness, :on => :update, :unless => :was_skipped?
   validates_presence_of :priority, :on => :update, :unless => :was_skipped?
 
-
   after_update :add_todo_items#, :unless => "was_skipped == true"
-  after_update :answered_count
-
+  after_update :notify_assessment
+  
+  scope :pending, where(
+    '(NOT was_skipped OR was_skipped IS NULL) AND
+    preparedness IS NULL AND
+    priority IS NULL'
+  )
+  
   scope :for_critical_function, proc {|critical_function| 
     includes(:question).
     where(['questions.critical_function = ?', critical_function])
@@ -35,13 +40,18 @@ class Answer < ActiveRecord::Base
 
   def add_todo_items
     question.action_items.active.each do |i|
-      todos.create(:action_item => i, :organization => assessment.organization, :description => i.description, :critical_function => question.critical_function, :priority => priority)
+      todos.create_or_restart(:answer => self, :action_item => i, :organization => assessment.organization, :description => i.description, :critical_function => question.critical_function, :priority => priority)
       logger.debug("Added To-Do for question #{question}")
     end
   end
 
-  def answered_count
-    Assessment.increment_counter(:completed_answers_count,assessment.id) if answered?
+  def skip!
+    self.update_attribute(:was_skipped, true)
+    assessment.answer_was_skipped
+  end
+
+  def notify_assessment
+    assessment.answer_was_answered if answered?
   end
 
   def critical_function_title

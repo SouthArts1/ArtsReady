@@ -35,6 +35,21 @@ Feature: Todo list
     Then I should see "some task" within ".item"
     And I should see "Start" within ".action"
 
+  Scenario: Add a todo from a re-assessment
+    Given a question exists with a description of "org chart"
+    And the following action item exists:
+      | description | question               |
+      | org chart   | description: org chart |
+    And I am signed in as an editor
+    And I have finished an assessment
+    And I have completed the "org chart" todo
+
+    When 6 months pass
+    And I start a re-assessment
+    And I answer the "org chart" question
+    Then the "org chart" todo should be restarted
+    And the "org chart" todo's history should be preserved
+
   Scenario: Export todos
     Given I am signed in as an editor
     And I have created the following todo items:

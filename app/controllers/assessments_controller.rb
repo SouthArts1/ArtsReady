@@ -1,10 +1,12 @@
 class AssessmentsController < ApplicationController
 
   def new
-    if current_org.assessment.present?
+    current = current_org.assessment
+    if current && !current.complete?
       redirect_to assessment_path
     else
-      @assessment = Assessment.new
+      @assessment = current_org.build_assessment
+      @assessment.initialize_critical_functions
     end
   end
 
@@ -14,7 +16,8 @@ class AssessmentsController < ApplicationController
   end
 
   def show
-    redirect_to new_assessment_path unless current_org.assessment.present?
+    return redirect_to new_assessment_path unless current_org.assessment.present?
+
     @assessment = current_org.assessment
     critical_function = (params[:tab] ||= 'people')
     @answers = @assessment.answers.includes(:question)

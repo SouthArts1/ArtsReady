@@ -9,8 +9,8 @@
 </div>
 
 <div class="grid_8">
-  <%= render :partial => 'assessment_status' unless current_org.assessment_is_complete?%>
-  <%= render :partial => 'continue' if current_org.assessment_is_complete?%>
+  <%= render :partial => 'assessment_status' unless current_org.assessment_complete?%>
+  <%= render :partial => 'continue' if current_org.assessment_complete?%>
 
   <div class="grid_4 alpha">
     <section>

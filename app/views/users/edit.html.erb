@@ -1,18 +1,10 @@
-<h1>My Info</h1>
+<% my_info = (@user == current_user) %>
 
-<ul class="top-nav settings">
-    <% if @user == current_user %>
-    <li class="active"><%= link_to 'My Info', profile_path %></li>
-    <% else %>
-    <li><%= link_to 'My Info', profile_path %></li>    
-    <% end %>
-    <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
-    <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
-    <li class=""><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
-    <% if @user != current_user %>
-    <li class="active"><%= link_to "Edit User", edit_organization_user_path(@user) %></li>
-    <% end %>
-</ul>
+<h1><%= my_info ? 'My Info' : @user.name+"'s Info" %></h1>
+
+<div class="grid_12 alpha">
+  <%= render :partial => '/shared/settings_navbar', :locals => {:current_settings_tab => my_info ? :my_info : :edit_user } %>
+</div>
 
 <div class="grid_8">
   <section>

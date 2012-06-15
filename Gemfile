@@ -54,5 +54,6 @@ group :test do
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'shoulda'
+  gem 'timecop'
   gem 'simplecov'
 end
