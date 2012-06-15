@@ -19,7 +19,6 @@ describe Organization do
   
   it {subject.assessment_complete?.should be_false} 
   it {subject.assessment_percentage_complete.should be_nil}
-  it {subject.todo_completion.should be_zero} 
   it {subject.declared_crisis?.should be_false}
   it {subject.active?.should be_false}
   it {subject.is_approved?.should be_false}

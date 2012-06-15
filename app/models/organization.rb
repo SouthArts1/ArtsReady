@@ -64,10 +64,6 @@ class Organization < ActiveRecord::Base
     full_street_address
   end
 
-  def todo_completion
-    0
-  end
-
   def deletable?
     # must deactivate an organization before deleting it
     !active? && users.all(&:disabled?)
