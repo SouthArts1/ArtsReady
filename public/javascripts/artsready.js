@@ -139,19 +139,14 @@ $('.button.respond, .question .prompt, .answers .button').live('click', function
 	return false;
 });
 
+$('form.edit_answer input[type=radio]').live('change', function() {
+  var $form = $(this).closest('form');
+  $form.find('.save-response').attr('disabled',
+    $form.find('input[type=radio]:checked').length < 2);
+});
+
 $(function() {
-  var manageSubmitButton = function(form) {
-    var $form = $(form);
-
-    $form.find('input[type=radio]').change(
-      function(event) {
-        $form.find('input[type=submit]').attr('disabled',
-          $form.find('input[type=radio]:checked').length < 2);
-      }
-    ).filter(':first').change();
-  };
-
-  $('form.edit_answer').each(function() { manageSubmitButton(this); });
+  $('form.edit_answer .save-response').attr('disabled', true);
 });
 
 function toggleQuestion(button) {

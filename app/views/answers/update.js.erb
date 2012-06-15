@@ -1,3 +1,7 @@
 $('#<%= dom_id(@answer.question) %>').replaceWith("<%= escape_javascript(render :partial => 'assessments/assessment_question', :object => @answer, :as => :answer) %>");
+
+// Need to find it again because it's been replaced:
+$('#<%= dom_id(@answer.question) %> .save-response').attr('disabled', true)
+
 $('.progress-container').replaceWith("<%= escape_javascript(render :partial => 'assessments/progress') %>");
 
