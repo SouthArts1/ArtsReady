@@ -812,7 +812,9 @@ tbody {
   padding: 15px;
   color: #fff;
   background: #525e96;
-  clear: both; }
+  clear: both;
+  label { display: inline; }
+}
 
 .questions {
   margin-bottom: 20px; }

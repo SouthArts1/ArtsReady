@@ -1,0 +1,14 @@
+<% info = Assessment.critical_function_info(@critical_function) %>
+<% attr = Assessment.critical_function_attribute(@critical_function) %>
+
+<div class="critical-function-toggle">
+  <%= form_for @assessment do |f| %>
+    <% if info[:optional] %>
+      <%= f.check_box attr %>
+      <%= f.label info[:optional] %>
+    <% else %>
+      <%= check_box_tag :skip_section, '1', true, :disabled => true %>
+      <i><%= label_tag :skip_section, 'This section cannot be skipped' %></i>
+    <% end %>
+  <% end %>
+</div>

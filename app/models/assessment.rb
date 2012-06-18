@@ -78,10 +78,14 @@ class Assessment < ActiveRecord::Base
     end
   end
 
-  def self.critical_function_title(critical_function)
+  def self.critical_function_info(critical_function)
     ArtsreadyDomain::CRITICAL_FUNCTIONS.detect do |hash|
       hash[:name] == critical_function
-    end.try(:[], :title)
+    end
+  end
+
+  def self.critical_function_title(critical_function)
+    critical_function_info(critical_function).try(:[], :title)
   end
 
   def initial_critical_functions

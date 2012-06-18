@@ -792,6 +792,8 @@ tbody tr:hover td {
   color: #fff;
   background: #525e96;
   clear: both; }
+  .critical-function-toggle label {
+    display: inline; }
 
 .questions {
   margin-bottom: 20px; }

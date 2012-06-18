@@ -8,8 +8,7 @@
       <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(:tab => critical_function[:name]) %></li>
     <% end %>
   </ul>
-  <div class="critical-function-toggle">
-  </div>
+  <%= render :partial => 'critical_function_toggle' %>
   <div class="questions">
     <% @answers.each do |a| %>
     <div class="section">
