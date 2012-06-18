@@ -160,23 +160,24 @@ $('.checker').live('click', function() {
 	$('.question:not(.answered)').find('.respond').toggle();
 });
 
+var manageInfoBubble;
+
 // Tooltips
 $(function () {
-  $('.info-bubble').each(function () {	
-	
-    // options
-    var distance = 10;
-    var time = 250;
-    var hideDelay = 100;
+  // options
+  var distance = 10;
+  var time = 250;
+  var hideDelay = 100;
 
+  manageInfoBubble = function(bubble) {	
     var hideDelayTimer = null;
 
     // tracker
     var beingShown = false;
     var shown = false;
     
-    var trigger = $('.info-bubble-trigger', this);
-    var popup = $('.info-bubble-text', this).css('opacity', 0);
+    var trigger = $('.info-bubble-trigger', bubble);
+    var popup = $('.info-bubble-text', bubble).css('opacity', 0);
 
     // set the mouseover and mouseout on both element
     $([trigger.get(0), popup.get(0)]).mouseover(function () {
@@ -209,7 +210,7 @@ $(function () {
           beingShown = false;
           shown = true;
         });
-		$(this).closest('tr').siblings('tr').find('.info-bubble').fadeOut();
+		$(bubble).closest('tr').siblings('tr').find('.info-bubble').fadeOut();
       }
     }).mouseout(function () {
       // reset the timer if we get fired again - avoids double animations
@@ -229,7 +230,10 @@ $(function () {
         });
       }, hideDelay);
 		
-		$(this).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
+		$(bubble).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
     });
-  });
+  };
+
+  $('.info-bubble').each(manageInfoBubble);
 });
+
