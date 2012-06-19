@@ -45,8 +45,9 @@ class Assessment < ActiveRecord::Base
 
   def answer_was_skipped(answer)
     section = answer.critical_function
+    attr = critical_function_attribute(section)
     section_answers = answers.for_critical_function(section)
-    if section_answers.not_skipped.count == 0
+    if attr && (section_answers.not_skipped.count == 0)
       update_attribute critical_function_attribute(section), false
     end
 
@@ -55,8 +56,9 @@ class Assessment < ActiveRecord::Base
   
   def answer_was_reconsidered(answer)
     section = answer.critical_function
+    attr = critical_function_attribute(section)
     section_answers = answers.for_critical_function(section)
-    if section_answers.not_skipped.count == 1
+    if attr && (section_answers.not_skipped.count == 1)
       update_attribute critical_function_attribute(section), true
     end
   end
