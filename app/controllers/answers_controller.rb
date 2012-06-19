@@ -2,7 +2,7 @@ class AnswersController < ApplicationController
 
   def reconsider
     @answer = current_org.assessment.answers.find(params[:id])
-    if @answer.update_attribute(:was_skipped,false)
+    if @answer.reconsider!
       flash.notice = 'You can now answer this question.'
     else
       flash.notice = 'Problem with considering the question'

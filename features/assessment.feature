@@ -47,7 +47,6 @@ Feature: Assessment
   Scenario: I should be able to reconsider a skipped question
   Scenario: I should see the people tab by default
   Scenario: I should be able to navigate the required critical functions
-  Scenario: I should not be able to navigate to critical functions I skipped
 
   Scenario: I should be able to choose the optional critical functions by default
     Given the following question exists:
@@ -59,6 +58,36 @@ Feature: Assessment
       And I uncheck "We put on performances"
       And I press "Begin Assessment"
       Then all "Productions" questions should be skipped
+
+  Scenario: Skip section
+    Given the following question exists:
+        | critical function | description |
+        | productions       | happen      |
+      And I am signed in as an editor
+      And I have started an assessment with productions
+
+      When I follow "Assess"
+      And I follow "Productions"
+      And I uncheck "We put on performances"
+      And I press "Update Section"
+      Then the assessment should be on the "Productions" tab
+      And all "Productions" questions should be skipped
+
+      # Reconsidering a question reconsiders the whole section
+      When I press "reconsider"
+      Then the "We put on performances" checkbox should be checked
+
+  Scenario: Skipping a question marks the whole section skipped
+    Given the following question exists:
+        | critical function | description |
+        | productions       | happen      |
+      And I am signed in as an editor
+      And I have started an assessment with productions
+
+      When I follow "Assess"
+      And I follow "Productions"
+      And I press "not applicable"
+      Then the "We put on performances" checkbox should not be checked
 
   Scenario: Re-assessment
     Given an active question exists

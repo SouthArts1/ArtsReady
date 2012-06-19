@@ -11,6 +11,7 @@ class Assessment < ActiveRecord::Base
   attr_accessor :critical_functions
 
   validates_presence_of :organization
+  validate :cannot_skip_section_with_answered_questions
 
   after_create :populate_empty_answers
 
@@ -38,14 +39,28 @@ class Assessment < ActiveRecord::Base
     completed_at
   end
 
-  def answer_was_answered
+  def answer_was_answered(answer)
     check_complete
   end
 
-  def answer_was_skipped
+  def answer_was_skipped(answer)
+    section = answer.critical_function
+    section_answers = answers.for_critical_function(section)
+    if section_answers.not_skipped.count == 0
+      update_attribute critical_function_attribute(section), false
+    end
+
     check_complete
   end
   
+  def answer_was_reconsidered(answer)
+    section = answer.critical_function
+    section_answers = answers.for_critical_function(section)
+    if section_answers.not_skipped.count == 1
+      update_attribute critical_function_attribute(section), true
+    end
+  end
+
   def check_complete
     if !completed_at && completed?
       update_attribute :completed_at, Time.zone.now
@@ -123,6 +138,35 @@ class Assessment < ActiveRecord::Base
     answers.skipped.size
   end
 
+  def can_skip_section?(function)
+    Assessment.critical_function_info(function)[:optional] &&
+      !answers.for_critical_function(function).answered.any?
+  end
+
+  def cannot_skip_section_with_answered_questions
+    OPTIONAL_CRITICAL_FUNCTION_ATTRIBUTES.invert.each do |attr, section|
+      if !self[attr] && changed.include?(attr.to_s) && !can_skip_section?(section)
+        errors.add(attr, 'already has answered questions')
+      end
+    end
+  end
+
+  def update_section(section, params)
+    applicable = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(
+      params[:applicable])
+    self[critical_function_attribute(section)] = applicable
+    if save
+      Answer.where(:id => answers.for_critical_function(section)).
+          update_all(:was_skipped => !applicable)
+      check_complete if !applicable
+      true
+    end
+  end
+
+  def section_applicable?(function)
+    self[critical_function_attribute(function)]
+  end
+
   def section_progress_for(function)
     [
       answers.for_critical_function(function).answered.size,
@@ -132,6 +176,10 @@ class Assessment < ActiveRecord::Base
 
   def self.critical_function_attribute(function)
     OPTIONAL_CRITICAL_FUNCTION_ATTRIBUTES[function.to_s]
+  end
+
+  def critical_function_attribute(function)
+    Assessment.critical_function_attribute(function)
   end
 
 private

@@ -11,6 +11,83 @@ describe Assessment do
     it {subject.percentage_complete.should be_zero} 
   end
   
+  describe '#can_skip_section?' do
+    let(:assessment) { Factory.create(:assessment) }
+    subject { assessment.can_skip_section?(function) }
+
+    context '(for a required function)' do
+      let(:function) { 'people' }
+      it { should be_false }
+    end
+
+    context '(for an optional function)' do
+      let(:function) { 'ticketing' }
+
+      context '(with answered questions)' do
+        before do
+          Factory.create(:question, :critical_function => function)
+          assessment.answers.for_critical_function(function).first.
+            update_attributes(
+              :priority => 'critical', :preparedness => 'not ready')
+        end
+
+        it { should be_false }
+      end
+
+      context '(with no answered questions)' do
+        it { should be_true }
+      end
+    end
+  end
+
+  describe 'a new assessment' do
+    subject { Factory.build(:assessment) }
+    it { should be_valid }
+  end
+
+  describe 'skipping a section' do
+    let(:assessment) { Factory.create(:assessment) }
+    subject { assessment }
+    before do
+      Factory.create(:question, :critical_function => 'ticketing')
+      Factory.create(:question, :critical_function => 'facilities')
+      assessment.answers.for_critical_function('ticketing').
+        first.update_attributes(
+          :priority => 'critical', :preparedness => 'ready')
+    end
+
+    context 'with answered questions' do
+      before { assessment.update_section('ticketing', :applicable => false) }
+      it { should_not be_valid }
+      it { should have(1).error_on(:has_tickets) }
+    end
+
+    context 'with no answered questions' do
+      before { assessment.update_section('facilities', :applicable => false) }
+      it { should be_valid }
+
+      it 'skips all answers in the section' do
+        assessment.answers.for_critical_function('facilities').not_skipped.
+          should be_empty
+      end
+    end
+  end
+
+  describe 'reconsidering a section' do
+    let(:assessment) { Factory.create(:assessment, :has_facilities => false) }
+    subject { assessment }
+    before do
+      Factory.create(:question, :critical_function => 'facilities')
+    end
+
+    it 'reconsiders all answers in the section' do
+      assessment.reload # makes the 'answers' association work right
+      assessment.update_section('facilities', :applicable => true).should be_true
+      assessment.answers.for_critical_function('facilities').skipped.
+        should be_empty
+    end
+  end
+
   describe "#completed?" do
     before { 2.times { Factory.create(:question) } }
 

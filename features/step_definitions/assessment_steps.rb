@@ -87,6 +87,11 @@ Then /^I should be able to view the archived assessments?$/ do
   current_path.should == archived_assessment_path(assessment, :format => :csv)
 end
 
+Then /^the assessment should be on the "(.*)" tab$/ do |tab|
+  step "I should be on the assessment"
+  page.find('.top-nav .active').should have_content(tab)
+end
+
 Then /^all "(.*)" questions should be skipped$/ do |cf|
   click_link cf
   page.all('.question:not(.not-applicable)').should be_empty
