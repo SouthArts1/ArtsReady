@@ -155,9 +155,10 @@ function toggleQuestion(button) {
   question.find('.explain').toggle();
 }
 
-$('.checker').live('click', function() {
-	$('.question:not(.answered)').toggleClass('not-applicable');
-	$('.question:not(.answered)').find('.respond').toggle();
+$('.critical-function-toggle input[type=checkbox]').live({
+  change: function() {
+    $(this).closest('form').submit();
+  }
 });
 
 var manageInfoBubble;

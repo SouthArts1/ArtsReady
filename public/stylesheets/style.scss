@@ -814,6 +814,7 @@ tbody {
   background: #525e96;
   clear: both;
   label { display: inline; }
+  .js & input[type=submit] { display: none; }
 }
 
 .questions {

@@ -794,6 +794,8 @@ tbody tr:hover td {
   clear: both; }
   .critical-function-toggle label {
     display: inline; }
+  .js .critical-function-toggle input[type=submit] {
+    display: none; }
 
 .questions {
   margin-bottom: 20px; }
