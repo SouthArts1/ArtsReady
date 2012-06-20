@@ -234,6 +234,6 @@ $(function () {
     });
   };
 
-  $('.info-bubble').each(manageInfoBubble);
+  $('.info-bubble').each(function() { manageInfoBubble(this); });
 });
 
