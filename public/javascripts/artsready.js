@@ -170,15 +170,15 @@ $(function () {
   var time = 250;
   var hideDelay = 100;
 
-  manageInfoBubble = function(bubble) {	
+  manageInfoBubble = function() {	
     var hideDelayTimer = null;
 
     // tracker
     var beingShown = false;
     var shown = false;
     
-    var trigger = $('.info-bubble-trigger', bubble);
-    var popup = $('.info-bubble-text', bubble).css('opacity', 0);
+    var trigger = $('.info-bubble-trigger', this);
+    var popup = $('.info-bubble-text', this).css('opacity', 0);
 
     // set the mouseover and mouseout on both element
     $([trigger.get(0), popup.get(0)]).mouseover(function () {
@@ -211,7 +211,7 @@ $(function () {
           beingShown = false;
           shown = true;
         });
-		$(bubble).closest('tr').siblings('tr').find('.info-bubble').fadeOut();
+		$(this).closest('tr').siblings('tr').find('.info-bubble').fadeOut();
       }
     }).mouseout(function () {
       // reset the timer if we get fired again - avoids double animations
@@ -231,10 +231,10 @@ $(function () {
         });
       }, hideDelay);
 		
-		$(bubble).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
+		$(this).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
     });
   };
 
-  $('.info-bubble').each(function() { manageInfoBubble(this); });
+  $('.info-bubble').each(manageInfoBubble);
 });
 
