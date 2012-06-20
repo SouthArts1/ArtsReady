@@ -2,22 +2,24 @@ class AnswersController < ApplicationController
 
   def reconsider
     @answer = current_org.assessment.answers.find(params[:id])
-    if @answer.update_attribute(:was_skipped,false)
+    if @answer.reconsider!
       flash.notice = 'You can now answer this question.'
     else
       flash.notice = 'Problem with considering the question'
     end
-    redirect_to :back
+
+    respond
   end
   
   def skip
     @answer = current_org.assessment.answers.find(params[:id])
-    if @answer.update_attribute(:was_skipped,true)
+    if @answer.skip!
       flash.notice = 'You skipped that question, but you can always reconsider.'
     else
       flash.notice = 'Problem with considering the question'
     end
-    redirect_to :back
+
+    respond
   end
 
   def update
@@ -28,8 +30,20 @@ class AnswersController < ApplicationController
     else
       flash.notice = 'All fields are required for your answer'
     end
-    redirect_to :back
-  end
-  
 
+    respond
+  end
+
+private
+
+  def respond
+    if request.xhr?
+      @assessment = @answer.assessment
+      @critical_function = @answer.critical_function
+      @notice = flash.delete(:notice)
+      render 'update'
+    else
+      redirect_to :back
+    end
+  end
 end

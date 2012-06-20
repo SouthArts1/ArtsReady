@@ -102,6 +102,15 @@ a {
     position: relative;
     top: 1px; }
 
+input[type=submit].linklike {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: normal;
+  color: inherit;
+  font-size: inherit; }
+
 ul, ol, p {
   margin: 0 10px 10px; }
 
@@ -783,6 +792,10 @@ tbody tr:hover td {
   color: #fff;
   background: #525e96;
   clear: both; }
+  .critical-function-toggle label {
+    display: inline; }
+  .js .critical-function-toggle input[type=submit] {
+    display: none; }
 
 .questions {
   margin-bottom: 20px; }
@@ -810,6 +823,8 @@ tbody tr:hover td {
     background: #fff; }
     .question.answered.not-applicable {
       background: #eee; }
+  .question input[type=submit].linklike {
+    color: #666; }
   .question .response {
     float: left;
     margin-right: 20px;
@@ -844,6 +859,8 @@ tbody tr:hover td {
     width: 500px;
     float: left;
     margin-right: 20px; }
+  .question .prompt {
+    border: none; }
 
 /*  Org Admin */
 .admin-actions form {
@@ -999,6 +1016,8 @@ tbody tr:hover td {
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
+  .button:disabled, a.button:disabled, input[type="submit"]:disabled {
+    opacity: 0.3; }
 
 .button.weak, a.button.weak, input[type="submit"].weak {
   background: #999;
@@ -1275,6 +1294,11 @@ input.datepicker, table input.datepicker {
     padding: 0; }
   .logos img {
     padding-right: 10px; }
+
+.button.reassessment_button {
+  position: relative;
+  left: 10px;
+  top: -13px; }
 
 /* To-dos */
 .todo-details ul {

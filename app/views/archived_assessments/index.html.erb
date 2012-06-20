@@ -1,0 +1,24 @@
+<div class="grid_12">
+  <h1>Completed Assessments</h1>
+  <%= render :partial => '/shared/settings_navbar', :locals => {:current_settings_tab => :completed_assessments} %>
+	<hr>
+  <section>
+    <table class="resource side-nav-panels assessments">
+      <thead>
+        <td><p>Started on</p></td>
+        <td><p>Completed on</p></td>
+        <th>&nbsp;</th>
+      </thead>
+      <tbody>
+        <% @assessments.each do |assessment| %>
+          <tr>
+            <td class="date"><p><%= assessment.created_at.strftime("%B %d, %Y") %></p></td>
+            <td class="date"><p><%= assessment.completed_at.strftime("%B %d, %Y") %></p></td>
+            <td><p><%= link_to 'Download Assessment', archived_assessment_path(assessment, :format => :csv), :class => 'button' %></p></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>
+

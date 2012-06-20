@@ -1,18 +1,14 @@
 <div class="grid_12">
-  <div class="progress-container">
-    <%= render :partial => 'member/progress_bar', :locals => {:percent => current_org.assessment_percentage_complete, :message => 'Assessment is'} %>
-    <p class="progress-sub"><%= @answers.reject {|q| !q.answered?}.count %>/<%= @answers.reject {|q| q.was_skipped?}.count %> answered in section</p>
-    <p><%= link_to 'Export', :format => :csv %></p>
-  </div>
+  <%= render :partial => 'progress' %>
   <h1>Readiness Assessment</h1>
+  <%= link_to('Archive and Re-Assess', new_assessment_path, :class => 'button reassessment_button') if @assessment.complete? %>
   <p><%= link_to "Need help?", page_path('help_assessment') %></p>
   <ul class="top-nav">
     <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
       <li id="" class="<%= params[:tab] == critical_function[:name] ? 'active' : nil %>"><%= link_to critical_function[:title], assessment_path(:tab => critical_function[:name]) %></li>
     <% end %>
   </ul>
-  <div class="critical-function-toggle">
-  </div>
+  <%= render :partial => 'critical_function_toggle' %>
   <div class="questions">
     <% @answers.each do |a| %>
     <div class="section">

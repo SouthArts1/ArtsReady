@@ -1,0 +1,7 @@
+<% section_progress = @assessment.section_progress_for(@critical_function) %>
+
+<div class="progress-container">
+  <%= render :partial => 'member/progress_bar', :locals => {:percent => @assessment.percentage_complete, :message => 'Assessment is'} %>
+  <p class="progress-sub"><%= section_progress.join('/') %> answered in section</p>
+  <p><%= link_to 'Export', :format => :csv %></p>
+</div>

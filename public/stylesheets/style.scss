@@ -104,6 +104,15 @@ a {
     position: relative;
     top: 1px; } }
 
+input[type=submit].linklike {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: normal;
+  color: inherit;
+  font-size: inherit;
+}
 ul, ol, p {
   margin: 0 10px 10px; }
 
@@ -803,7 +812,10 @@ tbody {
   padding: 15px;
   color: #fff;
   background: #525e96;
-  clear: both; }
+  clear: both;
+  label { display: inline; }
+  .js & input[type=submit] { display: none; }
+}
 
 .questions {
   margin-bottom: 20px; }
@@ -831,6 +843,7 @@ tbody {
     background: #fff;
     &.not-applicable {
       background: #eee; } }
+  input[type=submit].linklike { color: #666; }
   .response {
     float: left;
     margin-right: 20px;
@@ -864,7 +877,9 @@ tbody {
   .answer {
     width: 500px;
     float: left;
-    margin-right: 20px; } }
+    margin-right: 20px; }
+  .prompt { border: none; }
+}
 
 /*  Org Admin */
 
@@ -1029,7 +1044,11 @@ tbody {
   background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #c31d29);
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
+  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+  &:disabled {
+    opacity: 0.3;
+  }
+}
 
 .button.weak, a.button.weak, input[type="submit"].weak {
   background: #999;
@@ -1310,6 +1329,12 @@ input.datepicker, table input.datepicker {
     padding: 0; }
   img {
     padding-right: 10px; } }
+
+.button.reassessment_button {
+  position: relative;
+  left: 10px;
+  top: -13px;
+}
 
 /* To-dos */
 .todo-details {

@@ -62,7 +62,10 @@ Artsready::Application.routes.draw do
     resources :needs, :only => [:create, :edit, :update]
   end
 
-  resource :assessment, :only => [:new, :create, :show]
+  resources :archived_assessments, :only => [:index, :show]
+  resource :assessment, :only => [:new, :create, :show] do
+    resources :sections, :only => [:update]
+  end
   resources :answers, :only => [:update] do
     member do
       put 'skip'

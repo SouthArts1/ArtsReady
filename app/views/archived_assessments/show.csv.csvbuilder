@@ -1,0 +1,11 @@
+csv << ['Critical Function', 'Question', 'Preparedness', 'Priority']
+
+@answers.find_each do |answer|
+  csv << [
+    answer.critical_function_title,
+    answer.question_description,
+    answer.was_skipped? ? 'N/A' : answer.preparedness,
+    answer.was_skipped? ? 'N/A' : answer.priority
+  ]
+end
+

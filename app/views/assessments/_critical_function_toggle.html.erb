@@ -1,0 +1,16 @@
+<% info = Assessment.critical_function_info(@critical_function) %>
+<% attr = Assessment.critical_function_attribute(@critical_function) %>
+<% skippable = @assessment.can_skip_section?(@critical_function) %>
+
+<div class="critical-function-toggle">
+  <%= form_for :section, :url => assessment_section_path(@critical_function), :html => {:method => :put} do |f| %>
+    <% if info[:optional] %>
+      <%= f.check_box :applicable, :checked => @assessment.section_applicable?(@critical_function), :disabled => !skippable %>
+      <%= f.label :applicable, info[:optional] %>
+      <%= f.submit 'Update Section' if skippable %>
+    <% else %>
+      <%= check_box_tag :applicable, '1', true, :disabled => true %>
+      <i><%= label_tag :applicable, 'This section cannot be skipped' %></i>
+    <% end %>
+  <% end %>
+</div>

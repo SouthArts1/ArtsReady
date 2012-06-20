@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_org
-    @current_org ||= current_user.organization || User.find(session[:user_id]).organization
+    @current_org ||= (current_user.organization || ((User.find(session[:user_id]).organization rescue nil) if session[:user_id] rescue nil) rescue nil)
   end
 
   def user_signed_in?

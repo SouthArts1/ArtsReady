@@ -4,9 +4,10 @@ Feature: Admin organization management
   I want to manage the organization list
 
   Scenario: List organizations
+    Given 2 questions exist
     Given the following organization exists:
-      | Name  | Member Count | Assessment Usage | To Do Usage |
-      | MyOrg | 1            | 1/2              | 1/2         |
+      | Name  | Member Count | Completed Answers Count | To Do Usage |
+      | MyOrg | 1            | 1                       | 1/2         |
     And the following sysadmin exists:
       | Organization | Email             |
       | Name: MyOrg  | admin@example.org |

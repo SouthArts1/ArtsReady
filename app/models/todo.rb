@@ -25,7 +25,9 @@ class Todo < ActiveRecord::Base
   scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
   scope :in_action_order, order('complete')
   scope :completed, where(:complete => true)
-  scope :nearing_due_date, where("complete IS NOT true AND due_on < ?",2.days.from_now.end_of_day)
+  scope :nearing_due_date, lambda {
+    where("complete IS NOT true AND due_on < ?", 2.days.from_now.end_of_day)
+  }
 
   PRIORITY = ['critical', 'non-critical']
   NEXT_ACTIONS = { 'Review' => 'ready', 'Start' => 'not ready', 'Learn About' => 'unknown', 'Work On' => 'needs work' }
@@ -91,6 +93,35 @@ class Todo < ActiveRecord::Base
   def critical_function_title
     Assessment.critical_function_title(critical_function)
   end
+
+  def self.create_or_restart(attributes)
+    matching_attributes = {
+      :organization_id => attributes[:organization].id,
+      :action_item_id => attributes[:action_item].id
+    }
+    existing = with_exclusive_scope { where(matching_attributes).first }
+    
+    if existing
+      matching_keys = matching_attributes.keys
+      with_exclusive_scope do
+        existing.restart(attributes.reject { |k, v| matching_keys.include? k })
+      end
+      existing
+    else
+      create(attributes.merge(matching_attributes))
+    end
+  end
+
+  def restart(attributes = {})
+    @restart_in_progress = true
+    update_attributes(attributes.reverse_merge(
+      :complete => false, :due_on => nil, :user_id => nil ))
+    initialize_action
+    save
+  ensure
+    @restart_in_progress = false
+    self
+  end
   
   private
   
@@ -101,11 +132,16 @@ class Todo < ActiveRecord::Base
   def add_update_note
     messages = []
     self.changes.each do |key, value|
-      messages << "'#{key.humanize}' changed from #{value[0].blank? ? 'nothing' : value[0]} to #{value[1]}" if TRACKED_ATTRIBUTES.include?(key)
+      messages << "'#{key.humanize}' changed from #{value[0].presence || 'nothing'} to #{value[1].presence || 'nothing'}" if TRACKED_ATTRIBUTES.include?(key)
     end
     messages << "Assigned to #{user_name}" if self.changes["user_id"]
-    
-    todo_notes.create(:user_id => last_user_id, :message => messages.join('; ')) if messages.present?
+
+    message = messages.join('; ')
+
+    if @restart_in_progress
+      message = message.present? ? "Restarted: #{message}" : 'Restarted'
+    end
+    todo_notes.create(:user_id => last_user_id, :message => message) if message.present?
   end
   
   def initialize_action

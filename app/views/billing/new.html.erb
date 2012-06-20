@@ -41,39 +41,8 @@
 		<br />
 		Payment information:
 		<br />
-		<table style="border:none;">
-			<tr>
-				<td style="border:none; width:60px;"></td>
-				<td style="border:none; width:200px;"><h4>Annual Subscription:</h4></td>
-				<td style="border:none;">
-					<h4>
-					<% if @payment.starting_amount_in_cents > 7500 %>
-						<%= money_from_cents(@payment.starting_amount_in_cents - 7500) %>
-					<% else %>
-						<%= money_from_cents(@payment.starting_amount_in_cents) %>
-					<% end %>
-					</h4>
-				</td>
-			</tr>
-			<tr>
-				<td style="border:none; width:60px;"></td>
-				<td style="border:none; width:200px;"><h4>First Year Fee:</h4></td>
-				<td style="border:none;">
-					<h4>
-						<% if @payment.starting_amount_in_cents > 7500 %>
-							$75.00
-						<% else %>
-							Waived!
-						<% end %>
-					</h4>
-				</td>
-			</tr>
-			<tr>
-				<td style="border:none; width:60px;"></td>
-				<td style="border:none; width:200px;"><h4>Total Due:</h4></td>
-				<td style="border:none;"><h4><%= money_from_cents @payment.starting_amount_in_cents %></h4></td>
-			</tr>
-		</table>
+				<h3 style="margin-left:26px;">First Year Fee: (due today) <span style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span></h3>
+				<h3 style="margin-left:26px;">Annual Subscription: <span style="margin-left:62px;"><%= money_from_cents @payment.regular_amount_in_cents %></span></h3>
 		<br />
 		<p>
 			Have a discount code? <input type="text" id="discount_code" style="width:200px;" /><br />

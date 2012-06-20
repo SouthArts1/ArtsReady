@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20120522011247) do
+=======
+ActiveRecord::Schema.define(:version => 20120528205425) do
+>>>>>>> 2e3c62e72f46088504a6fc05337d3b822c7cf1c1
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -77,8 +81,10 @@ ActiveRecord::Schema.define(:version => 20120522011247) do
     t.boolean  "complete",                :default => false
     t.integer  "answers_count",           :default => 0
     t.integer  "completed_answers_count", :default => 0
+    t.datetime "completed_at"
   end
 
+  add_index "assessments", ["completed_at"], :name => "index_assessments_on_completed_at"
   add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"
 
   create_table "battle_buddy_requests", :force => true do |t|
@@ -311,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20120522011247) do
     t.string   "status"
     t.integer  "last_user_id"
     t.string   "action",            :default => "Work On"
+    t.string   "key"
   end
 
   add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"

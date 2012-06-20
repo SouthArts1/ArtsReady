@@ -1,5 +1,6 @@
 <div class="grid_12">
   <h1>Previous Crises</h1>
+<<<<<<< HEAD
   <ul class="top-nav settings">
       <li><%= link_to 'My Info', profile_path %></li>
       <li><%= link_to "Organization", edit_organization_path(current_org) %></li>
@@ -9,6 +10,9 @@
 			<% end %>
       <li class="active"><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
   </ul>
+=======
+  <%= render :partial => '/shared/settings_navbar', :locals => {:current_settings_tab => :previous_crises} %>
+>>>>>>> 2e3c62e72f46088504a6fc05337d3b822c7cf1c1
 	<hr>
     <section>
       <table class="resource side-nav-panels">
