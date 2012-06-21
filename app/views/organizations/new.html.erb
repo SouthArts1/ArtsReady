@@ -101,8 +101,9 @@
         <p>
           <%= org.label :nsic_code, 'National Standard Institution Code' %>
           <%= org.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <a href="http://www.nasaa-arts.org/Research/Planning-and-Accountability/National-Standard-Reference-Center/revisions.pdf">What's this?</a><br>
-<br/> 
-          Didn’t see your code? Please enter it here: <%= text_field_tag :other_nsic_code %>
+            <br/> 
+            Didn’t see your <%= org.label :other_nsic_code, 'NSI Code', :class => 'inline' %>?
+            Please enter it here: <%= org.text_field :other_nsic_code %>
         </p>
       </fieldset>
       <%= org.fields_for(:users,@organization.users.build) do |user| %>

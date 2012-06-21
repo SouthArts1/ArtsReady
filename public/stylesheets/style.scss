@@ -257,6 +257,7 @@ label {
   display: block;
   margin-left: 5px;
   font-weight: bold;
+  &.inline { display: inline; margin: 0; }
   &.label {
     font-weight: bold; } }
 

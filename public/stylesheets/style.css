@@ -248,6 +248,9 @@ label {
   display: block;
   margin-left: 5px;
   font-weight: bold; }
+  label.inline {
+    display: inline;
+    margin: 0; }
   label.label {
     font-weight: bold; }
 

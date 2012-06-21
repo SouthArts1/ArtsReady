@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120528205425) do
+ActiveRecord::Schema.define(:version => 20120621142232) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20120528205425) do
     t.string   "duns"
     t.string   "nsic_code"
     t.integer  "users_count",                :default => 0
+    t.string   "other_nsic_code"
   end
 
   create_table "pages", :force => true do |t|
