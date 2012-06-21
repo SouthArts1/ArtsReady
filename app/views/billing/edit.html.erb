@@ -1,12 +1,9 @@
 <h1>Edit Billing Information</h1>
 
-<ul class="top-nav settings">
-    <li><%= link_to 'My Info', profile_path %></li>    
-    <li class=""><%= link_to "Organization", edit_organization_path(current_org) %></li>
-    <li class=""><%= link_to "Our Team", organization_users_path(current_org) %></li>
-		<li class="active"><%= link_to "Billing", billing_my_organization_path %></li>
-    <li class=""><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
-</ul>
+<div class="grid_12 alpha">
+  <%= render :partial => '/shared/settings_navbar', :locals => {:current_settings_tab => :billing} %>
+</div>
+
 
 <div class="grid_8">
   <section>

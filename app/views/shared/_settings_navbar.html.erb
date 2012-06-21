@@ -2,6 +2,9 @@
   <li class="<%= (:active if current_settings_tab == :my_info) %>"><%= link_to 'My Info', profile_path %></li>
   <li class="<%= 'active' if current_settings_tab == :organization %>"><%= link_to "Organization", edit_organization_path(current_org) %></li>
   <li class="<%= 'active' if current_settings_tab == :our_team %>"><%= link_to "Our Team", organization_users_path(current_org) %></li>
+	<% if current_user.is_executive? %>
+		<li class="<%= 'active' if current_settings_tab == :billing %>"><%= link_to "Billing", billing_my_organization_path %></li>
+	<% end %>
   <li class="<%= 'active' if current_settings_tab == :previous_crises %>"><%= link_to "Previous Crises", organization_crises_path(current_org) %></li>
   <% if current_org.assessments.complete.present? %>
     <li class="<%= 'active' if current_settings_tab == :completed_assessments %>"><%= link_to "Completed Assessments", archived_assessments_path %></li>
