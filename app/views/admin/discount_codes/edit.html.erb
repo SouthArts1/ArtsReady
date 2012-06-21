@@ -11,12 +11,20 @@
 				<%= f.text_field :description %>
 			</p>
       <p>
-        <%= f.label :deduction_value, "Amount to discount (in percentage or dollars)" %>
+        <%= f.label :deduction_value, "First Year Amount to discount (in percentage or dollars)" %>
         <%= f.text_field :deduction_value %>
       </p>
       <p>
-        <%= f.label :deduction_type %>
+        <%= f.label :deduction_type, "First Year Deduction Type" %>
         <%= f.select :deduction_type, ["percentage", "dollars"] %>
+      </p>
+      <p>
+        <%= f.label :recurring_deduction_value, "Yearly Recurring Amount to discount (in percentage or dollars)" %>
+        <%= f.text_field :recurring_deduction_value %>
+      </p>
+      <p>
+        <%= f.label :recurring_deduction_type, "Yearly Recurring Deduction Type" %>
+        <%= f.select :recurring_deduction_type, ["percentage", "dollars"] %>
       </p>
       <p>
         <%= f.label :redemption_max, "Max # of Usages (enter 0 for unlimited)" %>
@@ -34,7 +42,7 @@
 				<%= f.check_box :apply_to_first_year %> <%= f.label :apply_to_first_year %>
 			</p>
 			<p>
-				<%= f.check_box :apply_to_post_first_year %> <%= f.label :apply_to_post_first_year %>
+				<%= f.check_box :apply_to_post_first_year %> <%= f.label :apply_to_post_first_year, "Apply to every year recurring" %>
 			</p>
       <%= f.submit 'Save Settings' %>
     <% end %>
