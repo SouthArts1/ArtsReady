@@ -1,9 +1,13 @@
 class Admin::UsersController < Admin::AdminController
 
   def index
-    @organization = Organization.find(params[:organization_id])
-    @users = @organization.users
-    @user = @users.new
+    if params[:organization_id]
+      @organization = Organization.find(params[:organization_id])
+      @users = @organization.users
+      @user = @users.new
+    else
+      @users = User
+    end
   end
   
   def create
