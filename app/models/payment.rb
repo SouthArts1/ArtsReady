@@ -31,10 +31,13 @@ class Payment < ActiveRecord::Base
     if d && d.is_valid?
       if d.deduction_type == "percentage"
         start_amount = start_amount.to_f * ((100 - d.deduction_value).to_f / 100) if d.apply_to_first_year?
-        regular_amount = regular_amount.to_f * ((100 - d.deduction_value).to_f / 100) if d.apply_to_post_first_year?
       elsif d.deduction_type == "dollars"
         start_amount = start_amount.to_f - (d.deduction_value * 100) if d.apply_to_first_year?
-        regular_amount = regular_amount.to_f - (d.deduction_value * 100) if d.apply_to_post_first_year?
+      end
+      if d.recurring_deduction_type == "percentage"
+        regular_amount = regular_amount.to_f * ((100 - d.recurring_deduction_value).to_f / 100) if d.apply_to_post_first_year?
+      elsif d.recurring_deduction_type == "dollars"
+        regular_amount = regular_amount.to_f - (d.recurring_deduction_value * 100) if d.apply_to_post_first_year?
       end
     end
     
