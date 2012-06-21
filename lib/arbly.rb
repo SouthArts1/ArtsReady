@@ -1,19 +1,26 @@
-require 'logger'
-%w( 
-  version
-  lib/org
-).each{|f| require File.dirname(__FILE__) + '/arbly/' + f }
-
-
 module Arbly
-  class Loader
-    def self.do
-      # puts "Starting MailFetcher"
-      # ChocolateRain::MailFetcher.start
-      # puts "Starting FtpMachine"
-      # ChocolateRain::FtpMachine.start
-      # puts "All started"
+  class Checker
+    def self.start
+      orgs = Organization.all
+
+      orgs.each do |o|
+        if (o.payment && !o.payment.active?) || (!o.payment && o.active?)
+          # BillingMailer.setup_subscription_now(o).deliver
+          begin
+            if ((Time.now - o.created_at).to_i / (24 * 60 * 60)) > 2
+              o.update_attribute(:active, false)
+            end
+          rescue Exception => e
+            # rescue
+          end
+        end
+
+        if o.payment
+          if o.payment.days_left_until_rebill == 2
+            # BillingMailer.subscription_renewal(o).deliver
+          end
+        end
+      end
     end
-    
   end
 end

@@ -62,7 +62,7 @@ class Payment < ActiveRecord::Base
       billing_address: {
         first_name: (payment.billing_first_name rescue ""),
         last_name: (payment.billing_last_name rescue ""),
-        company: (payment.organization.name rescue ""),
+        company: (payment.organization.name.truncate(23) rescue ""),
         address: (payment.billing_address rescue payment.organization.address),
         city: (payment.billing_city rescue payment.organization.city),
         state: (payment.billing_state rescue payment.organization.state),
@@ -81,7 +81,7 @@ class Payment < ActiveRecord::Base
       billing_address: {
         first_name: (payment.billing_first_name rescue ""),
         last_name: (payment.billing_last_name rescue ""),
-        company: (payment.organization.name rescue ""),
+        company: (payment.organization.name.truncate(23) rescue ""),
         address: (payment.billing_address rescue payment.organization.address),
         city: (payment.billing_city rescue payment.organization.city),
         state: (payment.billing_state rescue payment.organization.state),
@@ -96,7 +96,7 @@ class Payment < ActiveRecord::Base
     return {
       first_name: (self.billing_first_name rescue ""),
       last_name: (self.billing_last_name rescue ""),
-      company: (self.organization.name rescue self.billing_name),
+      company: (self.organization.name.truncate(23) rescue self.billing_name),
       address: (self.billing_address rescue self.organization.address),
       city: (self.billing_city rescue self.organization.city),
       state: (self.billing_state rescue self.organization.state),
@@ -120,7 +120,7 @@ class Payment < ActiveRecord::Base
   protected
   
   def create_and_process_subscription
-    self.start_date = Time.now + 1.day
+    self.start_date = Time.now + 1.day unless self.start_date
     
     arb_sub = build_subscription_object(self)
     if self.payment_type == "cc"

@@ -6,3 +6,4 @@ task :cron => :environment do
   Reminder.todos_nearly_due
   puts "done."
 end
+

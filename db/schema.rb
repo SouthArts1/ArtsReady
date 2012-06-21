@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20120522011247) do
-=======
 ActiveRecord::Schema.define(:version => 20120528205425) do
->>>>>>> 2e3c62e72f46088504a6fc05337d3b822c7cf1c1
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -282,7 +278,6 @@ ActiveRecord::Schema.define(:version => 20120528205425) do
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
     t.string "name"
