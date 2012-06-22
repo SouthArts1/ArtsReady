@@ -24,7 +24,7 @@ class AdminMailer < ActionMailer::Base
   end
   
   def subscription_renewal(organization)
-    mail :to => "kevin@wearefound.com", :subject => "An organization is coming up for renewal", :body => "#{organization.name} is coming up for renewal of #{money_from_cents organization.payment.regular_amount_in_cents} in #{organization.payment.days_left_until_rebill} days."
+    mail :to => "admin@artsready.org; info@artsready.org", :subject => "An organization is coming up for renewal", :body => "#{organization.name} is coming up for renewal of #{money_from_cents organization.payment.regular_amount_in_cents} in #{organization.payment.days_left_until_rebill} days."
   end
   
 end
