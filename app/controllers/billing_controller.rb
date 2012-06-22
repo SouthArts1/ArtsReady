@@ -55,15 +55,15 @@ class BillingController < ApplicationController
       @payment.account_number = obj[:account_number]
     else
       logger.debug("here 1")
-      redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
+      return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     if @payment.save
       @current_user = @organization.managers.first
       session[:user_id] = @current_user.id
-      redirect_to "/"
+      return redirect_to "/" 
     else
       logger.debug("here 2")
-      redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
+      return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
   end
   
