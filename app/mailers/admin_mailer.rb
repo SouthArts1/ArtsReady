@@ -27,4 +27,8 @@ class AdminMailer < ActionMailer::Base
     mail :to => "admin@artsready.org; info@artsready.org", :subject => "An organization is coming up for renewal", :body => "#{organization.name} is coming up for renewal of #{money_from_cents organization.payment.regular_amount_in_cents} in #{organization.payment.days_left_until_rebill} days."
   end
   
+  def organization_expired(organization)
+    mail :to => "admin@artsready.org; info@artsready.org", :subject => "An organization has expired", :body => "#{organization.name} has been marked expired in ArtsReady."
+  end
+  
 end
