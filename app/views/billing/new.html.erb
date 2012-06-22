@@ -115,7 +115,7 @@
 				</tr>
 			</table>
 			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
-				By entering your payment information, you agree to be billed <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (prices including discounts).
+				By entering your payment information, you agree to be billed <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (price includes discounts).
 			</p>
 			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
 				This information will not be saved.<br /> 
@@ -159,9 +159,6 @@
 					window.location.href = ("/billing/new/"+ $("#discount_code").val())
 				})
 
-				// $("#payment_billing_first_name").animateHighlight("#dd0000", 2000);
-				// 		$("#payment_billing_last_name").animateHighlight("#dd0000", 2000);
-
 				$("#payment_type").change(function() {
 					var type = "#" + $("#payment_type").val() + "_info";
 					$("#cc_info").slideUp();
@@ -171,12 +168,9 @@
 				});
 
 				$("#payment_number").blur(function() {
-					console.log("fired")
 					if (validateCreditCard($(this).val()) == false) {
-						console.log("bad")
 						$("#bad_card").slideDown();
 					} else {
-						console.log("good")
 						$("#bad_card").slideUp();
 					}
 				})
