@@ -1,9 +1,9 @@
 require 'csv'
 
-#row: [organization, expiration, note, email, primary user]
+#row: [organization, expiration, note, email, primary user, annual price]
 i = 1
-CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates2.csv", 'rb')) do |row|
-  if (i == 11) 
+CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates.csv", 'rb')) do |row|
+  if (i > 10) 
     u = User.find_by_email(row[3])
     o = Organization.find_by_name(row[0])
     
@@ -21,10 +21,12 @@ CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates2.csv", 'rb')) do |row|
     
     if u && o
       puts "Creating for #{o.name} with #{u.first_name} #{u.last_name}"
+      amount = row[5].to_i * 100 
+      
       p = Payment.create({
         organization_id: o.id,
-        starting_amount_in_cents: 22500,
-        regular_amount_in_cents: 22500,
+        starting_amount_in_cents: amount,
+        regular_amount_in_cents: amount,
         start_date: (Date.strptime(row[1], "%m/%d/%Y") + 1.year),
         active: 1,
         billing_first_name: u.first_name,
@@ -39,7 +41,7 @@ CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates2.csv", 'rb')) do |row|
         account_type: "checking",
         payment_type: 'bank'
       })
-      puts "Roll on"
+      puts "Roll on ***\n #{p.inspect}"
       p.reload
       puts "Payment created: #{p.id} ARB: #{p.arb_id}"
     end
