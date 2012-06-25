@@ -96,7 +96,8 @@
       <p>
         <%= f.label :nsic_code, 'National Standard Institution Code' %>
         <%= f.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
-        Enter other codes here: <%= text_field_tag :other_nsic_code %>
+        <%= f.label :other_nsic_code, 'Enter other codes here:' %>
+        <%= f.text_field :other_nsic_code %>
       </p>
     </fieldset>
       <%= f.submit 'Save Settings' %>

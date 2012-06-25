@@ -26,6 +26,7 @@ Artsready::Application.routes.draw do
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
     end
+    resources :users, :only => [:index]
     resources :password_resets, :only => [:create]
     resources :articles, :only => [:update, :destroy, :index]
     resources :comments, :only => [:destroy]

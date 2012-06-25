@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20120621213930) do
+=======
+ActiveRecord::Schema.define(:version => 20120621142232) do
+>>>>>>> 63c7f5ac559fbdd192d4c04ee82d659f1b979649
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -207,6 +211,7 @@ ActiveRecord::Schema.define(:version => 20120621213930) do
     t.string   "duns"
     t.string   "nsic_code"
     t.integer  "users_count",                :default => 0
+    t.string   "other_nsic_code"
   end
 
   create_table "pages", :force => true do |t|
