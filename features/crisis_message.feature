@@ -12,7 +12,17 @@ Feature: Crisis message
     And I should see "some message"
     #Then I should be on the crisis console
   
-  
+  Scenario: Admin deletes a message
+    Given the following messages exist:
+      | organization_id | content   | visibility |
+      | Crisis Org      | "Hi Mom!" | public     |
+      | Crisis Org      | "Hi Dad!" | public     |
+    And I am signed in as a sysadmin
+    And I am on the Lend-a-Hand page
+    When I press "Delete"
+    Then I should be on the Lend-a-Hand page
+    And I should not see "Hi Dad!"
+    And I should see "Hi Mom!"
   
 
   

@@ -16,11 +16,12 @@ Feature: New organization registration
      | Email            | newuser@test.host |
      | Password         | password          |
      | Confirm Password | password          |
+     | NSI Code         | 33                |
     And I select "02 Organization - Non-profit" from "organization_organizational_status"
     And I check "terms"
     And I press "Create Organization"
     Then I should be on the welcome page
-    
+
   Scenario: A visitor tries to sign up without entering any information
     When I go to the sign up page
     And I press "Create Organization"

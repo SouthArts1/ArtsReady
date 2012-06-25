@@ -15,7 +15,7 @@ FactoryGirl.define do
     
     ignore do
       member_count nil
-      assessment_usage nil
+      completed_answers_count nil
       to_do_usage nil
     end
 
@@ -25,17 +25,20 @@ FactoryGirl.define do
           :member, evaluator.member_count.to_i,
           :organization => org)
       end
+    end
 
-      if evaluator.assessment_usage
-        done, total = evaluator.assessment_usage.split('/').map(&:to_i)
-        org.assessment = Factory.build(:assessment,
-          :organization => nil,
-          :answers_count => total,
-          :completed_answers_count => done)
+    after_create do |org, evaluator|
+      answered = evaluator.completed_answers_count.to_i
+      if answered > 0
+        org.create_assessment unless org.assessment
+        ids = org.assessment.answers.limit(answered).map(&:id)
+        org.assessment.answers.where(:id => ids).update_all(
+          :priority => 'critical', :preparedness => 'not ready')
       end
 
       if evaluator.to_do_usage
         done, total = evaluator.to_do_usage.split('/').map(&:to_i)
+        org.todos.clear
         org.todos << FactoryGirl.build_list(:todo, done,
           :organization => nil, :complete => true)
         org.todos << FactoryGirl.build_list(:todo, total - done,

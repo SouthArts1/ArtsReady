@@ -1,12 +1,11 @@
 class ArticlesController < ApplicationController
 
   def index
+    @articles = Article.visible_to_organization(current_org)
     if params[:term]
-      @articles = current_org.articles.only_private.matching(params[:term]) + Article.for_public.matching(params[:term])
+      @articles = @articles.matching(params[:term])
     elsif params[:critical_function]
-      @articles = current_org.articles.only_private.with_critical_function(params[:critical_function]) + Article.for_public.with_critical_function(params[:critical_function])
-    else
-      @articles = current_org.articles.only_private + Article.for_public
+      @articles = @articles.with_critical_function(params[:critical_function]) 
     end
   end
 

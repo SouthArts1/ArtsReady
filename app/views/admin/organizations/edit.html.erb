@@ -10,15 +10,21 @@
   <%= form_for([:admin, @organization]) do |f| %>
     <%= f.hidden_field :active, :value => false %>
     <%= f.submit "Disable" %>
-  <% end if @organization.active?%>
+  <% end if @organization.active? %>
   <%= button_to("DELETE", admin_organization_path(@organization),
                 :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
                 :method => :delete) if @organization.deletable? %>
+	<% if @organization.payment && @organization.payment.is_active? %>
+		<%= button_to("Cancel Billing", billing_cancel_path(@organization),
+	                :confirm => "THIS CAN NOT BE UNDONE.",
+	                :method => :delete) %>
+	<% end %>
 </div>
 <div class="grid_12">
 <ul class="top-nav settings">
   <li class="active"><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
   <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
+	<li><%= link_to "Billing", "/admin/organizations/billing/#{@organization.id}" %></li>
 </ul>
 </div>
 <div class="grid_8">
@@ -90,7 +96,8 @@
       <p>
         <%= f.label :nsic_code, 'National Standard Institution Code' %>
         <%= f.select :nsic_code, ArtsreadyDomain::NSIC_CODES, :include_blank => true %> <br>
-        Enter other codes here: <%= text_field_tag :other_nsic_code %>
+        <%= f.label :other_nsic_code, 'Enter other codes here:' %>
+        <%= f.text_field :other_nsic_code %>
       </p>
     </fieldset>
       <%= f.submit 'Save Settings' %>

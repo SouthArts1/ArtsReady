@@ -1,6 +1,6 @@
 $(function(){
 	// $("select, input[type='checkbox'], input[type='radio'], input:file").uniform();
-	$("input[type='checkbox'], input[type='radio'], input:file").uniform();
+	$("input[type='checkbox'], input:file").uniform();
 	
 	$(".questionnaire tbody, .resource tbody").hide().eq(0).show();
 	
@@ -139,32 +139,14 @@ $('.button.respond, .question .prompt, .answers .button').live('click', function
 	return false;
 });
 
-$('a.does-not-apply').live('click', function() {
-	var question = $(this).parents('.question');
-	question.addClass('not-applicable');
-	question.find('.respond').hide();
-	question.find('.answer').hide();
-	question.find('.does-not-apply').hide();
-	question.find('.explain').hide();
-	question.find('.answers').html("<a href='#' class='button weak reconsider'>reconsider</a>");
+$('form.edit_answer input[type=radio]').live('change', function() {
+  var $form = $(this).closest('form');
+  $form.find('.save-response').attr('disabled',
+    $form.find('input[type=radio]:checked').length < 2);
 });
 
-$('.button.save-response').live('click', function() {
-	var question     = $(this).parents('.question');
-	var response     = question.find('.response');
-	var preparedness = $(this).prev().find('input:radio[name=preparedness]:checked').val();
-	var priority     = $(this).prev().find('input:radio[name=priority]:checked').val();
-	var answers      = priority + '<br />' + preparedness;
-	var na_link      = question.find('.does-not-apply');
-
-	if ((typeof priority != 'undefined') && (typeof preparedness != 'undefined')) {
-		question.addClass('answered');
-		response.addClass('answered');
-		response.find('.respond').hide();
-		response.find('.answers').html(answers);
-		toggleQuestion(this);
-		na_link.hide();
-	}
+$(function() {
+  $('form.edit_answer .save-response').attr('disabled', true);
 });
 
 function toggleQuestion(button) {
@@ -173,20 +155,22 @@ function toggleQuestion(button) {
   question.find('.explain').toggle();
 }
 
-$('.checker').live('click', function() {
-	$('.question:not(.answered)').toggleClass('not-applicable');
-	$('.question:not(.answered)').find('.respond').toggle();
+$('.critical-function-toggle input[type=checkbox]').live({
+  change: function() {
+    $(this).closest('form').submit();
+  }
 });
+
+var manageInfoBubble;
 
 // Tooltips
 $(function () {
-  $('.info-bubble').each(function () {	
-	
-    // options
-    var distance = 10;
-    var time = 250;
-    var hideDelay = 100;
+  // options
+  var distance = 10;
+  var time = 250;
+  var hideDelay = 100;
 
+  manageInfoBubble = function() {	
     var hideDelayTimer = null;
 
     // tracker
@@ -249,5 +233,8 @@ $(function () {
 		
 		$(this).closest('tr').siblings('tr').find('.info-bubble').fadeIn();
     });
-  });
+  };
+
+  $('.info-bubble').each(manageInfoBubble);
 });
+

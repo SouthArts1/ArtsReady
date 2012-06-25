@@ -13,9 +13,9 @@ class BattleBuddyRequest < ActiveRecord::Base
   end
 
   def accept!
-    self.accepted = true
-    # create a reciprocal relationship
-    BattleBuddyRequest.create(:organization => battle_buddy, :battle_buddy => organization, :accepted => true)
+    self.update_attributes(:accepted => true) &&
+      # create a reciprocal relationship
+      BattleBuddyRequest.create(:organization => battle_buddy, :battle_buddy => organization, :accepted => true)
   end
 
   def reject!

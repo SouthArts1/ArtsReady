@@ -18,6 +18,21 @@ class Admin::OrganizationsController < Admin::AdminController
     end
 
   end
+  
+  def billing
+    @organization = Organization.find(params[:id])
+    @payment = @organization.payment
+  end
+  
+  def allow_provisionary_access
+    o = Organization.find(params[:id])
+    u = o.users.first
+    if Payment.create({ organization_id: o.id, starting_amount_in_cents: 30000, regular_amount_in_cents: 22500, start_date: (Time.now), active: 1, billing_first_name: u.first_name, billing_last_name: u.last_name, billing_address: o.address, billing_city: o.city, billing_state: o.state, billing_zipcode: o.zipcode, account_number: "0000000000", routing_number: "051404260", bank_name: "BBT", account_type: "checking", payment_type: 'bank' })
+      redirect_to :back, :notice => "Provisionary access has been granted"
+    else
+      redirect_to :back, :notice => "Problem granting access."
+    end
+  end
 
   def destroy
     @organization = Organization.find(params[:id])

@@ -104,6 +104,15 @@ a {
     position: relative;
     top: 1px; } }
 
+input[type=submit].linklike {
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: normal;
+  color: inherit;
+  font-size: inherit;
+}
 ul, ol, p {
   margin: 0 10px 10px; }
 
@@ -248,6 +257,7 @@ label {
   display: block;
   margin-left: 5px;
   font-weight: bold;
+  &.inline { display: inline; margin: 0; }
   &.label {
     font-weight: bold; } }
 
@@ -803,7 +813,10 @@ tbody {
   padding: 15px;
   color: #fff;
   background: #525e96;
-  clear: both; }
+  clear: both;
+  label { display: inline; }
+  .js & input[type=submit] { display: none; }
+}
 
 .questions {
   margin-bottom: 20px; }
@@ -831,6 +844,7 @@ tbody {
     background: #fff;
     &.not-applicable {
       background: #eee; } }
+  input[type=submit].linklike { color: #666; }
   .response {
     float: left;
     margin-right: 20px;
@@ -864,7 +878,9 @@ tbody {
   .answer {
     width: 500px;
     float: left;
-    margin-right: 20px; } }
+    margin-right: 20px; }
+  .prompt { border: none; }
+}
 
 /*  Org Admin */
 
@@ -1029,7 +1045,11 @@ tbody {
   background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #c31d29);
   box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
   -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
-  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; }
+  -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+  &:disabled {
+    opacity: 0.3;
+  }
+}
 
 .button.weak, a.button.weak, input[type="submit"].weak {
   background: #999;
@@ -1311,6 +1331,12 @@ input.datepicker, table input.datepicker {
   img {
     padding-right: 10px; } }
 
+.button.reassessment_button {
+  position: relative;
+  left: 10px;
+  top: -13px;
+}
+
 /* To-dos */
 .todo-details {
   ul { list-style: none; }
@@ -1344,6 +1370,10 @@ td.action {white-space: nowrap;}
   position: absolute;
   right: 20px;
   bottom: 35px;
+}
+
+#todo_user_id {
+  max-width: 100px;
 }
 
 input[type="submit"].todo-note-submit {
@@ -1490,7 +1520,10 @@ table#messages {
       vertical-align: top;
       width: 5%;
       .date {
-        color: #777; } }
+        color: #777; }
+      .message_delete input[type="submit"] {
+        font-size: .75em;
+        padding: 3px 5px;}}
     &.from {
       vertical-align: top;
       width: 35%; }
@@ -1522,6 +1555,15 @@ table#messages {
   padding: 10px; }
 
 /*Crises*/
+
+.needs .need_call {
+  padding: 0;
+  .need_description {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .need_provided { color: #ccc; }
+}
 
 .crisis_advice {
   p { margin: 10px 10px 10px 0; }

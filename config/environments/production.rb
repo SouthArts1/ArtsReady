@@ -20,7 +20,7 @@ Artsready::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -59,3 +59,8 @@ end
 S3_UPLOAD_BUCKET = 'artsready-production'
 MAILCHIMP_API_KEY = 'b8912933a59791689dcc41a2e5ebe34c-us2'
 MAILCHIMP_LIST_ID = '5f443e1901'
+
+# For Live A.Net Account
+ANET_API_LOGIN_ID = ENV['ANET_API_LOGIN_ID'] || "2F3w8JFj3"
+ANET_TRANSACTION_KEY = ENV['ANET_TRANSACTION_KEY'] || "88fbL6HwN759b2Mb"
+ANET_MODE = :live

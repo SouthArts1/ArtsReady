@@ -13,3 +13,7 @@ coverage
 .powder
 public/stylesheets/.sass-cache
 
+.redcar
+
+# Ignore application configuration
+/config/application.yml

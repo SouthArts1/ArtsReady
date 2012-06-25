@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120516024255) do
+<<<<<<< HEAD
+ActiveRecord::Schema.define(:version => 20120621213930) do
+=======
+ActiveRecord::Schema.define(:version => 20120621142232) do
+>>>>>>> 63c7f5ac559fbdd192d4c04ee82d659f1b979649
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -77,8 +81,10 @@ ActiveRecord::Schema.define(:version => 20120516024255) do
     t.boolean  "complete",                :default => false
     t.integer  "answers_count",           :default => 0
     t.integer  "completed_answers_count", :default => 0
+    t.datetime "completed_at"
   end
 
+  add_index "assessments", ["completed_at"], :name => "index_assessments_on_completed_at"
   add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"
 
   create_table "battle_buddy_requests", :force => true do |t|
@@ -130,6 +136,22 @@ ActiveRecord::Schema.define(:version => 20120516024255) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "discount_codes", :force => true do |t|
+    t.string   "discount_code"
+    t.integer  "deduction_value"
+    t.string   "deduction_type"
+    t.integer  "redemption_max"
+    t.datetime "active_on"
+    t.datetime "expires_on"
+    t.boolean  "apply_to_first_year"
+    t.boolean  "apply_to_post_first_year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "description"
+    t.integer  "recurring_deduction_value", :default => 0
+    t.string   "recurring_deduction_type",  :default => "dollar"
+  end
 
   create_table "messages", :force => true do |t|
     t.integer  "user_id"
@@ -189,12 +211,43 @@ ActiveRecord::Schema.define(:version => 20120516024255) do
     t.string   "duns"
     t.string   "nsic_code"
     t.integer  "users_count",                :default => 0
+    t.string   "other_nsic_code"
   end
 
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.string   "slug"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payment_variables", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "discount_code_id"
+    t.integer  "starting_amount_in_cents"
+    t.integer  "regular_amount_in_cents"
+    t.integer  "arb_id"
+    t.string   "payment_method"
+    t.string   "payment_number"
+    t.integer  "expiry_month"
+    t.integer  "expiry_year"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "active"
+    t.string   "billing_first_name"
+    t.string   "billing_last_name"
+    t.string   "billing_address"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -232,7 +285,6 @@ ActiveRecord::Schema.define(:version => 20120516024255) do
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
     t.string "name"
@@ -267,6 +319,7 @@ ActiveRecord::Schema.define(:version => 20120516024255) do
     t.string   "status"
     t.integer  "last_user_id"
     t.string   "action",            :default => "Work On"
+    t.string   "key"
   end
 
   add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"

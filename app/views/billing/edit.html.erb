@@ -1,0 +1,154 @@
+<h1>Edit Billing Information</h1>
+
+<div class="grid_12 alpha">
+  <%= render :partial => '/shared/settings_navbar', :locals => {:current_settings_tab => :billing} %>
+</div>
+
+
+<div class="grid_8">
+	<% form_for @payment, url: billing_path, method: "PUT" do |f| %>
+		<%= f.hidden_field :organization_id, value: @organization.id %>
+		<%= f.hidden_field :discount_code_id, value: @payment.discount_code_id %>
+		<%= f.hidden_field :id, value: @payment.id %>
+		<p>
+			<%= f.label :billing_first_name %>
+			<%= f.text_field :billing_first_name %><br /></p>
+		<p><%= f.label :billing_last_name %>
+		<%= f.text_field :billing_last_name %><br /></p>
+		<p><%= f.label :billing_address %>
+		<%= f.text_field :billing_address %><br /></p>
+		<p><%= f.label :billing_city %>
+		<%= f.text_field :billing_city %><br /></p>
+		<p><%= f.label :billing_state %>
+		<%= f.text_field :billing_state %><br /></p>
+		<p><%= f.label :billing_zipcode, "Billing zip code" %>
+		<%= f.text_field :billing_zipcode %><br /></p>
+		<br />
+		Payment information:
+		<br /><br />
+				<h3 style="margin-left:26px;">First Year Fee: (due today) <span style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span></h3>
+				<h3 style="margin-left:26px;">Annual Subscription: <span style="margin-left:62px;"><%= money_from_cents @payment.regular_amount_in_cents %></span></h3>
+		<br />
+		<p>
+			Have a discount code? <input type="text" id="discount_code" style="width:200px;" /><br />
+			<br />
+			<p style="margin-left:138px;">
+				<input type="button" id="discount_submit" value="Apply my discount code!" style="text-decoration: none; border: 1px solid #C31D29; padding: 5px 8px; font-weight: bold; vertical-align: middle; cursor: pointer; color: white; font-size: 12px; text-decoration: none; letter-spacing: normal; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; background-color: #C31D29; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.25)), to(#C31D29)); background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #C31D29); box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;" /><br /><br />
+			</p>
+		</p>
+		</script>
+		<br /><br />
+		<% if @payment.payment_method == "Credit Card" %>
+		<div id="cc_info">
+			<table style="border:none;">
+				<tr>
+					<td><p>Credit Card Number:</p></td>
+					<td><p><%= f.text_field :number %> <%= image_tag "cc_image.jpg", :width => "120px" %></p>
+						<p id="bad_card" style="color:#ff0000; display:none;">Credit Card Number is invalid.</p></td>
+				</tr>
+				<tr>
+					<td><p>Expiration Date:</p></td>
+					<td><p><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]) %> <%= f.date_select :expiry_year, :order => [:year] %></p></td>
+				</tr>
+				<tr>
+					<td><p>Verification Number (CCV):</p></td>
+					<td><p><%= f.text_field :ccv %></p></td>
+				</tr>
+			</table>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				By entering your payment information, you agree to be billed <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (prices including discounts).
+			</p>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				This information will not be saved.<br /> 
+				Each subscription will be processed individually on its given timeline.<br />
+				You may only change payment information of the same type.<br />  
+				If it is necessary to change between a credit/debit card and a bank account, please contact ArtsReady.
+			</p>
+			<br />
+		</div>
+		<% else %>
+		<div id="bank_info">
+			<table style="border:none;">
+				<tr>
+					<td><p>Bank Name:</p></td>
+					<td><p><%= f.text_field :bank_name %></p></td>
+				</tr>
+				<tr>
+					<td><p>Account Type:</p></td>
+					<td><p><%= f.select :account_type, ["Checking", "Savings"] %></p></td>
+				</tr>
+				<tr>
+					<td><p>ABA Routing Number:</p></td>
+					<td><p><%= f.text_field :routing_number %></p></td>
+				</tr>
+				<tr>
+					<td><p>Account Number:</p></td>
+					<td><p><%= f.text_field :account_number %></p></td>
+				</tr>
+			</table>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				By entering your payment information, you agree to be billed <strong id="ending_value"><%= money_from_cents @payment.regular_amount_in_cents %></strong> annually for consecutive years (price includes discounts).
+			</p>
+			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+				This information will not be saved.<br /> 
+				Each subscription will be processed individually on its given timeline.<br />
+				You may only change payment information of the same type.<br />  
+				If it is necessary to change between a credit/debit card and a bank account, please contact ArtsReady.
+			</p>
+		</div>
+		<% end %>
+		<br />
+		<%= f.submit %><br /><br />
+		<%= link_to "I would like to cancel my automated billing entirely.", billing_cancel_path, confirm: "Are you sure?  This will affect your ArtsReady access." %>
+		<script type="text/javascript">
+			$.fn.animateHighlight = function(highlightColor, duration) {
+			    var highlightBg = highlightColor || "#FFFF9C";
+			    var animateMs = duration || 1500;
+			    var originalBg = this.css("backgroundColor");
+			    this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+			};
+
+			function validateCreditCard(s) {
+				var v = "0123456789";
+				var w = "";
+				for (i=0; i < s.length; i++) {
+					x = s.charAt(i);
+					if (v.indexOf(x,0) != -1)
+					w += x;
+				}
+				j = w.length / 2;
+				k = Math.floor(j);
+				m = Math.ceil(j) - k;
+				c = 0;
+				for (i=0; i<k; i++) {
+					a = w.charAt(i*2+m) * 2;
+					c += a > 9 ? Math.floor(a/10 + a%10) : a;
+				}
+				for (i=0; i<k+m; i++) c += w.charAt(i*2+1-m) * 1;
+				return (c%10 == 0);
+			}
+
+			$(document).ready(function() {
+				$("#discount_submit").click(function() {
+					window.location.href = ("/billing/new/"+ $("#discount_code").val())
+				})
+
+				$("#payment_type").change(function() {
+					var type = "#" + $("#payment_type").val() + "_info";
+					$("#cc_info").slideUp();
+					$("#bank_info").slideUp();
+
+					$(type).slideDown();
+				});
+
+				$("#payment_number").blur(function() {
+					if (validateCreditCard($(this).val()) == false) {
+						$("#bad_card").slideDown();
+					} else {
+						$("#bad_card").slideUp();
+					}
+				})
+			})
+		</script>
+	<% end %>
+</script>

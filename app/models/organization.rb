@@ -2,7 +2,8 @@ class Organization < ActiveRecord::Base
   acts_as_gmappable
   geocoded_by :full_street_address
 
-  has_one :assessment, :dependent => :destroy
+  has_one :assessment, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :assessments, :dependent => :destroy
   has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
   has_many :public_articles, :class_name => 'Article',
@@ -26,6 +27,7 @@ class Organization < ActiveRecord::Base
   has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
+  has_many :payments
 
   accepts_nested_attributes_for :users
 
@@ -43,7 +45,7 @@ class Organization < ActiveRecord::Base
   scope :nearing_expiration, where('0=1')
   scope :in_crisis, includes(:crisis).where('crises.resolved_on IS NULL')
   
-  delegate :is_complete?, :to => :assessment, :allow_nil => true, :prefix => true
+  delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
   
@@ -61,10 +63,6 @@ class Organization < ActiveRecord::Base
 
   def gmaps4rails_address
     full_street_address
-  end
-
-  def todo_completion
-    0
   end
 
   def deletable?
@@ -89,14 +87,24 @@ class Organization < ActiveRecord::Base
   end
 
   def todo_percentage_complete
-    # number_to_percentage(((completed_answers_count.to_f / answers_count.to_f)*100),:precision => 0)
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
   end
   
   def is_approved?
     active
   end
-
+  
+  def active_subscription_end_date
+    return nil if !self.payment || !self.payment.active?
+    return (self.payment.start_date + 365.days)
+  end
+  
+  def payment
+    logger.debug("Number of payments: #{self.payments.count rescue 0} return: #{self.payments.last.inspect rescue "nil"}")
+    return self.payments.last unless self.payments.nil?
+    return nil
+  end
+  
   private 
    
   def send_admin_notification
@@ -109,7 +117,8 @@ class Organization < ActiveRecord::Base
 
   def send_sign_up_email
     logger.debug("Sending sign_up email for organization #{name}")
-    OrganizationMailer.sign_up(self).deliver rescue logger.debug("send sign_up email failed")
+    # OrganizationMailer.sign_up(self).deliver rescue logger.debug("send sign_up email failed")
+    # No longer need to do this with proper billing set up. - KH
   end
 
   def send_approval_email

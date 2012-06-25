@@ -1,0 +1,35 @@
+csv << [
+  'User First Name', 'User Last Name', 'User Email',
+  'Account Name', 'Physical Address', 'Physical Address 2',
+  'City ', 'State', 'Zip Code', 'Phone Number', 'Fax Number',
+  'Parent Organization', 'Subsidizing Organization',
+  'Organizational Status (2 digits)',
+  'National Standard Institution Code', 'Other NSI Code',
+  'Primary Contact Name', 'Primary Contact Email',
+  'Billing First Name', 'Billing Last Name',
+  'Billing Address', 'Billing Address 2',
+  'Billing City', 'Billing State', 'Billing Zip Code',
+  'Discount Code', 'Payment Type', 'Ends in',
+  'First Billing Date', 'First Billing Amount',
+  'Next Billing Date Occurs in (Days)', 'Next Billing Amount',
+  'Account Expiration Date'
+]
+
+@users.includes(:organization).find_each do |user|
+  organization = user.organization
+
+  csv << [
+    user.first_name, user.last_name, user.email,
+    organization.name,
+    organization.address, organization.address_additional,
+    organization.city, organization.state, organization.zipcode,
+    organization.phone_number, organization.fax_number,
+    organization.parent_organization, organization.subsidizing_organization, 
+    organization.organizational_status,
+    organization.nsic_code, organization.other_nsic_code,
+    organization.contact_name, organization.email,
+    'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 
+    'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO'
+  ]
+end
+
