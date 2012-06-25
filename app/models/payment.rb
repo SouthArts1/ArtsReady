@@ -152,14 +152,14 @@ class Payment < ActiveRecord::Base
     end
     puts "Aim Response:  #{aim_response.inspect}"
     
-    if aim_response.success?
+    if aim_response.success? || (aim_response.response.response_reason_text.include?("ACH") rescue false)
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
       arb_tran.set_address(self.billing_address_for_transaction)
       # fire away!
       response = arb_tran.create(arb_sub)
       puts "Reg Response: #{response.inspect}"
       # response logging
-      if response.success?
+      if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
         self.arb_id = response.subscription_id
         self.organization.update_attribute(:active, true)
         self.active = true
