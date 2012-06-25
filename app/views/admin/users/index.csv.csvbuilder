@@ -7,7 +7,7 @@ csv << [
   'National Standard Institution Code', 'Other NSI Code',
   'Primary Contact Name', 'Primary Contact Email',
   'Billing First Name', 'Billing Last Name',
-  'Billing Address', 'Billing Address 2',
+  'Billing Address',
   'Billing City', 'Billing State', 'Billing Zip Code',
   'Discount Code', 'Payment Type', 'Ends in',
   'First Billing Date', 'First Billing Amount',
@@ -17,6 +17,20 @@ csv << [
 
 @users.includes(:organization).find_each do |user|
   organization = user.organization
+  payment = organization.payment
+
+  payment_fields = payment ? [
+    payment.billing_first_name, payment.billing_last_name,
+    payment.billing_address,
+    payment.billing_city, payment.billing_state, payment.billing_zipcode,
+    payment.discount_code && payment.discount_code.discount_code,
+    payment.payment_method, payment.payment_number,
+    payment.start_date.strftime('%m/%d/%Y'),
+    money_from_cents(payment.starting_amount_in_cents),
+    payment.days_left_until_rebill,
+    money_from_cents(payment.regular_amount_in_cents),
+    [payment.expiry_month, payment.expiry_year].compact.join('/')
+  ] : []
 
   csv << [
     user.first_name, user.last_name, user.email,
@@ -28,8 +42,7 @@ csv << [
     organization.organizational_status,
     organization.nsic_code, organization.other_nsic_code,
     organization.contact_name, organization.email,
-    'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 
-    'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO'
+    *payment_fields
   ]
 end
 
