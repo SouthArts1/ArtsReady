@@ -12,7 +12,8 @@ class Payment < ActiveRecord::Base
   end
   
   def days_left_until_rebill
-    (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
+    return (((self.start_date - 365.days) - (Time.now)).to_i / (24 * 60 * 60)) if self.start_date > Time.now
+    return (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
   end
   
   def amount=
