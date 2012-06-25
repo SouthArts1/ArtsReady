@@ -3,6 +3,7 @@ Given /^a user with an urgent to do$/ do
   password = 'password'
   @current_user = Factory.create(:user, :password => password)
   @todo = Factory.create(:todo, :user => @current_user)
+  login(@current_user.email, password)
 end
 
 Then /^I should see urgent to dos area$/ do 
