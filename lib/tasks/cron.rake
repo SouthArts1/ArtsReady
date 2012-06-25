@@ -5,5 +5,6 @@ task :cron => :environment do
   puts "Sending reminders"
   Reminder.todos_nearly_due
   puts "done."
+  Arbly::Checker.start
 end
 
