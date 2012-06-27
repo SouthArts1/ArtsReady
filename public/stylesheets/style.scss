@@ -385,7 +385,11 @@ hgroup {
 .field {
   margin-bottom: 20px;
   input {
-    width: 95%; }
+    width: 95%;
+    &[type=checkbox], &[type=radio] {
+      width: auto;
+    }
+  }
   textarea {
     width: 95%;
     &.tall {
