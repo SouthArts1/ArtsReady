@@ -34,6 +34,10 @@ class Todo < ActiveRecord::Base
 
   TRACKED_ATTRIBUTES = %w{description critical_function priority due_on review_on completed status action}
   
+  def action_description
+    "#{action} #{description}"
+  end
+  
   def set_status
     if answer.nil?
       self.status = 'Not Started'

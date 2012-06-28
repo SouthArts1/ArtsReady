@@ -1,8 +1,8 @@
 <p>Dear <%= @todo.user_name %>,</p>
 
-<p>You were assigned an important To-Do item in ArtsReady to help <%= @todo.organization.name %> prepare for the unexpected. We've noticed that the task is due, yet it is still designated as '<%= @todo.status %>'.</p>
+<p>You were assigned an important To-Do item in ArtsReady to help <%= @todo.organization.name %> prepare for the unexpected. We've noticed that the task is due, yet it has not been marked as complete.</p>
 
-<p>Your assignment: <%= @todo.description %><br>
+<p>Your assignment: <%= @todo.action_description %><br>
 Due: <%= @todo.due_on %></p>
 
 <p><%= link_to "Please log in to see what else is required to complete the task.", todo_url(@todo) %></p>

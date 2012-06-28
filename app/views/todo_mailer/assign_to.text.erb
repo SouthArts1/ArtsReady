@@ -2,10 +2,12 @@ Dear <%= @user.name %>,
 
 You have been assigned an important To-Do item in ArtsReady to help your organization prepare for the unexpected.
 
-Your assignment: <%= @todo.description %>
+Your assignment: <%= @todo.action_description %>
 Due: <%= @todo.due_on.nil? ? "Not Set" : @todo.due_on %>
 
-<%= link_to "Go here to learn more and log your progress!", @url %>
+Go here to learn more and log your progress!
+
+    <%= @url %>
 
 If you have any questions, please contact your organization’s ArtsReady administrator, <%= @user.organization.users.first.name %>, <%= @user.organization.users.first.email %>
 
