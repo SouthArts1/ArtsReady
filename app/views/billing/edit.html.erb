@@ -26,8 +26,9 @@
 		<br />
 		Payment information:
 		<br /><br />
-				<h3 style="margin-left:26px;">First Year Fee: (due today) <span style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span></h3>
+			<span style="margin-left:38px;">Due on your next billing cycle:</span>
 				<h3 style="margin-left:26px;">Annual Subscription: <span style="margin-left:62px;"><%= money_from_cents @payment.regular_amount_in_cents %></span></h3>
+				<br />
 		<br />
 		<p>
 			Have a discount code? <input type="text" id="discount_code" style="width:200px;" /><br />
