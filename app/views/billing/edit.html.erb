@@ -37,10 +37,23 @@
 				<input type="button" id="discount_submit" value="Apply my discount code!" style="text-decoration: none; border: 1px solid #C31D29; padding: 5px 8px; font-weight: bold; vertical-align: middle; cursor: pointer; color: white; font-size: 12px; text-decoration: none; letter-spacing: normal; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; background-color: #C31D29; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.25)), to(#C31D29)); background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #C31D29); box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;" /><br /><br />
 			</p>
 		</p>
-		</script>
 		<br /><br />
-		<% if @payment.payment_method == "Credit Card" %>
-		<div id="cc_info">
+		<table style="border:none;">
+			<tr>
+				<td>
+					<p>
+						Please choose your payment type: 
+						<select id="payment_type" name="payment_type">
+							<option value="blank"></option>
+							<option value="cc">Credit Card</option>
+							<option value="bank">Bank Account</option>
+						</select>
+					</p>
+				</td>
+			</tr>
+		</table>
+		<br />
+		<div id="cc_info" style="display:none;">
 			<table style="border:none;">
 				<tr>
 					<td><p>Credit Card Number:</p></td>
@@ -67,8 +80,7 @@
 			</p>
 			<br />
 		</div>
-		<% else %>
-		<div id="bank_info">
+		<div id="bank_info" style="display:none;">
 			<table style="border:none;">
 				<tr>
 					<td><p>Bank Name:</p></td>
@@ -97,7 +109,6 @@
 				If it is necessary to change between a credit/debit card and a bank account, please contact ArtsReady.
 			</p>
 		</div>
-		<% end %>
 		<br />
 		<%= f.submit %><br /><br />
 		<%= link_to "I would like to cancel my automated billing entirely.", billing_cancel_path, confirm: "Are you sure?  This will affect your ArtsReady access." %>

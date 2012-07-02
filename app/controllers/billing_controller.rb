@@ -91,11 +91,13 @@ class BillingController < ApplicationController
     
     @payment = Payment.find(params[:payment][:id])
     
-    if obj[:number] != nil
+    if params[:payment_type] == "cc"
+      logger.debug("Update type: CC")
       @payment.number = obj[:number]
       @payment.ccv = obj[:ccv]
       @payment.payment_type = "cc"
-    elsif obj[:account_number] != nil
+    elsif params[:payment_type] == "bank"
+      logger.debug("Update type: Bank")
       @payment.account_type = obj[:account_type].downcase
       @payment.bank_name = obj[:bank_name]
       @payment.routing_number = obj[:routing_number]
@@ -113,16 +115,6 @@ class BillingController < ApplicationController
     @payment.billing_zipcode = obj[:billing_zipcode]  
     @payment.expiry_month = obj[:expiry_month] 
     @payment.expiry_year = obj["expiry_year(1i)"]
-    
-    if obj[:discount_code_id]
-      begin
-        d = DiscountCode.find(obj[:discount_code_id])
-        @payment.discount_code_id = d.id
-        @payment.validate_discount_code!
-      rescue 
-        # do nothing
-      end
-    end
     
     if @payment.save
       logger.debug("G2G")
