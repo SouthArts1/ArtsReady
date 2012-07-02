@@ -142,7 +142,7 @@
 
 			$(document).ready(function() {
 				$("#discount_submit").click(function() {
-					window.location.href = ("/billing/new/"+ $("#discount_code").val())
+					window.location.href = ("/billing/" + $("#payment_id").val() + "/edit/"+ $("#discount_code").val())
 				})
 
 				$("#payment_type").change(function() {
