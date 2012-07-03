@@ -134,6 +134,7 @@ class Payment < ActiveRecord::Base
   
   def cancel
     if self.cancel_subscription
+      logger.debug("Canceled")
       if self.update_attributes({ active: false, end_date: Time.now })
         return true
       else
@@ -205,8 +206,7 @@ class Payment < ActiveRecord::Base
   end
   
   def update_arb_subscription
-    if self.end_date == nil && self.active?
-      if !payment_changed?
+      if !payment_changed? && self.active?
         arb_sub = build_subscription_object_for_update(self)
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
@@ -239,6 +239,8 @@ class Payment < ActiveRecord::Base
           # response logging
           logger.debug("Response: \n #{response.inspect}")
           if response.success?
+            self.active = true
+            self.end_date = nil
             return true
           else
             return false
@@ -273,19 +275,19 @@ class Payment < ActiveRecord::Base
         else
           return false
         end
-        puts "Aim Response:  #{aim_response.inspect}"
 
         if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
           arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
           arb_tran.set_address(self.billing_address_for_transaction)
-          # fire away!
+
           response = arb_tran.create(arb_sub)
-          puts "Reg Response: #{response.inspect}"
-          # response logging
+
           if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
             self.arb_id = response.subscription_id
             self.organization.update_attribute(:active, true)
+            logger.debug("Reset Active and End Date")
             self.active = true
+            self.end_date = nil
             return true
           else
             return false
@@ -294,14 +296,16 @@ class Payment < ActiveRecord::Base
           return false
         end
       end
-    end
-    return false
+      return true
   end
   
   def cancel_subscription
     arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
     response = arb_tran.cancel(self.arb_id)
-    if response.success?
+    logger.debug("Response: #{response.inspect}")
+    logger.debug("Message: #{response.message_text}")
+    if response.success? || (response.message_text.include?("canceled") rescue true)
+      logger.debug("Passes validation.  it is or has been cancelled")
       return true
     end
     return false

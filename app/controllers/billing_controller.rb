@@ -12,8 +12,12 @@ class BillingController < ApplicationController
       start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
       regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
       
-      @payment ||= Payment.new({organization_id: @organization.id, billing_first_name: current_user.first_name, billing_last_name: current_user.last_name, billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
-      
+      if current_org.payments.last
+        return redirect_to edit_billing_path(current_org.payments.last)
+      else
+        @payment = Payment.new({organization_id: @organization.id, billing_first_name: current_user.first_name, billing_last_name: current_user.last_name, billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
+      end
+            
       if params[:code]
         d = DiscountCode.find_by_discount_code(params[:code])
         if d
@@ -54,7 +58,6 @@ class BillingController < ApplicationController
       @payment.routing_number = obj[:routing_number]
       @payment.account_number = obj[:account_number]
     else
-      logger.debug("here 1")
       return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     if @payment.save
@@ -62,7 +65,6 @@ class BillingController < ApplicationController
       session[:user_id] = @current_user.id
       return redirect_to "/" 
     else
-      logger.debug("here 2")
       return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
   end
@@ -70,6 +72,8 @@ class BillingController < ApplicationController
   def edit
     @organization = current_user.organization
     @payment = Payment.find(params[:id])
+    redirect_to :back unless @payment
+    
     if current_user.organization != @payment.organization
       redirect_to :back, warning: "You cannot access that."
     end
