@@ -49,3 +49,9 @@ Feature: Sign in
     And I press "Sign In"
     Then I should be on the sign_in page
     And I should see "organization has not been approved"
+
+  Scenario: A user tries to access a page without signing in
+    When I go to the lend a hand page
+    Then I should be on the sign in page
+    And I should see "You must sign in to access that page"
+
