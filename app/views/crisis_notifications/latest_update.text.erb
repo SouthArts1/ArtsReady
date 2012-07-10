@@ -6,7 +6,9 @@ Here is what <%= @update.user_name %> (<%= @update.organization_name %>) said:
 
 <%= @update.message %>
 
-Please visit ArtsReady’s <%= link_to "Lend a Hand", lend_a_hand_url %>Lend a Hand page</a> to see what <%= @user.organization.name %> can do to help your Battle Buddy in need.
+Please visit ArtsReady’s Lend a Hand page to see what <%= @user.organization.name %> can do to help your Battle Buddy in need:
+
+<%= lend_a_hand_url %>
 
 To contact <%= @crisis.organization_name %>'s ArtsReady administrator: 
 
