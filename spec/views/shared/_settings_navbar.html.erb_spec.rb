@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 describe "shared/_settings_navbar" do
-  let(:current_org) { Factory.create(:organization) }
-  
+  let(:current_user) { Factory.create(:user) }
+  let(:current_org) { current_user.organization }
+
   before do
+    view.stubs(:current_user).returns(current_user)
     view.stubs(:current_org).returns(current_org)
     view.stubs(:current_settings_tab).returns(:our_team)
   end
