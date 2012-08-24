@@ -1,6 +1,8 @@
 class DiscountCode < ActiveRecord::Base
   has_many :payments
-  
+
+  validates_numericality_of :redemption_max
+
   def total_deduction
     if self.deduction_type == "percentage"
       str = self.deduction_value.to_s + "%"
