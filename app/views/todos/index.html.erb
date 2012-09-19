@@ -44,20 +44,20 @@
               <% end %>
             </td>
             <td class="item"><p><%= todo.description %></p></td>
-            <td class="assigned"><p>
+            <td class="assigned">
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
                 <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
-              <% end %></p>
+              <% end %>
             </td>
-            <td class="duedate"><p>
+            <td class="duedate">
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
                 <%= f.text_field :due_on, :class => 'updateable datepicker', :id => "todo_due_on_#{todo.id}" %>
               <% end %>
-            </p></td>
-            <td class="priority"><p>
+            </td>
+            <td class="priority">
             <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
               <%= f.select :priority, Todo::PRIORITY, {}, :class => 'updateable' %>
-            <% end %></p></td>
+            <% end %></td>
             <td class="updated"><p><%= todo.updated_at.to_formatted_s(:slashed) %></p></td>
             <td><p><%= link_to 'Details', todo_path(todo), :class => 'button' %></p></td>
           </tr>
