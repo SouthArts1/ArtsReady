@@ -94,6 +94,7 @@ Artsready::Application.routes.draw do
 
   # public pages
   get "page/:slug" => "pages#show", :as => "page"
+  match '/offer' => 'pages#show', :slug => 'afta' 
 
   get "welcome" => "home#welcome", :as => "welcome"
 

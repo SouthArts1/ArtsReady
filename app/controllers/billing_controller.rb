@@ -108,7 +108,7 @@ class BillingController < ApplicationController
       @payment.account_number = obj[:account_number]
       @payment.payment_type = "bank"
     else
-      redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
+      return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     
     @payment.billing_first_name = obj[:billing_first_name] 

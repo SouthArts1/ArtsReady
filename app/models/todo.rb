@@ -127,6 +127,14 @@ class Todo < ActiveRecord::Base
     self
   end
   
+  def reminder_recipients
+    user ? [user] : organization.managers
+  end
+
+  def recipient_name
+    user ? user.name : organization.name
+  end
+
   private
   
   def add_create_note

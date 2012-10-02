@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20120621213930) do
     t.datetime "updated_at"
     t.string   "visibility"
     t.integer  "user_id"
-    t.string   "description"
+    t.text     "description"
     t.string   "buddy_list"
   end
 

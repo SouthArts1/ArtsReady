@@ -1496,7 +1496,13 @@ table#messages {
       vertical-align: top;
       width: 35%; }
     table#messages td.body {
-      width: 60%; }
+      width: 60%;
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      hyphens: auto;
+      -ms-hyphens: auto;
+      word-break: break-word;
+      -ms-word-break: break-word; }
     table#messages td textarea {
       width: 95%;
       height: 100px;

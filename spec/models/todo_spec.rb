@@ -145,4 +145,23 @@ describe Todo do
       todo.todo_notes.order('id ASC').last.message.should =~ /restart/i
     end
   end
+
+  describe '.reminder_recipients' do
+    context '(assigned)' do
+      let(:user) { Factory.build(:user) }
+      let(:todo) { Factory.build(:todo, :user => user) }
+      it 'returns the assigned user' do
+        todo.reminder_recipients.should == [user]
+      end
+    end
+
+    context '(unassigned)' do
+      let(:manager) { Factory.create(:manager) }
+      let(:organization) { manager.organization }
+      let(:todo) { Factory.build(:todo, :organization => organization) }
+      it "returns the organization's manager(s)" do
+        todo.reminder_recipients.should == [manager]
+      end
+    end
+  end
 end

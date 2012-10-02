@@ -20,7 +20,7 @@ class TodoMailer < ActionMailer::Base
   
   def reminder(todo)
     @todo = todo
-    mail(:to => todo.user.email,
+    mail(:to => todo.reminder_recipients.map(&:email),
          :subject => "Your ArtsReady To-Do is Due!")
   end
   

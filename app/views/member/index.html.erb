@@ -22,23 +22,13 @@
   <%= render :partial => 'assessment_status' unless current_org.assessment_complete?%>
   <%= render :partial => 'continue' if current_org.assessment_complete?%>
 
-  <div class="grid_4 alpha">
+  <div class="grid_8 alpha">
     <section>
       <h3 class="icon-action">My Most Urgent To-Dos</h3>
       <ul class="list-actionitems">
         <% @todos.each do |todo| %>
         <li class="urgent-todo"><span class="urgent"><%= todo.due_on.to_formatted_s(:short) %></span><%= link_to todo.description, todo_path(todo) %></li>
         <% end %>
-      </ul>
-    </section>
-  </div>
-  <div class="grid_4 omega">
-    <section>
-      <h3 class="icon-resources">Critical Stuff Short Cuts</h3>
-      <ul class="list-resources">
-        <li><%= link_to 'People Resources', critical_list_organization_articles_path(current_org,:critical_function => 'people') %></li>
-        <li><%= link_to 'Finances & Insurance', critical_list_organization_articles_path(current_org,:critical_function => 'finance') %></li>
-        <li><%= link_to 'Technology', critical_list_organization_articles_path(current_org,:critical_function => 'technology') %></li>
       </ul>
     </section>
   </div>

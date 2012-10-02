@@ -8,7 +8,9 @@ class Admin::DiscountCodesController < Admin::AdminController
   end
   
   def create
-    if @discount_code = DiscountCode.create(params[:discount_code])
+    @discount_code = DiscountCode.new(params[:discount_code])
+
+    if @discount_code.save
       redirect_to admin_discount_codes_path, notice: "Your discount code has been successfully created!"
     else
       @discount_code = DiscountCode.new(params[:discount_code])

@@ -6,7 +6,7 @@ describe "archived_assessments/index" do
   let(:second_assessment) { Factory.create(:completed_assessment, :organization => current_org) }
   
   before do
-    view.stub(:current_org) { current_org }
+    stub_template 'shared/_settings_navbar.html.erb' => ''
     assign :assessments, [first_assessment, second_assessment]
 
     render
