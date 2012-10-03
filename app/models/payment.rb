@@ -2,10 +2,11 @@ class Payment < ActiveRecord::Base
   belongs_to :organization
   belongs_to :discount_code
   
+  cattr_accessor :skip_callbacks
   attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
   
   before_create :create_and_process_subscription
-  before_update :update_arb_subscription
+  before_update :update_arb_subscription, :unless => :skip_callbacks
   
   def is_active?
     return self.active?
@@ -134,13 +135,18 @@ class Payment < ActiveRecord::Base
   
   def cancel
     if self.cancel_subscription
+      logger.debug("Canceled good.")
       logger.debug("Canceled")
+      Payment.skip_callbacks = true
       if self.update_attributes({ active: false, end_date: Time.now })
+        Payment.skip_callbacks = false
         return true
       else
+        Payment.skip_callbacks = false
         return false
       end
     else
+      logger.debug("cancelled bad")
       return false
     end
   end
@@ -300,14 +306,28 @@ class Payment < ActiveRecord::Base
   end
   
   def cancel_subscription
-    arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
-    response = arb_tran.cancel(self.arb_id)
-    logger.debug("Response: #{response.inspect}")
-    logger.debug("Message: #{response.message_text}")
-    if response.success? || (response.message_text.include?("canceled") rescue true)
-      logger.debug("Passes validation.  it is or has been cancelled")
-      return true
+    status_arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
+    status_response = status_arb_tran.get_status(self.arb_id)
+    
+    if status_response.success?
+      arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
+      response = arb_tran.cancel(self.arb_id)
+      logger.debug("Response: #{response.inspect}")
+      logger.debug("Message: #{response.message_text}")
+      if response.success? || (response.message_text.include?("canceled") rescue true)
+        logger.debug("Passes validation.  It is or has been cancelled")
+        return true
+      else
+        return false
+      end
+    else
+      if status_response.message_text.include?("cannot be found")
+        logger.debug("It does not exist, cancelling correctly")
+        return true
+      else
+        logger.debug("Status of Subscription: #{response.inspect}")
+        return false
+      end
     end
-    return false
   end
 end
