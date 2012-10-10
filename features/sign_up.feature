@@ -20,7 +20,10 @@ Feature: New organization registration
     And I select "02 Organization - Non-profit" from "organization_organizational_status"
     And I check "terms"
     And I press "Create Organization"
-    Then I should be on the welcome page
+    Then I should be on the new billing page
+
+    When I fill out and submit the billing form
+    Then I should be on the dashboard
 
   Scenario: A visitor tries to sign up without entering any information
     When I go to the sign up page

@@ -15,9 +15,5 @@ describe HomeController do
       get("/home/public_article/1").should route_to("home#public_article", :id => "1")
     end
     
-    it "routes to #welcome" do
-      get("/welcome").should route_to("home#welcome")
-    end
-    
   end
 end
