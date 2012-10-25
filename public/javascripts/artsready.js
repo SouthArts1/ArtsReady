@@ -24,6 +24,23 @@ $("#crisis-deactivate").live('click', function(event) {
 	return confirm('Are you sure?');	
 });
 
+// Hide buddies list on the crisis page until the "Private" option is chosen
+$(function($) {
+  $buddiesList = $("#battle-buddies-list");
+  if (!$("#crisis_visibility_private").attr("checked")){
+    $buddiesList.hide();
+  }
+
+  $("#crisis-visibility input").click(function(){
+    if (this.id == "crisis_visibility_private"){
+      $buddiesList.show();
+    }
+    else {
+      $buddiesList.hide();
+    }
+  });
+});
+
 $(".skip-question").live('click', function(event) {
 	$(this).closest('form').submit();
   return false;
