@@ -96,8 +96,6 @@ Artsready::Application.routes.draw do
   get "page/:slug" => "pages#show", :as => "page"
   match '/offer' => 'pages#show', :slug => 'afta' 
 
-  get "welcome" => "home#welcome", :as => "welcome"
-
   get "readiness_library" => "home#readiness_library", :as => "readiness_library"
   get "home/public_articles" => "home#public_articles", :as => "public_articles"
   get "home/public_article(/:id)" => "home#public_article", :as => "public_article"

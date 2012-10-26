@@ -31,11 +31,6 @@ class HomeController < ApplicationController
     end
   end
 
-  def welcome
-    @page = Page.find_by_slug('billing') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
-    render 'pages/show'
-  end
-
   def news
     @page = Page.find_by_slug('news') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
     render 'pages/show'
