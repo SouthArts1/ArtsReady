@@ -47,13 +47,9 @@
   <section>
     <div id="crisis-update" style="margin-bottom: 20px;">
       <p><%= "No messages are waiting for you" if @messages.count == 0 %></p>
-      <%= form_for([current_org,Message.new]) do |f| %>
+      <%= form_for([current_org,Message.new(:visibility => 'public')]) do |f| %>
         <%= f.text_area :content, :placeholder => 'Send message', :style => 'width: 280px; height: 40px;' %>
-      <div id="crisis-visibility">
-      <%= f.label :visibility, 'Crisis Visibility' %>
-      <%= f.radio_button :visibility, 'public' %> Public <br />
-      <%= f.radio_button :visibility, 'buddies', :checked => true %> My Battle Buddies
-      </div>
+        <%= f.hidden_field :visibility %>
       <div class="grid_2 omega">
         <%= f.submit 'Send', :class => 'button blue' %>
       </div>
