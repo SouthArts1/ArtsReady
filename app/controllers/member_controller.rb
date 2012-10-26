@@ -2,8 +2,11 @@ class MemberController < ApplicationController
 
   def index
     redirect_to crisis_path(current_org.crisis) if current_org.declared_crisis?
-    @crises =  Crisis.shared_with_the_community + Crisis.shared_with_my_battle_buddy_network(current_org.battle_buddy_list) + Crisis.shared_with_me(current_org)
-    @todos = current_user.todos.nearing_due_date
+    @crises =  Crisis.shared_with_the_community + 
+      Crisis.shared_with_my_battle_buddy_network(current_org.battle_buddy_list) + 
+      Crisis.shared_with_me(current_org)
+    @todos = current_user.todos.nearing_due_date + 
+      current_user.organization.todos.nearing_due_date.where(:user_id => nil)
   end
   
   def library
