@@ -1,5 +1,5 @@
 class TodoNote < ActiveRecord::Base
-  belongs_to :todo
+  belongs_to :todo, :touch => true
   belongs_to :user
   belongs_to :article
 
