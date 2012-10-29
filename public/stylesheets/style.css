@@ -865,7 +865,10 @@ tbody tr:hover td {
     float: left;
     margin-right: 20px; }
   .question .prompt {
-    border: none; }
+    border: none;
+    padding-left: 0; }
+  .question .prompt, .question .answer {
+    margin-left: 150px; }
 
 /*  Org Admin */
 .admin-actions form {
