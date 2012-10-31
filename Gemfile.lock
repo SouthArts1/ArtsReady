@@ -134,6 +134,8 @@ GEM
       thor (~> 0.14)
     json (1.6.5)
     json_pure (1.6.5)
+    kelp (0.2.3)
+      capybara (>= 0.4.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     linecache19 (0.5.12)
@@ -265,6 +267,7 @@ DEPENDENCIES
   guard-rspec
   heroku
   jquery-rails
+  kelp
   launchy
   mocha
   mysql2 (= 0.2.18)
