@@ -47,8 +47,10 @@ Feature: Sign in
     When I fill in "email" with "test@test.host"
     And I fill in "password" with "password"
     And I press "Sign In"
-    Then I should be on the sign_in page
-    And I should see "organization has not been approved"
+    Then I should be on the new billing page
+
+    When I fill out and submit the billing form
+    Then I should be on the dashboard
 
   Scenario: A user tries to access a page without signing in
     When I go to the lend a hand page
