@@ -8,6 +8,8 @@ class Payment < ActiveRecord::Base
   before_create :create_and_process_subscription
   before_update :update_arb_subscription, :unless => :skip_callbacks
   
+  validates_presence_of :organization_id
+  
   def is_active?
     return self.active?
   end
@@ -53,7 +55,7 @@ class Payment < ActiveRecord::Base
     return expiry_month.to_s + expiry_year.to_s
   end
   
-  def build_subscription_object(payment)
+  def build_subscription_object()
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
       length: 365, 
@@ -63,15 +65,15 @@ class Payment < ActiveRecord::Base
       amount: self.regular_amount_in_cents.to_f / 100,
       trial_amount: self.starting_amount_in_cents.to_f / 100,
       trial_occurrences: 1,
-      description: "#{payment.organization.name} subscription for ArtsReady",
+      description: "#{self.organization.name} subscription for ArtsReady",
       billing_address: {
-        first_name: (payment.billing_first_name rescue ""),
-        last_name: (payment.billing_last_name rescue ""),
-        company: (payment.organization.name.truncate(23) rescue ""),
-        address: (payment.billing_address rescue payment.organization.address),
-        city: (payment.billing_city rescue payment.organization.city),
-        state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.zipcode rescue payment.organization.zipcode),
+        first_name: (self.billing_first_name rescue ""),
+        last_name: (self.billing_last_name rescue ""),
+        company: (self.organization.name.truncate(23) rescue ""),
+        address: (self.billing_address rescue self.organization.address),
+        city: (self.billing_city rescue self.organization.city),
+        state: (self.billing_state rescue self.organization.state),
+        zip: (self.zipcode rescue self.organization.zipcode),
         country: "United States"
       }
     )
@@ -124,7 +126,7 @@ class Payment < ActiveRecord::Base
     return {
       first_name: (self.billing_first_name rescue ""),
       last_name: (self.billing_last_name rescue ""),
-      company: (self.organization.name.truncate(23) rescue self.billing_name),
+      company: (self.organization.name.truncate(23) rescue ""),
       address: (self.billing_address rescue self.organization.address),
       city: (self.billing_city rescue self.organization.city),
       state: (self.billing_state rescue self.organization.state),
@@ -151,15 +153,36 @@ class Payment < ActiveRecord::Base
     end
   end
   
+  def object_is_bad?
+    is_bad = false
+    is_bad = true if self.id
+    is_bad = true if Organization.exists?(self.organization_id)
+    is_bad = true if self.regular_amount_in_cents.nil? || self.starting_amount_in_cents.nil?
+    is_bad = true if self.billing_first_name.nil? || self.billing_last_name.nil? || self.billing_address.nil? || self.billing_city.nil? || self.billing_state.nil? || self.billing_zipcode.nil?
+    
+    if self.payment_type == "cc"
+      is_bad = true if self.number.nil? || self.expiry_month.nil? || self.expiry_year.nil? || self.ccv.nil?
+    elsif self.payment_type == "bank"
+      is_bad = true if self.routing_number.nil? || self.account_number.nil? || self.bank_name.nil? || self.account_type.nil?
+    else
+      is_bad = true
+    end
+    
+    return is_bad
+  end
+  
   def create_and_process_subscription
+    return false if object_is_bad?
+    
     self.start_date = Time.now + 1.day unless self.start_date
     
-    arb_sub = build_subscription_object(self)
+    arb_sub = build_subscription_object()
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
       puts "CC Expiry: #{expiry}"
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
       self.payment_method = "Credit Card"
+      self.number = self.number.to_s
       self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
     elsif self.payment_type == "bank"
       arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
