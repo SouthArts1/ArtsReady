@@ -178,7 +178,7 @@ class Payment < ActiveRecord::Base
     else
       return false
     end
-    puts "Aim Response:  #{aim_response.inspect}"
+    logger.debug "Aim Response:  #{aim_response.inspect}"
     
     if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
