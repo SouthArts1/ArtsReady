@@ -157,7 +157,7 @@ class Payment < ActiveRecord::Base
     arb_sub = build_subscription_object(self)
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
-      puts "CC Expiry: #{expiry}"
+      logger.debug "CC Expiry: #{expiry}"
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
       self.payment_method = "Credit Card"
       self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
@@ -185,7 +185,7 @@ class Payment < ActiveRecord::Base
       arb_tran.set_address(self.billing_address_for_transaction)
       # fire away!
       response = arb_tran.create(arb_sub)
-      puts "Reg Response: #{response.inspect}"
+      logger.debug "Reg Response: #{response.inspect}"
       # response logging
       if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
         self.arb_id = response.subscription_id
@@ -260,7 +260,7 @@ class Payment < ActiveRecord::Base
         arb_sub = build_refresh_subscription_object(self)
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
-          puts "CC Expiry: #{expiry}"
+          logger.debug "CC Expiry: #{expiry}"
           arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
           self.payment_method = "Credit Card"
           self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
