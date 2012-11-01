@@ -1,3 +1,8 @@
+Given /^I have paid for my subscription$/ do
+  # TODO: do this via the UI
+  @current_user.organization.payments << Factory.build(:payment)
+end
+
 When /^I fill out and submit the billing form$/ do
   fill_in_fields(
     'Billing first name' => 'Bill',
