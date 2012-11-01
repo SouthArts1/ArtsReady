@@ -25,21 +25,31 @@ $("#crisis-deactivate").live('click', function(event) {
 });
 
 // Hide buddies list on the crisis page until the "Private" option is chosen
-$(function($) {
-  $buddiesList = $("#battle-buddies-list");
-  if (!$("#crisis_visibility_private").attr("checked")){
-    $buddiesList.hide();
-  }
 
-  $("#crisis-visibility input").click(function(){
-    if (this.id == "crisis_visibility_private"){
-      $buddiesList.show();
+var buddiesList = function(visibilityToggle, visibilityInput){
+  $(function($) {
+    var $buddiesList = $("#battle-buddies-list");
+    var $visibility = $("#"+visibilityToggle)
+    if ($visibility.length) {
+      if (!$visibility.attr("checked")){
+        $buddiesList.hide();
+      }
     }
-    else {
-      $buddiesList.hide();
-    }
+
+    $(visibilityInput).click(function(){
+      if (this.id == visibilityToggle){
+        $buddiesList.show();
+      }
+      else {
+        $buddiesList.hide();
+      }
+    });
   });
-});
+}
+
+buddiesList("crisis_visibility_private", "#crisis-visibility input");
+buddiesList("article_visibility_shared","#article-visibility input");
+
 
 $(".skip-question").live('click', function(event) {
 	$(this).closest('form').submit();

@@ -2,6 +2,7 @@
   <div id="declare-crisis-form">
     <h3>Declare a Crisis</h3>
     <%= form_for(@crisis) do |f|%>
+      <%= f.error_messages %>
       <%= f.label :description %>
       <%= f.text_area :description, :size => '20x5' %>
       <div id="crisis-visibility">

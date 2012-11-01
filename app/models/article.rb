@@ -17,6 +17,7 @@ class Article < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :description
   validates_presence_of :critical_function
+  validates_presence_of :buddy_list, :if => :shared?
 
   default_scope where(:disabled => false)
   
@@ -93,7 +94,11 @@ class Article < ActiveRecord::Base
       return false
     end
   end
-  
+
+  def shared?
+    visibility == 'shared'
+  end
+
   def deleteable_by(user)
     self.user == user
   end
