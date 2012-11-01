@@ -3,7 +3,7 @@
   <div>URL: <%= link_to @article.link, @article.link, :target => '_blank' %></div>
   <% end %>
   <% if @article.document.present? %>
-  <div><%= link_to "Download", @article.document.url %></div>
+  <div><%= link_to "Download", @article.document.url, :target => '_blank' %></div>
   <% end %>
   <div><%= @article.to_html %></div>
 </article>
