@@ -91,7 +91,7 @@ Feature: Assessment
 
   Scenario: Re-assessment
     Given an active question exists
-    And I have signed in as an editor
+    And I have signed in as a manager
     And I have paid for my subscription
     And I have started an assessment with facilities
     When a week passes

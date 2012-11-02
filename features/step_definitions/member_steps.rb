@@ -28,7 +28,7 @@ Given /^an executive$/ do
   login(email,password)
 end
 
-Given /^a manager$/ do
+Given /^(?:I (?:am|have) signed in as )?a manager$/ do
   email = 'manager@test.host'
   password = 'password'
   @current_user = Factory.create(:manager, :email => email, :password => password)
