@@ -218,7 +218,6 @@ Then /^I should see the button "([^"]*)"$/ do |text|
 end
 
 Then /^I should not see the button "([^"]*)"$/ do |text|
-  debugger
   if page.respond_to? :should
     page.should_not have_button(text)
   else

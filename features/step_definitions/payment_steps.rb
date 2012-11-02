@@ -1,3 +1,8 @@
+Given /^I have paid for my subscription$/ do
+  visit new_billing_path
+  step %{I fill out and submit the billing form}
+end
+
 When /^I fill out and submit the billing form$/ do
   fill_in_fields(
     'Billing first name' => 'Bill',
@@ -7,7 +12,7 @@ When /^I fill out and submit the billing form$/ do
     'Billing state' => 'NY',
     'Billing zip code' => '10001',
     'payment_type' => 'Credit Card',
-    'payment_number' => '5415159924066154',
+    'payment_number' => '4007000000027',
     'payment_expiry_month' => '1',
     'payment_expiry_year_1i' => '2017',
     'payment_ccv' => '888')
