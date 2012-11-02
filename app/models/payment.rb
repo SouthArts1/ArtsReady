@@ -15,16 +15,9 @@ class Payment < ActiveRecord::Base
   end
   
   def days_left_until_rebill
+    return 0 if !self.start_date
     return (((self.start_date) - (Time.now)).to_i / (24 * 60 * 60)) if self.start_date > Time.now
     return (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
-  end
-  
-  def amount=
-    return self.amount_in_cents * 100
-  end
-  
-  def amount
-    return self.amount_in_cents.to_f / 100
   end
   
   def validate_discount_code!
@@ -50,7 +43,9 @@ class Payment < ActiveRecord::Base
   end
   
   def get_expiry(expiry_month, expiry_year)
-    expiry_month = "0" + expiry_month.to_s if expiry_month.to_s.length < 2
+    expiry_month = "01" if expiry_month.to_s.length == 0
+    expiry_year = Time.now.year.to_s if expiry_year.to_s.length < 4
+    expiry_month = "0" + expiry_month.to_s if expiry_month.to_s.length == 1
     expiry_year = expiry_year.to_s.split("")[2] + expiry_year.to_s.split("")[3]
     return expiry_month.to_s + expiry_year.to_s
   end
@@ -137,8 +132,8 @@ class Payment < ActiveRecord::Base
   
   def cancel
     if self.cancel_subscription
-      logger.debug("Canceled good.")
-      logger.debug("Canceled")
+      puts("Canceled good.")
+      puts("Canceled")
       Payment.skip_callbacks = true
       if self.update_attributes({ active: false, end_date: Time.now })
         Payment.skip_callbacks = false
@@ -148,7 +143,7 @@ class Payment < ActiveRecord::Base
         return false
       end
     else
-      logger.debug("cancelled bad")
+      puts("cancelled bad")
       return false
     end
   end
@@ -224,7 +219,7 @@ class Payment < ActiveRecord::Base
   end
   
   def payment_changed?
-    logger.debug("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
+    puts("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
     if Payment.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"
       return true
     elsif Payment.find(self.id).payment_method.downcase.include?("account") && self.payment_type == "cc"
@@ -244,7 +239,7 @@ class Payment < ActiveRecord::Base
           self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
         elsif self.payment_type == "bank"
           arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
-          logger.debug("Account Number: #{self.account_number}")
+          puts("Account Number: #{self.account_number}")
           self.payment_method = "#{self.account_type.capitalize} Account"
           self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
         end
@@ -262,11 +257,11 @@ class Payment < ActiveRecord::Base
         if aim_response.success?
           arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
           arb_tran.set_address(self.billing_address_for_transaction)
-          logger.debug("UPdated Payment Number to #{self.payment_number}")
+          puts("UPdated Payment Number to #{self.payment_number}")
           # fire away!
           response = arb_tran.update(arb_sub)
           # response logging
-          logger.debug("Response: \n #{response.inspect}")
+          puts("Response: \n #{response.inspect}")
           if response.success?
             self.active = true
             self.end_date = nil
@@ -314,7 +309,7 @@ class Payment < ActiveRecord::Base
           if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
             self.arb_id = response.subscription_id
             self.organization.update_attribute(:active, true)
-            logger.debug("Reset Active and End Date")
+            puts("Reset Active and End Date")
             self.active = true
             self.end_date = nil
             return true
@@ -335,20 +330,20 @@ class Payment < ActiveRecord::Base
     if status_response.success?
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
       response = arb_tran.cancel(self.arb_id)
-      logger.debug("Response: #{response.inspect}")
-      logger.debug("Message: #{response.message_text}")
+      puts("Response: #{response.inspect}")
+      puts("Message: #{response.message_text}")
       if response.success? || (response.message_text.include?("canceled") rescue true)
-        logger.debug("Passes validation.  It is or has been cancelled")
+        puts("Passes validation.  It is or has been cancelled")
         return true
       else
         return false
       end
     else
       if status_response.message_text.include?("cannot be found")
-        logger.debug("It does not exist, cancelling correctly")
+        puts("It does not exist, cancelling correctly")
         return true
       else
-        logger.debug("Status of Subscription: #{response.inspect}")
+        puts("Status of Subscription: #{response.inspect}")
         return false
       end
     end
