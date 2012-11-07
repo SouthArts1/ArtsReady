@@ -27,6 +27,7 @@ class ArticlesController < ApplicationController
     @article = Article.new
     if params[:todo_id]
       @article.todo_id = params[:todo_id]
+      @article.critical_function = Todo.find(params[:todo_id]).critical_function
     end
   end
 
