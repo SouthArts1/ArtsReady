@@ -1515,6 +1515,8 @@ table#messages {
   text-align: right; }
 
 #distress-switch {
+  box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+  padding: 5px;
   background: #ccc;
   color: #333;
   -moz-border-radius: 5px;
@@ -1527,6 +1529,20 @@ table#messages {
     font-weight: bold; }
   #distress-switch .join_button {
     padding: 15px; }
+  #distress-switch .crisis-vis {
+    left: 30px;
+    position: absolute;
+    top: 60px; }
+    #distress-switch .crisis-vis a {
+      color: white; }
+  #distress-switch #crisis-deactivate {
+    background: none;
+    box-shadow: none;
+    color: #C4C4C4;
+    width: 100%; }
+
+#distress-switch:hover .crisis-vis a {
+  color: #C31D29; }
 
 #some-buddies {
   background: #ccc;
