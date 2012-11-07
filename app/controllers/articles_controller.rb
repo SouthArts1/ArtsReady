@@ -11,6 +11,9 @@ class ArticlesController < ApplicationController
 
   def critical_list
     @critical_list = current_org.articles.on_critical_list
+    if params[:critical_function]
+      @critical_list = @critical_list.with_critical_function(params[:critical_function]) 
+    end
   end
 
   def show
