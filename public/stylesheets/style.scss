@@ -1549,10 +1549,11 @@ table#messages {
       height: 100px;
       margin-bottom: 10px; } } }
 
-#messages-nav {
-  text-align: right; }
+#messages-nav { text-align: right; }
 
 #distress-switch {
+  box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;
+  padding: 5px;
   background: #ccc;
   color: #333;
   -moz-border-radius: 5px;
@@ -1560,10 +1561,27 @@ table#messages {
   border-radius: 5px;
   &.on {
     background: #C31D29;
-    color: #fff; }
-  span#distress-status {
-    font-weight: bold; } 
-  .join_button { padding: 15px; } }
+    color: #fff; 
+  }
+  span#distress-status { font-weight: bold; } 
+  .join_button { padding: 15px; } 
+  .crisis-vis {
+    left: 30px;
+    position: absolute;
+    top: 60px;
+    a { color: white;  } }
+  #crisis-deactivate {
+    background: none;
+    box-shadow: none;
+    color: #C4C4C4;
+    width: 100%;  }
+}
+
+#distress-switch:hover {
+  .crisis-vis {
+    a{ color: #C31D29; }
+  }
+}
 
 #some-buddies {
   background: #ccc;

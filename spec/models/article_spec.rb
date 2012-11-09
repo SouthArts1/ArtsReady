@@ -50,8 +50,8 @@ describe Article do
       let!(:buddies_article) { Factory.create(:buddies_article, :title => 'buddies article') }
       let!(:own_buddies_article) { Factory.create(:buddies_article, :title => 'own buddies article', :organization => organization) }
       let!(:allowed_buddies_article) { Factory.create(:buddies_article, :title => 'allowed buddies article', :organization => Factory.create(:organization, :battle_buddies => [organization])) }
-      let!(:shared_article) { Factory.create(:shared_article, :title => 'shared article') }
-      let!(:shared_by_article) { Factory.create(:shared_article, :title => 'shared-by article', :organization => organization) }
+      let!(:shared_article) { Factory.create(:shared_article, :title => 'shared article', :buddy_list => "0") }
+      let!(:shared_by_article) { Factory.create(:shared_article, :title => 'shared-by article', :organization => organization, :buddy_list => "0") }
       let!(:shared_with_article) { Factory.create(:shared_article, :title => 'shared-with article', :buddy_list => organization.id.to_s) }
 
       subject { Article.visible_to_organization(organization) }

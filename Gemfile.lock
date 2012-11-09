@@ -136,11 +136,20 @@ GEM
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
+<<<<<<< HEAD
     json (1.7.5)
     launchy (2.1.2)
       addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
+=======
+    json (1.6.5)
+    json_pure (1.6.5)
+    kelp (0.2.3)
+      capybara (>= 0.4.0)
+    launchy (2.0.5)
+      addressable (~> 2.2.6)
+>>>>>>> 97718718ddcf548f80b63fdd5d3006e494b18e7e
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     listen (0.5.3)
@@ -279,6 +288,7 @@ DEPENDENCIES
   guard-rspec
   heroku
   jquery-rails
+  kelp
   launchy
   mocha
   mysql2 (= 0.2.18)

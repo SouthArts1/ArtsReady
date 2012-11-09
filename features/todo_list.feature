@@ -53,12 +53,12 @@ Feature: Todo list
   Scenario: Export todos
     Given I am signed in as an editor
     And I have created the following todo items:
-      | critical function | action  | description | due on      | priority | updated at     |
-      | technology        | Review  | backup      | May 1, 2012 | critical | April 20, 2012 |
+      | critical function | action  | description | due on      | priority |
+      | technology        | Review  | backup      | May 1, 2012 | critical |
 
     When I follow "To-Do"
     And I follow "Export"
     Then I should receive the following CSV:
-      | Critical Function    | Action | Description | Assigned To | Due Date   | Priority | Updated                 |
-      | Technology           | Review | backup      |             | 2012-05-01 | critical | 2012-04-20 00:00:00 UTC |
+      | Critical Function    | Action | Description | Assigned To | Due Date   | Priority |
+      | Technology           | Review | backup      |             | 2012-05-01 | critical |
 

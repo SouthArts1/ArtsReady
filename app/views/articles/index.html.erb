@@ -24,12 +24,15 @@
                 <% if a.link.present? %>
                 <%= link_to 'Visit', a.link, :target => '_blank' %>
                 <% elsif a.document.present? %>
-                <%= link_to "Download", a.document.url %>
+                <%= link_to "Download", a.document.url, :target => '_blank' %>
                 <% else %>
                 <%= link_to 'Read', article_path(a) %>
                 <% end %>
               </p></td>
-              <td class="function"><p><a href="#"><%= a.critical_function.capitalize %></a></p></td>
+              <td class="function"><p>
+                <%= link_to a.critical_function.capitalize, 
+                  organization_articles_path(current_org,:critical_function => 
+                                             a.critical_function)%></p></td>
               <td class="icon">
                 <% if user_signed_in? %>
                   <%= bbn_icon?(a) %>

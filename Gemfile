@@ -57,4 +57,5 @@ group :test do
   gem 'shoulda'
   gem 'timecop'
   gem 'simplecov'
+  gem 'kelp'
 end

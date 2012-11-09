@@ -2,9 +2,12 @@
 <div id="distress-switch" class="on" style="float:left;">
   <span style="float:left;">Crisis Mode: <span id="distress-status">ON</span> &nbsp;</span>
   <%= form_for(current_org.crisis, :html => {:method => :delete}) do |f| %>
-  <%= f.submit 'De-activate', :class => 'button white', :id => 'crisis-deactivate' %>
+  <%= f.submit 'De-activate', :id => 'crisis-deactivate' %>
   <% end %>
-  <span><%= link_to "Privacy: #{current_org.crisis.visibility.humanize}", edit_crisis_path(current_org.crisis) %></span>
+  <span class='crisis-vis'>
+    <%= link_to "Privacy: #{current_org.crisis.visibility.humanize}", 
+      edit_crisis_path(current_org.crisis) %>
+  </span>
 </div>
 <% elsif current_org.battle_buddy_enabled? %>
 <div id="distress-switch" style="float:left;">

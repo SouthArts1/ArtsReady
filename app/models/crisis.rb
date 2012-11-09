@@ -21,6 +21,7 @@ class Crisis < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :organization_id
   validates_presence_of :visibility
+  validates_presence_of :buddy_list, :if => :private?
   
   # TODO validate buddy_list if permission is set to only my buddies
 
@@ -57,6 +58,9 @@ class Crisis < ActiveRecord::Base
     end
   end
 
+  def private?
+    visibility == 'private'
+  end
   
   private 
   

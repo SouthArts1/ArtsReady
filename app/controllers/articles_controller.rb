@@ -11,6 +11,9 @@ class ArticlesController < ApplicationController
 
   def critical_list
     @critical_list = current_org.articles.on_critical_list
+    if params[:critical_function]
+      @critical_list = @critical_list.with_critical_function(params[:critical_function]) 
+    end
   end
 
   def show
@@ -24,6 +27,7 @@ class ArticlesController < ApplicationController
     @article = Article.new
     if params[:todo_id]
       @article.todo_id = params[:todo_id]
+      @article.critical_function = Todo.find(params[:todo_id]).critical_function
     end
   end
 
