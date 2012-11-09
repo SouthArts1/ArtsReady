@@ -200,6 +200,8 @@ describe Payment do
       @info_params["expiry_month"] = 10
       @info_params["expiry_year"] = 2020
       @payment = Payment.create(@info_params)
+      puts "Payment: #{@payment.inspect}"
+      @payment = @payment.reload
     end
     
     it "should cancel if created" do

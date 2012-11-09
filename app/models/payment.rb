@@ -132,8 +132,6 @@ class Payment < ActiveRecord::Base
   
   def cancel
     if self.cancel_subscription
-      puts("Canceled good.")
-      puts("Canceled")
       Payment.skip_callbacks = true
       if self.update_attributes({ active: false, end_date: Time.now })
         Payment.skip_callbacks = false
@@ -143,7 +141,6 @@ class Payment < ActiveRecord::Base
         return false
       end
     else
-      puts("cancelled bad")
       return false
     end
   end
@@ -326,7 +323,6 @@ class Payment < ActiveRecord::Base
   def cancel_subscription
     status_arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
     status_response = status_arb_tran.get_status(self.arb_id)
-    
     if status_response.success?
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
       response = arb_tran.cancel(self.arb_id)
@@ -343,7 +339,7 @@ class Payment < ActiveRecord::Base
         puts("It does not exist, cancelling correctly")
         return true
       else
-        puts("Status of Subscription: #{response.inspect}")
+        puts("Status of Subscription: #{status_response.inspect}")
         return false
       end
     end

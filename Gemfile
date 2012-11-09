@@ -32,13 +32,6 @@ gem 'authorize-net', '1.5.2', :path => "vendor/gems/authorize-net-1.5.2"
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'
-  # gem 'ruby_gntp'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-cucumber'
-  gem 'guard-bundler'
-  gem 'guard-pow'
-  gem 'growl-rspec'
   gem 'forgery'
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
@@ -49,12 +42,17 @@ group :development do
 end
 
 group :test do
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'cucumber-rails'
+  gem 'guard-cucumber'
+  gem 'guard-bundler'
+  gem 'guard-pow'
   gem 'mocha'
   gem 'factory_girl', '~> 2.5.1'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page
-  gem 'cucumber-rails'
   gem 'capybara'
   gem 'shoulda'
   gem 'timecop'
