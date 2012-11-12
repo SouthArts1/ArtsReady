@@ -21,31 +21,38 @@
     </div>
   <% end %>
 
-	<% form_for @payment, :url => "/billing" do |f| %>
+	<% form_for @payment, :url => "/billing", :onkeypress => "return handleEnter(this,event)" do |f| %>
 		<%= f.hidden_field :organization_id, value: @organization.id %>
 		<%= f.hidden_field :discount_code_id, value: @payment.discount_code_id %>
 		
 		<p>
 			<%= f.label :billing_first_name %>
-			<%= f.text_field :billing_first_name %><br /></p>
+			<%= f.text_field :billing_first_name, :onkeypress => "return handleEnter(this,event)" %><br /></p>
 		<p><%= f.label :billing_last_name %>
-		<%= f.text_field :billing_last_name %><br /></p>
+		<%= f.text_field :billing_last_name, :onkeypress => "return handleEnter(this,event)" %><br /></p>
 		<p><%= f.label :billing_address %>
-		<%= f.text_field :billing_address %><br /></p>
+		<%= f.text_field :billing_address, :onkeypress => "return handleEnter(this,event)" %><br /></p>
 		<p><%= f.label :billing_city %>
-		<%= f.text_field :billing_city %><br /></p>
+		<%= f.text_field :billing_city, :onkeypress => "return handleEnter(this,event)" %><br /></p>
 		<p><%= f.label :billing_state %>
-		<%= f.text_field :billing_state %><br /></p>
+		<%= f.text_field :billing_state, :onkeypress => "return handleEnter(this,event)" %><br /></p>
 		<p><%= f.label :billing_zipcode, "Billing zip code" %>
-		<%= f.text_field :billing_zipcode %><br /></p>
+		<%= f.text_field :billing_zipcode, :onkeypress => "return handleEnter(this,event)" %><br /></p>
 		<br />
 		Payment information:
 		<br />
-				<h3 style="margin-left:26px;">First Year Fee: (due today) <span style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span></h3>
-				<h3 style="margin-left:26px;">Annual Subscription: <span style="margin-left:62px;"><%= money_from_cents @payment.regular_amount_in_cents %></span></h3>
+				<h3 style="margin-left:26px;">First Year Fee: (due today) <span id="starting_amount_display" style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span></h3>
+				<h3 style="margin-left:26px;">
+					Annual Subscription: 
+					<span id="regular_amount_display" style="margin-left:62px;">
+						<%= money_from_cents @payment.regular_amount_in_cents %>
+					</span>
+				</h3>
 		<br />
 		<p>
-			Have a discount code? <input type="text" id="discount_code" style="width:200px;" /><br />
+			Have a discount code? <input type="text" id="discount_code" onkeypress ="return handleEnter(this,event)" style="width:200px;" value="<%= @payment.discount.discount_code rescue "" %>" />
+			<span id="applied" style="margin-left:12px; display:none; color: green;">...code applied.</span>
+			<span id="not-applied" style="margin-left:12px; display:none; color:red;">...code not valid.</span><br />
 			<br />
 			<p style="margin-left:138px;">
 				<input type="button" id="discount_submit" value="Apply my discount code!" style="text-decoration: none; border: 1px solid #C31D29; padding: 5px 8px; font-weight: bold; vertical-align: middle; cursor: pointer; color: white; font-size: 12px; text-decoration: none; letter-spacing: normal; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; background-color: #C31D29; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.25)), to(#C31D29)); background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #C31D29); box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;" /><br /><br />
@@ -72,16 +79,16 @@
 			<table style="border:none;">
 				<tr>
 					<td><p>Credit Card Number:</p></td>
-					<td><p><%= f.text_field :number %> <%= image_tag "cc_image.jpg", :width => "120px" %></p>
+					<td><p><%= f.text_field :number, :onkeypress => "return handleEnter(this,event)" %> <%= image_tag "cc_image.jpg", :width => "120px" %></p>
 						<p id="bad_card" style="color:#ff0000; display:none;">Credit Card Number is invalid.</p></td>
 				</tr>
 				<tr>
 					<td><p>Expiration Date:</p></td>
-					<td><p><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]) %> <%= f.date_select :expiry_year, :order => [:year] %></p></td>
+					<td><p><%= f.select :expiry_month, options_for_select([1,2,3,4,5,6,7,8,9,10,11,12]), :onkeypress => "return handleEnter(this,event)" %> <%= f.date_select :expiry_year, :order => [:year], :onkeypress => "return handleEnter(this,event)" %></p></td>
 				</tr>
 				<tr>
 					<td><p>Verification Number (CCV):</p></td>
-					<td><p><%= f.text_field :ccv %></p></td>
+					<td><p><%= f.text_field :ccv, :onkeypress => "return handleEnter(this,event)" %></p></td>
 				</tr>
 			</table>
 			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
@@ -99,19 +106,19 @@
 			<table style="border:none;">
 				<tr>
 					<td><p>Bank Name:</p></td>
-					<td><p><%= f.text_field :bank_name %></p></td>
+					<td><p><%= f.text_field :bank_name, :onkeypress => "return handleEnter(this,event)" %></p></td>
 				</tr>
 				<tr>
 					<td><p>Account Type:</p></td>
-					<td><p><%= f.select :account_type, ["Checking", "Savings"] %></p></td>
+					<td><p><%= f.select :account_type, ["Checking", "Savings"], :onkeypress => "return handleEnter(this,event)" %></p></td>
 				</tr>
 				<tr>
 					<td><p>ABA Routing Number:</p></td>
-					<td><p><%= f.text_field :routing_number %></p></td>
+					<td><p><%= f.text_field :routing_number, :onkeypress => "return handleEnter(this,event)" %></p></td>
 				</tr>
 				<tr>
 					<td><p>Account Number:</p></td>
-					<td><p><%= f.text_field :account_number %></p></td>
+					<td><p><%= f.text_field :account_number, :onkeypress => "return handleEnter(this,event)" %></p></td>
 				</tr>
 			</table>
 			<p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
@@ -125,8 +132,24 @@
 			</p>
 		</div>
 		<br />
+		<%= f.hidden_field :discount_code_id, value: @payment.discount_code_id %>
 		<%= f.submit %>
 		<script type="text/javascript">
+		function handleEnter (field, event) {
+				var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+				if (keyCode == 13) {
+					var i;
+					for (i = 0; i < field.form.elements.length; i++)
+						if (field == field.form.elements[i])
+							break;
+					i = (i + 1) % field.form.elements.length;
+					field.form.elements[i].focus();
+					return false;
+				} 
+				else
+				return true;
+			}      
+
 			$.fn.animateHighlight = function(highlightColor, duration) {
 			    var highlightBg = highlightColor || "#FFFF9C";
 			    var animateMs = duration || 1500;
@@ -156,8 +179,30 @@
 
 			$(document).ready(function() {
 				$("#discount_submit").click(function() {
-					window.location.href = ("/billing/new/"+ $("#discount_code").val())
-				})
+					$.ajax({
+						url: "/billing/get_discount/" + $("#discount_code").val()
+					}).done(function( data ) {
+						if (data.good == true) {
+							$("#starting_amount_display").text("$" + (data.start / 100).toFixed(2));
+							$("#regular_amount_display").text("$" + (data.regular / 100).toFixed(2));
+							$("#payment_discount_code_id").attr("value", data.code_id);
+							$("#payment_discount_code_id").text(data.code_id);
+							$("#new_payment").attr("action", "/billing#" + $("#discount_code").val());
+							$("#applied").fadeIn();
+							var timeout = setTimeout(function() {
+								$("#applied").fadeOut();
+								clearTimeout(timeout);
+							}, 2500);
+						} else {
+							$("#not-applied").fadeIn();
+							var timeout = setTimeout(function() {
+								$("#not-applied").fadeOut();
+								clearTimeout(timeout);
+							}, 2500);
+						}
+						
+					});
+				});
 
 				$("#payment_type").change(function() {
 					var type = "#" + $("#payment_type").val() + "_info";

@@ -145,33 +145,24 @@ class Payment < ActiveRecord::Base
     end
   end
   
-  def object_is_bad?
-    is_bad = false
-    is_bad = true if self.id
-    is_bad = true if Organization.exists?(self.organization_id)
-    is_bad = true if self.regular_amount_in_cents.nil? || self.starting_amount_in_cents.nil?
-    is_bad = true if self.billing_first_name.nil? || self.billing_last_name.nil? || self.billing_address.nil? || self.billing_city.nil? || self.billing_state.nil? || self.billing_zipcode.nil?
-    
-    if self.payment_type == "cc"
-      is_bad = true if self.number.nil? || self.expiry_month.nil? || self.expiry_year.nil? || self.ccv.nil?
-    elsif self.payment_type == "bank"
-      is_bad = true if self.routing_number.nil? || self.account_number.nil? || self.bank_name.nil? || self.account_type.nil?
-    else
-      is_bad = true
-    end
-    
-    return is_bad
-  end
-  
   def create_and_process_subscription
-    return false if object_is_bad?
+    return false if self.id
+    return false if !Organization.exists?(self.organization_id)
+    return false if self.regular_amount_in_cents.nil? || self.starting_amount_in_cents.nil?
+    return false if self.billing_first_name.nil? || self.billing_last_name.nil? || self.billing_address.nil? || self.billing_city.nil? || self.billing_state.nil? || self.billing_zipcode.nil?
+    if self.payment_type == "cc"
+      return false if self.number.nil? || self.expiry_month.nil? || self.expiry_year.nil? || self.ccv.nil?
+    elsif self.payment_type == "bank"
+      return false if self.routing_number.nil? || self.account_number.nil? || self.bank_name.nil? || self.account_type.nil?
+    else
+      return false
+    end
     
     self.start_date = Time.now + 1.day unless self.start_date
     
     arb_sub = build_subscription_object()
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
-      logger.debug "CC Expiry: #{expiry}"
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
       self.payment_method = "Credit Card"
       self.number = self.number.to_s
@@ -193,14 +184,12 @@ class Payment < ActiveRecord::Base
     else
       return false
     end
-    logger.debug "Aim Response:  #{aim_response.inspect}"
     
     if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
       arb_tran.set_address(self.billing_address_for_transaction)
       # fire away!
       response = arb_tran.create(arb_sub)
-      logger.debug "Reg Response: #{response.inspect}"
       # response logging
       if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
         self.arb_id = response.subscription_id
@@ -275,7 +264,6 @@ class Payment < ActiveRecord::Base
         arb_sub = build_refresh_subscription_object(self)
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
-          logger.debug "CC Expiry: #{expiry}"
           arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
           self.payment_method = "Credit Card"
           self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
@@ -339,7 +327,6 @@ class Payment < ActiveRecord::Base
         puts("It does not exist, cancelling correctly")
         return true
       else
-        puts("Status of Subscription: #{status_response.inspect}")
         return false
       end
     end

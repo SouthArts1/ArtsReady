@@ -58,7 +58,7 @@ describe Payment do
 
       it "should validate attributes" do
         p = Payment.new(@info_params)
-        p.object_is_bad? == false
+        p.valid? == true
       end
 
       it "should create an ARB subscription" do
@@ -144,7 +144,7 @@ describe Payment do
 
       it "should validate attributes" do
         p = Payment.new()
-        p.object_is_bad? == false
+        p.valid? == true
       end
 
       it "should create an ARB subscription" do
@@ -201,12 +201,11 @@ describe Payment do
       @info_params["expiry_year"] = 2020
       @payment = Payment.create(@info_params)
       puts "Payment: #{@payment.inspect}"
-      @payment = @payment.reload
     end
     
     it "should cancel if created" do
       response = @payment.cancel
-      response.should == true
+      @payment.is_active? == false
     end
     
     it "should not cancel if not persisted" do
