@@ -32,6 +32,7 @@ gem 'authorize-net', '1.5.2', :path => "vendor/gems/authorize-net-1.5.2"
 group :test, :development do
   gem 'rspec-rails'
   gem 'rb-fsevent'
+  gem 'ruby_gntp'
   gem 'forgery'
   gem 'ruby-debug19', :require => 'ruby-debug'
 end
