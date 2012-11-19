@@ -21,8 +21,10 @@ class Update < ActiveRecord::Base
   private
   
   def send_crisis_update_email
-    logger.debug("sending crisis update to #{crisis.crisis_participants.inspect}")
-    crisis.crisis_participants.each {|user| CrisisNotifications.latest_update(user,self.crisis,self).deliver }
+    logger.debug("sending crisis update to #{crisis.contacts_for_update.inspect}")
+    crisis.contacts_for_update.each { |user| 
+      CrisisNotifications.latest_update(user,self.crisis,self).deliver 
+    }
   end
   
 end

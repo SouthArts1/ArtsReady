@@ -5,22 +5,23 @@ Feature: Crisis console
   
   @todo
   Scenario: Admin declares a crisis
-    Given a user
+    Given I am signed in as a manager
     And I am on the dashboard page
     And I have a Battle Buddy
     And I am not in crisis mode
     When I declare a crisis
     Then I am in crisis mode
+    And the crisis has been announced
   
   @todo
   Scenario: Admin resolves a crisis
-    Given a crisis user
+    Given a crisis manager
     And I am on the dashboard page
     And I am in crisis mode
     # And I should be on the crisis_console page
     When I resolve a crisis
     Then I am not in crisis mode
-    
+    And the crisis resolution has been announced
     
   Scenario: User does not see crisis console when not in crisis
     Given a user

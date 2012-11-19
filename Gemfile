@@ -59,4 +59,5 @@ group :test do
   gem 'timecop'
   gem 'simplecov'
   gem 'kelp'
+  gem 'email_spec'
 end

@@ -43,3 +43,16 @@ When /^I declare a crisis$/ do
   step 'I choose "crisis_visibility_public"'
   step 'I press "Declare Crisis"'
 end
+
+Then /^the crisis has been announced$/ do
+  step %{I should receive an email with subject "declared a crisis"}
+end
+
+Then /^the crisis resolution has been announced$/ do
+  step %{I should receive an email with subject "resolved their crisis"}
+end
+
+When /^the crisis update has been announced$/ do
+  step %{I should receive an email with subject "updated their crisis"}
+end
+

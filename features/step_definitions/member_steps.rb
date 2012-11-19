@@ -45,11 +45,11 @@ Given /^(?:I (?:am|have) signed in as )?an editor$/ do
 end
 
 
-Given /^a crisis user$/ do
+Given /^a crisis (.*)$/ do |role|
   email = 'crisis_user@test.host'
   password = 'password'
   org = Factory.create(:organization, :name => 'Crisis Organization', :battle_buddy_enabled => true)
-  user = Factory.create(:user, :email => email, :password => password, :organization => org)
+  user = Factory.create(role.to_sym, :email => email, :password => password, :organization => org)
   Factory.create(:crisis, :user => user, :organization => org )
   @current_user = user
   login(email,password)

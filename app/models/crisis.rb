@@ -35,6 +35,17 @@ class Crisis < ActiveRecord::Base
     crises
   end
 
+  def buddies
+    case visibility
+    when 'buddies'
+      organization.battle_buddies
+    when 'private'
+      Organization.where(:id => buddy_list.split(',').map(&:to_i))
+    else
+      raise ArgumentError, "Don't know how to find buddies for #{visibility} crisis"
+    end
+  end
+
   def resolve_crisis!
     self.resolved_on= Time.now
     self.save
@@ -45,17 +56,28 @@ class Crisis < ActiveRecord::Base
     resolved_on.present?
   end
   
-  def crisis_participants
+  def contacts_for_declaration
     case visibility
     when 'public'
-      User.active
-    when 'buddies'
-      User.where("organization_id IN (?)", organization.battle_buddies.collect(&:id)) rescue []
-    when 'private'
-      User.where("organization_id IN (?)", buddy_list.split(',').collect{|b| b.to_i}) rescue []
+      User.executives.active
+    when 'buddies', 'private'
+      User.in_organizations(buddies).executives
     else
       User.admins
     end
+  end
+
+  def contacts_for_update
+    case visibility
+    when 'buddies', 'private'
+      User.in_organizations(buddies).executives
+    else
+      User.admins
+    end
+  end
+
+  def contacts_for_resolution
+    contacts_for_declaration
   end
 
   def private?
@@ -65,11 +87,11 @@ class Crisis < ActiveRecord::Base
   private 
   
   def send_crisis_announcement
-    crisis_participants.each {|u| CrisisNotifications.delay.announcement(u,self) }
+    contacts_for_declaration.each {|u| CrisisNotifications.delay.announcement(u,self) }
   end
 
   def send_crisis_resolution
-    crisis_participants.each {|u| CrisisNotifications.delay.resolved(u,self) }
+    contacts_for_resolution.each {|u| CrisisNotifications.delay.resolved(u,self) }
   end
 
 end
