@@ -15,7 +15,7 @@ class BillingController < ApplicationController
       if current_org.payments.last
         return redirect_to edit_billing_path(current_org.payments.last)
       else
-        @payment = Payment.new({organization_id: @organization.id, billing_first_name: current_user.first_name, billing_last_name: current_user.last_name, billing_address: @organization.address, billing_city: @organization.city, billing_state: @organization.state, billing_zipcode: @organization.zipcode, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
+        @payment = Payment.new({organization_id: @organization.id, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
       end
             
       if session[:discount_code]
