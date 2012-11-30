@@ -29,8 +29,10 @@
               </p></td>
               <td class="function"><p>
                 <%= link_to a.critical_function.capitalize, 
-                  organization_articles_path(current_org,:critical_function => 
-                                             a.critical_function)%></p></td>
+                      public_articles_path(
+                        :critical_function => a.critical_function)
+                %>
+              </p></td>
               <td class="tags"><p><%= a.tag_list.to_s %></p></td>
             </tr>
           <% end %>
