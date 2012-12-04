@@ -57,11 +57,19 @@ class Crisis < ActiveRecord::Base
   end
   
   def contacts_for_declaration
+    orgs = 
+      case visibility
+      when 'public'
+        Organization.approved
+      when 'buddies', 'private'
+        buddies.approved
+      else
+        []
+      end
+
     case visibility
-    when 'public'
-      User.executives.active
-    when 'buddies', 'private'
-      User.in_organizations(buddies).executives
+    when 'public', 'buddies', 'private'
+      User.in_organizations(orgs, organization).executives.active
     else
       User.admins
     end
@@ -70,7 +78,7 @@ class Crisis < ActiveRecord::Base
   def contacts_for_update
     case visibility
     when 'buddies', 'private'
-      User.in_organizations(buddies).executives
+      User.in_organizations(buddies.approved, organization).executives.active
     else
       User.admins
     end

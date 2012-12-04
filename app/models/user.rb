@@ -25,8 +25,12 @@ class User < ActiveRecord::Base
   scope :admins, where(:admin => true)
   scope :active, where(:disabled => false)
   scope :executives, where(:role => ['manager', 'executive'])
-  scope :in_organizations, lambda { |orgs|
-    where(:organization_id => orgs)
+  scope :in_organizations, lambda { |*orgs_list|
+    ids = orgs_list.map do | orgs |
+      Array(orgs).map(&:id)
+    end.flatten
+
+    where(:organization_id => ids)
   }
   
   before_validation :set_first_password, :if => "password.nil? && encrypted_password.nil?"
