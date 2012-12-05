@@ -17,6 +17,7 @@ class Crisis < ActiveRecord::Base
 
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
+  delegate :buddies, :to => :crisis_visibility
 
   validates_presence_of :user_id
   validates_presence_of :organization_id
@@ -35,14 +36,17 @@ class Crisis < ActiveRecord::Base
     crises
   end
 
-  def buddies
+  def crisis_visibility
     case visibility
+    when 'public'
+      CrisisVisibility::Public.new(:organization => organization)
     when 'buddies'
-      organization.battle_buddies
+      CrisisVisibility::Buddies.new(:organization => organization)
     when 'private'
-      Organization.where(:id => buddy_list.split(',').map(&:to_i))
+      CrisisVisibility::Private.new(
+        :organization => organization, :buddy_list => buddy_list)
     else
-      raise ArgumentError, "Don't know how to find buddies for #{visibility} crisis"
+      raise ArgumentError, "Unknown visibility type: #{visibility}"
     end
   end
 
@@ -77,7 +81,7 @@ class Crisis < ActiveRecord::Base
 
   def contacts_for_update
     case visibility
-    when 'buddies', 'private'
+    when 'public', 'buddies', 'private'
       User.in_organizations(buddies.approved, organization).executives.active
     else
       User.admins

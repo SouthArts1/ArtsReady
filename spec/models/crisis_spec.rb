@@ -12,29 +12,47 @@ describe Crisis do
   describe 'contacts' do
     let(:crisis) { FactoryGirl.create(:crisis) }
     let(:org) { crisis.organization }
-    let(:manager) { FactoryGirl.create(:manager, :organization => org) }
-    let(:buddy) { FactoryGirl.create(:organization, :battle_buddies => [org]) }
+    let!(:manager) { FactoryGirl.create(:manager, :organization => org) }
+    let!(:good_buddy) { FactoryGirl.create(:organization, :battle_buddies => [org]) }
+    let!(:good_buddy_executive) { FactoryGirl.create(:executive, :organization => good_buddy) }
+    let!(:buddy) { FactoryGirl.create(:organization, :battle_buddies => [org]) }
     let!(:buddy_executive) { FactoryGirl.create(:executive, :organization => buddy) }
     let!(:stranger_executive) { FactoryGirl.create(:executive) }
     let!(:buddy_drone) {FactoryGirl.create(:user, :organization => buddy) }
     let!(:disabled_manager) {FactoryGirl.create(:manager, :disabled => true) }
 
-    before { buddy.battle_buddy_requests.first.accept! }
+    before do
+      buddy.battle_buddy_requests.first.accept!
+      good_buddy.battle_buddy_requests.first.accept!
+    end
 
     describe 'for declaration' do
       context '(buddies)' do
         before { crisis.update_attributes(:visibility => 'buddies') }
 
         it 'are executives of buddy organizations and declaring organization' do
-          crisis.contacts_for_declaration.should == [buddy_executive, manager]
+          crisis.contacts_for_declaration.to_set.should ==
+            [buddy_executive, good_buddy_executive, manager].to_set
         end
       end
       context '(public)' do
         before { crisis.update_attributes(:visibility => 'public') }
 
         it 'are all valid executives' do
-          crisis.contacts_for_declaration.should == [
-            buddy_executive, stranger_executive, manager]
+          crisis.contacts_for_declaration.to_set.should ==
+            [buddy_executive,  good_buddy_executive, stranger_executive,
+             manager].to_set
+        end
+      end
+      context '(private)' do
+        before do
+          crisis.update_attributes!(
+            :visibility => 'private', :buddy_list => good_buddy.id.to_s)
+        end
+
+        it 'are only executives from selected buddies and the declaring org' do
+          crisis.contacts_for_declaration.to_set.should ==
+            [good_buddy_executive, manager].to_set
         end
       end
     end
@@ -43,15 +61,30 @@ describe Crisis do
       context '(buddies)' do
         before { crisis.update_attributes(:visibility => 'buddies') }
 
-        it 'are executives of buddy organizations' do
-          crisis.contacts_for_update.should == [buddy_executive, manager]
+        it 'are active executives of approved buddy organizations
+          and declaring organization' do
+          crisis.contacts_for_update.to_set.should ==
+            [buddy_executive, good_buddy_executive, manager].to_set
         end
       end
       context '(public)' do
-        before { crisis.update_attributes(:visibility => 'buddies') }
+        before { crisis.update_attributes(:visibility => 'public') }
 
-        it 'are executives of buddy organizations' do
-          crisis.contacts_for_update.should == [buddy_executive, manager]
+        it 'are active executives of approved buddy organizations 
+          and declaring organization' do
+          crisis.contacts_for_update.to_set.should ==
+            [buddy_executive,  good_buddy_executive, manager].to_set
+        end
+      end
+      context '(private)' do
+        before do
+          crisis.update_attributes(:visibility => 'private', 
+                                   :buddy_list => good_buddy.id.to_s)
+        end
+
+        it 'are only executives from selected buddies and the declaring org' do
+          crisis.contacts_for_update.to_set.should ==
+            [good_buddy_executive, manager].to_set
         end
       end
     end
