@@ -59,33 +59,15 @@ class Crisis < ActiveRecord::Base
   def resolved?
     resolved_on.present?
   end
-  
-  def contacts_for_declaration
-    orgs = 
-      case visibility
-      when 'public'
-        Organization.approved
-      when 'buddies', 'private'
-        buddies.approved
-      else
-        []
-      end
 
-    case visibility
-    when 'public', 'buddies', 'private'
-      User.in_organizations(orgs, organization).executives.active
-    else
-      User.admins
-    end
+  def contacts_for_declaration
+    orgs = crisis_visibility.organizations_for_declaration
+    User.in_organizations(orgs, organization).executives.active
   end
 
   def contacts_for_update
-    case visibility
-    when 'public', 'buddies', 'private'
-      User.in_organizations(buddies.approved, organization).executives.active
-    else
-      User.admins
-    end
+    orgs = crisis_visibility.organizations_for_update
+    User.in_organizations(orgs, organization).executives.active
   end
 
   def contacts_for_resolution
