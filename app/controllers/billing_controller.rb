@@ -60,7 +60,7 @@ class BillingController < ApplicationController
     
     if session[:discount_code]
       begin
-        d = DiscountCode.find(session[:discount_code])
+        d = DiscountCode.find(obj[:discount_code_id])
         @payment.discount_code_id = d.id
         @payment.validate_discount_code!
       rescue Exception => e
