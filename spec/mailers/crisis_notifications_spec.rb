@@ -37,7 +37,7 @@ describe CrisisNotifications do
     let(:mail) { CrisisNotifications.latest_update(user,crisis,crisis.updates.build(:user => user)) }
 
     it "renders the headers" do
-      mail.subject.should eq("ALERT! #{crisis.organization.name} has updated their crisis in ArtsReady!")
+      mail.subject.should eq("ALERT! #{crisis.organization.name}'s crisis has been updated in ArtsReady!")
       mail.to.should eq([user.email])
       mail.from.should eq(["admin@artsready.org"])
     end
