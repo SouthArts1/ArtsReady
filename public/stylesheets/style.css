@@ -867,7 +867,7 @@ tbody tr:hover td {
   .question .prompt {
     border: none;
     padding-left: 0; }
-  .question .prompt, .question .answer {
+  .question .prompt {
     margin-left: 150px; }
 
 /*  Org Admin */
