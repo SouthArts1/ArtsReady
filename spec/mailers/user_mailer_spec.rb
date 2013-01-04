@@ -14,6 +14,8 @@ describe UserMailer do
     it "renders the body" do
       mail.body.encoded.should include("Welcome")
     end
+
+    it_behaves_like 'a mailer view'
   end
 
   describe "password_reset" do
@@ -26,6 +28,7 @@ describe UserMailer do
        mail.from.should eq(["admin@artsready.org"])
        mail.body.encoded.should match(edit_password_reset_path(user.password_reset_token))
      end
+
+     it_behaves_like 'a mailer view'
    end
-   
 end

@@ -15,6 +15,8 @@ describe AdminMailer do
     it "renders the body" do
       mail.body.encoded.should match("There is a new or edited public article on ArtsReady")
     end
+
+    it_behaves_like 'a mailer view'
   end
 
 end

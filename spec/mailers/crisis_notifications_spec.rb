@@ -12,8 +12,7 @@ describe CrisisNotifications do
       mail.from.should eq(["admin@artsready.org"])
     end
 
-    it "renders the body" do
-    end
+    it_behaves_like 'a mailer view'
   end
 
   describe "resolved" do
@@ -27,8 +26,7 @@ describe CrisisNotifications do
       mail.from.should eq(["admin@artsready.org"])
     end
 
-    it "renders the body" do
-    end
+    it_behaves_like 'a mailer view'
   end
 
   describe "latest_update" do
@@ -42,8 +40,7 @@ describe CrisisNotifications do
       mail.from.should eq(["admin@artsready.org"])
     end
 
-    it "renders the body" do
-    end
+    it_behaves_like 'a mailer view'
   end
 
 end
