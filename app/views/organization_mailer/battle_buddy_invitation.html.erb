@@ -11,7 +11,7 @@
   and share select internal documents through the ArtsReady Critical Stuff feature.
   You can then expect your Buddy to do the same. Having and being Battle Buddies is
   a vital part of readiness planning. 
-  <%= link_to "Learn more about being a Battle Buddy.", root_url %> 
+  <%= link_to "Learn more about being a Battle Buddy.", page_url('help_battle_buddies') %> 
 </p>
 
 <p>
@@ -33,9 +33,7 @@
 
 <p>
   To approve this organization as your new Battle Buddy 
-  <%= link_to 'go here', 
-    organization_battle_buddy_request_url(@target_organization,@requesting_organization),
-    :method => :put %>.
+  <%= link_to 'go here', buddy_url(@requesting_organization.id)%>.
 </p>
 
 <p>Happy Planning-<br>
