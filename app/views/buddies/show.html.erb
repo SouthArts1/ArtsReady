@@ -37,15 +37,17 @@
         <%= @buddy.email %><br />
       </div>
     </div>
-    <div class="grid_4 omega">
+    <div class="grid_4 omega buddies">
       <% request = current_org.battle_buddy_request_for(@buddy) %>
       <% if request %>
         <%= button_to('Remove Battle Buddy', organization_battle_buddy_request_path(current_org, request), :method => :delete ) %>
+      <% elsif @buddy.battle_buddy_request_for(current_org) %>
+        <%= render :partial => "respond_to_request", :locals => {:buddy => @buddy} %>
       <% else %>
         <%= form_for([current_org, current_org.battle_buddy_requests.new]) do |f| %>
         <%= f.hidden_field :battle_buddy_id, :value => @buddy.id %>
         <%= f.submit 'Add as Battle Buddy' %>
-        <% end %>
+      <% end %>
         <%#= (image_tag('buddy_white.png', :style => 'vertical-align: text-bottom;') + " Add as Battle Buddy").html_safe %>
       <% end %><br />
       <%#= link_to_function 'Message', "", :class => 'button white buddy-action' %><br />

@@ -1,0 +1,13 @@
+<h4>This organization wants to add you as a Battle Buddy.</h4>
+<ul>
+  <li><%= button_to "Accept", organization_battle_buddy_request_path(
+    current_org, 
+    current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)),
+    :method => :put 
+  %></li>
+  <li><%= button_to 'Decline', organization_battle_buddy_request_path(
+    current_org, 
+    current_org.battle_buddy_requests_received.find_by_organization_id(buddy.id)),
+    :method => :delete 
+  %></li>
+</ul>
