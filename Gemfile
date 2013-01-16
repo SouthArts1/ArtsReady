@@ -21,6 +21,7 @@ gem 'acts-as-taggable-on', '2.0.6'
 
 gem 'heroku'
 gem 'airbrake'
+gem 'newrelic_rpm'
 
 gem 'gibbon', '0.3.0'
 
