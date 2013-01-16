@@ -158,6 +158,7 @@ GEM
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-ssh (2.1.4)
+    newrelic_rpm (3.5.5.38)
     nokogiri (1.5.0)
     polyglot (0.3.3)
     rack (1.2.6)
@@ -277,6 +278,7 @@ DEPENDENCIES
   launchy
   mocha
   mysql2 (= 0.2.18)
+  newrelic_rpm
   rack-ssl
   rails (~> 3.0.12)
   rails-footnotes (>= 3.7)
