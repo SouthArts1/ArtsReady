@@ -47,8 +47,10 @@ var buddiesList = function(visibilityToggle, visibilityInput){
   });
 }
 
-buddiesList("crisis_visibility_private", "#crisis-visibility input");
-buddiesList("article_visibility_shared","#article-visibility input");
+buddiesList("crisis_visibility_private",
+            "#crisis-visibility input");
+buddiesList("article_visibility_shared",
+            "#article-visibility input[name='article[visibility]']");
 
 
 $(".skip-question").live('click', function(event) {
