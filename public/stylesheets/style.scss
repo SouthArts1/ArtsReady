@@ -1587,6 +1587,12 @@ table#messages {
   background: #ccc;
   padding: 10px; }
 
+#crisis-visibility, #battle-buddies {
+  .js & #battle-buddies-list {
+    display: none;
+  }
+}
+
 /*Crises*/
 
 .needs .need_call {

@@ -48,7 +48,7 @@ var buddiesList = function(visibilityToggle, visibilityInput){
 }
 
 buddiesList("crisis_visibility_private",
-            "#crisis-visibility input");
+            "#crisis-visibility input[name='crisis[visibility]']");
 buddiesList("article_visibility_shared",
             "#article-visibility input[name='article[visibility]']");
 
