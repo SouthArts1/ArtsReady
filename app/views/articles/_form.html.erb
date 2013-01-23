@@ -65,7 +65,7 @@
       <p>Share within My Battle Buddies Network</p>
       <%= f.radio_button :visibility, 'buddies' %> All Battle Buddies <br />
       <%= f.radio_button :visibility, 'shared' %> Specific Battle Buddies <br />
-      <div id="battle-buddies-list" style="display: none;">
+      <div id="battle-buddies-list">
         <% current_org.battle_buddies.each do |buddy| %>
         <%= check_box_tag "buddy_list[]", buddy.id, false %><%= buddy.name %><br />
         <% end %>
@@ -87,8 +87,4 @@
   </div>
 </div>
 <% end %>
-<% if @article.visibility == 'shared' %>
-<script type="text/javascript">
-$('#battle-buddies-list').show();
-</script>
-<% end %>
+
