@@ -33,7 +33,11 @@ unless $rails_rake_task
   Debugger.settings[:autoeval] = true
   Debugger.settings[:autolist] = 1
   Debugger.settings[:reload_source_on_change] = true
-  Debugger.start_remote
+  begin
+    Debugger.start_remote
+  rescue Errno::EACCES
+    puts "Can't open port for remote debugging"
+  end
 end
 
 S3_UPLOAD_BUCKET = 'artsready-dev'
