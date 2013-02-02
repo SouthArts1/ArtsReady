@@ -21,3 +21,6 @@ public/stylesheets/.sass-cache
 
 # Cloud 9
 .c9revisions
+
+# Cloud 9 - SQLite3
+db/*.sqlite.db

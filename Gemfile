@@ -41,6 +41,7 @@ group :test, :development do
   gem 'guard-pow'
   gem 'forgery'
   gem 'debugger'
+  gem 'sqlite3', '~> 1.3.7'
 end
 
 group :development do
