@@ -23,7 +23,7 @@ class Article < ActiveRecord::Base
   
   scope :on_critical_list, where(:on_critical_list => true)
   scope :only_public, where("visibility = 'public' AND disabled = false AND featured = false")
-  scope :for_public, where("visibility = 'public' AND disabled = false")
+  scope :for_public, where("visibility = 'public' AND NOT disabled")
   scope :featured, where(:featured => true)
   scope :only_private, where(:visibility => 'private')
   scope :recent, order("created_at DESC")
