@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.12'
-gem 'mysql2', '0.2.18'
+gem 'rails', '3.1.4'
+gem 'mysql2', '0.3.11'
 gem 'jquery-rails'
 
 gem 'figaro'
@@ -12,7 +12,7 @@ gem 'cancan', '1.6.7'
 gem 'carrierwave', '0.5.7'
 gem 'fog', '0.11.0'
 
-gem 'geocoder', '1.0.2'
+gem 'geocoder'
 gem 'gmaps4rails', '1.3.1'
 
 gem 'csv_builder'
