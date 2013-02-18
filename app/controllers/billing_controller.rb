@@ -93,7 +93,7 @@ class BillingController < ApplicationController
   def edit
     @organization = current_user.organization
     @payment = Payment.find(params[:id])
-    redirect_to :back unless @payment
+    return redirect_to :back unless @payment
     
     if current_user.organization != @payment.organization
       redirect_to :back, warning: "You cannot access that."
