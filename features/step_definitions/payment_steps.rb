@@ -17,5 +17,5 @@ When /^I fill out and submit the billing form$/ do
     'payment_expiry_year_1i' => '2017',
     'payment_ccv' => '888')
 
-  press 'Create Payment'
+  press 'Submit Payment'
 end
