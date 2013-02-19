@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.3'
-gem 'mysql2', '0.3.11'
+gem 'rails', '~> 3.2.3'
+gem 'mysql2', '>= 0.3.11'
 gem 'jquery-rails'
 
 gem 'figaro'
@@ -17,7 +17,7 @@ gem 'gmaps4rails', '1.3.1'
 
 gem 'csv_builder'
 gem 'RedCloth'
-gem 'acts-as-taggable-on', '2.2.2'
+gem 'acts-as-taggable-on', '>= 2.2.2'
 
 gem 'heroku'
 gem 'airbrake'
