@@ -174,4 +174,31 @@ describe User do
       last_email.to.should eq([user.email])
     end
   end
+
+  describe '.send_email_to_address?' do
+    it 'allows non-disabled users of active orgs' do
+      user = Factory.create(:user)
+
+      expect(User.send_email_to_address?(user.email)).to be_true
+    end
+
+    it 'rejects disabled users' do
+      user = Factory.create(:user, :disabled => true)
+
+      expect(User.send_email_to_address?(user.email)).to be_false
+    end
+
+    it 'rejects users from inactive orgs' do
+      org = Factory.create(:organization, :active => false)
+      user = Factory.create(:user, :organization => org)
+
+      expect(User.send_email_to_address?(user.email)).to be_false
+    end
+
+    it 'allows addresses with no associated user' do
+      email = 'admin@bossland.com'
+
+      expect(User.send_email_to_address?(email)).to be_true
+    end
+  end
 end
