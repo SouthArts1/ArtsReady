@@ -112,6 +112,12 @@ class User < ActiveRecord::Base
     UserMailer.welcome(self).deliver
   end
 
+  def self.send_email_to_address?(addr)
+    user = find_by_email(addr)
+
+    !user || (!user.disabled? && user.organization.active?)
+  end
+
   private 
   
   def mailchimp_merge_fields
