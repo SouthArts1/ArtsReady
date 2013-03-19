@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.12'
-gem 'mysql2', '0.2.18'
+gem 'rails', '~> 3.2.3'
+gem 'mysql2', '>= 0.3.11'
 gem 'jquery-rails'
 
 gem 'figaro'
@@ -12,12 +12,12 @@ gem 'cancan', '1.6.7'
 gem 'carrierwave', '0.5.7'
 gem 'fog', '0.11.0'
 
-gem 'geocoder', '1.0.2'
+gem 'geocoder'
 gem 'gmaps4rails', '1.3.1'
 
 gem 'csv_builder'
 gem 'RedCloth'
-gem 'acts-as-taggable-on', '2.0.6'
+gem 'acts-as-taggable-on', '>= 2.2.2'
 
 gem 'heroku'
 gem 'airbrake'
@@ -52,7 +52,7 @@ group :test do
   gem 'mocha'
   gem 'factory_girl', '~> 2.5.1'
   gem 'factory_girl_rails'
-  gem 'database_cleaner'
+  gem 'database_cleaner', :require => false
   gem 'launchy'    # So you can do Then show me the page
   gem 'cucumber-rails'
   gem 'capybara'

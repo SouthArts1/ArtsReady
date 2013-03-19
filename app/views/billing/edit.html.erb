@@ -6,7 +6,7 @@
 
 
 <div class="grid_8">
-	<% form_for @payment, url: billing_path, method: "PUT" do |f| %>
+	<%= form_for @payment, url: billing_path, method: "PUT" do |f| %>
 		<%= f.hidden_field :organization_id, value: @organization.id %>
 		<%= f.hidden_field :discount_code_id, value: @payment.discount_code_id %>
 		
@@ -112,7 +112,7 @@
 			</p>
 		</div>
 		<br />
-		<%= f.submit %><br /><br />
+		<%= f.submit 'Submit Payment' %><br /><br />
 		<%= link_to "I would like to cancel my automated billing entirely.", billing_cancel_path, confirm: "Are you sure?  This will affect your ArtsReady access." %>
 		<script type="text/javascript">
 		function handleEnter (field, event) {

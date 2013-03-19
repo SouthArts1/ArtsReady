@@ -158,7 +158,7 @@ class Assessment < ActiveRecord::Base
       params[:applicable])
     self[critical_function_attribute(section)] = applicable
     if save
-      Answer.where(:id => answers.for_critical_function(section)).
+      Answer.where(:id => answers.for_critical_function(section).map(&:id)).
           update_all(:was_skipped => !applicable)
       check_complete if !applicable
       true
