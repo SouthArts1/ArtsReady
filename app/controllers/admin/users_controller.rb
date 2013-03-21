@@ -4,7 +4,7 @@ class Admin::UsersController < Admin::AdminController
     if params[:organization_id]
       @organization = Organization.find(params[:organization_id])
       @users = @organization.users
-      @user = @users.new
+      @user = User.new(:organization => @organization)
     else
       @users = User
     end
