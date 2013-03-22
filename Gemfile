@@ -49,7 +49,7 @@ group :development do
 end
 
 group :test do
-  gem 'mocha'
+  gem 'mocha', :require => 'mocha/api'
   gem 'factory_girl', '~> 2.5.1'
   gem 'factory_girl_rails'
   gem 'database_cleaner', :require => false
