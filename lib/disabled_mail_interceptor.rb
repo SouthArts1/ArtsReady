@@ -11,8 +11,12 @@ class DisabledMailInterceptor
   end
 
   def self.deliverable_recipients(message)
-    message.to_addrs.select do | addr |
-      User.send_email_to_address?(addr)
+    if message.subject.include?('Important Information')
+      message.to_addrs
+    else
+      message.to_addrs.select do | addr |
+        User.send_email_to_address?(addr)
+      end
     end
   end
 end
