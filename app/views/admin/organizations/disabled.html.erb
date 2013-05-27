@@ -1,9 +1,12 @@
 <div class="grid_12">
+
   <h1>Manage Organizations</h1>
+
   <ul class="top-nav settings">
-    <li class="active"><%= link_to 'Active', admin_organizations_path %></li>
-    <li><%= link_to "Disabled", admin_organizations_disabled_path %></li>
+    <li><%= link_to 'Active', admin_organizations_path %></li>
+    <li class="active"><%= link_to "Disabled", admin_organizations_disabled_path %></li>	
   </ul>
+
   <section>
     <table class="resource side-nav-panels">
       <thead>
@@ -17,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @organizations.each do |org| %>
+        <% @inactive_orgs.each do |org| %>
           <tr>
             <td class="name"><p><%= org.name %></p></td>
             <td class="members"><p><%= link_to pluralize(org.users.count, 'member'), admin_organization_users_path(org) %> </p></td>
@@ -34,3 +37,4 @@
     </table>
   </section>
 </div>
+

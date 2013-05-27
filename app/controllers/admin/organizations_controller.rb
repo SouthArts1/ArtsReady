@@ -1,7 +1,7 @@
 class Admin::OrganizationsController < Admin::AdminController
 
   def index
-    @organizations = Organization.all
+    @organizations = Organization.approved
   end
   
   def edit
@@ -22,6 +22,10 @@ class Admin::OrganizationsController < Admin::AdminController
   def billing
     @organization = Organization.find(params[:id])
     @payment = @organization.payment
+  end
+
+  def disabled
+    @inactive_orgs = Organization.inactive
   end
   
   def allow_provisionary_access

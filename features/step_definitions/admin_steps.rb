@@ -32,8 +32,11 @@ Then /^I should see the following organizations:$/ do |table|
   )
 end
 
+When /^I visit the disabled organization page$/ do
+  visit admin_organizations_disabled_path
+end
+
 When /^I delete the organization "(.*)"$/ do |org|
-  be_on 'the admin organizations page'
   with_scope table_row_where('name' => org) do
     click_link 'Edit'
   end
