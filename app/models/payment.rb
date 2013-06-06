@@ -68,7 +68,7 @@ class Payment < ActiveRecord::Base
         address: (self.billing_address rescue self.organization.address),
         city: (self.billing_city rescue self.organization.city),
         state: (self.billing_state rescue self.organization.state),
-        zip: (self.zipcode rescue self.organization.zipcode),
+        zip: (self.billing_zipcode rescue self.organization.zipcode),
         country: "United States"
       }
     )
@@ -91,7 +91,7 @@ class Payment < ActiveRecord::Base
         address: (payment.billing_address rescue payment.organization.address),
         city: (payment.billing_city rescue payment.organization.city),
         state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.zipcode rescue payment.organization.zipcode),
+        zip: (payment.billing_zipcode rescue payment.organization.zipcode),
         country: "United States"
       }
     )
@@ -110,7 +110,7 @@ class Payment < ActiveRecord::Base
         address: (payment.billing_address rescue payment.organization.address),
         city: (payment.billing_city rescue payment.organization.city),
         state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.zipcode rescue payment.organization.zipcode),
+        zip: (payment.billing_zipcode rescue payment.organization.zipcode),
         country: "United States"
       }
     )
@@ -125,7 +125,7 @@ class Payment < ActiveRecord::Base
       address: (self.billing_address rescue self.organization.address),
       city: (self.billing_city rescue self.organization.city),
       state: (self.billing_state rescue self.organization.state),
-      zip: (self.zipcode rescue self.organization.zipcode),
+      zip: (self.billing_zipcode rescue self.organization.zipcode),
       country: "United States"
     }
   end
