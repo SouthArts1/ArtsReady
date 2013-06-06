@@ -51,6 +51,7 @@ class BillingController < ApplicationController
   
   def create
     Rails.logger.debug("HERE WE ARE IN THE CREATE ACTION")
+    puts("HERE WE ARE IN THE CREATE ACTION with PUTS")
     obj = params[:payment]
     @organization = Organization.find(obj[:organization_id])
     
