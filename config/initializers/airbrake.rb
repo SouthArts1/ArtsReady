@@ -1,7 +1,3 @@
-if Rails.env.production?
-  Airbrake.configure do |config|
-    config.api_key = '138a1df23e26f147770ad51746a4a67d'
-    config.environment_name = `hostname`
-  end
+Airbrake.configure do |config|
+  config.api_key = '6cbba4e1e812c0756bc37af38c8e90d6'
 end
-
