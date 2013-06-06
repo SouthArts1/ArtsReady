@@ -50,6 +50,7 @@ class BillingController < ApplicationController
   end
   
   def create
+    Rails.logger.debug("HERE WE ARE IN THE CREATE ACTION")
     obj = params[:payment]
     @organization = Organization.find(obj[:organization_id])
     
@@ -78,6 +79,7 @@ class BillingController < ApplicationController
       @payment.routing_number = obj[:routing_number]
       @payment.account_number = obj[:account_number]
     else
+      Rails.logger.debug("PAYMENT TYPE #{params[:payment_type].inspect}")
       return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     if @payment.save
