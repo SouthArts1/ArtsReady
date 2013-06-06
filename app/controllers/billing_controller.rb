@@ -86,6 +86,7 @@ class BillingController < ApplicationController
       session[:user_id] = @current_user.id
       return redirect_to "/" 
     else
+      Rails.logger.debug("PAYMENT ERRORS: #{@payment.errors.inspect}")
       return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
   end

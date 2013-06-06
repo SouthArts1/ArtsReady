@@ -164,6 +164,7 @@ class Payment < ActiveRecord::Base
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
+      Rails.logger.debug("ARB: #{arb_sub.credit_card.inspect}")
       self.payment_method = "Credit Card"
       self.number = self.number.to_s
       self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
@@ -178,7 +179,9 @@ class Payment < ActiveRecord::Base
     aim_tran.set_address(self.billing_address_for_transaction)
     
     if self.payment_method == "Credit Card"
+      Rails.logger.debug("AIM TRAN: #{aim_tran.inspect}")
       aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
+      Rails.logger.debug("AIM TRAN RESPONSE: #{aim_response.inspect}")
     elsif self.payment_type == "bank"
       aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.bank_account)
     else
@@ -188,8 +191,10 @@ class Payment < ActiveRecord::Base
     if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
       arb_tran.set_address(self.billing_address_for_transaction)
+      Rails.logger.debug("ARB TRAN: #{arb_tran.inspect}")
       # fire away!
       response = arb_tran.create(arb_sub)
+      Rails.logger.debug("ARB TRAN RESPONSE: #{arb_tran_response.inspect}")
       # response logging
       if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
         self.arb_id = response.subscription_id
