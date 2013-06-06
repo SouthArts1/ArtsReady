@@ -13,6 +13,7 @@ TAGS
 coverage
 .powder
 public/stylesheets/.sass-cache
+.env
 
 .redcar
 
