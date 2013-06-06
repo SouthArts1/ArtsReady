@@ -80,7 +80,7 @@ class BillingController < ApplicationController
       @payment.routing_number = obj[:routing_number]
       @payment.account_number = obj[:account_number]
     else
-      Rails.logger.debug("PAYMENT TYPE #{params[:payment_type].inspect}")
+      puts("PAYMENT TYPE #{params[:payment_type].inspect}")
       return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
     if @payment.save
@@ -89,7 +89,7 @@ class BillingController < ApplicationController
       session[:user_id] = @current_user.id
       return redirect_to "/" 
     else
-      Rails.logger.debug("PAYMENT ERRORS: #{@payment.errors.inspect}")
+      puts("PAYMENT ERRORS: #{@payment.errors.inspect}")
       return redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end
   end
