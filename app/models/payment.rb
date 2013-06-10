@@ -194,7 +194,6 @@ class Payment < ActiveRecord::Base
       puts("ARB TRAN: #{arb_tran.inspect}")
       # fire away!
       response = arb_tran.create(arb_sub)
-      puts("ARB TRAN RESPONSE: #{arb_tran_response.inspect}")
       # response logging
       if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
         self.arb_id = response.subscription_id
