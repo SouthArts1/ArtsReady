@@ -1,16 +1,12 @@
 Dear <%= @user.name %>
 
-Your Battle Buddy, <%= @crisis.organization.name %>, has updated their current crisis!
+There has been an update on <%= @crisis.organization.name %>'s crisis log.
 
-Here is what <%= @update.user_name %> (<%= @update.organization_name %>) said:
+Here is what <%= @update.user_name %> said:
 
 <%= @update.message %>
 
-Please visit ArtsReady’s Lend a Hand page to see what <%= @user.organization.name %> can do to help your Battle Buddy in need:
-
-<%= lend_a_hand_url %>
-
-To contact <%= @crisis.organization_name %>'s ArtsReady administrator: 
+Please log in to ArtsReady for more information, or contact  <%= @crisis.organization_name %>'s ArtsReady administrator: 
 
 <%= @crisis.organization.contact_name %>
 <%= @crisis.organization.email %>
