@@ -1,15 +1,13 @@
 <p>Dear <%= @user.name %></p>
 
-<p>Your Battle Buddy, <%= @crisis.organization.name %>, has updated their current crisis!</p>
+<p>There has been an update on <%= @crisis.organization.name %>'s crisis log.</p>
 
-<p>Here is what <%= @update.user_name %> (<%= @update.organization_name %>) said:</p>
+<p>Here is what <%= @update.user_name %> said:</p>
 
 <p><%= @update.message %></p>
 
-<p>Please visit ArtsReady’s <%= link_to "Lend a Hand page", lend_a_hand_url %> to see what <%= @user.organization.name %> can do to help your Battle Buddy in need.
-</p>
 
-<p>To contact <%= @crisis.organization_name %>’s ArtsReady administrator: 
+<p>Please log in to ArtsReady for more information, or contact <%= @crisis.organization_name %>’s ArtsReady administrator:<br>
 
 <%= @crisis.organization.contact_name %><br>
 <%= @crisis.organization.email %><br>
