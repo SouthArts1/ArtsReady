@@ -48,8 +48,8 @@ Feature: View articles
   Scenario: Critical articles should have the crit_stuff icon
     Given I am signed in as "Example"
     And the following public article exists:
-      | on critical list  | critical function | organization |
-      | true              | people            | Example      |
+      | on critical list  | critical function | User    |
+      | true              | people            | Example |
 
     When I go to the library
     And I follow "People Resources"
