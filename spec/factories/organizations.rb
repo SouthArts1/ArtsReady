@@ -56,7 +56,10 @@ FactoryGirl.define do
       name "Crisis Organization"
       crises
     end
-    
+
+    factory :inactive_organization do
+      active false
+    end
   end
   
 end
