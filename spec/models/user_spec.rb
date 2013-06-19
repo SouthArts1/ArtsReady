@@ -201,23 +201,4 @@ describe User do
       expect(User.send_email_to_address?(email)).to be_true
     end
   end
-
-  describe 'active_and_approved' do
-    it 'accepts only enabled users of active organizations' do
-      active_org = FactoryGirl.create(:organization)
-      active_and_approved_user = FactoryGirl.create(
-        :user, :organization => active_org)
-      unapproved_user = FactoryGirl.create(
-        :disabled_user, :organization => active_org)
-
-      inactive_org = FactoryGirl.create(:inactive_organization)
-      inactive_user = FactoryGirl.create(
-        :user, :organization => inactive_org)
-
-      #debugger
-      expect(User.active_and_approved).to eq(
-        [active_and_approved_user]
-      )
-    end
-  end
 end
