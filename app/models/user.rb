@@ -32,9 +32,6 @@ class User < ActiveRecord::Base
 
     where(:organization_id => ids)
   }
-  scope :active_and_approved, lambda {
-    active.joins(:organization).merge(Organization.approved)
-  }
   
   before_validation :set_first_password, :if => "password.nil? && encrypted_password.nil?"
   before_validation :set_default_role
