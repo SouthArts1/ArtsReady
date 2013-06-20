@@ -11,7 +11,7 @@ class DisabledMailInterceptor
   end
 
   def self.deliverable_recipients(message)
-    if message.subject.include?('Important Information')
+    if message.subject.include?(UserMailer::PASSWORD_RESET_SUBJECT)
       message.to_addrs
     else
       message.to_addrs.select do | addr |
