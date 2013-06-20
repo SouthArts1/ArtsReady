@@ -6,8 +6,9 @@ Feature: Admin organization management
   Scenario: List organizations
     Given 2 questions exist
     Given the following organization exists:
-      | Name  | Member Count | Completed Answers Count | To Do Usage |
-      | MyOrg | 1            | 1                       | 1/2         |
+      | Name  | Member Count | Completed Answers Count | To Do Usage | Active |
+      | MyOrg | 1            | 1                       | 1/2         | true   |
+      | NoOrg | 2            | 1                       | 1/2         | false  |
     And the following sysadmin exists:
       | Organization | Email             |
       | Name: MyOrg  | admin@example.org |
@@ -18,6 +19,7 @@ Feature: Admin organization management
       | Name  | Members   | Assessment % | To-Do % |
       | MyOrg | 2 members | 50%          | 50%     |
       # 2 members including the admin
+    And I should not see "NoOrg"
     When I follow "2 members"
     Then I should see "Last Login"
 
@@ -43,7 +45,7 @@ Feature: Admin organization management
       | Name: MyOrg  | Open Stuff   | public     |
     And I am signed in as a sysadmin
 
-    When I visit the disabled organization page
+    When I visit the disabled organizations page
     And I delete the organization "MyOrg"
     Then the organization "MyOrg" should be deleted
     #And the "Secret Stuff" article should be deleted

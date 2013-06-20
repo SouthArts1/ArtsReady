@@ -32,7 +32,7 @@ Then /^I should see the following organizations:$/ do |table|
   )
 end
 
-When /^I visit the disabled organization page$/ do
+When /^I visit the disabled organizations page$/ do
   visit admin_organizations_disabled_path
 end
 
