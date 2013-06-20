@@ -84,6 +84,25 @@ describe Article do
         it 'does not include executive articles'
       end
     end
+
+    context 'of_active_orgs' do
+      let(:valid_org) { FactoryGirl.create(:organization) }
+      let(:valid_user) { FactoryGirl.create(:user, :organization => valid_org) }
+      let!(:valid_article) { FactoryGirl.create(:article, :user => valid_user) }
+
+      let(:deactivated_user) {
+        FactoryGirl.create(:disabled_user, :organization => valid_org) }
+      let!(:deactivated_user_article) {
+        FactoryGirl.create(:article, :user => deactivated_user) }
+
+      let(:inactive_org) { FactoryGirl.create(:deactivated_org) }
+      let!(:inactive_article) {
+        FactoryGirl.create(:article, :organization => inactive_org) }
+
+      it "ignores disabled articles and articles by deactivated orgs" do
+        expect(Article.of_active_orgs).to eq([valid_article, deactivated_user_article])
+      end
+    end
   end
 
   context "recent scope" do

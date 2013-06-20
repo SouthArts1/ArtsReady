@@ -1,7 +1,8 @@
 class ArticlesController < ApplicationController
 
   def index
-    @articles = Article.visible_to_organization(current_org)
+    @articles = Article.of_active_orgs.
+      visible_to_organization(current_org)
     if params[:term]
       @articles = @articles.matching(params[:term])
     elsif params[:critical_function]

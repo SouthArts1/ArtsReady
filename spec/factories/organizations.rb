@@ -57,6 +57,9 @@ FactoryGirl.define do
       crises
     end
     
+    factory :deactivated_org do
+      active false
+    end
   end
   
 end

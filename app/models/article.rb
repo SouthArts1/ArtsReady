@@ -47,6 +47,8 @@ class Article < ActiveRecord::Base
   }
   scope :disabled, where(:disabled => true)
   scope :with_critical_function, lambda { |cf| where(:critical_function => cf)}
+  scope :of_active_orgs, joins(:organization).merge(Organization.approved)
+
   after_save :notify_admin, :if => "is_public?"
   after_save :create_todo_note, :if => :todo
 
