@@ -13,6 +13,13 @@ Feature: Battle Buddies
     And I follow "Find a Buddy"
     Then I should see "SENT"
 
+  Scenario: Deactivated orgs don't show up on the Find a Buddy page
+    Given I am signed in as an editor
+    And a deactivated org exists with a name of "Deactivated Org"
+    When I follow "Battle Buddy Network"
+    And I follow "Find a Buddy"
+    Then I should not see "Deactivated Org"
+
   Scenario: Rejecting Buddies
     Given I am signed in as an editor
     And I have a pending battle buddy request

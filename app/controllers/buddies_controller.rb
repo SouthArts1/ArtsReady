@@ -2,7 +2,7 @@ class BuddiesController < ApplicationController
 
   def get_help
     params[:miles] ||= 50
-    @buddies = current_org.nearbys(params[:miles].to_i).in_buddy_network
+    @buddies = current_org.nearbys(params[:miles].to_i).in_buddy_network.approved
   end
 
   def lend_a_hand
