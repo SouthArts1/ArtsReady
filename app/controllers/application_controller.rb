@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?, :current_org
 
   def authenticate!(*args)
+    logger.debug "HERE WE ARE AUTHENTICATING"
     unless user_signed_in?
       msg = 'You must sign in to access that page'
       if (current_user.present? && !current_org.active?) 

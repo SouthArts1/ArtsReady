@@ -68,7 +68,7 @@ class Payment < ActiveRecord::Base
         address: (self.billing_address rescue self.organization.address),
         city: (self.billing_city rescue self.organization.city),
         state: (self.billing_state rescue self.organization.state),
-        zip: (self.zipcode rescue self.organization.zipcode),
+        zip: (self.billing_zipcode rescue self.organization.zipcode),
         country: "United States"
       }
     )
@@ -91,7 +91,7 @@ class Payment < ActiveRecord::Base
         address: (payment.billing_address rescue payment.organization.address),
         city: (payment.billing_city rescue payment.organization.city),
         state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.zipcode rescue payment.organization.zipcode),
+        zip: (payment.billing_zipcode rescue payment.organization.zipcode),
         country: "United States"
       }
     )
@@ -110,7 +110,7 @@ class Payment < ActiveRecord::Base
         address: (payment.billing_address rescue payment.organization.address),
         city: (payment.billing_city rescue payment.organization.city),
         state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.zipcode rescue payment.organization.zipcode),
+        zip: (payment.billing_zipcode rescue payment.organization.zipcode),
         country: "United States"
       }
     )
@@ -125,7 +125,7 @@ class Payment < ActiveRecord::Base
       address: (self.billing_address rescue self.organization.address),
       city: (self.billing_city rescue self.organization.city),
       state: (self.billing_state rescue self.organization.state),
-      zip: (self.zipcode rescue self.organization.zipcode),
+      zip: (self.billing_zipcode rescue self.organization.zipcode),
       country: "United States"
     }
   end
@@ -164,6 +164,7 @@ class Payment < ActiveRecord::Base
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
+      Rails.logger.debug("ARB: #{arb_sub.credit_card.inspect}")
       self.payment_method = "Credit Card"
       self.number = self.number.to_s
       self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
@@ -178,7 +179,9 @@ class Payment < ActiveRecord::Base
     aim_tran.set_address(self.billing_address_for_transaction)
     
     if self.payment_method == "Credit Card"
+      Rails.logger.debug("AIM TRAN: #{aim_tran.inspect}")
       aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
+      Rails.logger.debug("AIM TRAN RESPONSE: #{aim_response.inspect}")
     elsif self.payment_type == "bank"
       aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.bank_account)
     else
@@ -188,6 +191,7 @@ class Payment < ActiveRecord::Base
     if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
       arb_tran.set_address(self.billing_address_for_transaction)
+      Rails.logger.debug("ARB TRAN: #{arb_tran.inspect}")
       # fire away!
       response = arb_tran.create(arb_sub)
       # response logging
@@ -205,7 +209,7 @@ class Payment < ActiveRecord::Base
   end
   
   def payment_changed?
-    puts("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
+    Rails.logger.debug("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
     if Payment.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"
       return true
     elsif Payment.find(self.id).payment_method.downcase.include?("account") && self.payment_type == "cc"
@@ -225,7 +229,7 @@ class Payment < ActiveRecord::Base
           self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
         elsif self.payment_type == "bank"
           arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
-          puts("Account Number: #{self.account_number}")
+          Rails.logger.debug("Account Number: #{self.account_number}")
           self.payment_method = "#{self.account_type.capitalize} Account"
           self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
         end
@@ -243,11 +247,11 @@ class Payment < ActiveRecord::Base
         if aim_response.success?
           arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
           arb_tran.set_address(self.billing_address_for_transaction)
-          puts("UPdated Payment Number to #{self.payment_number}")
+          Rails.logger.debug("UPdated Payment Number to #{self.payment_number}")
           # fire away!
           response = arb_tran.update(arb_sub)
           # response logging
-          puts("Response: \n #{response.inspect}")
+          Rails.logger.debug("Response: \n #{response.inspect}")
           if response.success?
             self.active = true
             self.end_date = nil
@@ -294,7 +298,7 @@ class Payment < ActiveRecord::Base
           if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
             self.arb_id = response.subscription_id
             self.organization.update_attribute(:active, true)
-            puts("Reset Active and End Date")
+            Rails.logger.debug("Reset Active and End Date")
             self.active = true
             self.end_date = nil
             return true
@@ -314,17 +318,17 @@ class Payment < ActiveRecord::Base
     if status_response.success?
       arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
       response = arb_tran.cancel(self.arb_id)
-      puts("Response: #{response.inspect}")
-      puts("Message: #{response.message_text}")
+      Rails.logger.debug("Response: #{response.inspect}")
+      Rails.logger.debug("Message: #{response.message_text}")
       if response.success? || (response.message_text.include?("canceled") rescue true)
-        puts("Passes validation.  It is or has been cancelled")
+        Rails.logger.debug("Passes validation.  It is or has been cancelled")
         return true
       else
         return false
       end
     else
       if status_response.message_text.include?("cannot be found")
-        puts("It does not exist, cancelling correctly")
+        Rails.logger.debug("It does not exist, cancelling correctly")
         return true
       else
         return false

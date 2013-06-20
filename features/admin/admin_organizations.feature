@@ -18,6 +18,8 @@ Feature: Admin organization management
       | Name  | Members   | Assessment % | To-Do % |
       | MyOrg | 2 members | 50%          | 50%     |
       # 2 members including the admin
+    When I follow "2 members"
+    Then I should see "Last Login"
 
   Scenario: List disabled organizations
     Given the following organizations exist:
