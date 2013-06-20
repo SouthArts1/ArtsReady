@@ -7,7 +7,8 @@ FactoryGirl.define do
     visibility 'private'
     critical_function 'test'
     
-    user 
+    user
+    organization { user.organization if user }
 
     factory :public_article do
       visibility 'public'

@@ -63,3 +63,8 @@ Given /^I am signed in as "([^"]*)"$/ do |email|
   login(email)
 end
 
+Given /^"([^"]*)" has a user with a first name of "([^"]*)"$/ do |org, name|
+  org = Organization.find_by_name(org)
+  FactoryGirl.create(:user, :first_name => name, :organization => org)
+end
+
