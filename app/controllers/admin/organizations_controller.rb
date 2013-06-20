@@ -25,7 +25,8 @@ class Admin::OrganizationsController < Admin::AdminController
   end
 
   def disabled
-    @inactive_orgs = Organization.inactive
+    @organizations= Organization.inactive
+    render "index"
   end
   
   def allow_provisionary_access

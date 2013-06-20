@@ -9,4 +9,12 @@ module LayoutHelper
     return cents if cents.to_s.include?("%")
     number_to_currency (cents.to_f / 100)
   end
+
+  def is_active?(controller, action)
+    begin
+      "active" if current_page?(:controller => controller, :action => action)
+    rescue
+      ""
+    end
+  end
 end

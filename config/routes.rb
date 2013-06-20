@@ -19,13 +19,13 @@ Artsready::Application.routes.draw do
   namespace :admin do
     get 'home/dashboard', :as => "dashboard"
     get "/organizations/billing/(:id)" => "organizations#billing"
-    get "/organizations/disabled" => "organizations#disabled"
     get "/discount_codes/disabled" => "discount_codes#disabled"
     get "/discount_codes/usage" => "discount_codes#usage"
     get "/discount_codes/show_usage/(:id)" => "discount_codes#show_usage"
     match "/organizations/allow_provisionary_access/(:id)" => "organizations#allow_provisionary_access"
     
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
+      get 'disabled', :on => :collection
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
     end
     resources :users, :only => [:index]
