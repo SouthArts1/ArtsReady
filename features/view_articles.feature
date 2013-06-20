@@ -47,7 +47,6 @@ Feature: View articles
 
     When I go to the library
     And I follow "People Resources (1)"
-    #And I debug
     Then I should not see "bad stuff"
 
   Scenario: Articles written by a buddy should have the buddy icon

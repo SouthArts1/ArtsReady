@@ -37,7 +37,6 @@ Feature: Battle Buddies
     When I follow "Battle Buddy Network"
     And I follow "Find a Buddy"
     And I follow "My Buddy"
-    #And I debug
     And I press "Remove Battle Buddy"
     Then I should see "removed"
 
