@@ -35,6 +35,21 @@ Feature: View articles
     And I follow "hey pal"
     Then I should see "a secret"
 
+  Scenario: Shared articles of deactivated orgs should not be visible
+    Given I am signed in as a reader
+    And I have a battle buddy with a name of "Evil Org"
+    And "Evil Org" has a user with a first name of "Snively"
+    And the following article exists:
+      | User                | critical function | title     |
+      | first_name: Snively | people            | bad stuff |
+    And Evil Org has shared the article "bad stuff" with me
+    And Evil Org is deactivated
+
+    When I go to the library
+    And I follow "People Resources (1)"
+    #And I debug
+    Then I should not see "bad stuff"
+
   Scenario: Articles written by a buddy should have the buddy icon
     Given I am signed in as a reader
     And I have a battle buddy with a name of "Bob's Job"

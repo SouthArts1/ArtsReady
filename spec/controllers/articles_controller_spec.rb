@@ -18,9 +18,23 @@ describe ArticlesController do
       controller.stub(:current_user).and_return(user)
     end
 
-    it "renders :index template" do
-      get 'index'
-      should render_template(:index)
+    context "#index" do
+      it "renders :index template" do
+        get 'index'
+        should render_template(:index)
+      end
+
+      it "assigns @articles" do
+        active_org_article = FactoryGirl.create(:public_article,
+                                               :user => user,
+                                               :organization => organization)
+        Article.stub_chain(:of_active_orgs, :visible_to_organization) {
+          [active_org_article]
+        }
+
+        get 'index'
+        assigns(:articles).should eq([active_org_article])
+      end
     end
 
     it "show action should render show template" do
