@@ -54,3 +54,7 @@ Then /^I should see no article icons$/ do
   page.should_not have_selector(".icon img[alt='Critical']")
 end
 
+Given /^that article belongs to the organization ([^"]*)$/ do |org|
+  org_id = Organization.find_by_name(org).id
+  Article.last.update_attribute(:organization_id, org_id)
+end
