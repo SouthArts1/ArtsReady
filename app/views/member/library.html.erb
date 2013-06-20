@@ -34,7 +34,7 @@
   <div class="grid_4">
     <h3>Featured Articles</h3>
     <ul class="library popular">
-      <% Article.featured.each do |article| %>
+      <% @featured.each do |article| %>
         <li>
           <h4><%= link_to article.title, article_path(article) %></h4>
           Added by <%= article.user_name %> on <%= article.published_on.to_formatted_s(:long) %>

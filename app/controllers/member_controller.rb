@@ -15,6 +15,7 @@ class MemberController < ApplicationController
     @public_articles = Article.for_public.order('created_at DESC')
     @public_comments = Comment.for_public.recent
     @our_comments = current_org.comments.joins(:article).where("articles.visibility != 'executive'").recent
+    @featured = Article.featured.of_active_orgs
   end
 
 end
