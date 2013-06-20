@@ -27,10 +27,13 @@ Feature: Admin organization management
       | Name   | Active |
       | MyOrg  | false  |
     And all users for "MyOrg" are disabled
+    # This is a really wordy workaround for the fact that the article
+    # factory has a user, but not an organization anymore.
     And the following articles exist:
-      | Organization | Title        | Visibility |
-      | Name: MyOrg  | Secret Stuff | executive  |
-      | Name: MyOrg  | Open Stuff   | public     |
+      | organization_id | Title        | Visibility |
+      | #{Organization.find_by_name("MyOrg").id} | Secret Stuff | executive  |
+      | #{Organization.find_by_name("MyOrg").id} | Open Stuff   | public     |
+      | #{Organization.find_by_name("MyOrg").id} | Shared Stuff | buddies    |
     And I am signed in as a sysadmin
 
     When I delete the organization "MyOrg"
