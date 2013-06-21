@@ -2,7 +2,7 @@ class MemberController < ApplicationController
 
   def index
     redirect_to crisis_path(current_org.crisis) if current_org.declared_crisis?
-    crises = Crisis.of_active_org
+    crises = Crisis.of_active_orgs
     @crises =  crises.shared_with_the_community +
       crises.shared_with_my_battle_buddy_network(current_org.battle_buddy_list) +
       crises.shared_with_me(current_org)
