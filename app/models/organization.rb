@@ -15,7 +15,10 @@ class Organization < ActiveRecord::Base
   has_many :comments, :through => :articles
   has_many :battle_buddy_requests, :dependent => :destroy
   has_many :battle_buddies, :through => :battle_buddy_requests, 
-    :conditions => {:battle_buddy_requests => {:accepted => true}}
+    :conditions => {
+      :battle_buddy_requests => {:accepted => true},
+      :organizations => {:active => true}
+  }
   has_many :battle_buddy_requests_received, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
   has_many :battle_buddy_requests_sent, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest'
   has_many :crises, :dependent => :destroy

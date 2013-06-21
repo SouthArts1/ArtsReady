@@ -23,6 +23,16 @@ Feature: Create articles
     When I follow "This is an article" within the log
     Then I should be on the article page
 
+  Scenario: User can't share article with deactivated orgs
+    Given an editor
+    And I have a Battle Buddy with a name of "GoodOrg"
+    And I have a Battle Buddy with a name of "BadOrg"
+    And BadOrg is deactivated
+	  When I go to the new article page
+    And I choose "article_visibility_shared"
+    Then I should see "GoodOrg"
+    And I should not see "BadOrg"
+
 	#TODO most of these should probably be view tests	
 	Scenario: User cannot set executive visibility
 	  Given a user

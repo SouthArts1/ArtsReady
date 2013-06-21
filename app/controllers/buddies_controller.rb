@@ -15,8 +15,7 @@ class BuddiesController < ApplicationController
   end
 
   def index
-    # doing this now, so it isn't forgotten if we ever go back to the BBN index
-    @buddies = current_org.battle_buddies.approved
+    @buddies = current_org.battle_buddies
   end
 
   def show
