@@ -10,7 +10,7 @@ module LayoutHelper
     number_to_currency (cents.to_f / 100)
   end
 
-  def is_active?(controller, action)
+  def active_if(controller, action)
     begin
       "active" if current_page?(:controller => controller, :action => action)
     rescue

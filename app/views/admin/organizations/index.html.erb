@@ -1,9 +1,9 @@
 <div class="grid_12">
   <h1>Manage Organizations</h1>
   <ul class="top-nav settings">
-    <li class="<%= is_active?('admin/organizations', 'index') %>">
+    <li class="<%= active_if('admin/organizations', 'index') %>">
       <%= link_to 'Active', admin_organizations_path %></li>
-    <li class="<%= is_active?('admin/organizations', 'disabled') %>">
+    <li class="<%= active_if('admin/organizations', 'disabled') %>">
       <%= link_to "Disabled", disabled_admin_organizations_path %>
     </li>
   </ul>
