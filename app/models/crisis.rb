@@ -9,6 +9,7 @@ class Crisis < ActiveRecord::Base
   accepts_nested_attributes_for :needs
 
   scope :active, includes(:organization).where(:resolved_on => nil)
+  scope :of_active_org, joins(:organization).merge(Organization.approved)
 
   scope :shared_with_the_community, active.where(:visibility => 'public')
   scope :shared_with_my_battle_buddy_network, lambda {|list| active.where("visibility = 'buddies' AND organization_id IN (?)",list)}
