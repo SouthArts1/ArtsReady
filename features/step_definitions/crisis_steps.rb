@@ -60,3 +60,8 @@ Given /^(.*) is in crisis$/ do |org|
   crisis_org = Organization.find_by_name(org)
   FactoryGirl.create(:crisis, :organization => crisis_org)
 end
+
+Given /^there is an active crisis with description "([^"]*)"$/ do |text|
+  FactoryGirl.create(:crisis, :description => text)
+end
+

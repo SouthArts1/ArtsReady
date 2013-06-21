@@ -1,5 +1,5 @@
 <section>
-  <% Article.featured.each do |article| %>
+  <% @featured.each do |article| %>
   <article>
     <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
     <p><time><%= article.published_on.to_formatted_s(:long) %></time></p>
