@@ -37,12 +37,12 @@
    <section>
       <table class="add-need">
         <thead>
-          <td colspan="7"><p>Add another need</p></td>
+          <td colspan="7"><p>Add a need</p></td>
         </thead>
         <tbody>
         <%= form_for([current_org.crisis,Need.new]) do |f| %>
             <tr>
-              <td class="resource"><p><%= f.text_field :resource, :placeholder => 'Resource' %></p></td>
+              <td class="resource"><p><%= f.text_field :resource, :placeholder => 'Resource request' %></p></td>
               <td class="description"><p><%= f.text_field :description, :placeholder => 'Description' %></td>
               <td class="add-button"><p><%= f.submit 'Add', :class => 'button add-need-button' %></p></td>
             </tr>
