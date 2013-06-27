@@ -6,8 +6,9 @@ Feature: Admin organization management
   Scenario: List organizations
     Given 2 questions exist
     Given the following organization exists:
-      | Name  | Member Count | Completed Answers Count | To Do Usage |
-      | MyOrg | 1            | 1                       | 1/2         |
+      | Name  | Member Count | Completed Answers Count | To Do Usage | Active |
+      | MyOrg | 1            | 1                       | 1/2         | true   |
+      | NoOrg | 2            | 1                       | 1/2         | false  |
     And the following sysadmin exists:
       | Organization | Email             |
       | Name: MyOrg  | admin@example.org |
@@ -18,9 +19,20 @@ Feature: Admin organization management
       | Name  | Members   | Assessment % | To-Do % |
       | MyOrg | 2 members | 50%          | 50%     |
       # 2 members including the admin
-
+    And I should not see "NoOrg"
     When I follow "2 members"
     Then I should see "Last Login"
+
+  Scenario: List disabled organizations
+    Given the following organizations exist:
+      | Name         | Active |
+      | MyOrg        | true   |
+      | disabledOrg  | false  |
+    And I am signed in as a sysadmin
+    When I follow "Manage Organizations"
+    And I follow "Disabled"
+    Then I should see "disabledOrg"
+    And I should not see "MyOrg"
 
   Scenario: Delete organization
     Given the following organization exists:
@@ -36,7 +48,8 @@ Feature: Admin organization management
       | #{Organization.find_by_name("MyOrg").id} | Shared Stuff | buddies    |
     And I am signed in as a sysadmin
 
-    When I delete the organization "MyOrg"
+    When I visit the disabled organizations page
+    And I delete the organization "MyOrg"
     Then the organization "MyOrg" should be deleted
     #And the "Secret Stuff" article should be deleted
     And the "Open Stuff" article should still be in the public library

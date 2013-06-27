@@ -41,6 +41,7 @@ class Organization < ActiveRecord::Base
   after_update :setup_initial_todo, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
   scope :approved, where(:active => true)
+  scope :inactive, where(:active => false)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
   scope :nearing_expiration, where('0=1')

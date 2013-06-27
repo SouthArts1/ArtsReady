@@ -25,6 +25,7 @@ Artsready::Application.routes.draw do
     match "/organizations/allow_provisionary_access/(:id)" => "organizations#allow_provisionary_access"
     
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
+      get 'disabled', :on => :collection
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
     end
     resources :users, :only => [:index]

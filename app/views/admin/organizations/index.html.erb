@@ -1,5 +1,12 @@
 <div class="grid_12">
-     <h1>Manage Organizations</h1>
+  <h1>Manage Organizations</h1>
+  <ul class="top-nav settings">
+    <li class="<%= active_if('admin/organizations', 'index') %>">
+      <%= link_to 'Active', admin_organizations_path %></li>
+    <li class="<%= active_if('admin/organizations', 'disabled') %>">
+      <%= link_to "Disabled", disabled_admin_organizations_path %>
+    </li>
+  </ul>
   <section>
     <table class="resource side-nav-panels">
       <thead>
