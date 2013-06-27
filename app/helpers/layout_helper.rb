@@ -9,4 +9,14 @@ module LayoutHelper
     return cents if cents.to_s.include?("%")
     number_to_currency (cents.to_f / 100)
   end
+
+  def cf_tab_class(cf)
+    if params[:tab] == cf
+      'active'
+    elsif Todo.for_critical_function(cf).empty?
+      'assessment-na'
+    else
+      nil
+    end
+  end
 end
