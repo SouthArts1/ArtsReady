@@ -42,3 +42,7 @@ MAILCHIMP_LIST_ID = 'not-required'
 ANET_API_LOGIN_ID = ENV['ANET_API_LOGIN_ID']
 ANET_TRANSACTION_KEY = ENV['ANET_TRANSACTION_KEY']
 ANET_MODE = :test
+# When we run the tests, we pay for subscriptions repeatedly using
+# the same info, and Authorize.net flags duplicate transactions.
+# This setting reduces and may eliminate the pain.
+ANET_ALLOW_DUPLICATE_TRANSACTIONS = true

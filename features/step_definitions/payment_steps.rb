@@ -1,6 +1,13 @@
 Given /^I have paid for my subscription$/ do
   visit new_billing_path
   step %{I fill out and submit the billing form}
+  expect(current_path).to eq(dashboard_path)
+end
+
+Given /^I have renewed my subscription$/ do
+  visit new_billing_path
+  step %{I fill out and submit the billing form}
+  expect(current_path).to eq(billing_my_organization_path)
 end
 
 When /^I fill out and submit the billing form$/ do
