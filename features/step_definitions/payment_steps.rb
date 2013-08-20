@@ -18,6 +18,7 @@ When /^I fill out and submit the billing form$/ do
     'Billing city' => 'New York',
     'Billing state' => 'NY',
     'Billing zip code' => '10001',
+    'Billing email' => 'billing@example.com',
     'payment_type' => 'Credit Card',
     'payment_number' => '4007000000027',
     'payment_expiry_month' => '1',

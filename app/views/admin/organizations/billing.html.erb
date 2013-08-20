@@ -43,6 +43,7 @@
 				<%= "#{@payment.billing_first_name rescue ""} #{@payment.billing_last_name rescue ""}" %><br />
 				<%= @payment.billing_address rescue "" %><br />
 				<%= "#{@payment.billing_city rescue ""}, #{@payment.billing_state rescue ""} #{@payment.billing_zipcode rescue ""}" %><br />
+        <%= @payment.try(:billing_email) %><br />
 				<br />
 				<% if @payment && @payment.payment_method == "Credit Card" %>
 					Card ending in <%= @payment.payment_number %><br />
