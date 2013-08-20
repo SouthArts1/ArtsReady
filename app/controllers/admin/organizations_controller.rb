@@ -27,7 +27,9 @@ class Admin::OrganizationsController < Admin::AdminController
   def allow_provisionary_access
     o = Organization.find(params[:id])
     u = o.users.first
-    if Payment.create({ organization_id: o.id, starting_amount_in_cents: 30000, regular_amount_in_cents: 22500, start_date: (Time.now), active: 1, billing_first_name: u.first_name, billing_last_name: u.last_name, billing_address: o.address, billing_city: o.city, billing_state: o.state, billing_zipcode: o.zipcode, billing_email: o.email, number: "4007000000027", expiry_month: "01", expiry_year: "2014", ccv: "123", payment_type: 'cc' })
+    @payment = o.payments.build({ starting_amount_in_cents: 30000, regular_amount_in_cents: 22500, start_date: (Time.now), active: 1, billing_first_name: u.first_name, billing_last_name: u.last_name, billing_address: o.address, billing_city: o.city, billing_state: o.state, billing_zipcode: o.zipcode, billing_email: 'admin@artsready.org', number: "4007000000027", expiry_month: "01", expiry_year: "2014", ccv: "123", payment_type: 'cc' })
+    if @payment.save
+      @payment.update_attribute(:billing_email, nil)
       redirect_to :back, :notice => "Provisionary access has been granted"
     else
       redirect_to :back, :notice => "Problem granting access."
