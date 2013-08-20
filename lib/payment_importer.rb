@@ -35,6 +35,7 @@ CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates.csv", 'rb')) do |row|
         billing_city: o.city,
         billing_state: o.state,
         billing_zipcode: o.zipcode,
+        billing_email: o.email,
         account_number: "000015990049",
         routing_number: "051404260",
         bank_name: "BBT",

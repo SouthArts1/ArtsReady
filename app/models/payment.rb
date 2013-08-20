@@ -61,6 +61,9 @@ class Payment < ActiveRecord::Base
       trial_amount: self.starting_amount_in_cents.to_f / 100,
       trial_occurrences: 1,
       description: "#{self.organization.name} subscription for ArtsReady",
+      customer: {
+        email: (self.billing_email.presence || self.organization.email),
+      },
       billing_address: {
         first_name: (self.billing_first_name rescue ""),
         last_name: (self.billing_last_name rescue ""),
@@ -84,6 +87,9 @@ class Payment < ActiveRecord::Base
       total_occurrences: 9999,
       amount: self.regular_amount_in_cents.to_f / 100,
       description: "#{payment.organization.name} subscription for ArtsReady",
+      customer: {
+        email: (payment.billing_email.presence || payment.organization.email),
+      },
       billing_address: {
         first_name: (payment.billing_first_name rescue ""),
         last_name: (payment.billing_last_name rescue ""),
@@ -103,6 +109,9 @@ class Payment < ActiveRecord::Base
       subscription_id: self.arb_id,
       amount: self.regular_amount_in_cents.to_f / 100,
       trial_amount: self.starting_amount_in_cents.to_f / 100,
+      customer: {
+        email: (payment.billing_email.presence || payment.organization.email),
+      },
       billing_address: {
         first_name: (payment.billing_first_name rescue ""),
         last_name: (payment.billing_last_name rescue ""),
@@ -149,7 +158,7 @@ class Payment < ActiveRecord::Base
     return false if self.id
     return false if !Organization.exists?(self.organization_id)
     return false if self.regular_amount_in_cents.nil? || self.starting_amount_in_cents.nil?
-    return false if self.billing_first_name.nil? || self.billing_last_name.nil? || self.billing_address.nil? || self.billing_city.nil? || self.billing_state.nil? || self.billing_zipcode.nil?
+    return false if self.billing_first_name.nil? || self.billing_last_name.nil? || self.billing_address.nil? || self.billing_city.nil? || self.billing_state.nil? || self.billing_zipcode.nil? || billing_email.blank?
     if self.payment_type == "cc"
       return false if self.number.nil? || self.expiry_month.nil? || self.expiry_year.nil? || self.ccv.nil?
     elsif self.payment_type == "bank"
@@ -341,7 +350,7 @@ class Payment < ActiveRecord::Base
 
       if include_subscription_info
         transaction.set_address(billing_address_for_transaction)
-        #transaction.set_customer(email: billing_email.presence || organization.email)
+        transaction.set_customer(email: billing_email.presence || organization.email)
       end
     end
   end
