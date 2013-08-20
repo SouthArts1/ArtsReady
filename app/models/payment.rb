@@ -175,8 +175,7 @@ class Payment < ActiveRecord::Base
     end
     
     # Payment Authorization
-    aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-    aim_tran.set_address(self.billing_address_for_transaction)
+    aim_tran = build_transaction(AuthorizeNet::AIM::Transaction, true)
     
     if self.payment_method == "Credit Card"
       Rails.logger.debug("AIM TRAN: #{aim_tran.inspect}")
@@ -189,8 +188,7 @@ class Payment < ActiveRecord::Base
     end
     
     if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
-      arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-      arb_tran.set_address(self.billing_address_for_transaction)
+      arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
       Rails.logger.debug("ARB TRAN: #{arb_tran.inspect}")
       # fire away!
       response = arb_tran.create(arb_sub)
@@ -235,7 +233,7 @@ class Payment < ActiveRecord::Base
         end
       
         # Payment Authorization
-        aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
+        aim_tran = build_transaction(AuthorizeNet::AIM::Transaction)
         if self.payment_method == "Credit Card"
           aim_response = aim_tran.authorize((self.regular_amount_in_cents.to_f / 100), arb_sub.credit_card)
         elsif self.payment_type == "bank"
@@ -245,8 +243,7 @@ class Payment < ActiveRecord::Base
         end
       
         if aim_response.success?
-          arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-          arb_tran.set_address(self.billing_address_for_transaction)
+          arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
           Rails.logger.debug("UPdated Payment Number to #{self.payment_number}")
           # fire away!
           response = arb_tran.update(arb_sub)
@@ -278,8 +275,7 @@ class Payment < ActiveRecord::Base
         end
 
         # Payment Authorization
-        aim_tran = AuthorizeNet::AIM::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-        aim_tran.set_address(self.billing_address_for_transaction)
+        aim_tran = build_transaction(AuthorizeNet::AIM::Transaction, true)
 
         if self.payment_method == "Credit Card"
           aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
@@ -290,8 +286,7 @@ class Payment < ActiveRecord::Base
         end
 
         if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
-          arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE)
-          arb_tran.set_address(self.billing_address_for_transaction)
+          arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
 
           response = arb_tran.create(arb_sub)
 
@@ -313,10 +308,10 @@ class Payment < ActiveRecord::Base
   end
   
   def cancel_subscription
-    status_arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
+    status_arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
     status_response = status_arb_tran.get_status(self.arb_id)
     if status_response.success?
-      arb_tran = AuthorizeNet::ARB::Transaction.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, :gateway => ANET_MODE)
+      arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
       response = arb_tran.cancel(self.arb_id)
       Rails.logger.debug("Response: #{response.inspect}")
       Rails.logger.debug("Message: #{response.message_text}")
@@ -332,6 +327,21 @@ class Payment < ActiveRecord::Base
         return true
       else
         return false
+      end
+    end
+  end
+
+  private
+
+  def build_transaction(klass, include_subscription_info = false)
+    klass.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE).tap do |transaction|
+      if ANET_ALLOW_DUPLICATE_TRANSACTIONS
+        transaction.set_fields(:duplicate_window => 0)
+      end
+
+      if include_subscription_info
+        transaction.set_address(billing_address_for_transaction)
+        #transaction.set_customer(email: billing_email.presence || organization.email)
       end
     end
   end

@@ -98,7 +98,7 @@ Feature: Assessment
     And I finish the assessment
     And 340 days pass
     And the scheduled tasks have run
-    And I have paid for my subscription
+    And I have renewed my subscription
     Then I should have a re-assessment to-do
     
     When I initiate a re-assessment
