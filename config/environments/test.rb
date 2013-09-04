@@ -39,7 +39,6 @@ end
 MAILCHIMP_API_KEY = 'not-required'
 MAILCHIMP_LIST_ID = 'not-required'
 
-# For Sandbox account erik@echographia.com
-ANET_API_LOGIN_ID = "7932FsrFV"
-ANET_TRANSACTION_KEY = "6Mn7b5HhAk5842pq"
+ANET_API_LOGIN_ID = ENV['ANET_API_LOGIN_ID']
+ANET_TRANSACTION_KEY = ENV['ANET_TRANSACTION_KEY']
 ANET_MODE = :test
