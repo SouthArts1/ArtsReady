@@ -37,11 +37,12 @@ unless $rails_rake_task
 end
 
 S3_UPLOAD_BUCKET = 'artsready-dev'
-MAILCHIMP_API_KEY = '5f70b48cbd31f3cab0d4d24ca8d5acde-us2'
-MAILCHIMP_LIST_ID = '91aa1b2d44'
 
-# For Sandbox account erik@echographia.com
-ANET_API_LOGIN_ID = "7932FsrFV"
-ANET_TRANSACTION_KEY = "6Mn7b5HhAk5842pq"
+# If we need to test this in development, get a new API key.
+MAILCHIMP_API_KEY = ENV['MAILCHIMP_API_KEY']
+MAILCHIMP_LIST_ID = ENV['MAILCHIMP_LIST_ID']
+
+ANET_API_LOGIN_ID = ENV['ANET_API_LOGIN_ID']
+ANET_TRANSACTION_KEY = ENV['ANET_TRANSACTION_KEY']
 ANET_MODE = :test
 ANET_ALLOW_DUPLICATE_TRANSACTIONS = false

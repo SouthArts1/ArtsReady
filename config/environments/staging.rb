@@ -19,8 +19,12 @@ Artsready::Application.configure do
   # If you have no front-end server that supports something like X-Sendfile,
   # just comment this out and Rails will serve the files
 
+  # Make sure our logger works with Heroku.
+  config.logger = Logger.new(STDOUT)
+
   # See everything in the log (default is :info)
-  config.log_level = :debug
+  config.logger.level =
+    Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -67,11 +71,11 @@ Artsready::Application.configure do
 end
 
 S3_UPLOAD_BUCKET = 'artsready-staging'
-MAILCHIMP_API_KEY = 'b8912933a59791689dcc41a2e5ebe34c-us2'
-MAILCHIMP_LIST_ID = 'ef0c308b1f'
+MAILCHIMP_API_KEY = ENV['MAILCHIMP_API_KEY']
+MAILCHIMP_LIST_ID = ENV['MAILCHIMP_LIST_ID']
 
 # For Live A.Net Account
-ANET_API_LOGIN_ID = ENV['ANET_API_LOGIN_ID'] || "7932FsrFV"
-ANET_TRANSACTION_KEY = ENV['ANET_TRANSACTION_KEY'] || "6Mn7b5HhAk5842pq"
+ANET_API_LOGIN_ID = ENV['ANET_API_LOGIN_ID']
+ANET_TRANSACTION_KEY = ENV['ANET_TRANSACTION_KEY']
 ANET_MODE = :test
 ANET_ALLOW_DUPLICATE_TRANSACTIONS = false
