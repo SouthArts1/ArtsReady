@@ -4,7 +4,7 @@ describe HomeController do
 
   describe "GET 'index'" do
     it "should be successful" do
-      article = Factory.create(:article)
+      article = FactoryGirl.create(:article)
       controller.stub(:featured_articles).and_return([article])
       get 'index'
       response.should be_success

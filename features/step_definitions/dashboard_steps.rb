@@ -1,8 +1,8 @@
 Given /^a user with an urgent to do$/ do
   #email = 'user@test.host'
   password = 'password'
-  @current_user = Factory.create(:user, :password => password)
-  @todo = Factory.create(:todo, :user => @current_user)
+  @current_user = FactoryGirl.create(:user, :password => password)
+  @todo = FactoryGirl.create(:todo, :user => @current_user)
   login(@current_user.email, password)
 end
 

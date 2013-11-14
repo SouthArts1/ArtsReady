@@ -7,20 +7,20 @@ Given /^I (?:am|should be) in crisis mode$/ do
 end
 
 And /^I have a Battle Buddy(?: with a name of "(.*)")?$/i do |name|
-  org = Factory.create(:organization, :name => name || "Default Org")
-  Factory.create(:battle_buddy_request,
+  org = FactoryGirl.create(:organization, :name => name || "Default Org")
+  FactoryGirl.create(:battle_buddy_request,
     :organization => @current_user.organization,
     :battle_buddy => org,
     :accepted => true)
-  Factory.create(:battle_buddy_request,
+  FactoryGirl.create(:battle_buddy_request,
     :organization => org,
     :battle_buddy => @current_user.organization,
     :accepted => true)
 end
 
 And /^I have a pending Battle Buddy request$/i do
-  org = Factory.create(:organization)
-  Factory.create(:battle_buddy_request,
+  org = FactoryGirl.create(:organization)
+  FactoryGirl.create(:battle_buddy_request,
     :organization => org,
     :battle_buddy => @current_user.organization,
     :accepted => false)

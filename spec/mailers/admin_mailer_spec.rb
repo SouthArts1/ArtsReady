@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe AdminMailer do
   describe "review_public" do
-    let(:article) { Factory.create(:public_article) }
-    let(:admin) { Factory.create(:sysadmin) }
+    let(:article) { FactoryGirl.create(:public_article) }
+    let(:admin) { FactoryGirl.create(:sysadmin) }
     let(:mail) { AdminMailer.review_public(article,admin) }
 
     it "renders the headers" do

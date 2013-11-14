@@ -5,8 +5,8 @@ describe TodoNote do
   it { should belong_to(:user) }
   
   context 'given an article' do
-    let(:article) { Factory.create(:article) }
-    subject { Factory.build(:todo_note, :article => article) }
+    let(:article) { FactoryGirl.create(:article) }
+    subject { FactoryGirl.build(:todo_note, :article => article) }
 
     it 'should initialize message and user from the article' do
       subject.save!

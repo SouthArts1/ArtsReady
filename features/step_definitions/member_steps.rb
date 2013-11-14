@@ -9,13 +9,13 @@ Given /^a visitor$/ do
 end
 
 Given /^a member with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
-  Factory.create(:user, :email => email, :password => password)
+  FactoryGirl.create(:user, :email => email, :password => password)
 end
 
 Given /^(?:I am signed in as )?a (?:user|reader)$/ do
   #email = 'user@test.host'
   password = 'password'
-  @current_user = Factory.create(:user, :password => password)
+  @current_user = FactoryGirl.create(:user, :password => password)
 
   login(@current_user.email,password)
 end
@@ -23,7 +23,7 @@ end
 Given /^an executive$/ do
   email = 'executive@test.host'
   password = 'password'
-  @current_user = Factory.create(:executive, :email => email, :password => password)
+  @current_user = FactoryGirl.create(:executive, :email => email, :password => password)
 
   login(email,password)
 end
@@ -31,7 +31,7 @@ end
 Given /^(?:I (?:am|have) signed in as )?a manager$/ do
   email = 'manager@test.host'
   password = 'password'
-  @current_user = Factory.create(:manager, :email => email, :password => password)
+  @current_user = FactoryGirl.create(:manager, :email => email, :password => password)
 
   login(email,password)
 end
@@ -39,7 +39,7 @@ end
 Given /^(?:I (?:am|have) signed in as )?an editor$/ do
   email = 'editor@test.host'
   password = 'password'
-  @current_user = Factory.create(:editor, :email => email, :password => password)
+  @current_user = FactoryGirl.create(:editor, :email => email, :password => password)
 
   login(email,password)
 end
@@ -48,15 +48,15 @@ end
 Given /^a crisis (.*)$/ do |role|
   email = 'crisis_user@test.host'
   password = 'password'
-  org = Factory.create(:organization, :name => 'Crisis Organization', :battle_buddy_enabled => true)
-  user = Factory.create(role.to_sym, :email => email, :password => password, :organization => org)
-  Factory.create(:crisis, :user => user, :organization => org )
+  org = FactoryGirl.create(:organization, :name => 'Crisis Organization', :battle_buddy_enabled => true)
+  user = FactoryGirl.create(role.to_sym, :email => email, :password => password, :organization => org)
+  FactoryGirl.create(:crisis, :user => user, :organization => org )
   @current_user = user
   login(email,password)
 end
 
 Given /^I am a member of an unapproved organization with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
-  Factory.create(:new_user, :email => email, :password => password)
+  FactoryGirl.create(:new_user, :email => email, :password => password)
 end
 
 Given /^I am signed in as "([^"]*)"$/ do |email|

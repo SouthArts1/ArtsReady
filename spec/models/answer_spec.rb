@@ -11,10 +11,10 @@ describe Answer do
   
   describe '.pending' do
     it 'includes answers that are neither answered nor skipped' do
-      answered = Factory.create(:answered_answer)
-      skipped = Factory.create(:skipped_answer)
-      pending = Factory.create(:pending_answer)
-      reconsidered = Factory.create(:reconsidered_answer)
+      answered = FactoryGirl.create(:answered_answer)
+      skipped = FactoryGirl.create(:skipped_answer)
+      pending = FactoryGirl.create(:pending_answer)
+      reconsidered = FactoryGirl.create(:reconsidered_answer)
       Answer.where(['id NOT IN (?)', [answered, skipped, pending, reconsidered]]).destroy_all
       
       Answer.pending.should == [pending, reconsidered]
@@ -22,7 +22,7 @@ describe Answer do
   end
   
   context "after initial creation" do
-    subject { Factory.create(:answer) }
+    subject { FactoryGirl.create(:answer) }
     
     specify {subject.assessment_id.should_not be_nil}
     specify {subject.question_id.should_not be_nil}
@@ -35,7 +35,7 @@ describe Answer do
   context "valid answer" do
     it "should be valid" do
       pending
-      answer = Factory.create(:answer)
+      answer = FactoryGirl.create(:answer)
       answer.priority='critical'
       answer.preparedness='ready'
       answer.should be_valid
@@ -43,17 +43,17 @@ describe Answer do
   end
   
   context "with no action items" do
-    let(:question) { Factory.create(:question) }
+    let(:question) { FactoryGirl.create(:question) }
     it "should not create any todos" do
       Todo.count.should be_zero
     end
   end
 
   context "with one action item" do
-    let(:question) { Factory.create(:question, :action_items => [Factory.create(:action_item)]) }
+    let(:question) { FactoryGirl.create(:question, :action_items => [FactoryGirl.create(:action_item)]) }
     it "should create one todo" do
       pending
-      expect {Answer.create(:preparedness => 'not ready', :priority => 'critical', :organization => Factory.create(:organization), :question => question) }.to change { Todo.count }.by(1)
+      expect {Answer.create(:preparedness => 'not ready', :priority => 'critical', :organization => FactoryGirl.create(:organization), :question => question) }.to change { Todo.count }.by(1)
     end
   end
   
