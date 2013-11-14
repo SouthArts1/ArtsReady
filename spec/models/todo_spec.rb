@@ -57,7 +57,7 @@ describe Todo do
   
   it "should accept a review date" do
     todo = Factory.build(:todo)
-    todo.update_attribute(:review_on, Date.new).should be_true
+    todo.update_attribute(:review_on, Date.yesterday).should be_true
   end
   
   context ".nearing_due_date" do
