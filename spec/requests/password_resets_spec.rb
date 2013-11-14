@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "PasswordResets" do
   it "emails user when requesting password reset" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     visit sign_in_path
     click_link "password"
     fill_in "Email", :with => user.email
@@ -23,7 +23,7 @@ describe "PasswordResets" do
   end
 
   it "updates the user password when confirmation matches" do
-    user = Factory.create(:user, :password_reset_token => "something", :password_reset_sent_at => 1.hour.ago)
+    user = FactoryGirl.create(:user, :password_reset_token => "something", :password_reset_sent_at => 1.hour.ago)
     visit edit_password_reset_path(user.password_reset_token)
     fill_in "Password", :with => "foobar"
     click_button "Update Password"
@@ -35,7 +35,7 @@ describe "PasswordResets" do
   end
 
   it "reports when password token has expired" do
-    user = Factory.create(:user, :password_reset_token => "something", :password_reset_sent_at => 5.days.ago)
+    user = FactoryGirl.create(:user, :password_reset_token => "something", :password_reset_sent_at => 5.days.ago)
     visit edit_password_reset_path(user.password_reset_token)
     fill_in "Password", :with => "foobar"
     fill_in "Password confirmation", :with => "foobar"

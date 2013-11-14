@@ -5,8 +5,8 @@ describe TodosHelper do
     let(:rendered) { helper.todo_note_message(note) }
 
     context '(given a note with an article)' do
-      let(:note) { Factory.create(:todo_note, :article => article) }
-      let(:article) { Factory.create(:article) }
+      let(:note) { FactoryGirl.create(:todo_note, :article => article) }
+      let(:article) { FactoryGirl.create(:article) }
 
       it 'links to the article' do
         rendered.should have_selector(
@@ -15,7 +15,7 @@ describe TodosHelper do
     end
 
     context '(given a note with no article)' do
-      let(:note) { Factory.create(:todo_note) }
+      let(:note) { FactoryGirl.create(:todo_note) }
 
       it 'renders the text' do
         rendered.should_not have_selector('a')

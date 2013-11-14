@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe AnswersController do
   describe 'update' do
-    let(:answer) { Factory.create(:answer) }
+    let(:answer) { FactoryGirl.create(:answer) }
     let(:answer_params) { {} }
     before do
       controller.stubs :authenticate!

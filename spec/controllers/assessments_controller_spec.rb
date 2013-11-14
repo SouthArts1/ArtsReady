@@ -10,8 +10,8 @@ describe AssessmentsController do
     end
     
     context '(authorized)' do
-      let(:organization) { Factory.create(:organization) }
-      let(:user) { Factory.create(:editor, :organization => organization) }
+      let(:organization) { FactoryGirl.create(:organization) }
+      let(:user) { FactoryGirl.create(:editor, :organization => organization) }
       
       context '(no existing assessment)' do
         let(:assessment) { nil }
@@ -22,7 +22,7 @@ describe AssessmentsController do
       
       context '(assessment in progress)' do
         let(:assessment) {
-          Factory.create(:assessment,
+          FactoryGirl.create(:assessment,
             :organization => user.organization)
 
         }
@@ -32,7 +32,7 @@ describe AssessmentsController do
       
       context '(assessment complete)' do
         let(:assessment) {
-          Factory.create(:completed_assessment,
+          FactoryGirl.create(:completed_assessment,
             :organization => user.organization,
             :has_exhibits => true)
         }
@@ -53,9 +53,9 @@ describe AssessmentsController do
     before { get :show, show_params }
 
     context '(authorized)' do
-      let(:assessment) { Factory.create(:assessment) }
+      let(:assessment) { FactoryGirl.create(:assessment) }
       let(:user) { 
-        Factory.create(:reader, :organization => assessment.organization)
+        FactoryGirl.create(:reader, :organization => assessment.organization)
       }
 
       context '(CSV)' do
@@ -68,7 +68,7 @@ describe AssessmentsController do
     end
 
     context '(no assessment yet)' do
-      let(:user) { Factory.create(:reader) }
+      let(:user) { FactoryGirl.create(:reader) }
 
       it { should redirect_to new_assessment_path }
     end

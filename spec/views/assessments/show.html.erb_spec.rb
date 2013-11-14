@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "assessments/show" do
-  let!(:questions) { 2.times { Factory.create(:question) } }
-  let(:assessment) { Factory.create(:assessment) }
+  let!(:questions) { 2.times { FactoryGirl.create(:question) } }
+  let(:assessment) { FactoryGirl.create(:assessment) }
 
   before do
     view.stubs(:current_org).returns(assessment.organization)

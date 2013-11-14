@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe OrganizationMailer do
   describe "sign_up" do
-    let(:organization) { Factory.create(:new_organization, :users => [Factory.create(:new_user)]) }
+    let(:organization) { FactoryGirl.create(:new_organization, :users => [FactoryGirl.create(:new_user)]) }
     subject(:mail) { OrganizationMailer.sign_up(organization) }
 
     it "renders the headers" do
@@ -15,7 +15,7 @@ describe OrganizationMailer do
   end
 
   describe "approved" do
-    let(:organization) { Factory.create(:organization, :users => [Factory.create(:user)]) }
+    let(:organization) { FactoryGirl.create(:organization, :users => [FactoryGirl.create(:user)]) }
     subject(:mail) { OrganizationMailer.approved(organization) }
 
     it "renders the headers" do
@@ -29,11 +29,11 @@ describe OrganizationMailer do
 
   describe "battle buddy dissolution" do
     let(:target_organization) {
-      Factory.create(:organization,
-                     :users => [Factory.create(:user)])
+      FactoryGirl.create(:organization,
+                     :users => [FactoryGirl.create(:user)])
     }
     let(:requesting_organization) {
-      Factory.create(:organization)
+      FactoryGirl.create(:organization)
     }
     let(:user) { target_organization.users.first }
     subject(:mail) {
@@ -46,11 +46,11 @@ describe OrganizationMailer do
 
   describe "battle buddy invitation" do
     let(:target_organization) {
-      Factory.create(:organization,
-                     :users => [Factory.create(:user)])
+      FactoryGirl.create(:organization,
+                     :users => [FactoryGirl.create(:user)])
     }
     let(:requesting_organization) {
-      Factory.create(:organization)
+      FactoryGirl.create(:organization)
     }
     let(:user) { target_organization.users.first }
     subject(:mail) {

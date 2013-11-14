@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "shared/_settings_navbar" do
-  let(:current_user) { Factory.create(:user) }
+  let(:current_user) { FactoryGirl.create(:user) }
   let(:current_org) { current_user.organization }
 
   before do
@@ -12,7 +12,7 @@ describe "shared/_settings_navbar" do
 
   context 'given archived assessments' do
     before do
-      2.times { Factory.create(:completed_assessment, :organization => current_org) }
+      2.times { FactoryGirl.create(:completed_assessment, :organization => current_org) }
       
       render
     end
