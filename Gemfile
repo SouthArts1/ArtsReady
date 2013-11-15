@@ -63,6 +63,7 @@ group :test do
   gem 'launchy'    # So you can do Then show me the page
   gem 'cucumber-rails'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'shoulda'
   gem 'timecop'
   gem 'simplecov'
