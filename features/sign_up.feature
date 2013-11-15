@@ -39,3 +39,9 @@ Feature: New organization registration
      | Confirm Password | password          |
     And I press "Create Organization"
     Then I should see error messages
+
+  @javascript
+  Scenario: Sign up with discount code
+    Given a 50% discount code exists
+    When I sign up using the discount code
+    Then I should be signed in
