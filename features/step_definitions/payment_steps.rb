@@ -27,3 +27,44 @@ When /^I fill out and submit the billing form$/ do
 
   press 'Submit Payment'
 end
+
+Given /^a 50% discount code exists$/ do
+  @discount_code = FactoryGirl.create(:discount_code,
+    discount_code: 'HALF',
+    deduction_value: 50, deduction_type: 'percentage',
+    apply_to_first_year: true
+  )
+end
+
+When /^I sign up using the discount code$/ do
+  visit sign_up_path
+
+  fill_in_fields(
+    'Name' => 'My Org',
+    'Address' => '100 Test St',
+    'City' => 'New York',
+    'State' => 'NY',
+    'Zipcode' => '10001',
+    'First Name' => 'New',
+    'Last Name' => 'User',
+    'Email' => 'newuser@test.host',
+    'Password' => 'password',
+    'Confirm Password' => 'password'
+  )
+  select '02 Organization - Non-profit', from: 'Organizational Status *'
+  check 'terms'
+
+  click_button 'Create Organization'
+
+  expect(current_path).to eq(new_billing_path)
+  expect(page.find('#starting_amount_display').text).to eq('$300.00'),
+    "subscription prices have changed, please update tests"
+
+  fill_in 'discount_code', with: 'HALF'
+  click_button 'Apply my discount code!'
+  
+  #page.find '#applied', visible: true # wait for response
+  page.find('#starting_amount_display', text: '$150.00')
+
+  step %{I fill out and submit the billing form}
+end

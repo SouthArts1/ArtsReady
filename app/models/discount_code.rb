@@ -2,6 +2,7 @@ class DiscountCode < ActiveRecord::Base
   has_many :payments
 
   validates_numericality_of :redemption_max
+  validates_presence_of :active_on, :expires_on
 
   def total_deduction
     if self.deduction_type == "percentage"
