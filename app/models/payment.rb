@@ -153,8 +153,12 @@ class Payment < ActiveRecord::Base
       return false
     end
   end
-  
-  def create_and_process_subscription
+
+  # These would be validations in any ordinary Rails object, but
+  # I guess the Rails developer who wrote them wasn't familiar with
+  # the concept. Anyway, I'm leaving them as non-validations in case
+  # there was some reason.
+  def validate_for_creation
     return false if self.id
     return false if !Organization.exists?(self.organization_id)
     return false if self.regular_amount_in_cents.nil? || self.starting_amount_in_cents.nil?
@@ -167,6 +171,12 @@ class Payment < ActiveRecord::Base
       return false
     end
     
+    return true
+  end
+  
+  def create_and_process_subscription
+    return false if !validate_for_creation
+
     self.start_date = Time.now + 1.day unless self.start_date
     
     arb_sub = build_subscription_object()
