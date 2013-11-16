@@ -50,6 +50,23 @@ class Payment < ActiveRecord::Base
     return expiry_month.to_s + expiry_year.to_s
   end
   
+  def cancel
+    if cancel_subscription
+      Payment.skip_callbacks = true
+      if self.update_attributes({ active: false, end_date: Time.now })
+        Payment.skip_callbacks = false
+        return true
+      else
+        Payment.skip_callbacks = false
+        return false
+      end
+    else
+      return false
+    end
+  end
+
+  private
+
   def build_subscription_object()
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
@@ -137,21 +154,6 @@ class Payment < ActiveRecord::Base
       zip: (self.billing_zipcode rescue self.organization.zipcode),
       country: "United States"
     }
-  end
-  
-  def cancel
-    if self.cancel_subscription
-      Payment.skip_callbacks = true
-      if self.update_attributes({ active: false, end_date: Time.now })
-        Payment.skip_callbacks = false
-        return true
-      else
-        Payment.skip_callbacks = false
-        return false
-      end
-    else
-      return false
-    end
   end
 
   # These would be validations in any ordinary Rails object, but
