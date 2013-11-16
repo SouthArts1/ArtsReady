@@ -8,5 +8,5 @@ Before do
 end
 
 After do
-  Payment.find_each(&:cancel_subscription)
+  Payment.find_each(&:cancel)
 end
