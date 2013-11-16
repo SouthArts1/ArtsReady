@@ -206,25 +206,29 @@ class Payment < ActiveRecord::Base
       return false
     end
     
-    if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
-      arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
-      Rails.logger.debug("ARB TRAN: #{arb_tran.inspect}")
-      # fire away!
-      response = arb_tran.create(arb_sub)
-      # response logging
-      if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
-        self.arb_id = response.subscription_id
-        self.organization.update_attribute(:active, true)
-        self.active = true
-        return true
-      else
-        return false
-      end
-    else
-      return false
-    end
+    return false unless aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
+    # ARB doesn't support free subscriptions, so we bypass it in that case
+    return false unless free_after_first_year? || create_arb_transaction(arb_sub)
+
+    organization.update_attribute(:active, true)
+    self.active = true
   end
   
+  def create_arb_transaction(arb_sub)
+    arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
+    Rails.logger.debug("ARB TRAN: #{arb_tran.inspect}")
+
+    response = arb_tran.create(arb_sub)
+
+    success = response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
+    self.arb_id = response.subscription_id if success
+    success
+  end
+
+  def free_after_first_year?
+    regular_amount_in_cents == 0
+  end
+
   def payment_changed?
     Rails.logger.debug("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
     if Payment.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"

@@ -28,11 +28,12 @@ When /^I fill out and submit the billing form$/ do
   press 'Submit Payment'
 end
 
-Given /^a 50% discount code exists$/ do
+Given /^a (\d+)% discount code exists$/ do |percentage|
   @discount_code = FactoryGirl.create(:discount_code,
-    discount_code: 'HALF',
-    deduction_value: 50, deduction_type: 'percentage',
-    apply_to_first_year: true
+    discount_code: 'PERCENT',
+    deduction_value: percentage, deduction_type: 'percentage',
+    recurring_deduction_value: percentage, recurring_deduction_type: 'percentage',
+    apply_to_first_year: true, apply_to_post_first_year: true
   )
 end
 
@@ -60,11 +61,8 @@ When /^I sign up using the discount code$/ do
   expect(page.find('#starting_amount_display').text).to eq('$300.00'),
     "subscription prices have changed, please update tests"
 
-  fill_in 'discount_code', with: 'HALF'
+  fill_in 'discount_code', with: 'PERCENT'
   click_button 'Apply my discount code!'
   
-  #page.find '#applied', visible: true # wait for response
-  page.find('#starting_amount_display', text: '$150.00')
-
   step %{I fill out and submit the billing form}
 end

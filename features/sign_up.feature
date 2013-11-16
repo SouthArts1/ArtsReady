@@ -45,3 +45,9 @@ Feature: New organization registration
     Given a 50% discount code exists
     When I sign up using the discount code
     Then I should be signed in
+
+  @javascript
+  Scenario: Sign up with a 100% discount code
+    Given a 100% discount code exists
+    When I sign up using the discount code
+    Then I should be signed in
