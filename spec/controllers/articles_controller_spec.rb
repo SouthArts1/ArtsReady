@@ -137,7 +137,7 @@ describe ArticlesController do
 
 
     it "create action should render new template when model is invalid" do
-      Article.any_instance.stubs(:valid?).returns(false)
+      Article.any_instance.stub(:valid?).and_return(false)
       post :create, :article => {}
       response.should render_template(:new)
     end
@@ -169,7 +169,7 @@ describe ArticlesController do
     end
 
     it "update action should redirect when model is valid" do
-      Article.any_instance.stubs(:valid?).returns(true)
+      Article.any_instance.stub(:valid?).and_return(true)
       article = FactoryGirl.create(:article,
         :organization => organization, :user => user)
       put :update, :id => article.id
