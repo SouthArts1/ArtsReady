@@ -333,6 +333,8 @@ class Payment < ActiveRecord::Base
   end
   
   def cancel_subscription
+    return true if !arb_id
+
     status_arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
     status_response = status_arb_tran.get_status(self.arb_id)
     if status_response.success?

@@ -66,3 +66,12 @@ When /^I sign up using the discount code$/ do
   
   step %{I fill out and submit the billing form}
 end
+
+Then /^I can cancel my subscription$/ do
+  click_link 'Settings'
+  click_link 'Billing'
+  click_link 'Update Billing/Payment Information'
+  click_link 'I would like to cancel my automated billing entirely.'
+
+  expect(page).to have_content 'not subscribed for automatic renewal'
+end

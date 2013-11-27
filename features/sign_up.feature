@@ -25,6 +25,8 @@ Feature: New organization registration
     When I fill out and submit the billing form
     Then I should be on the dashboard
 
+    And I can cancel my subscription
+
   Scenario: A visitor tries to sign up without entering any information
     When I go to the sign up page
     And I press "Create Organization"
@@ -51,3 +53,5 @@ Feature: New organization registration
     Given a 100% discount code exists
     When I sign up using the discount code
     Then I should be signed in
+
+    And I can cancel my subscription
