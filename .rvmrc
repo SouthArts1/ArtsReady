@@ -1,1 +1,1 @@
-rvm --create 1.9.2-p180@artsready
+rvm --create 1.9.2@artsready
