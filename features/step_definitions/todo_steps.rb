@@ -5,6 +5,11 @@ module TodoStepHelper
       click_link 'Details'
     end
   end
+
+  def my_todo_emails
+    unread_emails_for(@current_user.email).
+      select { |message| message.subject =~ /to-?do/i }
+  end
 end
 World(TodoStepHelper)
 
@@ -66,4 +71,44 @@ end
 Then /^the "([^"]*)" todo's history should be preserved$/ do |label|
   go_to_todo(label)
   find('.log').should have_content('to Complete') # status changed...
+end
+
+Given /^I have an overdue todo item$/ do
+  @current_user.organization.todos.create!(
+    :description => 'Overtodue',
+    :due_on => Date.yesterday,
+    :user => @current_user,
+    :critical_function => 'people',
+    :priority => 'critical'
+  )
+end
+
+Then /^I should receive todo reminders on Tuesdays$/ do
+  reset_mailer
+
+  Timecop.travel(Date.parse('next Tuesday'))
+  step %{the scheduled tasks have run} # Reminder.todos_nearly_due
+
+  emails = my_todo_emails
+  emails.last.text_part.body.should =~ /Overtodue/
+
+  reset_mailer
+
+  Timecop.travel(Date.parse('next Monday'))
+  step %{the scheduled tasks have run}
+
+  my_todo_emails.should be_empty
+end
+
+When /^I complete the overdue todo item$/ do
+  step %{I complete the "Overtodue" todo}
+end
+
+Then /^I should not receive todo reminders$/ do
+  reset_mailer
+
+  Timecop.travel(Date.parse('next Tuesday'))
+  step %{the scheduled tasks have run} # Reminder.todos_nearly_due
+
+  my_todo_emails.should be_empty
 end

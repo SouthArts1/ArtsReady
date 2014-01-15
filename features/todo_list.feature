@@ -35,6 +35,14 @@ Feature: Todo list
     Then I should see "some task" within ".item"
     And I should see "Start" within ".action"
 
+  Scenario: A user is reminded about overdue todos
+    Given I am signed in as a reader
+    And I have an overdue todo item
+    Then I should receive todo reminders on Tuesdays
+
+    When I complete the overdue todo item
+    Then I should not receive todo reminders
+
   Scenario: Add a todo from a re-assessment
     Given a question exists with a description of "org chart"
     And the following action item exists:

@@ -4,8 +4,12 @@ task :cron => :environment do
   Assessment.create_reassessment_todos
   puts "Sending billing notifications"
   Arbly::Checker.start
-  puts "Sending todo reminders"
-  Reminder.todos_nearly_due
+
+  if Date.today.tuesday?
+    puts "Sending todo reminders"
+    Reminder.todos_nearly_due
+  end
+
   puts "done."
 end
 
