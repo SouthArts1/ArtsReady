@@ -110,4 +110,21 @@ describe Organization do
       Article.find_by_id(public_article.id).organization_id.should be_nil
     end
   end
+
+  context "an org's battle buddies list" do
+    let(:my_organization) { FactoryGirl.create(:organization) }
+    let(:good_org) { FactoryGirl.create(:organization) }
+    let(:bad_org) { FactoryGirl.create(:deactivated_org) }
+
+    let!(:good_buddy) { FactoryGirl.create(:battle_buddy_request,
+                         :organization_id => my_organization.id,
+                         :battle_buddy_id => good_org.id, :accepted => true) }
+    let!(:bad_buddy) { FactoryGirl.create(:battle_buddy_request,
+                         :organization_id => my_organization.id,
+                         :battle_buddy_id => bad_org.id, :accepted => true) }
+
+    it "only includes active orgs" do
+     expect(my_organization.battle_buddies).to eq([good_org])
+    end
+  end
 end

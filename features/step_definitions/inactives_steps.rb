@@ -12,3 +12,12 @@ Then /^I cannot sign in$/ do
     '//*', :text => 'has been disabled by an administrator'
   )
 end
+
+Given /^([^"]*) is deactivated$/ do |name|
+  Organization.find_by_name(name).update_attribute(:active, false)
+end
+
+Given /^that (.*)(?:'|'s) organization has been deactivated$/ do |model|
+  model = model.capitalize.constantize
+  model.last.organization.update_attribute(:active, false)
+end

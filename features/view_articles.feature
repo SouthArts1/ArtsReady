@@ -47,7 +47,6 @@ Feature: View articles
 
     When I go to the library
     And I follow "People Resources (1)"
-    #And I debug
     Then I should not see "bad stuff"
 
   Scenario: Articles written by a buddy should have the buddy icon
@@ -80,3 +79,26 @@ Feature: View articles
       |  On critical list  |
       |  false             |
     Then I should see no article icons
+
+  Scenario: Featured articles should be featured
+    Given I am signed in as a reader
+    And the following public article exists:
+      | title          | featured |
+      | important info | true     |
+    When I go to the root page
+    And I follow "Library"
+    Then I should see "important info"
+
+  Scenario: Deactivated orgs should not be featured on the readiness library
+    Given I am signed in as a reader
+    And the following deactivated org exists:
+      | name   | active |
+      | BadOrg | false  |
+    And the following public article exists:
+      | title     | featured |
+      | Bad stuff | true     |
+    And that article belongs to the organization BadOrg
+    When I go to the root page
+    And I follow "Library"
+    Then I should not see "Bad stuff"
+

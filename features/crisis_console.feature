@@ -41,4 +41,15 @@ Feature: Crisis console
     Then I should see "Crisis Console"
     And I am on the profile page
     Then I should see "Crisis Console"
-  
+
+  Scenario: Crises can't be shared with deactivated orgs
+    Given I am signed in as a manager
+    And I am on the dashboard page
+    And I have a Battle Buddy with a name of "GoodOrg"
+    And I have a Battle Buddy with a name of "BadOrg"
+    And BadOrg is deactivated
+    And I follow "Activate"
+    And I choose "crisis[visibility]"
+    Then I should see "GoodOrg"
+    And I should not see "BadOrg"
+

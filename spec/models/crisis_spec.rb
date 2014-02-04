@@ -89,4 +89,17 @@ describe Crisis do
       end
     end
   end
+
+  describe 'of_active_orgs' do
+    let(:active_org) { FactoryGirl.create(:organization) }
+    let!(:active_org_crisis) {
+      FactoryGirl.create(:crisis, :organization => active_org) }
+    let(:deactive_org) { FactoryGirl.create(:deactivated_org) }
+    let!(:deactive_org_crisis) {
+      FactoryGirl.create(:crisis, :organization => deactive_org) }
+
+    it 'accepts crises of active orgs' do
+      expect(Crisis.of_active_orgs).to eq([active_org_crisis])
+    end
+  end
 end

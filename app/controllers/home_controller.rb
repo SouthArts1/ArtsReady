@@ -12,6 +12,7 @@ class HomeController < ApplicationController
   def readiness_library
     @critical_function_counts = Article.for_public.group(:critical_function).count
     @public_articles = Article.for_public
+    @featured = Article.featured.of_active_orgs
   end
 
   def public_articles

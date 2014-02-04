@@ -8,13 +8,28 @@ Feature: Homepage
     When I go to the root page
     Then I should be on the home page
 
-  @todo    
   Scenario: A visitor can see featured library content
     Given a visitor
+    And the following public article exists:
+      | title          | featured |
+      | important info | true     |
     When I go to the root page
-    Then I should see "Library"
-    # And I should see at least one featured article
-    
+    And I follow "Library"
+    Then I should see "important info"
+
+  Scenario: Deactivated orgs should not be featured on the readiness library
+    Given a visitor
+    And the following deactivated org exists:
+      | name   | active |
+      | BadOrg | false  |
+    And the following public article exists:
+      | title     | featured |
+      | Bad stuff | true     |
+    And that article belongs to the organization BadOrg
+    When I go to the root page
+    And I follow "Library"
+    Then I should not see "Bad stuff"
+
   Scenario: A visitor can register
     Given a visitor
     When I go to the root page

@@ -29,10 +29,6 @@ Then /^I should(?: still)? be able to view the "([^"]*)" article$/ do |title|
   page.should have_content(title)
 end
 
-Given /^([^"]*) is deactivated$/ do |name|
-  Organization.find_by_name(name).update_attribute(:active, false)
-end
-
 Then /^the "(.*)" article should(?: still)? be in the public library$/ do |title|
   be_on 'the public library page'
   fill_in 'term', :with => title
@@ -54,3 +50,7 @@ Then /^I should see no article icons$/ do
   page.should_not have_selector(".icon img[alt='Critical']")
 end
 
+Given /^that article belongs to the organization ([^"]*)$/ do |org|
+  org_id = Organization.find_by_name(org).id
+  Article.last.update_attribute(:organization_id, org_id)
+end
