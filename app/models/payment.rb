@@ -286,7 +286,7 @@ class Payment < ActiveRecord::Base
           return false
         end
       else
-        self.cancel_subscription
+        cancel_subscription
         arb_sub = build_refresh_subscription_object(self)
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
