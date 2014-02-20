@@ -222,6 +222,16 @@ class Payment < ActiveRecord::Base
 
     response = arb_tran.create(arb_sub)
 
+    if !response.success?
+      Airbrake.notify_or_ignore(nil,
+        error_message: 'ARB response',
+        parameters: {
+          response: response.inspect,
+          response_response: (response.response rescue nil).inspect
+        }
+      )
+    end
+
     success = response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
     self.arb_id = response.subscription_id if success
     success
