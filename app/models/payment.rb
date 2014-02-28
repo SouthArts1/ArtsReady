@@ -226,7 +226,7 @@ class Payment < ActiveRecord::Base
       Airbrake.notify_or_ignore(nil,
         error_message: 'ARB response',
         parameters: {
-          response: response.inspect,
+          response: response.inspect.gsub(/([0-9]{2})[0-9]{10}[0-9]*/, '0x\1L0NGNUMB3R'),
           response_response: (response.response rescue nil).inspect
         }
       )
