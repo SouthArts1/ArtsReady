@@ -9,21 +9,45 @@ class Payment < ActiveRecord::Base
   before_update :update_arb_subscription, :unless => :skip_callbacks
   
   validates_presence_of :organization_id
-  
+
+  def self.build_provisional(attrs = {})
+    new(attrs).tap { |payment| payment.make_provisional }
+  end
+
+  def make_provisional
+    raise ArgumentError if !organization
+
+    user = organization.users.first
+
+    self.attributes = {
+      starting_amount_in_cents: 30000,
+      regular_amount_in_cents: 22500,
+      start_date: Time.now,
+      active: 1,
+      billing_first_name: user.first_name, billing_last_name: user.last_name,
+      billing_address: organization.address, billing_city: organization.city,
+      billing_state: organization.state, billing_zipcode: organization.zipcode,
+      billing_email: 'admin@artsready.org',
+      number: "4007000000027",
+      expiry_month: "02", expiry_year: Date.today.year + 1,
+      ccv: "123", payment_type: 'cc'
+    }
+  end
+
   def is_active?
     return self.active?
   end
-  
+
   def days_left_until_rebill
     return 0 if !self.start_date
     return (((self.start_date) - (Time.now)).to_i / (24 * 60 * 60)) if self.start_date > Time.now
     return (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
   end
-  
+
   def validate_discount_code!
     start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
     regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
-    
+
     d = self.discount_code
     if d && d.is_valid?
       if d.deduction_type == "percentage"

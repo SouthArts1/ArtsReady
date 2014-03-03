@@ -223,5 +223,22 @@ describe Payment do
       @payment.is_active? == false
     end
   end
+
+  describe 'build_provisional' do
+    before do
+      Timecop.travel('3400 AD')
+    end
+
+    let(:user) { FactoryGirl.build_stubbed(:user, organization: nil) }
+    let(:org) { FactoryGirl.build_stubbed(:organization, users: [user]) }
+
+    subject(:payment) { Payment.build_provisional(organization: org) }
+
+    it { should_not be_persisted }
+
+    it 'has a future expiration date' do
+      expect(payment.expiry_year.to_i).to be > 3400
+    end
+  end
 end
   
