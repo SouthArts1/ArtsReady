@@ -390,8 +390,6 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  private
-
   def build_transaction(klass, include_subscription_info = false)
     klass.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE).tap do |transaction|
       if ANET_ALLOW_DUPLICATE_TRANSACTIONS
