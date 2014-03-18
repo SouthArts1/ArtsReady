@@ -47,7 +47,7 @@ group :test, :development do
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'forgery'
-  gem 'ruby-debug-base19x', :require => 'ruby-debug'
+  #gem 'ruby-debug-base19x', :require => 'ruby-debug'
 end
 
 group :development do
