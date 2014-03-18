@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+ruby '1.9.3'
+
 gem 'rails', '~> 3.2.3'
 gem 'mysql2', '>= 0.3.11'
 gem 'jquery-rails'
@@ -45,7 +47,7 @@ group :test, :development do
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'forgery'
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'ruby-debug-base19x', :require => 'ruby-debug'
 end
 
 group :development do
