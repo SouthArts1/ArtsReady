@@ -57,7 +57,7 @@ end
 
 group :test do
   gem 'mocha', :require => 'mocha/api'
-  gem 'factory_girl', '~> 2.5.1'
+  gem 'factory_girl', '~> 2.5'
   gem 'factory_girl_rails'
   gem 'database_cleaner', :require => false
   gem 'launchy'    # So you can do Then show me the page
