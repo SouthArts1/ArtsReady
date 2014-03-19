@@ -5,10 +5,11 @@ FactoryGirl.define do
 
     billing_first_name 'Bill'
     billing_last_name "Lastname"
-    billing_address '100_Test_St'
-    billing_city 'New_York'
+    billing_address '100 Test St'
+    billing_city 'New York'
     billing_state 'NY'
     billing_zipcode '10001'
+    billing_email 'bill_lastname@example.com'
 
     payment_method 'Credit Card'
     payment_type 'cc' # why both?!?

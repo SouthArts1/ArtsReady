@@ -56,7 +56,12 @@ FactoryGirl.define do
       name "Crisis Organization"
       crises
     end
-    
+
+    factory :paid_organization do
+      after_create do |org|
+        org.payments << FactoryGirl.build(:payment)
+      end
+    end
   end
   
 end

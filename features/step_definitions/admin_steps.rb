@@ -46,3 +46,13 @@ Then /^the organization "(.*)" should be deleted$/ do |name|
   page.should_not have_content(name)
 end
 
+Then /^I should be able to view the organization's billing info$/ do
+  click_on 'Manage Organizations'
+  click_on 'Edit'
+  click_on 'Billing'
+
+  expect(page).to have_content 'Test Organization'
+  expect(page).to have_content 'Bill Lastname'
+  expect(page).to have_content '100 Test St'
+  expect(page).to have_content 'New York, NY 10001'
+end
