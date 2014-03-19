@@ -45,11 +45,7 @@
 				<%= "#{@payment.billing_city rescue ""}, #{@payment.billing_state rescue ""} #{@payment.billing_zipcode rescue ""}" %><br />
         <%= @payment.try(:billing_email) %><br />
 				<br />
-				<% if @payment && @payment.payment_method == "Credit Card" %>
-					Card ending in <%= @payment.payment_number %><br />
-				<% else %>
-					<%= @payment.payment_method rescue "" %> ending in <%= @payment.payment_number rescue "" %>
-				<% end %>
+                                <%= @payment.payment_method %> ending in <%= @payment.payment_number %>
 			</p>
 			<% if @payment.discount_code %>
 				<p>

@@ -55,4 +55,5 @@ Then /^I should be able to view the organization's billing info$/ do
   expect(page).to have_content 'Bill Lastname'
   expect(page).to have_content '100 Test St'
   expect(page).to have_content 'New York, NY 10001'
+  expect(page).to have_content 'Credit Card'
 end
