@@ -6,64 +6,69 @@
   <%= form_for([:admin, @organization]) do |f| %>
     <%= f.hidden_field :active, :value => true %>
     <%= f.submit "Approve" %>
-  <% end unless @organization.active?%>
+  <% end unless @organization.active? %>
   <%= form_for([:admin, @organization]) do |f| %>
     <%= f.hidden_field :active, :value => false %>
     <%= f.submit "Disable" %>
   <% end if @organization.active? %>
   <%= button_to("DELETE", admin_organization_path(@organization),
                 :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
-                :method => :delete) if @organization.deletable? %>
-	<% if @organization.payment && @organization.payment.is_active? %>
-		<%= button_to("Cancel Billing", billing_cancel_path(@organization),
-	                :confirm => "THIS CAN NOT BE UNDONE.",
-	                :method => :delete) %>
-	<% end %>
+                :method  => :delete) if @organization.deletable? %>
+  <% if @organization.payment && @organization.payment.is_active? %>
+    <%= button_to("Cancel Billing", billing_cancel_path(@organization),
+                  :confirm => "THIS CAN NOT BE UNDONE.",
+                  :method  => :delete) %>
+  <% end %>
 </div>
 <div class="grid_12">
-<ul class="top-nav settings">
-  <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
-  <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
-	<li class="active"><%= link_to "Billing", "/admin/organizations/billing/#{@organization.id}" %></li>
-</ul>
+  <ul class="top-nav settings">
+    <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
+    <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
+    <li class="active"><%= link_to "Billing", "/admin/organizations/billing/#{@organization.id}" %></li>
+  </ul>
 </div>
 <div class="grid_8">
   <section>
     <h3>Billing Information:</h3>
-		<% if @payment && @payment.active? %>
-			<p>
-				First billing date: <%= @payment.start_date.strftime("%B %d, %Y") rescue "" %>
-				<br />
-				Next date for billing occurs in  <%= @payment.days_left_until_rebill rescue "" %> days.<br />
-				<br />
-			</p>
-		
-			<p>
-				Billed to:<br />
-				<%= "#{@payment.billing_first_name rescue ""} #{@payment.billing_last_name rescue ""}" %><br />
-				<%= @payment.billing_address rescue "" %><br />
-				<%= "#{@payment.billing_city rescue ""}, #{@payment.billing_state rescue ""} #{@payment.billing_zipcode rescue ""}" %><br />
-        <%= @payment.try(:billing_email) %><br />
-				<br />
-                                <%= @payment.payment_method %> ending in <%= @payment.payment_number %>
-			</p>
-			<% if @payment.discount_code %>
-				<p>
-					Discount Code: "<%= @payment.discount_code.discount_code %>"
-				</p>
-			<% end %>
-			<p>
-				Next billing amount: 
-				<% if @payment && @payment.days_left_until_rebill >= 365 %> 
-					<%= money_from_cents @payment.starting_amount_in_cents rescue "" %>
-				<% else %>
-					<%= money_from_cents @payment.regular_amount_in_cents rescue "" %>
-				<% end %>
-			</p>
-	  </section>
-	<% else %>
-		<p>This organization has not setup their billing yet! <%= link_to "Allow provisionary access for 1 year", "/admin/organizations/allow_provisionary_access/#{@organization.id}" %></p>
-		
-	<% end %>
+    <% if @payment && @payment.active? %>
+      <p>
+        First billing
+        date: <%= @payment.start_date.strftime("%B %d, %Y") rescue "" %>
+        <br/>
+        Next date for billing occurs
+        in  <%= @payment.days_left_until_rebill rescue "" %> days.<br/>
+        <br/>
+      </p>
+
+      <p>
+        Billed to:<br/>
+        <%= "#{@payment.billing_first_name rescue ""} #{@payment.billing_last_name rescue ""}" %>
+        <br/>
+        <%= @payment.billing_address rescue "" %><br/>
+        <%= "#{@payment.billing_city rescue ""}, #{@payment.billing_state rescue ""} #{@payment.billing_zipcode rescue ""}" %>
+        <br/>
+        <%= @payment.try(:billing_email) %><br/>
+        <br/>
+        <%= @payment.payment_method %> ending in <%= @payment.payment_number %>
+      </p>
+      <% if @payment.discount_code %>
+        <p>
+          Discount Code: "<%= @payment.discount_code.discount_code %>"
+        </p>
+      <% end %>
+      <p>
+        Next billing amount:
+        <% if @payment && @payment.days_left_until_rebill >= 365 %>
+          <%= money_from_cents @payment.starting_amount_in_cents rescue "" %>
+        <% else %>
+          <%= money_from_cents @payment.regular_amount_in_cents rescue "" %>
+        <% end %>
+
+      </p>
+    <% else %>
+      <p>This organization has not setup their billing
+        yet! <%= link_to "Allow provisionary access for 1 year", "/admin/organizations/allow_provisionary_access/#{@organization.id}" %></p>
+
+    <% end %>
   </section>
 </div>
