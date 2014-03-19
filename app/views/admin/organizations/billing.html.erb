@@ -51,9 +51,11 @@
         <br/>
         <%= @payment.payment_method %> ending in <%= @payment.payment_number %>
       </p>
-      <% if @payment.discount_code %>
+      <% code = @payment.discount_code %>
+      <% if code %>
         <p>
-          Discount Code: "<%= @payment.discount_code.discount_code %>"
+          Discount code:
+          <%= link_to code.discount_code, [:edit, :admin, code] %>
         </p>
       <% end %>
       <p>

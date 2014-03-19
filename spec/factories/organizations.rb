@@ -62,6 +62,12 @@ FactoryGirl.define do
         org.payments << FactoryGirl.build(:payment)
       end
     end
+
+    factory :paid_organization_with_discount_code do
+      after_create do |org|
+        org.payments << FactoryGirl.build(:payment_with_discount_code)
+      end
+    end
   end
   
 end

@@ -19,5 +19,9 @@ FactoryGirl.define do
     ccv '888'
 
     active true
+
+    factory :payment_with_discount_code do
+      discount_code
+    end
   end
 end

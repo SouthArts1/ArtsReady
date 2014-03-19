@@ -56,4 +56,7 @@ Then /^I should be able to view the organization's billing info$/ do
   expect(page).to have_content '100 Test St'
   expect(page).to have_content 'New York, NY 10001'
   expect(page).to have_content 'Credit Card'
+  expect(page).to have_content 'Discount code: DISCO'
+  expect(page).to have_link('DISCO',
+    href: edit_admin_discount_code_path(DiscountCode.last))
 end
