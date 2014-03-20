@@ -155,7 +155,7 @@ class BillingController < ApplicationController
     
     if @payment.save
       session[:discount_code] = nil
-      redirect_to billing_my_organization_path
+      redirect_to billing_path
     else
       redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again."
     end

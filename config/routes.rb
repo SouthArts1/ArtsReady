@@ -1,6 +1,6 @@
 Artsready::Application.routes.draw do
 
-  match "/billing/my_organization" => "billing#my_organization"
+  match "/billing/my_organization" => "billing#my_organization", as: :billing
   match "/billing/cancel/(:id)" => "billing#cancel", :as => "billing_cancel"
   match "/billing/new/(:code)" => "billing#new", :as => 'billing_new'
   match "/billing/get_discount/(:code)" => "billing#get_discount"
