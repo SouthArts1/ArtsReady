@@ -19,8 +19,13 @@ describe TodosController do
       context '(CSV)' do
         let(:params) { {:format => :csv} }
 
-        it { should assign_to :todos }
-        it { should respond_with_content_type(:csv) }
+        it 'assigns to todos' do
+          expect(assigns[:todos]).to be_present
+        end
+
+        it 'responds with a csv' do
+          expect(response.content_type).to eq('text/csv')
+        end
       end
     end
   end

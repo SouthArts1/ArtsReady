@@ -9,7 +9,10 @@ describe ArchivedAssessmentsController do
     context '(authorized)' do
       let(:user) { Factory.create(:reader) }
       
-      it { should assign_to(:assessments) }
+      it 'assigns to assessments' do
+        expect(assigns(:assessments)).not_to be_nil
+      end
+
       it { should render_template :index }
     end
   end
@@ -26,8 +29,14 @@ describe ArchivedAssessmentsController do
       context '(CSV)' do
         let(:show_params) { {:format => :csv, :id => assessment.id} }
 
-        it { should assign_to :answers }
-        it { should respond_with_content_type(:csv) }
+        it 'assigns to answers' do
+          expect(assigns(:answers)).not_to be_nil
+        end
+
+        it 'responds with a csv' do
+          expect(response.content_type).to eq('text/csv')
+        end
+
         it { should_not render_with_layout }
       end
     end

@@ -16,7 +16,10 @@ describe AssessmentsController do
       context '(no existing assessment)' do
         let(:assessment) { nil }
 
-        it { should assign_to :assessment }
+        it 'assigns to assessment' do
+          expect(assigns[:assessment]).to be_present
+        end
+
         it { should render_template :new }
       end
       
@@ -61,8 +64,14 @@ describe AssessmentsController do
       context '(CSV)' do
         let(:show_params) { {:format => :csv} }
 
-        it { should assign_to :answers }
-        it { should respond_with_content_type(:csv) }
+        it 'assigns to answers' do
+          expect(assigns(:answers)).not_to be_nil
+        end
+
+        it 'responds with a csv' do
+          expect(response.content_type).to eq('text/csv')
+        end
+
         it { should_not render_with_layout }
       end
     end
