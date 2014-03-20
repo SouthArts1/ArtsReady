@@ -1,0 +1,29 @@
+<p>
+  Date joined:
+  <%= @payment.start_date.try(:strftime, "%B %d, %Y") %>
+  <br/>
+  Next date for billing occurs in
+  <%= @payment.days_left_until_rebill %> days.<br/>
+  <br/>
+</p>
+
+<p>
+  Billed to:<br/>
+  <%= "#{@payment.billing_first_name} #{@payment.billing_last_name}" %>
+  <br/>
+  <%= @payment.billing_address %><br/>
+  <%= "#{@payment.billing_city}, #{@payment.billing_state} #{@payment.billing_zipcode}" %>
+  <br/>
+  <%= @payment.billing_email %><br/>
+  <br/>
+  <%= @payment.payment_method %> ending in <%= @payment.payment_number %>
+</p>
+
+<p>
+  Next billing amount:
+  <% if @payment.days_left_until_rebill >= 365 %>
+    <%= money_from_cents @payment.starting_amount_in_cents %>
+  <% else %>
+    <%= money_from_cents @payment.regular_amount_in_cents %>
+  <% end %>
+</p>
