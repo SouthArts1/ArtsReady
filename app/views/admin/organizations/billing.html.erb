@@ -32,7 +32,7 @@
     <h3>Billing Information:</h3>
     <% if @payment && @payment.active? %>
       <p>
-        First billing date:
+        Date joined:
         <%= @payment.start_date.try(:strftime, "%B %d, %Y") %>
         <br/>
         Next date for billing occurs in

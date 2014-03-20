@@ -10,3 +10,7 @@ When /^the scheduled tasks have run$/ do
   Artsready::Application.load_tasks
   @rake['cron'].execute   
 end
+
+Given(/^the date is (.*)$/) do |date|
+  Timecop.travel(Date.parse(date))
+end
