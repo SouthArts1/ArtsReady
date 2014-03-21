@@ -1,7 +1,12 @@
 <p>
+  Account status:
+  <%= @organization.account_status %>
+  <br/>
+
   Date joined:
   <%= @payment.start_date.try(:strftime, "%B %d, %Y") %>
   <br/>
+
   Next date for billing occurs in
   <%= @payment.days_left_until_rebill %> days.<br/>
   <br/>

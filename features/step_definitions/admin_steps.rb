@@ -63,4 +63,5 @@ Then /^I should be able to view the organization's billing info$/ do
 
   expect(page).to have_link('DISCO',
     href: edit_admin_discount_code_path(DiscountCode.last))
+  expect(page).to have_content 'Account status: active'
 end
