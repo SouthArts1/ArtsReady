@@ -1,0 +1,268 @@
+<% if @organization.errors.any? %>
+  <div class="error_messages">
+    <h4>Form is invalid</h4>
+    <ul>
+      <% for message in @organization.errors.full_messages %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @payment, :url => billing_path, :onkeypress => "return handleEnter(this,event)" do |f| %>
+  <%= f.hidden_field :organization_id, value: @organization.id %>
+  <%= f.hidden_field :discount_code_id, value: @payment.discount_code_id %>
+
+  <p>
+    <%= f.label :billing_first_name %>
+    <%= f.text_field :billing_first_name, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+
+  <p><%= f.label :billing_last_name %>
+    <%= f.text_field :billing_last_name, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+
+  <p><%= f.label :billing_address %>
+    <%= f.text_field :billing_address, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+
+  <p><%= f.label :billing_city %>
+    <%= f.text_field :billing_city, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+
+  <p><%= f.label :billing_state %>
+    <%= f.text_field :billing_state, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+
+  <p><%= f.label :billing_zipcode, "Billing zip code" %>
+    <%= f.text_field :billing_zipcode, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+
+  <p><%= f.label :billing_email, "Billing email" %>
+    <%= f.text_field :billing_email, :onkeypress => "return handleEnter(this,event)" %>
+    <br/></p>
+  <br/>
+  Payment information:
+  <br/><br/>
+
+  <% if f.object.new_record? %>
+    <h3 style="margin-left:26px;">First Year Fee: (due today)
+      <span id="starting_amount_display" style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span>
+    </h3>
+  <% end %>
+
+  <h3 style="margin-left:26px;">
+    Annual Subscription:
+      <span id="regular_amount_display" style="margin-left:62px;">
+        <%= money_from_cents @payment.regular_amount_in_cents %>
+      </span>
+  </h3>
+  <br/>
+
+  <p>
+    Have a discount code?
+    <input type="text" id="discount_code" onkeypress="return handleEnter(this,event)" style="width:200px;"/>
+    <% if f.object.persisted? %>
+      <br/><br/>
+      (If applying a discount code, you will need to re-submit <br/>your payment
+      information for the changes to go into effect.)
+    <% end %>
+    <span id="applied" style="margin-left:12px; display:none; color: green;">...code applied.</span>
+    <span id="not-applied" style="margin-left:12px; display:none; color:red;">...code not valid.</span><br/>
+    <br/>
+
+  <p style="margin-left:138px;">
+    <input type="button" id="discount_submit" value="Apply my discount code!" style="text-decoration: none; border: 1px solid #C31D29; padding: 5px 8px; font-weight: bold; vertical-align: middle; cursor: pointer; color: white; font-size: 12px; text-decoration: none; letter-spacing: normal; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; background-color: #C31D29; background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.25)), to(#C31D29)); background-image: -moz-linear-gradient(center top, rgba(255, 255, 255, 0.25), #C31D29); box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -moz-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset; -webkit-box-shadow: 0 1px 1px 1px rgba(255, 255, 255, 0.25) inset;"/><br/><br/>
+  </p>
+  <br/><br/>
+  <table style="border:none;">
+    <tr>
+      <td>
+        <p>
+          Please choose your payment type:
+          <select id="payment_type" name="payment_type">
+            <option value="blank"></option>
+            <option value="cc">Credit Card</option>
+            <option value="bank">Bank Account</option>
+          </select>
+        </p>
+      </td>
+    </tr>
+  </table>
+  <br/>
+
+  <div id="cc_info" style="display:none;">
+    <table style="border:none;">
+      <tr>
+        <td><p>Credit Card Number:</p></td>
+        <td>
+          <p><%= f.text_field :number, :onkeypress => "return handleEnter(this,event)" %> <%= image_tag "cc_image.jpg", :width => "120px" %></p>
+
+          <p id="bad_card" style="color:#ff0000; display:none;">Credit Card
+            Number is invalid.</p></td>
+      </tr>
+      <tr>
+        <td><p>Expiration Date:</p></td>
+        <td>
+          <p><%= f.select :expiry_month, options_for_select([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]), :onkeypress => "return handleEnter(this,event)" %> <%= f.date_select :expiry_year, :order => [:year], :onkeypress => "return handleEnter(this,event)" %></p>
+        </td>
+      </tr>
+      <tr>
+        <td><p>Verification Number (CCV):</p></td>
+        <td>
+          <p><%= f.text_field :ccv, :onkeypress => "return handleEnter(this,event)" %></p>
+        </td>
+      </tr>
+    </table>
+    <p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+      By entering your payment information, you agree to be billed the
+      subscription amount annually for consecutive years.
+    </p>
+
+    <p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+      This information will not be saved.<br/>
+      Each subscription will be processed individually on its given
+      timeline.<br/>
+      You may only change payment information of the same type.<br/>
+      If it is necessary to change between a credit/debit card and a bank
+      account, please contact ArtsReady.
+    </p>
+    <br/>
+  </div>
+  <div id="bank_info" style="display:none;">
+    <table style="border:none;">
+      <tr>
+        <td><p>Bank Name:</p></td>
+        <td>
+          <p><%= f.text_field :bank_name, :onkeypress => "return handleEnter(this,event)" %></p>
+        </td>
+      </tr>
+      <tr>
+        <td><p>Account Type:</p></td>
+        <td>
+          <p><%= f.select :account_type, ["Checking", "Savings"], :onkeypress => "return handleEnter(this,event)" %></p>
+        </td>
+      </tr>
+      <tr>
+        <td><p>ABA Routing Number:</p></td>
+        <td>
+          <p><%= f.text_field :routing_number, :onkeypress => "return handleEnter(this,event)" %></p>
+        </td>
+      </tr>
+      <tr>
+        <td><p>Account Number:</p></td>
+        <td>
+          <p><%= f.text_field :account_number, :onkeypress => "return handleEnter(this,event)" %></p>
+        </td>
+      </tr>
+    </table>
+    <p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+      By entering your payment information, you agree to be billed the
+      subscription amount annually for consecutive years.
+    </p>
+
+    <p style="padding: 8px 12px; background: #dfd; color: #151; display: block; margin: 10px 0px; width: 600px; font-size: 13px; line-height: 15px; border-left: 3px solid #ada;">
+      This information will not be saved.<br/>
+      Each subscription will be processed individually on its given
+      timeline.<br/>
+      You may only change payment information of the same type.<br/>
+      If it is necessary to change between a credit/debit card and a bank
+      account, please contact ArtsReady.
+    </p>
+  </div>
+  <br/>
+  <%= f.submit 'Submit Payment' %>
+
+  <% if f.object.persisted? %>
+    <br/><br/>
+    <%= link_to "I would like to cancel my automated billing entirely.", billing_cancel_path, confirm: "Are you sure?  This will affect your ArtsReady access." %>
+  <% end %>
+
+  <script type="text/javascript">
+    function handleEnter(field, event) {
+      var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+      if (keyCode == 13) {
+        var i;
+        for (i = 0; i < field.form.elements.length; i++)
+          if (field == field.form.elements[i])
+            break;
+        i = (i + 1) % field.form.elements.length;
+        field.form.elements[i].focus();
+        return false;
+      }
+      else
+        return true;
+    }
+
+    $.fn.animateHighlight = function (highlightColor, duration) {
+      var highlightBg = highlightColor || "#FFFF9C";
+      var animateMs = duration || 1500;
+      var originalBg = this.css("backgroundColor");
+      this.stop().css("background-color", highlightBg).animate({backgroundColor: originalBg}, animateMs);
+    };
+
+    function validateCreditCard(s) {
+      var v = "0123456789";
+      var w = "";
+      for (i = 0; i < s.length; i++) {
+        x = s.charAt(i);
+        if (v.indexOf(x, 0) != -1)
+          w += x;
+      }
+      j = w.length / 2;
+      k = Math.floor(j);
+      m = Math.ceil(j) - k;
+      c = 0;
+      for (i = 0; i < k; i++) {
+        a = w.charAt(i * 2 + m) * 2;
+        c += a > 9 ? Math.floor(a / 10 + a % 10) : a;
+      }
+      for (i = 0; i < k + m; i++) c += w.charAt(i * 2 + 1 - m) * 1;
+      return (c % 10 == 0);
+    }
+
+    $(document).ready(function () {
+      $("#discount_submit").click(function () {
+        $.ajax({
+          url: "/billing/get_discount/" + $("#discount_code").val()
+        }).done(function (data) {
+          if (data.good == true) {
+            $("#starting_amount_display").text("$" + (data.start / 100).toFixed(2));
+            $("#regular_amount_display").text("$" + (data.regular / 100).toFixed(2));
+            $("#payment_discount_code_id").attr("value", data.code_id);
+            $("#payment_discount_code_id").text(data.code_id);
+            $("#new_payment").attr("action", "/billing#" + $("#discount_code").val());
+            $("#applied").fadeIn();
+            var timeout = setTimeout(function () {
+              $("#applied").fadeOut();
+              clearTimeout(timeout);
+            }, 2500);
+          } else {
+            $("#not-applied").fadeIn();
+            var timeout = setTimeout(function () {
+              $("#not-applied").fadeOut();
+              clearTimeout(timeout);
+            }, 2500);
+          }
+
+        });
+      });
+
+      $("#payment_type").change(function () {
+        var type = "#" + $("#payment_type").val() + "_info";
+        $("#cc_info").slideUp();
+        $("#bank_info").slideUp();
+
+        $(type).slideDown();
+      });
+
+      $("#payment_number").blur(function () {
+        if (validateCreditCard($(this).val()) == false) {
+          $("#bad_card").slideDown();
+        } else {
+          $("#bad_card").slideUp();
+        }
+      })
+    })
+  </script>
+<% end %>
