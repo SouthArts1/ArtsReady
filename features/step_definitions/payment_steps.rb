@@ -22,7 +22,7 @@ When /^I fill out and submit the billing form$/ do
     'payment_type' => 'Credit Card',
     'payment_number' => '4007000000027',
     'payment_expiry_month' => '1',
-    'payment_expiry_year_1i' => '2017',
+    'payment_expiry_year_1i' => (Time.now.year + 3).to_s,
     'payment_ccv' => '888')
 
   press 'Submit Payment'
@@ -80,5 +80,5 @@ end
 Then(/^my billing info should reflect automatic renewal$/) do
   visit billing_my_organization_path
 
-  expect(page).to have_content 'Date joined: March 20, 2014'
+  expect(page).to have_content 'Date joined: March 20, 2024'
 end

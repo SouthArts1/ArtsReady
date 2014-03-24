@@ -15,7 +15,7 @@ FactoryGirl.define do
     payment_type 'cc' # why both?!?
     number '4007000000027'
     expiry_month '1'
-    expiry_year '2017'
+    expiry_year { Time.now.year + 3 }
     ccv '888'
 
     active true
