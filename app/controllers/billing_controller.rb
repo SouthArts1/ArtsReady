@@ -13,7 +13,7 @@ class BillingController < ApplicationController
       regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
       
       if current_org.payments.last
-        return redirect_to edit_billing_path(current_org.payments.last)
+        return redirect_to edit_billing_path
       else
         @payment = Payment.new({organization_id: @organization.id, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
       end
@@ -93,13 +93,10 @@ class BillingController < ApplicationController
   end
   
   def edit
-    @organization = current_user.organization
-    @payment = Payment.find(params[:id])
+    @organization = current_org
+    @payment = @organization.payment
     return redirect_to :back unless @payment
     
-    if current_user.organization != @payment.organization
-      redirect_to :back, warning: "You cannot access that."
-    end
     if params[:code]
       d = DiscountCode.find_by_discount_code(params[:code])
       if d
@@ -116,7 +113,7 @@ class BillingController < ApplicationController
     start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
     regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
     
-    @payment = Payment.find(params[:id])
+    @payment = current_org.payment
     redirect_to :back, notice: "There was a problem processing your request.  Please check your billing address and payment information and try again." unless @payment
     
     if session[:discount_code]
@@ -161,7 +158,7 @@ class BillingController < ApplicationController
     end
   end
   
-  def my_organization
+  def show
     redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator." unless current_user.is_executive?
     @organization = current_org
     @payment = current_org.payment

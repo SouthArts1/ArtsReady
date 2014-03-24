@@ -28,6 +28,23 @@ When /^I fill out and submit the billing form$/ do
   press 'Submit Payment'
 end
 
+And(/^I update my subscription$/) do
+  visit dashboard_path
+  click_on 'Visit Billing'
+  click_on 'Update Billing/Payment Information'
+
+  select 'Credit Card', from: 'payment_type'
+  fill_in_fields(
+    'Billing email' => 'update@test.host',
+    'payment_number' => '4007000000027',
+    'payment_expiry_month' => '5',
+    'payment_expiry_year_1i' => (Time.now.year + 4).to_s,
+    'payment_ccv' => '222'
+  )
+
+  press 'Submit Payment'
+end
+
 Given /^a (\d+)% discount code exists$/ do |percentage|
   @discount_code = FactoryGirl.create(:discount_code,
     discount_code: 'PERCENT',
@@ -78,7 +95,14 @@ When /^I sign up using the discount code$/ do
 end
 
 Then(/^my billing info should reflect automatic renewal$/) do
-  visit billing_my_organization_path
+  visit billing_path
 
   expect(page).to have_content 'Date joined: March 20, 2024'
+end
+
+Then(/^my billing info should reflect manual renewal$/) do
+  visit billing_path
+
+  expect(page).to have_content 'Date joined: March 20, 2024'
+  expect(page).to have_content 'update@test.host'
 end

@@ -4,7 +4,7 @@
 		<%= link_to "Need help?", page_path('help_dashboard') %><br />
 		<% if current_user.is_executive? %>
 			<% if current_org.active_subscription_end_date %>
-			Your account will renew on <%= current_org.active_subscription_end_date.strftime("%B %d, %Y") rescue current_org.active_subscription_end_date %>. <%= link_to "Visit Billing", "/billing/my_organization" %>
+			Your account will renew on <%= current_org.active_subscription_end_date.strftime("%B %d, %Y") rescue current_org.active_subscription_end_date %>. <%= link_to "Visit Billing", billing_path %>
 			<% else %>
 				<br />
 				You have not subscribed for automatic renewal!<br />  Before your account expires, visit <%= link_to "billing", billing_path %> to sign up.
