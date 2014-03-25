@@ -104,7 +104,10 @@
       <tr>
         <td><p>Expiration Date:</p></td>
         <td>
-          <p><%= f.select :expiry_month, options_for_select([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]), :onkeypress => "return handleEnter(this,event)" %> <%= f.date_select :expiry_year, :order => [:year], :onkeypress => "return handleEnter(this,event)" %></p>
+          <p>
+            <%= f.select :expiry_month, 1..12, :onkeypress => "return handleEnter(this,event)" %>
+            <%= f.select :expiry_year, (Time.now.year..Time.now.year + 10), :onkeypress => "return handleEnter(this,event)" %>
+          </p>
         </td>
       </tr>
       <tr>

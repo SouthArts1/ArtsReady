@@ -22,7 +22,7 @@ When /^I fill out and submit the billing form$/ do
     'payment_type' => 'Credit Card',
     'payment_number' => '4007000000027',
     'payment_expiry_month' => '1',
-    'payment_expiry_year_1i' => (Time.now.year + 3).to_s,
+    'payment_expiry_year' => (Time.now.year + 3).to_s,
     'payment_ccv' => '888')
 
   press 'Submit Payment'
@@ -38,7 +38,7 @@ And(/^I update my subscription$/) do
     'Billing email' => 'update@test.host',
     'payment_number' => '4007000000027',
     'payment_expiry_month' => '5',
-    'payment_expiry_year_1i' => (Time.now.year + 4).to_s,
+    'payment_expiry_year' => (Time.now.year + 4).to_s,
     'payment_ccv' => '222'
   )
 

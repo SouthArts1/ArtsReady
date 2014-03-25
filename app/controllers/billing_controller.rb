@@ -52,12 +52,26 @@ class BillingController < ApplicationController
   def create
     obj = params[:payment]
     @organization = Organization.find(obj[:organization_id])
-    
+
     start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
     regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
-    
-    @payment = Payment.new({organization_id: obj[:organization_id], billing_first_name: obj[:billing_first_name], billing_last_name: obj[:billing_last_name], billing_address: obj[:billing_address], billing_city: obj[:billing_city], billing_state: obj[:billing_state], billing_zipcode: obj[:billing_zipcode], billing_email: obj[:billing_email], expiry_month: obj["expiry_month"], expiry_year: obj["expiry_year(1i)"], payment_type: params[:payment_type], starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
-    
+
+    @payment = Payment.new({
+      organization_id: obj[:organization_id],
+      billing_first_name: obj[:billing_first_name],
+      billing_last_name: obj[:billing_last_name],
+      billing_address: obj[:billing_address],
+      billing_city: obj[:billing_city],
+      billing_state: obj[:billing_state],
+      billing_zipcode: obj[:billing_zipcode],
+      billing_email: obj[:billing_email],
+      expiry_month: obj[:expiry_month],
+      expiry_year: obj[:expiry_year],
+      payment_type: params[:payment_type],
+      starting_amount_in_cents: start_amount,
+      regular_amount_in_cents: regular_amount
+    })
+
     if session[:discount_code]
       begin
         d = DiscountCode.find(obj[:discount_code_id])
@@ -148,7 +162,7 @@ class BillingController < ApplicationController
     @payment.billing_zipcode = obj[:billing_zipcode]  
     @payment.billing_email = obj[:billing_email]  
     @payment.expiry_month = obj[:expiry_month] 
-    @payment.expiry_year = obj["expiry_year(1i)"]
+    @payment.expiry_year = obj[:expiry_year]
     
     if @payment.save
       session[:discount_code] = nil
