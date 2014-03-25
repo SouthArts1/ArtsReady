@@ -65,8 +65,6 @@ class BillingController < ApplicationController
       billing_state: obj[:billing_state],
       billing_zipcode: obj[:billing_zipcode],
       billing_email: obj[:billing_email],
-      expiry_month: obj[:expiry_month],
-      expiry_year: obj[:expiry_year],
       payment_type: params[:payment_type],
       starting_amount_in_cents: start_amount,
       regular_amount_in_cents: regular_amount
@@ -85,6 +83,8 @@ class BillingController < ApplicationController
       @payment.payment_type = "cc"
       @payment.number = obj[:number]
       @payment.ccv = obj[:ccv]
+      @payment.expiry_month = obj[:expiry_month]
+      @payment.expiry_year = obj[:expiry_year]
     elsif params[:payment_type] == "bank"
       @payment.payment_type = "bank"
       @payment.account_type = obj[:account_type].downcase
@@ -144,6 +144,8 @@ class BillingController < ApplicationController
       @payment.number = obj[:number]
       @payment.ccv = obj[:ccv]
       @payment.payment_type = "cc"
+      @payment.expiry_month = obj[:expiry_month]
+      @payment.expiry_year = obj[:expiry_year]
     elsif params[:payment_type] == "bank"
       @payment.account_type = obj[:account_type].downcase
       @payment.bank_name = obj[:bank_name]
@@ -161,9 +163,7 @@ class BillingController < ApplicationController
     @payment.billing_state = obj[:billing_state] 
     @payment.billing_zipcode = obj[:billing_zipcode]  
     @payment.billing_email = obj[:billing_email]  
-    @payment.expiry_month = obj[:expiry_month] 
-    @payment.expiry_year = obj[:expiry_year]
-    
+
     if @payment.save
       session[:discount_code] = nil
       redirect_to billing_path
