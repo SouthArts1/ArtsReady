@@ -67,6 +67,6 @@ group :test do
   gem 'shoulda'
   gem 'timecop'
   gem 'simplecov'
-  gem 'kelp'
+  gem 'kelp', github: 'eostrom/kelp', branch: 'capybara-2-1'
   gem 'email_spec'
 end

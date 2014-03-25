@@ -55,7 +55,7 @@ Then /^I should see the following todos:$/ do |table|
     actual_headers = all('thead th').map(&:text)
     columns = table.headers.map { |header| actual_headers.index(header) }
     actual_cells = all('tbody tr').map do |row|
-      row.all('td').values_at(*columns).map(&:text).map(&:strip)
+      row.all('td').to_a.values_at(*columns).map(&:text).map(&:strip)
     end
 
     table.diff!([table.headers, *actual_cells])

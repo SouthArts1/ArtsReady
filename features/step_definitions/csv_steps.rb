@@ -1,9 +1,5 @@
 Then /^I should receive the following CSV:$/ do |table|
-  # For some reason it seems like, in integration tests,something is
-  # wrapping a bunch of HTML around our CSV. Unit tests and real browsers
-  # confirm that there's no layout, so for now I'm just going to blame
-  # Capybara.
-  actual = CSV.parse(page.find('body *').text)
+  actual = CSV.parse(page.source)
 
   # It's hard to get the updated_at field to match up in test and data,
   # and we really don't care, so just delete it.
@@ -12,4 +8,3 @@ Then /^I should receive the following CSV:$/ do |table|
 
   table.diff!(actual)
 end
-

@@ -57,18 +57,18 @@ end
 When /^I sign up$/ do
   visit sign_up_path
 
+  fill_in 'Name', with: 'My Org'
+  fill_in 'Address', with: '100 Test St'
   fill_in_fields(
-    'Name' => 'My Org',
-    'Address' => '100 Test St',
     'City' => 'New York',
     'State' => 'NY',
     'Zipcode' => '10001',
     'First Name' => 'New',
     'Last Name' => 'User',
     'Email' => 'newuser@test.host',
-    'Password' => 'password',
-    'Confirm Password' => 'password'
   )
+  fill_in 'Password', with: 'password'
+  fill_in 'Confirm Password', with: 'password'
   select '02 Organization - Non-profit', from: 'Organizational Status *'
   check 'terms'
 
@@ -90,7 +90,8 @@ When /^I sign up using the discount code$/ do
 
   fill_in 'discount_code', with: 'PERCENT'
   click_button 'Apply my discount code!'
-  
+  expect(page).to have_content :visible, 'code applied'
+
   step %{I fill out and submit the billing form}
 end
 

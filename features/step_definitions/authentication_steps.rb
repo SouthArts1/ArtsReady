@@ -13,10 +13,10 @@ When /^I return next time$/ do
 end
 
 Then /^I should be signed in$/ do
-  step 'I should see "Logout"'
+  expect(page).to have_link 'Logout'
 end
 
 Then /^I should be signed out$/ do
-  step 'I should see "Login"'
+  expect(page).to have_link 'Login'
 end
 
