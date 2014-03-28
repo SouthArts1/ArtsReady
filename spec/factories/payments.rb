@@ -9,6 +9,7 @@ FactoryGirl.define do
     billing_city 'New York'
     billing_state 'NY'
     billing_zipcode '10001'
+    billing_phone_number '555-555-1212'
     billing_email 'bill_lastname@example.com'
 
     payment_method 'Credit Card'
