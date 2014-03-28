@@ -1,7 +1,7 @@
 csv << [
   'User First Name', 'User Last Name', 'User Email',
   'Account Name', 'Physical Address', 'Physical Address 2',
-  'City ', 'State', 'Zip Code', 'Phone Number', 'Fax Number',
+  'City', 'State', 'Zip Code', 'Phone Number', 'Fax Number',
   'Parent Organization', 'Subsidizing Organization',
   'Organizational Status (2 digits)',
   'National Standard Institution Code', 'Other NSI Code',
@@ -15,7 +15,7 @@ csv << [
   'Account Expiration Date'
 ]
 
-@users.includes(:organization).find_each do |user|
+@users.includes(:organization => :payments).find_each do |user|
   organization = user.organization
   payment = organization.payment
 
@@ -30,7 +30,7 @@ csv << [
     payment.days_left_until_rebill,
     money_from_cents(payment.regular_amount_in_cents),
     [payment.expiry_month, payment.expiry_year].compact.join('/')
-  ] : []
+  ] : Array.new(14)
 
   csv << [
     user.first_name, user.last_name, user.email,
