@@ -1,3 +1,25 @@
+class BillingInfoTestPage
+  attr_accessor :page
+  attr_accessor :missing_info
+
+  def initialize(page)
+    self.page = page
+  end
+
+  def missing_billing_info
+    [
+      'My Org',
+      'Bill Lastname',
+      '100 Test St',
+      'New York, NY 10001',
+      'Credit Card',
+      '555-555-1212'
+    ].select do |text|
+      page.has_no_content?(text)
+    end
+  end
+end
+
 Given /^I have paid for my subscription$/ do
   visit new_billing_path
   step %{I fill out and submit the billing form}
@@ -19,6 +41,7 @@ When /^I fill out and submit the billing form$/ do
     'Billing state' => 'NY',
     'Billing zip code' => '10001',
     'Billing email' => 'billing@example.com',
+    'Billing phone number' => '555-555-1212',
     'payment_type' => 'Credit Card',
     'payment_number' => '4007000000027',
     'payment_expiry_month' => '1',
@@ -43,6 +66,14 @@ And(/^I update my subscription$/) do
   )
 
   press 'Submit Payment'
+end
+
+And(/^my billing info should be saved$/) do
+  click_on 'Settings'
+  click_on 'Billing'
+
+  billing_page = BillingInfoTestPage.new(page)
+  expect(billing_page.missing_billing_info).to eq []
 end
 
 Given /^a (\d+)% discount code exists$/ do |percentage|

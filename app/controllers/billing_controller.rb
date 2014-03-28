@@ -134,7 +134,8 @@ class BillingController < ApplicationController
       billing_city:       payment_params[:billing_city],
       billing_state:      payment_params[:billing_state],
       billing_zipcode:    payment_params[:billing_zipcode],
-      billing_email:      payment_params[:billing_email]
+      billing_email:      payment_params[:billing_email],
+      billing_phone_number: payment_params[:billing_phone_number]
     }
 
     if @payment.new_record?

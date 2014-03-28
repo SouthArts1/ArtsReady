@@ -24,6 +24,7 @@ Feature: New organization registration
 
     When I fill out and submit the billing form
     Then I should be on the dashboard
+    And my billing info should be saved
 
   Scenario: A visitor tries to sign up without entering any information
     When I go to the sign up page
