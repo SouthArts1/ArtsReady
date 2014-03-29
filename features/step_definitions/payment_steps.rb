@@ -36,8 +36,8 @@ class BillingFormTestPage
     self
   end
 
-  def self.payment_method(name)
-    payment_method_class(name).new
+  def self.payment_method(name, overrides = {})
+    payment_method_class(name).new(overrides)
   end
 
   def self.payment_method_class(name)
@@ -48,8 +48,20 @@ class BillingFormTestPage
     }.fetch(name)
   end
 
-  class CreditCardPaymentMethod
+  class PaymentMethod
+    attr_accessor :overrides
+
+    def initialize(overrides)
+      self.overrides = overrides
+    end
+
     def fields
+      default_fields.merge(overrides)
+    end
+  end
+
+  class CreditCardPaymentMethod < PaymentMethod
+    def default_fields
       {
         'payment_type'         => 'Credit Card',
         'payment_number'       => '4007000000027',
@@ -60,8 +72,8 @@ class BillingFormTestPage
     end
   end
 
-  class BankAccountPaymentMethod
-    def fields
+  class BankAccountPaymentMethod < PaymentMethod
+    def default_fields
       {
         'payment_type'           => 'Bank Account',
         'payment_bank_name'      => 'First Bank of Nowheresville',
@@ -125,21 +137,21 @@ When /^I fill out and submit the billing form$/ do
     submit
 end
 
-And(/^I update my subscription$/) do
+When(/^I update my subscription$/) do
   visit dashboard_path
   click_on 'Visit Billing'
   click_on 'Update Billing/Payment Information'
 
-  select 'Credit Card', from: 'payment_type'
-  fill_in_fields(
-    'Billing email' => 'update@test.host',
-    'payment_number' => '4007000000027',
-    'payment_expiry_month' => '5',
-    'payment_expiry_year' => (Time.now.year + 4).to_s,
-    'payment_ccv' => '222'
-  )
+  fill_in 'Billing email', with: 'update@test.host'
 
-  press 'Submit Payment'
+  BillingFormTestPage.new(self).
+    enter_payment(
+      BillingFormTestPage.payment_method('credit card',
+        'payment_expiry_month' => 5,
+        'payment_expiry_year' => (Time.now.year + 4).to_s,
+        'payment_ccv' => '222'
+      )
+    ).submit
 end
 
 When /^I change my payment method to a credit card$/ do
