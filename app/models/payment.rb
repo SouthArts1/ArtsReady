@@ -265,7 +265,7 @@ class Payment < ActiveRecord::Base
     regular_amount_in_cents == 0
   end
 
-  def payment_changed?
+  def payment_type_changed?
     Rails.logger.debug("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
     if Payment.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"
       return true
@@ -277,7 +277,7 @@ class Payment < ActiveRecord::Base
   end
   
   def update_arb_subscription
-      if !payment_changed? && self.active?
+      if !payment_type_changed? && self.active?
         arb_sub = build_subscription_object_for_update(self)
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
