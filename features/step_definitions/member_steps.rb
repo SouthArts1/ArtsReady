@@ -1,10 +1,3 @@
-def login(email, password = 'password')
-  visit(sign_in_path)
-  fill_in 'email', with: email
-  fill_in 'password', with: password
-  click_on 'Sign In'
-end
-
 Given /^a visitor$/ do
 end
 

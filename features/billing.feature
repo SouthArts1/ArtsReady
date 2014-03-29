@@ -17,6 +17,16 @@ Feature: Organization billing
     And I change my payment method to a credit card
     Then my billing info should show payment by credit card
 
+  Scenario: Cancel subscription
+    Given the date is March 19, 2024
+    When I sign up and pay
+    And 350 days pass
+    And I cancel my subscription
+
+    When I sign out
+    And the scheduled tasks have run
+    Then I can't sign in
+
   Scenario: Automatic renewal
     Given the date is March 19, 2024
     When I sign up and pay

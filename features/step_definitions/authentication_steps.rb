@@ -6,6 +6,10 @@ When /^I sign out$/ do
  step 'I follow "Logout"'
 end
  
+Then /^I can't sign(?: back)? in$/ do
+  login_again
+  step %{I should be signed out}
+end
 
 When /^I return next time$/ do
   reset!

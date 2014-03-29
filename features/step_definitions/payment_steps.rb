@@ -170,6 +170,8 @@ Given /^a (\d+)% discount code exists$/ do |percentage|
 end
 
 When /^I sign up$/ do
+  email, password = ['newuser@test.host', 'password']
+
   visit sign_up_path
 
   fill_in 'Name', with: 'My Org'
@@ -180,16 +182,18 @@ When /^I sign up$/ do
     'Zipcode' => '10001',
     'First Name' => 'New',
     'Last Name' => 'User',
-    'Email' => 'newuser@test.host',
+    'Email' => email
   )
-  fill_in 'Password', with: 'password'
-  fill_in 'Confirm Password', with: 'password'
+  fill_in 'Password', with: password
+  fill_in 'Confirm Password', with: password
   select '02 Organization - Non-profit', from: 'Organizational Status *'
   check 'terms'
 
   click_button 'Create Organization'
 
   expect(current_path).to eq(new_billing_path)
+
+  remember_sign_in_credentials(email, password)
 end
 
 When(/^I sign up and pay$/) do
@@ -236,4 +240,13 @@ Then /^my billing info should show payment by credit card$/ do
   visit billing_path
 
   expect(page).to have_content 'Credit Card ending in 0027'
+end
+
+When /^I cancel my subscription$/ do
+  visit billing_path
+  click_on 'Update Billing/Payment Information'
+  click_on 'I would like to cancel my automated billing entirely.'
+
+  expect(page).
+    to have_content 'successfully cancelled your subscription'
 end
