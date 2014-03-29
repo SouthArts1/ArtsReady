@@ -232,7 +232,12 @@ describe Payment do
     end
 
     let(:user) { FactoryGirl.build_stubbed(:user, organization: nil) }
-    let(:org) { FactoryGirl.build_stubbed(:organization, users: [user]) }
+    let(:org) {
+      FactoryGirl.build_stubbed(:organization,
+        users: [user],
+        phone_number: '555-020-0384'
+      )
+    }
 
     subject(:payment) { Payment.build_provisional(organization: org) }
 
@@ -240,6 +245,11 @@ describe Payment do
 
     it 'has a future expiration date' do
       expect(payment.expiry_year.to_i).to be > 3400
+    end
+
+    it 'copies contact data from the organization' do
+      expect(payment.billing_address).to eq(org.address)
+      expect(payment.billing_phone_number).to eq(org.phone_number)
     end
   end
 end

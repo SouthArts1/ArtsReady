@@ -27,6 +27,7 @@ class Payment < ActiveRecord::Base
       billing_first_name: user.first_name, billing_last_name: user.last_name,
       billing_address: organization.address, billing_city: organization.city,
       billing_state: organization.state, billing_zipcode: organization.zipcode,
+      billing_phone_number: organization.phone_number,
       billing_email: 'admin@artsready.org',
       number: "4007000000027",
       expiry_month: "02", expiry_year: Date.today.year + 1,
