@@ -36,7 +36,7 @@ Feature: Todo list
     And I should see "Start" within ".action"
 
   Scenario: A user is reminded about overdue todos
-    Given I am signed in as a reader
+    Given I am signed in as a paid reader
     And I have an overdue todo item
     Then I should receive todo reminders on Tuesdays
 

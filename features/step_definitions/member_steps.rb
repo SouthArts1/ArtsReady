@@ -5,10 +5,11 @@ Given /^a member with email "([^"]*)" and password "([^"]*)"$/ do |email, passwo
   Factory.create(:user, :email => email, :password => password)
 end
 
-Given /^(?:I am signed in as )?a (?:user|reader)$/ do
+Given /^(?:I am signed in as )?a (paid )?(?:user|reader)$/ do |paid|
   #email = 'user@test.host'
   password = 'password'
-  @current_user = Factory.create(:user, :password => password)
+  factory = paid.present? ? :paid_user : :user
+  @current_user = Factory.create(factory, :password => password)
 
   login(@current_user.email,password)
 end
