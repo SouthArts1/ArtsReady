@@ -313,7 +313,8 @@ describe Payment do
         organization: org,
         start_date: Time.now,
         starting_amount_in_cents: 5000,
-        billing_first_name: 'Fred'
+        billing_first_name: 'Fred',
+        billing_phone_number: '555-232-2832'
       )
     }
     let(:subscription_double) { double }
@@ -331,6 +332,8 @@ describe Payment do
         should_receive(:new) do |hash|
           expect(hash[:billing_address][:first_name]).
             to eq(payment.billing_first_name)
+          expect(hash[:customer][:phone_number]).
+            to eq(payment.billing_phone_number)
           expect(hash[:start_date]).
             to eq(payment.start_date)
           expect(hash[:trial_occurrences]).

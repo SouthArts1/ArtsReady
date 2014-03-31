@@ -158,7 +158,8 @@ class Payment < ActiveRecord::Base
 
   def customer_for_transaction
     {
-      email: (billing_email.presence || organization.email)
+      email: (billing_email.presence || organization.email),
+      phone_number: billing_phone_number || organization.phone_number
     }
   end
 
