@@ -252,5 +252,58 @@ describe Payment do
       expect(payment.billing_phone_number).to eq(org.phone_number)
     end
   end
+
+  describe 'billing_date_after(time)' do
+    let(:payment) {
+      FactoryGirl.build(:payment, start_date: start_date)
+    }
+
+    let(:start_date) { Time.zone.parse('May 13, 2013') }
+
+    subject(:next_billing_date) {
+      payment.billing_date_after(time)
+    }
+
+    context 'before the subscription begins' do
+      let(:time) { start_date - 1.day }
+
+      it 'returns the start date' do
+        # relevant if you change payment type before your first charge
+        expect(next_billing_date).to eq(start_date)
+      end
+    end
+
+    context 'the day the subscription begins' do
+      let(:time) { start_date }
+
+      it 'returns one year later' do
+        expect(next_billing_date).to eq(start_date + 1.year)
+      end
+    end
+
+    context 'later that year' do
+      let(:time) { start_date.end_of_year - 1.day }
+
+      it 'returns one year after the start date' do
+        expect(next_billing_date).to eq(start_date + 1.year)
+      end
+    end
+
+    context 'early next year' do
+      let(:time) { start_date.end_of_year + 1.day }
+
+      it 'returns one year after the start date' do
+        expect(next_billing_date).to eq(start_date + 1.year)
+      end
+    end
+
+    context 'late next year' do
+      let(:time) { start_date + 1.year + 1.day }
+
+      it 'returns two years after the start date' do
+        expect(next_billing_date).to eq(start_date + 2.years)
+      end
+    end
+  end
 end
   

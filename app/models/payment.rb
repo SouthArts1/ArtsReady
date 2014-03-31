@@ -39,10 +39,31 @@ class Payment < ActiveRecord::Base
     return self.active?
   end
 
+  # Used on billing info page. Not tested or trusted. Should be revised
+  # once we more accurately track billing dates with Authorize.net.
   def days_left_until_rebill
     return 0 if !self.start_date
     return (((self.start_date) - (Time.now)).to_i / (24 * 60 * 60)) if self.start_date > Time.now
     return (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
+  end
+
+  # Used to calculate "start date" for "refreshed" subscriptions (i.e., when
+  # we have to tell Authorize.Net to create a "new" subscription to update
+  # one that already exists but can't be modified in the way we want). Should
+  # be revised once we more accurately track billing dates with Authorize.net.
+  def next_billing_date
+    billing_date_after(Time.zone.now)
+  end
+
+
+  # Utility for `next_billing_date`. Easier to test.
+  def billing_date_after(time)
+    if time < start_date
+      start_date
+    else
+      distance_in_years = (time - start_date) / 1.year
+      start_date + (distance_in_years.floor + 1).years
+    end
   end
 
   def validate_discount_code!
@@ -119,13 +140,13 @@ class Payment < ActiveRecord::Base
     )
     return sub
   end
-  
+
   def build_refresh_subscription_object(payment)
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
       length: 365, 
       unit: AuthorizeNet::ARB::Subscription::IntervalUnits::DAY,
-      start_date: (self.start_date > Time.now ? self.start_date : (self.start_date + (Time.now.year - self.start_date.year + 1).years)),
+      start_date: next_billing_date,
       total_occurrences: 9999,
       amount: self.regular_amount_in_cents.to_f / 100,
       description: "#{payment.organization.name} subscription for ArtsReady",
