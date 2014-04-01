@@ -35,10 +35,6 @@ class Payment < ActiveRecord::Base
     }
   end
 
-  def is_active?
-    return self.active?
-  end
-
   # Used on billing info page. Not tested or trusted. Should be revised
   # once we more accurately track billing dates with Authorize.net.
   def days_left_until_rebill
