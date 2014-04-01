@@ -66,7 +66,7 @@ group :test do
   gem 'poltergeist'
   gem 'shoulda'
   gem 'timecop'
-  gem 'simplecov'
+  gem 'simplecov', require: false
   gem 'kelp', github: 'eostrom/kelp', branch: 'capybara-2-1'
   gem 'email_spec'
 end
