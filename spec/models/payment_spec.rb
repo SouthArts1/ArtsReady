@@ -1,39 +1,66 @@
 require 'spec_helper'
 
 describe Payment do
+  let(:aim_transaction) { double('AIM transaction') }
+  let(:subscription) { double('subscription') }
+  let(:arb_transaction) { double('ARB transaction') }
+  let(:arb_id) { 6525121 }
+  let(:arb_response) { double }
+  let(:card) { double('card') }
+
+  before(:each) do
+    AuthorizeNet::AIM::Transaction.stub(:new).and_return(aim_transaction)
+    AuthorizeNet::ARB::Subscription.stub(:new).and_return(subscription)
+    AuthorizeNet::ARB::Transaction.stub(:new).and_return(arb_transaction)
+    AuthorizeNet::CreditCard.stub(:new).and_return(card)
+
+    aim_transaction.stub(:set_fields)
+    aim_transaction.stub(:set_address)
+    aim_transaction.stub(:set_customer)
+    aim_transaction.stub(:authorize).and_return(double(:success? => true))
+    arb_transaction.stub(:set_fields)
+    arb_transaction.stub(:set_address)
+    arb_transaction.stub(:set_customer)
+    arb_transaction.stub(:create).and_return(arb_response)
+    arb_response.stub(:success?).and_return(true)
+    arb_response.stub(:subscription_id).and_return(arb_id)
+    subscription.stub(:credit_card=)
+    subscription.stub(:credit_card) # for logging!?
+  end
+
   context "invalid payment object" do
     it "should not save with no attributes" do
       p = Payment.new()
-      p.save.should == false
+      expect(p.save).to be_false
     end
     
     it "should not save with only an organization" do
       org = FactoryGirl.create(:organization)
       p = Payment.new()
       p.organization_id = org.id
-      p.save.should == false
+      expect(p.save).to be_false
     end
     
     it "should not be active if invalid" do
       p = Payment.new()
       p.save
-      p.is_active? == false
+      expect(p).not_to be_active
     end
-    
+
     it "should not be active if it does not save" do
       p = Payment.create()
-      p.is_active? == false
+      expect(p).not_to be_active
     end
     
     it "should show 0 days left before rebill if invalid" do
       p = Payment.create()
-      p.days_left_until_rebill == 0
+      expect(p.days_left_until_rebill).to eq 0
     end
   end
     
   context "valid payment object" do
-    before(:all) do
-      @org = FactoryGirl.build_stubbed(:organization)
+    before(:each) do
+      @org = FactoryGirl.create(:organization)
       @info_params = {
         regular_amount_in_cents: 100,
         starting_amount_in_cents: 100,
@@ -43,12 +70,13 @@ describe Payment do
         billing_city: "Browntown",
         billing_state: "MO",
         billing_zipcode: "12345",
+        billing_email: 'email@example.org',
         organization_id: @org.id
       }
     end
     
     context "credit card" do
-      before(:all) do
+      before(:each) do
         @info_params["payment_type"] = "cc"
         @info_params["number"] = "4007000000027"
         @info_params["ccv"] = "123"
@@ -58,17 +86,17 @@ describe Payment do
 
       it "should validate attributes" do
         p = Payment.new(@info_params)
-        p.valid? == true
+        expect(p).to be_valid
       end
 
       it "should create an ARB subscription" do
         p = Payment.create(@info_params)
-        p.arb_id.nil? == false
+        expect(p.arb_id).to eq arb_id
       end
 
       it "should be active after create" do
         p = Payment.create(@info_params)
-        p.is_active? == true
+        expect(p).to be_active
       end
       
       context "get expiry cases" do
@@ -135,53 +163,62 @@ describe Payment do
     end
 
     context "bank account" do
-      before(:all) do 
+      before(:each) do
+        @info_params["payment_type"] = "bank"
         @info_params["routing_number"] = "051404260"
         @info_params["account_number"] = "0000159924689"
         @info_params["bank_name"] = "BBT"
         @info_params["account_type"] = "Checking"
+
+        subscription.stub(:bank_account=)
+        subscription.stub(:bank_account)
       end
 
       it "should validate attributes" do
-        p = Payment.new()
-        p.valid? == true
+        p = Payment.new(@info_params)
+        expect(p).to be_valid
       end
 
       it "should create an ARB subscription" do
         p = Payment.create(@info_params)
-        p.arb_id.nil? == false
+        expect(p.arb_id).to eq arb_id
       end
 
       it "should be active after create" do
         p = Payment.create(@info_params)
-        p.is_active? == true
+        expect(p).to be_active
       end
     end
     
     context "payment type agnostic" do
       it "should show 0 days if new" do
         p = Payment.new()
-        p.days_left_until_rebill == 0
+        expect(p.days_left_until_rebill).to eq 0
       end
 
       it "should show 364 days if created yesterday" do
         p = Payment.new()
+        Timecop.freeze(Time.now)
         p.start_date = Time.now - 1.day
-        p.days_left_until_rebill == 364
+        expect(p.days_left_until_rebill).to eq 364
       end
 
       it "should show 355 days if created 10 days ago" do
         p = Payment.new()
+        Timecop.freeze(Time.now)
         p.start_date = Time.now - 10.day
-        p.days_left_until_rebill == 355
+        expect(p.days_left_until_rebill).to eq 355
       end
     end
   end
   
   context "cancel payment" do
-    before(:all) do
+    let(:status_response) { double }
+    let(:cancel_response) { double }
+
+    before(:each) do
       Payment.all.each{|p| p.destroy}
-      @org = FactoryGirl.build_stubbed(:organization)
+      @org = FactoryGirl.create(:organization)
       @info_params = {
         regular_amount_in_cents: 100,
         starting_amount_in_cents: 100,
@@ -191,6 +228,7 @@ describe Payment do
         billing_city: "Browntown",
         billing_state: "MO",
         billing_zipcode: "12345",
+        billing_email: 'cancel@example.org',
         organization_id: @org.id
       }
       @info_params["payment_type"] = "cc"
@@ -198,31 +236,46 @@ describe Payment do
       @info_params["ccv"] = "123"
       @info_params["expiry_month"] = 10
       @info_params["expiry_year"] = 2020
+
+      arb_transaction.stub(:get_status).and_return(status_response)
+      arb_transaction.stub(:cancel).and_return(cancel_response)
+      status_response.stub(:success?).and_return(true)
+      cancel_response.stub(:success?).and_return(true)
+      cancel_response.stub(:message_text)
     end
     
     before(:each) do
       @payment = Payment.create(@info_params)
+      assert(@payment.persisted?)
     end
 
     it "should cancel if created" do
       response = @payment.cancel
-      @payment.is_active? == false
+      expect(response).to be_true
+      expect(@payment).not_to be_active
     end
     
-    it "should not cancel if not persisted" do
+    it "should not cancel if Authorize.net refuses" do
+      cancel_response.stub(:success?).and_return(false)
+
       p = Payment.new(@info_params)
+      p.active = true
+
       response = p.cancel
-      response.should == false
+      expect(response).to be_false
+      expect(p).to be_active
     end
   
     it "should update the end_date to today when cancelled" do
+      Timecop.freeze(Time.now)
+
       @payment.cancel
-      @payment.end_date == Date.today        
+      expect(@payment.end_date).to eq Time.now
     end
     
     it "should mark as inactive when cancelled" do
       @payment.cancel
-      @payment.is_active? == false
+      expect(@payment).not_to be_active
     end
   end
 
@@ -318,7 +371,7 @@ describe Payment do
       )
     }
     let(:subscription_double) { double }
-    subject(:subscription) {
+    let(:build_subscription) {
       payment.send(:build_subscription_object)
     }
 
@@ -343,11 +396,11 @@ describe Payment do
           expect(hash).not_to have_key(:subscription_id)
       end
 
-      subscription
+      build_subscription
     end
 
     it 'returns the ARB subscription' do
-      expect(subscription).to eq(subscription_double)
+      expect(build_subscription).to eq(subscription_double)
     end
   end
 
@@ -366,7 +419,7 @@ describe Payment do
       )
     }
     let(:subscription_double) { double }
-    subject(:subscription) {
+    let(:build_subscription) {
       payment.send(:build_refresh_subscription_object)
     }
 
@@ -391,11 +444,11 @@ describe Payment do
         expect(hash).not_to have_key(:trial_amount)
       end
 
-      subscription
+      build_subscription
     end
 
     it 'returns the ARB subscription' do
-      expect(subscription).to eq(subscription_double)
+      expect(build_subscription).to eq(subscription_double)
     end
   end
 
@@ -410,7 +463,7 @@ describe Payment do
       )
     }
     let(:subscription_double) { double }
-    subject(:subscription) {
+    let(:build_subscription) {
       payment.send(:build_subscription_object_for_update)
     }
 
@@ -431,11 +484,11 @@ describe Payment do
         expect(hash).not_to have_key(:start_date)
       end
 
-      subscription
+      build_subscription
     end
 
     it 'returns the ARB subscription' do
-      expect(subscription).to eq(subscription_double)
+      expect(build_subscription).to eq(subscription_double)
     end
   end
 end

@@ -370,7 +370,7 @@ class Payment < ActiveRecord::Base
       response = arb_tran.cancel(self.arb_id)
       Rails.logger.debug("Response: #{response.inspect}")
       Rails.logger.debug("Message: #{response.message_text}")
-      if response.success? || (response.message_text.include?("canceled") rescue true)
+      if response.success? || (response.message_text.include?("canceled") rescue false)
         Rails.logger.debug("Passes validation.  It is or has been cancelled")
         return true
       else
