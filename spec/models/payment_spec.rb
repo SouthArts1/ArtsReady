@@ -359,136 +359,126 @@ describe Payment do
     end
   end
 
-  describe 'build_subscription_object' do
-    let(:org) { FactoryGirl.build_stubbed(:organization) }
-    let(:payment) {
-      FactoryGirl.build(:payment,
-        organization: org,
-        start_date: Time.now,
-        starting_amount_in_cents: 5000,
-        billing_first_name: 'Fred',
-        billing_phone_number: '555-232-2832'
-      )
-    }
-    let(:subscription_double) { double }
-    let(:build_subscription) {
-      payment.send(:build_subscription_object)
-    }
-
-    before do
-      AuthorizeNet::ARB::Subscription.
-        stub(:new).and_return(subscription_double)
-    end
-
-    it 'builds an ARB subscription' do
-      AuthorizeNet::ARB::Subscription.
-        should_receive(:new) do |hash|
-          expect(hash[:billing_address][:first_name]).
-            to eq(payment.billing_first_name)
-          expect(hash[:customer][:phone_number]).
-            to eq(payment.billing_phone_number)
-          expect(hash[:start_date]).
-            to eq(payment.start_date)
-          expect(hash[:trial_occurrences]).
-            to eq(1)
-          expect(hash[:trial_amount]).
-            to eq(50.0)
-          expect(hash).not_to have_key(:subscription_id)
-      end
-
-      build_subscription
-    end
-
-    it 'returns the ARB subscription' do
-      expect(build_subscription).to eq(subscription_double)
-    end
-  end
-
-  describe 'build_refresh_subscription_object' do
+  describe 'ARB subscription builders' do
     let(:org) {
-      FactoryGirl.build_stubbed(:organization,
-        name: 'Refresh, Inc.'
-      )
+      FactoryGirl.build_stubbed(:organization, name: 'Refresh, Inc.')
     }
-    let(:payment) {
-      FactoryGirl.build(:payment,
-        organization: org,
-        start_date: Time.zone.parse('May 13, 2013'),
-        billing_first_name: 'Fred',
-        billing_email: 'refresh@test.host'
-      )
-    }
+
     let(:subscription_double) { double }
-    let(:build_subscription) {
-      payment.send(:build_refresh_subscription_object)
-    }
-
-    before do
-      Timecop.freeze(Time.parse('March 31, 2014'))
-
-      AuthorizeNet::ARB::Subscription.
-        stub(:new).and_return(subscription_double)
-    end
-
-    it 'builds an ARB subscription' do
-      AuthorizeNet::ARB::Subscription.
-        should_receive(:new) do |hash|
-        expect(hash[:billing_address][:company]).
-          to eq('Refresh, Inc.')
-        expect(hash[:customer][:email]).
-          to eq(payment.billing_email)
-        expect(hash[:start_date]). # 1 year after original start
-          to eq(Time.zone.parse('May 13, 2014'))
-        expect(hash).not_to have_key(:subscription_id)
-        expect(hash).not_to have_key(:trial_occurrences)
-        expect(hash).not_to have_key(:trial_amount)
-      end
-
-      build_subscription
-    end
-
-    it 'returns the ARB subscription' do
-      expect(build_subscription).to eq(subscription_double)
-    end
-  end
-
-  describe 'build_subscription_object_for_update' do
-    let(:org) { FactoryGirl.build_stubbed(:organization) }
-    let(:payment) {
-      FactoryGirl.build(:payment,
-        arb_id: 23,
-        organization: org,
-        billing_zipcode: '94043',
-        billing_email: 'update@test.host'
-      )
-    }
-    let(:subscription_double) { double }
-    let(:build_subscription) {
-      payment.send(:build_subscription_object_for_update)
-    }
 
     before do
       AuthorizeNet::ARB::Subscription.
         stub(:new).and_return(subscription_double)
     end
 
-    it 'builds an ARB subscription' do
-      AuthorizeNet::ARB::Subscription.
-        should_receive(:new) do |hash|
-        expect(hash[:billing_address][:zip]).
-          to eq(payment.billing_zipcode)
-        expect(hash[:customer][:email]).
-          to eq(payment.billing_email)
-        expect(hash[:subscription_id]).
-          to eq(payment.arb_id)
-        expect(hash).not_to have_key(:start_date)
+    describe 'build_subscription_object' do
+      let(:payment) {
+        FactoryGirl.build(:payment,
+          organization: org,
+          start_date: Time.now,
+          starting_amount_in_cents: 5000,
+          billing_first_name: 'Fred',
+          billing_phone_number: '555-232-2832'
+        )
+      }
+      let(:build_subscription) {
+        payment.send(:build_subscription_object)
+      }
+
+      it 'builds an ARB subscription' do
+        AuthorizeNet::ARB::Subscription.
+          should_receive(:new) do |hash|
+            expect(hash[:billing_address][:first_name]).
+              to eq(payment.billing_first_name)
+            expect(hash[:customer][:phone_number]).
+              to eq(payment.billing_phone_number)
+            expect(hash[:start_date]).
+              to eq(payment.start_date)
+            expect(hash[:trial_occurrences]).
+              to eq(1)
+            expect(hash[:trial_amount]).
+              to eq(50.0)
+            expect(hash).not_to have_key(:subscription_id)
+        end
+
+        build_subscription
       end
 
-      build_subscription
+      it 'returns the ARB subscription' do
+        expect(build_subscription).to eq(subscription_double)
+      end
     end
 
-    it 'returns the ARB subscription' do
-      expect(build_subscription).to eq(subscription_double)
+    describe 'build_refresh_subscription_object' do
+      let(:payment) {
+        FactoryGirl.build(:payment,
+          organization: org,
+          start_date: Time.zone.parse('May 13, 2013'),
+          billing_first_name: 'Fred',
+          billing_email: 'refresh@test.host'
+        )
+      }
+      let(:build_subscription) {
+        payment.send(:build_refresh_subscription_object)
+      }
+
+      before do
+        Timecop.freeze(Time.parse('March 31, 2014'))
+      end
+
+      it 'builds an ARB subscription' do
+        AuthorizeNet::ARB::Subscription.
+          should_receive(:new) do |hash|
+          expect(hash[:billing_address][:company]).
+            to eq('Refresh, Inc.')
+          expect(hash[:customer][:email]).
+            to eq(payment.billing_email)
+          expect(hash[:start_date]). # 1 year after original start
+            to eq(Time.zone.parse('May 13, 2014'))
+          expect(hash).not_to have_key(:subscription_id)
+          expect(hash).not_to have_key(:trial_occurrences)
+          expect(hash).not_to have_key(:trial_amount)
+        end
+
+        build_subscription
+      end
+
+      it 'returns the ARB subscription' do
+        expect(build_subscription).to eq(subscription_double)
+      end
+    end
+
+    describe 'build_subscription_object_for_update' do
+      let(:payment) {
+        FactoryGirl.build(:payment,
+          arb_id: 23,
+          organization: org,
+          billing_zipcode: '94043',
+          billing_email: 'update@test.host'
+        )
+      }
+      let(:build_subscription) {
+        payment.send(:build_subscription_object_for_update)
+      }
+
+      it 'builds an ARB subscription' do
+        AuthorizeNet::ARB::Subscription.
+          should_receive(:new) do |hash|
+          expect(hash[:billing_address][:zip]).
+            to eq(payment.billing_zipcode)
+          expect(hash[:customer][:email]).
+            to eq(payment.billing_email)
+          expect(hash[:subscription_id]).
+            to eq(payment.arb_id)
+          expect(hash).not_to have_key(:start_date)
+        end
+
+        build_subscription
+      end
+
+      it 'returns the ARB subscription' do
+        expect(build_subscription).to eq(subscription_double)
+      end
     end
   end
 end
