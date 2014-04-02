@@ -94,7 +94,7 @@ Then /^I should receive todo reminders on Tuesdays$/ do
 
   reset_mailer
 
-  Timecop.travel(Date.parse('next Monday'))
+  Timecop.travel(Date.today.end_of_week + 1) # the Monday after that
   step %{the scheduled tasks have run}
 
   my_todo_emails.should be_empty
@@ -107,7 +107,7 @@ end
 Then /^I should not receive todo reminders$/ do
   reset_mailer
 
-  Timecop.travel(Date.parse('next Tuesday'))
+  Timecop.travel(Date.today.end_of_week + 2) # a future Tuesday
   step %{the scheduled tasks have run} # Reminder.todos_nearly_due
 
   my_todo_emails.should be_empty
