@@ -5,7 +5,7 @@ class Payment < ActiveRecord::Base
   cattr_accessor :skip_callbacks
   attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
   
-  before_create :create_and_process_subscription
+  before_create :create_and_charge_arb_subscription
   before_update :update_arb_subscription, :unless => :skip_callbacks
   
   validates_presence_of :organization_id
@@ -43,14 +43,13 @@ class Payment < ActiveRecord::Base
     return (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
   end
 
-  # Used to calculate "start date" for "refreshed" subscriptions (i.e., when
+  # Used to calculate "start date" for "replaced" subscriptions (i.e., when
   # we have to tell Authorize.Net to create a "new" subscription to update
   # one that already exists but can't be modified in the way we want). Should
   # be revised once we more accurately track billing dates with Authorize.net.
   def next_billing_date
     billing_date_after(Time.zone.now)
   end
-
 
   # Utility for `next_billing_date`. Easier to test.
   def billing_date_after(time)
@@ -93,7 +92,7 @@ class Payment < ActiveRecord::Base
   end
   
   def cancel
-    if cancel_subscription
+    if cancel_arb_subscription
       Payment.skip_callbacks = true
       if self.update_attributes({ active: false, end_date: Time.now })
         Payment.skip_callbacks = false
@@ -109,7 +108,8 @@ class Payment < ActiveRecord::Base
 
   private
 
-  def build_subscription_object
+  # Initial ARB subscription for this account.
+  def build_arb_subscription_for_create
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
       length: 365, 
@@ -126,7 +126,9 @@ class Payment < ActiveRecord::Base
     return sub
   end
 
-  def build_refresh_subscription_object
+  # Account has an ARB subscription, but we can't modify it, so we
+  # replace it with a new one.
+  def build_arb_subscription_for_replace
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
       length: 365, 
@@ -140,8 +142,9 @@ class Payment < ActiveRecord::Base
     )
     return sub
   end
-  
-  def build_subscription_object_for_update
+
+  # Account has an ARB subscription and we want to modify it.
+  def build_arb_subscription_for_update
     sub = AuthorizeNet::ARB::Subscription.new(
       subscription_id: arb_id,
       amount: regular_amount_in_cents.to_f / 100,
@@ -192,12 +195,12 @@ class Payment < ActiveRecord::Base
     return true
   end
   
-  def create_and_process_subscription
+  def create_and_charge_arb_subscription
     return false if !validate_for_creation
 
     self.start_date = Time.now + 1.day unless self.start_date
     
-    arb_sub = build_subscription_object()
+    arb_sub = build_arb_subscription_for_create()
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
@@ -270,7 +273,7 @@ class Payment < ActiveRecord::Base
   
   def update_arb_subscription
       if !payment_type_changed? && self.active?
-        arb_sub = build_subscription_object_for_update
+        arb_sub = build_arb_subscription_for_update
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
           arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
@@ -312,8 +315,8 @@ class Payment < ActiveRecord::Base
           return false
         end
       else
-        cancel_subscription
-        arb_sub = build_refresh_subscription_object
+        cancel_arb_subscription
+        arb_sub = build_arb_subscription_for_replace
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
           arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
@@ -358,7 +361,7 @@ class Payment < ActiveRecord::Base
       return true
   end
   
-  def cancel_subscription
+  def cancel_arb_subscription
     status_arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
     status_response = status_arb_tran.get_status(self.arb_id)
     if status_response.success?
