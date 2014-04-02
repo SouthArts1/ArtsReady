@@ -16,11 +16,23 @@ module Arbly
           end
         end
 
-        if o.payment
-          if o.payment.days_left_until_rebill == 2
-            BillingMailer.subscription_renewal(o).deliver
-          end
-        end
+        # This code is broken in at least two ways:
+        #
+        # 1. An error in `AdminMailer#subscription_renewal` prevents any
+        #    email from being sent.
+        # 2. If it were being sent, it would be sent to organizations with
+        #    cancelled subscriptions.
+        #
+        # Fixing #1 would make #2 an issue, so for now, we're just
+        # commenting out the code. Email will still not be sent, but
+        # now it won't generate errors (and prevent todo reminders)
+        # in the process.
+
+        # if o.payment
+        #   if o.payment.days_left_until_rebill == 2
+        #     BillingMailer.subscription_renewal(o).deliver
+        #   end
+        # end
       end
     end
   end
