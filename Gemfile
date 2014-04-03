@@ -53,6 +53,8 @@ end
 group :development do
   gem 'rails-footnotes', '>= 3.7'
   gem 'sass'
+  gem "binding_of_caller"
+  gem 'better_errors'
 end
 
 group :test do
