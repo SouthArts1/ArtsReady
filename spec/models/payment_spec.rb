@@ -382,7 +382,7 @@ describe Payment do
         )
       }
       let(:build_subscription) {
-        payment.send(:build_subscription_object)
+        payment.send(:build_arb_subscription_for_create)
       }
 
       it 'builds an ARB subscription' do
@@ -419,7 +419,7 @@ describe Payment do
         )
       }
       let(:build_subscription) {
-        payment.send(:build_refresh_subscription_object)
+        payment.send(:build_arb_subscription_for_replace)
       }
 
       before do
