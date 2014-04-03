@@ -21,11 +21,7 @@
   <% end %>
 </div>
 <div class="grid_12">
-  <ul class="top-nav settings">
-    <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
-    <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
-    <li class="active"><%= link_to "Billing", "/admin/organizations/billing/#{@organization.id}" %></li>
-  </ul>
+  <%= render 'admin/shared/organization_menu' %>
 </div>
 <div class="grid_8">
   <section>

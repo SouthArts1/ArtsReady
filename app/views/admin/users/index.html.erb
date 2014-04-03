@@ -1,11 +1,10 @@
 <h1>Admin: Organization</h1>
 <h2><%= @organization.name %></h2>
 
-<ul class="top-nav settings">
-  <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
-  <li class="active"><%= link_to "Users", admin_organization_users_path(@organization) %></li>
-	<li><%= link_to "Billing", "/admin/organizations/billing/#{@organization.id}" %></li>
-</ul>
+<div class="grid_12">
+  <%= render 'admin/shared/organization_menu' %>
+</div>
+
 <% if @user.errors.any? %>
 <div class="error_messages">
     <h2>Form is invalid</h2>
