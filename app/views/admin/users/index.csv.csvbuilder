@@ -16,22 +16,22 @@ csv << [
   'Account Expiration Date'
 ]
 
-@users.includes(:organization => :payments).find_each do |user|
+@users.includes(:organization => :subscriptions).find_each do |user|
   organization = user.organization
-  payment = organization.payment
+  subscription = organization.subscription
 
-  payment_fields = payment ? [
-    payment.billing_first_name, payment.billing_last_name,
-    payment.billing_address,
-    payment.billing_city, payment.billing_state, payment.billing_zipcode,
-    payment.billing_phone_number, payment.billing_email,
-    payment.discount_code && payment.discount_code.discount_code,
-    payment.payment_method, payment.payment_number,
-    payment.start_date.strftime('%m/%d/%Y'),
-    money_from_cents(payment.starting_amount_in_cents),
-    payment.days_left_until_rebill,
-    money_from_cents(payment.regular_amount_in_cents),
-    [payment.expiry_month, payment.expiry_year].compact.join('/')
+  subscription_fields = subscription ? [
+    subscription.billing_first_name, subscription.billing_last_name,
+    subscription.billing_address,
+    subscription.billing_city, subscription.billing_state, subscription.billing_zipcode,
+    subscription.billing_phone_number, subscription.billing_email,
+    subscription.discount_code && subscription.discount_code.discount_code,
+    subscription.payment_method, subscription.payment_number,
+    subscription.start_date.strftime('%m/%d/%Y'),
+    money_from_cents(subscription.starting_amount_in_cents),
+    subscription.days_left_until_rebill,
+    money_from_cents(subscription.regular_amount_in_cents),
+    [subscription.expiry_month, subscription.expiry_year].compact.join('/')
   ] : Array.new(16)
 
   csv << [
@@ -44,7 +44,7 @@ csv << [
     organization.organizational_status,
     organization.nsic_code, organization.other_nsic_code,
     organization.contact_name, organization.email,
-    *payment_fields
+    *subscription_fields
   ]
 end
 

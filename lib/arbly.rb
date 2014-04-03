@@ -4,7 +4,7 @@ module Arbly
       orgs = Organization.all
 
       orgs.each do |o|
-        if (o.payment && !o.payment.active?) || (!o.payment && o.active?)
+        if (o.subscription && !o.subscription.active?) || (!o.subscription && o.active?)
           BillingMailer.setup_subscription_now(o).deliver
           begin
             if ((Time.now - o.created_at).to_i / (24 * 60 * 60)) > 2
@@ -28,8 +28,8 @@ module Arbly
         # now it won't generate errors (and prevent todo reminders)
         # in the process.
 
-        # if o.payment
-        #   if o.payment.days_left_until_rebill == 2
+        # if o.subscription
+        #   if o.subscription.days_left_until_rebill == 2
         #     BillingMailer.subscription_renewal(o).deliver
         #   end
         # end

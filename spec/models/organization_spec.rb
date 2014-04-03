@@ -36,13 +36,13 @@ describe Organization do
       before { org.active = false }
 
       context 'that has never paid' do
-        before { org.payments.stub(:last) { nil } }
+        before { org.subscriptions.stub(:last) { nil } }
 
         it { should eq 'needs approval' }
       end
 
       context 'that has previously been active' do
-        before { org.payments.stub(:last) { double } }
+        before { org.subscriptions.stub(:last) { double } }
 
         it { should eq 'inactive' }
       end

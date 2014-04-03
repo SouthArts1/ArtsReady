@@ -25,7 +25,7 @@
             <td class="name"><p><%= code.discount_code %></p></td>
 						<td class="description"><p><%= code.description %></p></td>
             <td class="activity"><p>
-							<%= code.payments.count %>
+							<%= code.subscriptions.count %>
 						</p></td>
 						<td class="activity"><p><%= code.redemption_max %></p></td>
             <td class="actions"><p><%= link_to "Show Usage", "/admin/discount_codes/show_usage/#{code.id}" %></p></td>

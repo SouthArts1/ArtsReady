@@ -38,7 +38,7 @@ class Admin::DiscountCodesController < Admin::AdminController
   
   def usage
     @discount_codes = DiscountCode.all
-    @payments = Payment.all
+    @subscriptions = Subscription.all
   end
   
   def show_usage

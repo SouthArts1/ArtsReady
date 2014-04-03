@@ -14,7 +14,7 @@
   <%= button_to("DELETE", admin_organization_path(@organization),
                 :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
                 :method  => :delete) if @organization.deletable? %>
-  <% if @organization.payment && @organization.payment.active? %>
+  <% if @organization.subscription && @organization.subscription.active? %>
     <%= button_to("Cancel Billing", billing_cancel_path(@organization),
                   :confirm => "THIS CAN NOT BE UNDONE.",
                   :method  => :delete) %>
@@ -26,10 +26,10 @@
 <div class="grid_8">
   <section>
     <h3>Billing Information:</h3>
-    <% if @payment && @payment.active? %>
+    <% if @subscription && @subscription.active? %>
       <%= render 'shared/billing_info' %>
 
-      <% code = @payment.discount_code %>
+      <% code = @subscription.discount_code %>
       <% if code %>
         <p>
           Discount code:

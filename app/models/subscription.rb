@@ -1,4 +1,6 @@
-class Payment < ActiveRecord::Base
+class Subscription < ActiveRecord::Base
+  self.table_name = 'payments'
+
   belongs_to :organization
   belongs_to :discount_code
   
@@ -11,7 +13,7 @@ class Payment < ActiveRecord::Base
   validates_presence_of :organization_id
 
   def self.build_provisional(attrs = {})
-    new(attrs).tap { |payment| payment.make_provisional }
+    new(attrs).tap { |subscription| subscription.make_provisional }
   end
 
   def make_provisional
@@ -93,12 +95,12 @@ class Payment < ActiveRecord::Base
   
   def cancel
     if cancel_arb_subscription
-      Payment.skip_callbacks = true
+      Subscription.skip_callbacks = true
       if self.update_attributes({ active: false, end_date: Time.now })
-        Payment.skip_callbacks = false
+        Subscription.skip_callbacks = false
         return true
       else
-        Payment.skip_callbacks = false
+        Subscription.skip_callbacks = false
         return false
       end
     else
@@ -261,10 +263,10 @@ class Payment < ActiveRecord::Base
   end
 
   def payment_type_changed?
-    Rails.logger.debug("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
-    if Payment.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"
+    Rails.logger.debug("Old payment type: #{Subscription.find(self.id).payment_method} and new type: #{self.payment_type}")
+    if Subscription.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"
       return true
-    elsif Payment.find(self.id).payment_method.downcase.include?("account") && self.payment_type == "cc"
+    elsif Subscription.find(self.id).payment_method.downcase.include?("account") && self.payment_type == "cc"
       return true
     else
       return false

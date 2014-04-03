@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       msg = 'You must sign in to access that page'
       if (current_user.present? && !current_org.active?) 
         msg = 'Your organization has not been approved or is inactive.' 
-        if !current_org.payment
+        if !current_org.subscription
           redirect_to new_billing_path
         else
           redirect_to :sign_in, notice: msg

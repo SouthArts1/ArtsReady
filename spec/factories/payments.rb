@@ -1,5 +1,7 @@
+# TODO: rename file
+
 FactoryGirl.define do
-  factory :payment do
+  factory :subscription do
     starting_amount_in_cents 100
     regular_amount_in_cents 100
 
@@ -21,7 +23,7 @@ FactoryGirl.define do
 
     active true
 
-    factory :payment_with_discount_code do
+    factory :subscription_with_discount_code do
       discount_code
     end
   end
