@@ -113,8 +113,9 @@ input[type=submit].linklike {
   color: inherit;
   font-size: inherit;
 }
-ul, ol, p {
-  margin: 0 10px 10px; }
+ul, ol, p, .input {
+  margin: 0 10px 10px;
+}
 
 ol {
   list-style-type: decimal;
