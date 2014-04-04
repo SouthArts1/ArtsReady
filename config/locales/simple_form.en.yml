@@ -11,6 +11,9 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
 
+    labels:
+      payment:
+        arb_id: 'Authorize.Net transaction ID'
     # Labels and hints examples
     # labels:
     #   defaults:

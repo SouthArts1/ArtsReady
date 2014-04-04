@@ -1,0 +1,14 @@
+<%= simple_form_for [:admin, @organization, @payment] do |f| %>
+  <%= f.association :discount_code, label_method: :discount_code %>
+  <%= f.input :amount %>
+  <%= f.input :arb_id %>
+  <%= f.input :account_type, as: :grouped_select,
+        collection: Payment::ACCOUNT_TYPES,
+        group_method: :last
+  %>
+
+  <%= f.input :routing_number %>
+  <%= f.input :account_number %>
+
+  <%= f.submit 'Save' %>
+<% end %>

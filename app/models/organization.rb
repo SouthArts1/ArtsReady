@@ -29,6 +29,7 @@ class Organization < ActiveRecord::Base
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
   has_many :subscriptions
+  has_many :payments
 
   accepts_nested_attributes_for :users
 

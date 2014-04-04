@@ -24,6 +24,7 @@ Artsready::Application.routes.draw do
     
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
+      resources :payments, except: :show
       get 'billing', on: :member
     end
     resources :users, :only => [:index]
