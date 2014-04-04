@@ -57,8 +57,8 @@
       <tbody>
         <%= form_for([:admin,@organization, @user]) do |f| %>
         <tr>
-          <td class="name"><p><%= f.text_field:first_name, :placeholder => 'First Name'%></p></td>
-          <td class="name"><p><%= f.text_field:last_name, :placeholder => 'Last Name'%></p></td>
+          <td class="name"><p><%= f.text_field :first_name, :placeholder => 'First Name'%></p></td>
+          <td class="name"><p><%= f.text_field :last_name, :placeholder => 'Last Name'%></p></td>
           <td class="email"><p><%= f.text_field :email, :placeholder => 'Email'%></p></td>
           <td class="role"><%= f.select :role, ArtsreadyDomain::ROLES.collect {|r| [r.humanize, r]} %></td>
           <td class="add"><p><%= f.submit 'Add', :class => 'button green'%></p></td>
