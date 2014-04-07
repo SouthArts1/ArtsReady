@@ -21,6 +21,7 @@ gem 'csv_builder'
 gem 'RedCloth'
 gem 'acts-as-taggable-on', '>= 2.2.2'
 gem 'simple_form'
+gem 'strong_parameters'
 
 gem 'heroku'
 gem 'airbrake'
