@@ -1625,7 +1625,8 @@ table#payments th {
 table#payments td {
   padding: 0 10px; }
 table#payments td {
-  text-align: right; }
+  text-align: right;
+  white-space: nowrap; }
 
 .todo-details h3, .todo-logs h3 {
   margin: 0;

@@ -1,4 +1,5 @@
 Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
+  Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
   FactoryGirl.create(:discount_code, discount_code: 'DISCO')
 
   click_on 'Manage Organizations'
@@ -27,6 +28,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
 
   expected_table = Cucumber::Ast::Table.new([
     {
+      'Date/Time'      => '03/20/24 03:18:01 PM',
       'Discount code'  => 'DISCO',
       'Amount'         => '$50.00',
       'ARB ID'         => '123456789',

@@ -7,6 +7,7 @@ class Payment < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :discount_code
 
+  before_validation :set_default_paid_at, on: :create
   before_validation :associate_subscription, on: :create
 
   CREDIT_ACCOUNT_TYPES = [
@@ -23,7 +24,7 @@ class Payment < ActiveRecord::Base
   ]
 
   validates_presence_of :organization,
-    :amount, :account_type, :account_number
+    :amount, :account_type, :account_number, :paid_at
   validates_presence_of :routing_number, if: :bank_account?
   validates_numericality_of :amount, :arb_id,
     :account_number, :routing_number,
@@ -54,6 +55,10 @@ class Payment < ActiveRecord::Base
   end
 
   private
+
+  def set_default_paid_at
+    self.paid_at ||= Time.zone.now
+  end
 
   def associate_subscription
     self.subscription = organization.try(:subscription)

@@ -10,6 +10,7 @@
   <table id="payments">
     <% content_for :payment_table_header do %>
       <tr>
+        <th>Date/Time</th>
         <th>Discount code</th>
         <th>Amount</th>
         <th>ARB ID</th>
@@ -26,6 +27,7 @@
     <tbody>
       <% @payments.each do |payment| %>
         <tr>
+          <td><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
           <td><%= payment.discount_code.discount_code %></td>
           <td><%= number_to_currency payment.amount %></td>
           <td><%= payment.arb_id %></td>
