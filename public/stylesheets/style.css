@@ -616,7 +616,7 @@ table {
   width: 100%;
   border: 2px solid #28387d; }
 
-thead td {
+thead td, tfoot td {
   background-color: #525e96;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#525e96), to(#28387d));
   background-image: -moz-linear-gradient(100% 100% 90deg, #28387d, #525e96);
@@ -628,7 +628,7 @@ thead td {
   font-size: 80%;
   text-transform: uppercase;
   color: #fff; }
-thead th {
+thead th, tfoot th {
   background-color: #525e96;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#525e96), to(#28387d));
   background-image: -moz-linear-gradient(100% 100% 90deg, #28387d, #525e96);
@@ -1618,6 +1618,13 @@ table .icon {
   border: none; }
 
 td.actions {
+  text-align: right; }
+
+table#payments th {
+  padding: 10px; }
+table#payments td {
+  padding: 0 10px; }
+table#payments td {
   text-align: right; }
 
 .todo-details h3, .todo-logs h3 {

@@ -18,5 +18,22 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
 
   expect(page).to have_content 'Saved new payment'
 
-  pending 'check saved data'
+  # exclude the footer row, since Cucumber::Ast::Table doesn't
+  # understand it.
+  rows = page.find('#payments').all('thead tr, tbody tr')
+  table = rows.map do |row|
+    row.all('td, th').map(&:text)
+  end
+
+  expected_table = Cucumber::Ast::Table.new([
+    {
+      'Discount code'  => 'DISCO',
+      'Amount'         => '$50.00',
+      'ARB ID'         => '123456789',
+      'Account type'   => 'Savings',
+      'Account number' => '4312',
+      'Routing number' => '2387'
+    }
+  ])
+  expected_table.diff!(table)
 end

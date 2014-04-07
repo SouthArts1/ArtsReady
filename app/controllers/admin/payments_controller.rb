@@ -2,6 +2,7 @@ class Admin::PaymentsController < Admin::AdminController
   before_filter :find_organization
 
   def index
+    @payments = @organization.payments.order('paid_at DESC')
   end
 
   def new

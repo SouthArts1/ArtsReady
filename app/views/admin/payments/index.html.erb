@@ -3,5 +3,41 @@
 </div>
 
 <div class="grid_8">
-  <%= link_to 'Add a payment', [:new, :admin, @organization, :payment] %>
+  <p>
+    <%= link_to 'Add a payment', [:new, :admin, @organization, :payment] %>
+  </p>
+
+  <table id="payments">
+    <% content_for :payment_table_header do %>
+      <tr>
+        <th>Discount code</th>
+        <th>Amount</th>
+        <th>ARB ID</th>
+        <th>Account type</th>
+        <th>Account number</th>
+        <th>Routing number</th>
+      </tr>
+    <% end %>
+
+    <thead>
+      <%= content_for :payment_table_header %>
+    </thead>
+
+    <tbody>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><%= payment.discount_code.discount_code %></td>
+          <td><%= number_to_currency payment.amount %></td>
+          <td><%= payment.arb_id %></td>
+          <td><%= payment.account_type %></td>
+          <td><%= payment.account_number %></td>
+          <td><%= payment.routing_number %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <tfoot>
+      <%= content_for :payment_table_header %>
+    </tfoot>
+  </table>
 </div>
