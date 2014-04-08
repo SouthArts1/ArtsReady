@@ -27,8 +27,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
       'ARB ID'         => '123456789',
       'Account type'   => 'Savings',
       'Account number' => '4312',
-      'Routing number' => '2387',
-      ''               => 'Edit'
+      'Routing number' => '2387'
     }
   ])
 
@@ -56,8 +55,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
       'ARB ID'         => '123456789',
       'Account type'   => 'Visa',
       'Account number' => '1001',
-      'Routing number' => '',
-      ''               => 'Edit'
+      'Routing number' => ''
     }
   ])
 

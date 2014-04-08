@@ -11,7 +11,11 @@ module AdminStepHelpers
     rows = page.find('#payments').all('thead tr, tbody tr')
     Cucumber::Ast::Table.new(
       rows.map do |row|
-        row.all('td, th').map(&:text)
+        row.
+          # exclude the actions column, since it's not germane
+          # to our tests
+          all('td:not(:last-child), th:not(:last-child)').
+          map(&:text)
       end
     )
   end
