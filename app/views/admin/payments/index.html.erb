@@ -17,6 +17,7 @@
         <th>Account type</th>
         <th>Account number</th>
         <th>Routing number</th>
+        <th><p>&nbsp;</p></th>
       </tr>
     <% end %>
 
@@ -34,6 +35,13 @@
           <td><%= payment.account_type %></td>
           <td><%= payment.account_number %></td>
           <td><%= payment.routing_number %></td>
+          <td class="actions">
+            <%= link_to 'Edit',
+              edit_admin_organization_payment_path(
+                payment.organization, payment
+              ),
+              :class => 'button' %>
+          </td>
         </tr>
       <% end %>
     </tbody>

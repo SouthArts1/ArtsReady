@@ -1,4 +1,6 @@
 <%= simple_form_for [:admin, @organization, @payment] do |f| %>
+  <%= f.input :paid_at_date, input_html: {class: 'datepicker', placeholder: 'MM/DD/YY'} %>
+  <%= f.input :paid_at_time %>
   <%= f.association :discount_code, label_method: :discount_code %>
   <%= f.input :amount %>
   <%= f.input :arb_id %>
