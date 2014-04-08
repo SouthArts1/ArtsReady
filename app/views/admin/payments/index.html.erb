@@ -41,6 +41,13 @@
                 payment.organization, payment
               ),
               :class => 'button' %>
+            <%= link_to 'Delete',
+              admin_organization_payment_path(
+                payment.organization, payment
+              ),
+              method: :delete,
+              confirm: 'Really delete this payment?',
+              :class => 'button' %>
           </td>
         </tr>
       <% end %>

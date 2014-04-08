@@ -5,3 +5,4 @@ Feature: Admin payment history
     And I am signed in as a sysadmin
     Then I can add a payment for "Paying Org"
     And I can edit the payment for "Paying Org"
+    And I can delete the payment for "Paying Org"

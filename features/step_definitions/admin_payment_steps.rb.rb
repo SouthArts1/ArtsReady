@@ -61,3 +61,12 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
 
   payment_table.diff!(expected_table)
 end
+
+And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
+  click_on 'Delete'
+
+  expect(page).to have_content 'Deleted payment'
+
+  # with no remaining payments, there's nothing to edit:
+  expect(page).not_to have_button('Edit')
+end

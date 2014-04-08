@@ -32,6 +32,14 @@ class Admin::PaymentsController < Admin::AdminController
     end
   end
 
+  def destroy
+    if @payment.destroy
+      redirect_to({action: 'index'}, notice: 'Deleted payment.')
+    else
+      redirect_to({action: 'index'}, notice: "Can't delete payment.")
+    end
+  end
+
   private
 
   def find_organization
