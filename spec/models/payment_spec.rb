@@ -33,7 +33,7 @@ describe Payment do
     
   context "valid payment object" do
     before(:all) do
-      @org = FactoryGirl.create(:organization)
+      @org = FactoryGirl.build_stubbed(:organization)
       @info_params = {
         regular_amount_in_cents: 100,
         starting_amount_in_cents: 100,
@@ -180,9 +180,8 @@ describe Payment do
   
   context "cancel payment" do
     before(:all) do
-      Organization.all.each{|o| o.destroy}
       Payment.all.each{|p| p.destroy}
-      @org = FactoryGirl.create(:organization)
+      @org = FactoryGirl.build_stubbed(:organization)
       @info_params = {
         regular_amount_in_cents: 100,
         starting_amount_in_cents: 100,
@@ -199,9 +198,12 @@ describe Payment do
       @info_params["ccv"] = "123"
       @info_params["expiry_month"] = 10
       @info_params["expiry_year"] = 2020
-      @payment = Payment.create(@info_params)
     end
     
+    before(:each) do
+      @payment = Payment.create(@info_params)
+    end
+
     it "should cancel if created" do
       response = @payment.cancel
       @payment.is_active? == false

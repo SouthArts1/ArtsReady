@@ -101,11 +101,13 @@ class Organization < ActiveRecord::Base
   end
   
   def payment
-    logger.debug("Number of payments: #{self.payments.count rescue 0} return: #{self.payments.last.inspect rescue "nil"}")
-    return self.payments.last unless self.payments.nil?
-    return nil
+    payments.last
   end
-  
+
+  def account_status
+    active ? 'active' : (payment ? 'inactive' : 'needs approval')
+  end
+
   private 
    
   def send_admin_notification

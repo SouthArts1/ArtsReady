@@ -23,23 +23,25 @@ Feature: View articles
 
   Scenario: View an article shared by a buddy
     Given I am signed in as a reader
-    And I have a battle buddy with a name of "Bob"
+    And I have a battle buddy with a name of "Bob's Job"
+    And "Bob's Job" has a user with a first name of "Bob"
     And the following article exists:
-      | critical function | title   | body                     | organization |
-      | people            | hey pal | let me tell you a secret | name: Bob    |
-    And Bob has shared the article "hey pal" with me
+      |       user      | critical function | title   | body                     |
+      | first_name: Bob | people            | hey pal | let me tell you a secret |
+    And Bob's Job has shared the article "hey pal" with me
 
     When I go to the library
     And I follow "People Resources (1)"
     And I follow "hey pal"
     Then I should see "a secret"
-    
+
   Scenario: Articles written by a buddy should have the buddy icon
     Given I am signed in as a reader
-    And I have a battle buddy with a name of "Bob"
+    And I have a battle buddy with a name of "Bob's Job"
+    And "Bob's Job" has a user with a first name of "Bob"
     And the following article exists:
-      | organization  | critical function | visibility |
-      |   name: Bob   | people            | buddies    |
+      |       user        | critical function | visibility |
+      | first_name: Bob   | people            | buddies    |
 
     When I go to the library
     And I follow "People Resources"
@@ -48,8 +50,8 @@ Feature: View articles
   Scenario: Critical articles should have the crit_stuff icon
     Given I am signed in as "Example"
     And the following public article exists:
-      | on critical list  | critical function | organization |
-      | true              | people            | Example      |
+      | on critical list  | critical function | User    |
+      | true              | people            | Example |
 
     When I go to the library
     And I follow "People Resources"

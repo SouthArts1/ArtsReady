@@ -22,7 +22,7 @@ When /^I fill out and submit the billing form$/ do
     'payment_type' => 'Credit Card',
     'payment_number' => '4007000000027',
     'payment_expiry_month' => '1',
-    'payment_expiry_year_1i' => '2017',
+    'payment_expiry_year_1i' => (Time.now.year + 3).to_s,
     'payment_ccv' => '888')
 
   press 'Submit Payment'
@@ -37,7 +37,7 @@ Given /^a (\d+)% discount code exists$/ do |percentage|
   )
 end
 
-When /^I sign up using the discount code$/ do
+When /^I sign up$/ do
   visit sign_up_path
 
   fill_in_fields(
@@ -58,6 +58,16 @@ When /^I sign up using the discount code$/ do
   click_button 'Create Organization'
 
   expect(current_path).to eq(new_billing_path)
+end
+
+When(/^I sign up and pay$/) do
+  step %{I sign up}
+  step %{I fill out and submit the billing form}
+end
+
+When /^I sign up using the discount code$/ do
+  step %{I sign up}
+
   expect(page.find('#starting_amount_display').text).to eq('$300.00'),
     "subscription prices have changed, please update tests"
 
@@ -65,4 +75,10 @@ When /^I sign up using the discount code$/ do
   click_button 'Apply my discount code!'
   
   step %{I fill out and submit the billing form}
+end
+
+Then(/^my billing info should reflect automatic renewal$/) do
+  visit billing_my_organization_path
+
+  expect(page).to have_content 'Date joined: March 20, 2024'
 end

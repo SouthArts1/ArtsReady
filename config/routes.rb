@@ -35,7 +35,7 @@ Artsready::Application.routes.draw do
     resources :pages, :only => [:index, :edit, :update]
     resources :questions
     resources :action_items
-    resources :discount_codes
+    resources :discount_codes, except: [:show, :destroy]
     resources :payment_variables
     root :to => 'home#dashboard', :as => "dashboard"
   end

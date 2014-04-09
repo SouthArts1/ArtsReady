@@ -9,8 +9,8 @@ describe ArticlesController do
   end
 
   context "logged in" do
-    let(:organization) { Factory(:organization)}
-    let(:user) { Factory.create(:user, :organization => organization) }
+    let(:user) { Factory.create(:user) }
+    let(:organization) { user.organization }
 
     before(:each) do
       controller.stubs :authenticate!

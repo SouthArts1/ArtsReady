@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Organization do
-  subject { Organization.new }
+  subject(:org) { Organization.new }
   
   it { should have_many(:articles) }
   it { should have_many(:assessments) }
@@ -22,7 +22,33 @@ describe Organization do
   it {subject.declared_crisis?.should be_false}
   it {subject.active?.should be_false}
   it {subject.is_approved?.should be_false}
-  
+
+  describe '#account_status' do
+    subject { org.account_status }
+
+    context 'for an active organization' do
+      before { org.active = true }
+
+      it { should eq 'active' }
+    end
+
+    context 'for an inactive organization' do
+      before { org.active = false }
+
+      context 'that has never paid' do
+        before { org.payments.stub(:last) { nil } }
+
+        it { should eq 'needs approval' }
+      end
+
+      context 'that has previously been active' do
+        before { org.payments.stub(:last) { double } }
+
+        it { should eq 'inactive' }
+      end
+    end
+  end
+
   context 'given multiple assessments' do
     let(:organization) { Factory.create(:organization) }
     let!(:first_assessment) {
