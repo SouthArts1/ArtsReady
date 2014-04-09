@@ -1,7 +1,7 @@
 csv << [
   'User First Name', 'User Last Name', 'User Email',
   'Account Name', 'Physical Address', 'Physical Address 2',
-  'City ', 'State', 'Zip Code', 'Phone Number', 'Fax Number',
+  'City', 'State', 'Zip Code', 'Phone Number', 'Fax Number',
   'Parent Organization', 'Subsidizing Organization',
   'Organizational Status (2 digits)',
   'National Standard Institution Code', 'Other NSI Code',
@@ -9,13 +9,14 @@ csv << [
   'Billing First Name', 'Billing Last Name',
   'Billing Address',
   'Billing City', 'Billing State', 'Billing Zip Code',
+  'Billing Phone Number', 'Billing Email',
   'Discount Code', 'Payment Type', 'Ends in',
   'First Billing Date', 'First Billing Amount',
   'Next Billing Date Occurs in (Days)', 'Next Billing Amount',
   'Account Expiration Date'
 ]
 
-@users.includes(:organization).find_each do |user|
+@users.includes(:organization => :payments).find_each do |user|
   organization = user.organization
   payment = organization.payment
 
@@ -23,6 +24,7 @@ csv << [
     payment.billing_first_name, payment.billing_last_name,
     payment.billing_address,
     payment.billing_city, payment.billing_state, payment.billing_zipcode,
+    payment.billing_phone_number, payment.billing_email,
     payment.discount_code && payment.discount_code.discount_code,
     payment.payment_method, payment.payment_number,
     payment.start_date.strftime('%m/%d/%Y'),
@@ -30,7 +32,7 @@ csv << [
     payment.days_left_until_rebill,
     money_from_cents(payment.regular_amount_in_cents),
     [payment.expiry_month, payment.expiry_year].compact.join('/')
-  ] : []
+  ] : Array.new(16)
 
   csv << [
     user.first_name, user.last_name, user.email,

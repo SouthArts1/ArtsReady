@@ -55,7 +55,7 @@ Then /^I should see the following todos:$/ do |table|
     actual_headers = all('thead th').map(&:text)
     columns = table.headers.map { |header| actual_headers.index(header) }
     actual_cells = all('tbody tr').map do |row|
-      row.all('td').values_at(*columns).map(&:text).map(&:strip)
+      row.all('td').to_a.values_at(*columns).map(&:text).map(&:strip)
     end
 
     table.diff!([table.headers, *actual_cells])
@@ -86,7 +86,7 @@ end
 Then /^I should receive todo reminders on Tuesdays$/ do
   reset_mailer
 
-  Timecop.travel(Date.parse('next Tuesday'))
+  Timecop.travel(Date.today.end_of_week + 2) # a future Tuesday
   step %{the scheduled tasks have run} # Reminder.todos_nearly_due
 
   emails = my_todo_emails
@@ -94,7 +94,7 @@ Then /^I should receive todo reminders on Tuesdays$/ do
 
   reset_mailer
 
-  Timecop.travel(Date.parse('next Monday'))
+  Timecop.travel(Date.today.end_of_week + 1) # the Monday after that
   step %{the scheduled tasks have run}
 
   my_todo_emails.should be_empty
@@ -107,7 +107,7 @@ end
 Then /^I should not receive todo reminders$/ do
   reset_mailer
 
-  Timecop.travel(Date.parse('next Tuesday'))
+  Timecop.travel(Date.today.end_of_week + 2) # a future Tuesday
   step %{the scheduled tasks have run} # Reminder.todos_nearly_due
 
   my_todo_emails.should be_empty

@@ -39,7 +39,13 @@ FactoryGirl.define do
     factory :crisis_user do
       association :organization, :factory => :crisis_organization
     end
-  
-  end
 
+    factory :paid_user do
+      association :organization, :factory => :paid_organization
+    end
+
+    factory :unpaid_user do
+      association :organization, :factory => :unpaid_organization
+    end
+  end
 end

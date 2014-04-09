@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :organization do
+  factory :organization, aliases: [:unpaid_organization] do
     name "Test Organization"
     address "100 Test St"
     city "New York"

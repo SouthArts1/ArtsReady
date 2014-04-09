@@ -6,6 +6,10 @@ When /^I sign out$/ do
  step 'I follow "Logout"'
 end
  
+Then /^I can't sign(?: back)? in$/ do
+  login_again
+  step %{I should be signed out}
+end
 
 When /^I return next time$/ do
   reset!
@@ -13,10 +17,10 @@ When /^I return next time$/ do
 end
 
 Then /^I should be signed in$/ do
-  step 'I should see "Logout"'
+  expect(page).to have_link 'Logout'
 end
 
 Then /^I should be signed out$/ do
-  step 'I should see "Login"'
+  expect(page).to have_link 'Login'
 end
 

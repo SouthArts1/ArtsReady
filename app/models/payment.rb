@@ -27,6 +27,7 @@ class Payment < ActiveRecord::Base
       billing_first_name: user.first_name, billing_last_name: user.last_name,
       billing_address: organization.address, billing_city: organization.city,
       billing_state: organization.state, billing_zipcode: organization.zipcode,
+      billing_phone_number: organization.phone_number,
       billing_email: 'admin@artsready.org',
       number: "4007000000027",
       expiry_month: "02", expiry_year: Date.today.year + 1,
@@ -34,14 +35,31 @@ class Payment < ActiveRecord::Base
     }
   end
 
-  def is_active?
-    return self.active?
-  end
-
+  # Used on billing info page. Not tested or trusted. Should be revised
+  # once we more accurately track billing dates with Authorize.net.
   def days_left_until_rebill
     return 0 if !self.start_date
     return (((self.start_date) - (Time.now)).to_i / (24 * 60 * 60)) if self.start_date > Time.now
     return (((self.start_date + 365.days) - (Time.now)).to_i / (24 * 60 * 60)) rescue 0
+  end
+
+  # Used to calculate "start date" for "refreshed" subscriptions (i.e., when
+  # we have to tell Authorize.Net to create a "new" subscription to update
+  # one that already exists but can't be modified in the way we want). Should
+  # be revised once we more accurately track billing dates with Authorize.net.
+  def next_billing_date
+    billing_date_after(Time.zone.now)
+  end
+
+
+  # Utility for `next_billing_date`. Easier to test.
+  def billing_date_after(time)
+    if time < start_date
+      start_date
+    else
+      distance_in_years = (time - start_date) / 1.year
+      start_date + (distance_in_years.floor + 1).years
+    end
   end
 
   def validate_discount_code!
@@ -91,91 +109,65 @@ class Payment < ActiveRecord::Base
 
   private
 
-  def build_subscription_object()
+  def build_subscription_object
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
       length: 365, 
       unit: AuthorizeNet::ARB::Subscription::IntervalUnits::DAY,
-      start_date: self.start_date,
+      start_date: start_date,
       total_occurrences: 9999,
-      amount: self.regular_amount_in_cents.to_f / 100,
-      trial_amount: self.starting_amount_in_cents.to_f / 100,
+      amount: regular_amount_in_cents.to_f / 100,
+      trial_amount: starting_amount_in_cents.to_f / 100,
       trial_occurrences: 1,
-      description: "#{self.organization.name} subscription for ArtsReady",
-      customer: {
-        email: (self.billing_email.presence || self.organization.email),
-      },
-      billing_address: {
-        first_name: (self.billing_first_name rescue ""),
-        last_name: (self.billing_last_name rescue ""),
-        company: (self.organization.name.truncate(23) rescue ""),
-        address: (self.billing_address rescue self.organization.address),
-        city: (self.billing_city rescue self.organization.city),
-        state: (self.billing_state rescue self.organization.state),
-        zip: (self.billing_zipcode rescue self.organization.zipcode),
-        country: "United States"
-      }
+      description: "#{organization.name} subscription for ArtsReady",
+      customer: customer_for_transaction,
+      billing_address: billing_address_for_transaction
     )
     return sub
   end
-  
-  def build_refresh_subscription_object(payment)
+
+  def build_refresh_subscription_object
     sub = AuthorizeNet::ARB::Subscription.new(
       name: "ArtsReady Yearly Subscription",
       length: 365, 
       unit: AuthorizeNet::ARB::Subscription::IntervalUnits::DAY,
-      start_date: (self.start_date > Time.now ? self.start_date : (self.start_date + (Time.now.year - self.start_date.year + 1).years)),
+      start_date: next_billing_date,
       total_occurrences: 9999,
-      amount: self.regular_amount_in_cents.to_f / 100,
-      description: "#{payment.organization.name} subscription for ArtsReady",
-      customer: {
-        email: (payment.billing_email.presence || payment.organization.email),
-      },
-      billing_address: {
-        first_name: (payment.billing_first_name rescue ""),
-        last_name: (payment.billing_last_name rescue ""),
-        company: (payment.organization.name.truncate(23) rescue ""),
-        address: (payment.billing_address rescue payment.organization.address),
-        city: (payment.billing_city rescue payment.organization.city),
-        state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.billing_zipcode rescue payment.organization.zipcode),
-        country: "United States"
-      }
+      amount: regular_amount_in_cents.to_f / 100,
+      description: "#{organization.name} subscription for ArtsReady",
+      customer: customer_for_transaction,
+      billing_address: billing_address_for_transaction
     )
     return sub
   end
   
-  def build_subscription_object_for_update(payment)
+  def build_subscription_object_for_update
     sub = AuthorizeNet::ARB::Subscription.new(
-      subscription_id: self.arb_id,
-      amount: self.regular_amount_in_cents.to_f / 100,
-      trial_amount: self.starting_amount_in_cents.to_f / 100,
-      customer: {
-        email: (payment.billing_email.presence || payment.organization.email),
-      },
-      billing_address: {
-        first_name: (payment.billing_first_name rescue ""),
-        last_name: (payment.billing_last_name rescue ""),
-        company: (payment.organization.name.truncate(23) rescue ""),
-        address: (payment.billing_address rescue payment.organization.address),
-        city: (payment.billing_city rescue payment.organization.city),
-        state: (payment.billing_state rescue payment.organization.state),
-        zip: (payment.billing_zipcode rescue payment.organization.zipcode),
-        country: "United States"
-      }
+      subscription_id: arb_id,
+      amount: regular_amount_in_cents.to_f / 100,
+      trial_amount: starting_amount_in_cents.to_f / 100,
+      customer: customer_for_transaction,
+      billing_address: billing_address_for_transaction
     )
     return sub
   end
-  
+
+  def customer_for_transaction
+    {
+      email: (billing_email.presence || organization.email),
+      phone_number: billing_phone_number || organization.phone_number
+    }
+  end
+
   def billing_address_for_transaction
     return {
-      first_name: (self.billing_first_name rescue ""),
-      last_name: (self.billing_last_name rescue ""),
-      company: (self.organization.name.truncate(23) rescue ""),
-      address: (self.billing_address rescue self.organization.address),
-      city: (self.billing_city rescue self.organization.city),
-      state: (self.billing_state rescue self.organization.state),
-      zip: (self.billing_zipcode rescue self.organization.zipcode),
+      first_name: (billing_first_name rescue ""),
+      last_name: (billing_last_name rescue ""),
+      company: (organization.name.truncate(23) rescue ""),
+      address: (billing_address rescue organization.address),
+      city: (billing_city rescue organization.city),
+      state: (billing_state rescue organization.state),
+      zip: (billing_zipcode rescue organization.zipcode),
       country: "United States"
     }
   end
@@ -265,7 +257,7 @@ class Payment < ActiveRecord::Base
     regular_amount_in_cents == 0
   end
 
-  def payment_changed?
+  def payment_type_changed?
     Rails.logger.debug("Old payment type: #{Payment.find(self.id).payment_method} and new type: #{self.payment_type}")
     if Payment.find(self.id).payment_method == "Credit Card" && self.payment_type == "bank"
       return true
@@ -277,8 +269,8 @@ class Payment < ActiveRecord::Base
   end
   
   def update_arb_subscription
-      if !payment_changed? && self.active?
-        arb_sub = build_subscription_object_for_update(self)
+      if !payment_type_changed? && self.active?
+        arb_sub = build_subscription_object_for_update
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
           arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
@@ -321,7 +313,7 @@ class Payment < ActiveRecord::Base
         end
       else
         cancel_subscription
-        arb_sub = build_refresh_subscription_object(self)
+        arb_sub = build_refresh_subscription_object
         if self.payment_type == "cc"
           expiry = get_expiry(self.expiry_month, self.expiry_year)
           arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
@@ -374,7 +366,7 @@ class Payment < ActiveRecord::Base
       response = arb_tran.cancel(self.arb_id)
       Rails.logger.debug("Response: #{response.inspect}")
       Rails.logger.debug("Message: #{response.message_text}")
-      if response.success? || (response.message_text.include?("canceled") rescue true)
+      if response.success? || (response.message_text.include?("canceled") rescue false)
         Rails.logger.debug("Passes validation.  It is or has been cancelled")
         return true
       else
