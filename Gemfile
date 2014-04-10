@@ -12,7 +12,7 @@ gem 'bcrypt-ruby', '2.1.4', :require => 'bcrypt'
 gem 'cancan', '1.6.7'
 
 gem 'carrierwave', '0.5.7'
-gem 'fog', '0.11.0'
+gem 'fog'
 
 gem 'geocoder'
 gem 'gmaps4rails', '1.3.1'
