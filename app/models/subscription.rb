@@ -3,8 +3,8 @@ class Subscription < ActiveRecord::Base
 
   belongs_to :organization
   belongs_to :discount_code
-  
-  cattr_accessor :skip_callbacks
+
+  attr_accessor :skip_callbacks
   attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
   
   before_create :create_and_charge_arb_subscription
@@ -92,19 +92,22 @@ class Subscription < ActiveRecord::Base
     expiry_year = expiry_year.to_s.split("")[2] + expiry_year.to_s.split("")[3]
     return expiry_month.to_s + expiry_year.to_s
   end
-  
+
+  def skipping_callbacks
+    was_skipping_callbacks = skip_callbacks
+    self.skip_callbacks = true
+    yield self
+  ensure
+    self.skip_callbacks = was_skipping_callbacks
+  end
+
   def cancel
-    if cancel_arb_subscription
-      Subscription.skip_callbacks = true
-      if self.update_attributes({ active: false, end_date: Time.now })
-        Subscription.skip_callbacks = false
-        return true
+    skipping_callbacks do
+      if cancel_arb_subscription
+        return update_attributes({ active: false, end_date: Time.now })
       else
-        Subscription.skip_callbacks = false
         return false
       end
-    else
-      return false
     end
   end
 
