@@ -70,3 +70,38 @@ And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
   # with no remaining payments, there's nothing to edit:
   expect(page).not_to have_button('Edit')
 end
+
+When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
+  Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
+
+  subscription = Organization.find_by_name(org_name).subscription
+
+  template = ERB.new(
+    File.read('spec/fixtures/payment_notifications/success.erb'))
+  raw_params = template.result(binding()).gsub(/\n\s*/, '')
+
+  post "#{payment_notifications_path}?#{raw_params}"
+end
+
+
+Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
+  pending
+
+  click_on 'Manage Organizations'
+  edit_organization(org_name)
+  click_on 'Payment History'
+
+  expected_table = Cucumber::Ast::Table.new([
+    {
+      'Date/Time'      => '03/20/24 3:18 PM',
+      'Discount code'  => '',
+      'Amount'         => '$0.44',
+      'ARB ID'         => '101635',
+      'Account type'   => '', # TODO: fetch via transaction details API
+      'Account number' => '',
+      'Routing number' => ''
+    }
+  ])
+
+  payment_table.diff!(expected_table)
+end

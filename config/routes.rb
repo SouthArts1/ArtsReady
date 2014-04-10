@@ -5,6 +5,8 @@ Artsready::Application.routes.draw do
   match "/billing/(:id)/edit/(:code)" => "billing#edit", :as => "billing_edit"
   resource :billing, controller: 'billing'
 
+  resources :payment_notifications, only: :create
+
   get "messages/create"
   get "needs/create"
 
