@@ -26,6 +26,7 @@ gem 'strong_parameters'
 gem 'heroku'
 gem 'airbrake'
 gem 'newrelic_rpm'
+gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'
 
