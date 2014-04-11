@@ -1,0 +1,488 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Date: 
+      - Fri, 11 Apr 2014 17:50:26 GMT
+      Expires: 
+      - Sat, 12 Apr 2014 17:50:26 GMT
+      Cache-Control: 
+      - public, max-age=86400
+      Access-Control-Allow-Origin: 
+      - "*"
+      Server: 
+      - mafe
+      X-Xss-Protection: 
+      - 1; mode=block
+      X-Frame-Options: 
+      - SAMEORIGIN
+      Alternate-Protocol: 
+      - 80:quic
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Test Kitchen",
+                       "short_name" : "Test Kitchen",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "88",
+                       "short_name" : "88",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "West Broadway",
+                       "short_name" : "W Broadway",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10007",
+                       "short_name" : "10007",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "1195",
+                       "short_name" : "1195",
+                       "types" : []
+                    }
+                 ],
+                 "formatted_address" : "Test Kitchen, 88 West Broadway, New York, NY 10007, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7153919,
+                       "lng" : -74.00960409999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7167408802915,
+                          "lng" : -74.00825511970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7140429197085,
+                          "lng" : -74.01095308029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+
+    http_version: 
+  recorded_at: Fri, 11 Apr 2014 17:50:27 GMT
+- request: 
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Date: 
+      - Fri, 11 Apr 2014 17:50:26 GMT
+      Expires: 
+      - Sat, 12 Apr 2014 17:50:26 GMT
+      Cache-Control: 
+      - public, max-age=86400
+      Access-Control-Allow-Origin: 
+      - "*"
+      Server: 
+      - mafe
+      X-Xss-Protection: 
+      - 1; mode=block
+      X-Frame-Options: 
+      - SAMEORIGIN
+      Alternate-Protocol: 
+      - 80:quic
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Test Kitchen",
+                       "short_name" : "Test Kitchen",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "88",
+                       "short_name" : "88",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "West Broadway",
+                       "short_name" : "W Broadway",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10007",
+                       "short_name" : "10007",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "1195",
+                       "short_name" : "1195",
+                       "types" : []
+                    }
+                 ],
+                 "formatted_address" : "Test Kitchen, 88 West Broadway, New York, NY 10007, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7153919,
+                       "lng" : -74.00960409999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7167408802915,
+                          "lng" : -74.00825511970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7140429197085,
+                          "lng" : -74.01095308029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+
+    http_version: 
+  recorded_at: Fri, 11 Apr 2014 17:50:28 GMT
+- request: 
+    method: post
+    uri: https://test.authorize.net/gateway/transact.dll
+    body: 
+      encoding: US-ASCII
+      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=4007000000027&x_exp_date=0117&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - application/x-www-form-urlencoded
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Connection: 
+      - close
+      Date: 
+      - Fri, 11 Apr 2014 17:50:28 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      X-Powered-By: 
+      - ASP.NET
+      Content-Type: 
+      - text/html
+      Content-Length: 
+      - "261"
+      Cache-Control: 
+      - private, must-revalidate, max-age=0
+      Expires: 
+      - Tue, 01 Jan 1980 00:00:00 GMT
+    body: 
+      encoding: US-ASCII
+      string: 1,1,1,This transaction has been approved.,47EXSF,Y,2210845620,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,47C5C5E9A2641F2F2555D29B301CFCC2,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
+    http_version: 
+  recorded_at: Fri, 11 Apr 2014 17:50:30 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBCreateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscription>
+            <name>ArtsReady Yearly Subscription</name>
+            <paymentSchedule>
+              <interval>
+                <length>365</length>
+                <unit>days</unit>
+              </interval>
+              <startDate>2014-04-12</startDate>
+              <totalOccurrences>9999</totalOccurrences>
+              <trialOccurrences>1</trialOccurrences>
+            </paymentSchedule>
+            <amount>225.0</amount>
+            <trialAmount>300.0</trialAmount>
+            <payment>
+              <creditCard>
+                <cardNumber>4007000000027</cardNumber>
+                <expirationDate>2017-01</expirationDate>
+                <cardCode>888</cardCode>
+              </creditCard>
+            </payment>
+            <order>
+              <description>My Org subscription for ArtsReady</description>
+            </order>
+            <customer>
+              <email>billing@example.com</email>
+            </customer>
+            <billTo>
+              <firstName>Bill</firstName>
+              <lastName>Lastname</lastName>
+              <company>My Org</company>
+              <address>100 Test St</address>
+              <city>New York</city>
+              <state>NY</state>
+              <zip>10001</zip>
+              <country>United States</country>
+            </billTo>
+          </subscription>
+        </ARBCreateSubscriptionRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Fri, 11 Apr 2014 17:50:29 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - http://developer.authorize.net
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "401"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2052724</subscriptionId></ARBCreateSubscriptionResponse>"
+    http_version: 
+  recorded_at: Fri, 11 Apr 2014 17:50:31 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBGetSubscriptionStatusRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscriptionId>2052724</subscriptionId>
+        </ARBGetSubscriptionStatusRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Fri, 11 Apr 2014 17:50:30 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - http://developer.authorize.net
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "459"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
+    http_version: 
+  recorded_at: Fri, 11 Apr 2014 17:50:32 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBCancelSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscriptionId>2052724</subscriptionId>
+        </ARBCancelSubscriptionRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Fri, 11 Apr 2014 17:50:32 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - http://developer.authorize.net
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "361"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
+    http_version: 
+  recorded_at: Fri, 11 Apr 2014 17:50:34 GMT
+recorded_with: VCR 2.9.0

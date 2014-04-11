@@ -73,4 +73,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'kelp', github: 'eostrom/kelp', branch: 'capybara-2-1'
   gem 'email_spec'
+  gem 'webmock'
+  gem 'vcr'
 end
