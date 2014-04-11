@@ -12,8 +12,8 @@ class Payment < ActiveRecord::Base
   before_save :clear_routing_number, unless: :bank_account?
 
   CREDIT_ACCOUNT_TYPES = [
-    'Visa', 'MasterCard', 'AmericanExpress',
-    'Discover', 'JCB', 'DinersClub'
+    'Visa', 'MasterCard', 'American Express',
+    'Discover', 'JCB', 'Diners Club'
   ]
   BANK_ACCOUNT_TYPES = [
     'Checking',
@@ -24,6 +24,9 @@ class Payment < ActiveRecord::Base
     ['Bank Account', BANK_ACCOUNT_TYPES],
   ]
 
+  # NOTE: We don't validate account type, because if Authorize.Net
+  # sends us an unknown account type, we want to record it instead
+  # of discarding it.
   validates_presence_of :organization,
     :amount, :account_type, :account_number, :paid_at
   validates_presence_of :routing_number, if: :bank_account?

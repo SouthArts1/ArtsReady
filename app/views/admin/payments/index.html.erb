@@ -29,7 +29,7 @@
       <% @payments.each do |payment| %>
         <tr>
           <td><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
-          <td><%= payment.discount_code.discount_code %></td>
+          <td><%= payment.discount_code.try(:discount_code) %></td>
           <td><%= number_to_currency payment.amount %></td>
           <td><%= payment.arb_id %></td>
           <td><%= payment.account_type %></td>
