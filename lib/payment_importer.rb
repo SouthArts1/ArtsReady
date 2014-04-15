@@ -23,7 +23,7 @@ CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates.csv", 'rb')) do |row|
       puts "Creating for #{o.name} with #{u.first_name} #{u.last_name}"
       amount = row[5].to_i * 100 
       
-      p = Payment.create({
+      p = Subscription.create({
         organization_id: o.id,
         starting_amount_in_cents: amount,
         regular_amount_in_cents: amount,
@@ -44,7 +44,7 @@ CSV.parse(File.open("#{Rails.root}/lib/sign_up_dates.csv", 'rb')) do |row|
       })
       puts "Roll on ***\n #{p.inspect}"
       p.reload
-      puts "Payment created: #{p.id} ARB: #{p.arb_id}"
+      puts "Subscription created: #{p.id} ARB: #{p.arb_id}"
     end
   end
   i = i + 1

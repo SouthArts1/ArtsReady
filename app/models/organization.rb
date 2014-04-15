@@ -28,6 +28,7 @@ class Organization < ActiveRecord::Base
   has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
+  has_many :subscriptions
   has_many :payments
 
   accepts_nested_attributes_for :users
@@ -96,16 +97,16 @@ class Organization < ActiveRecord::Base
   end
   
   def active_subscription_end_date
-    return nil if !self.payment || !self.payment.active?
-    return (self.payment.start_date + 365.days)
+    return nil if !self.subscription || !self.subscription.active?
+    return (self.subscription.start_date + 365.days)
   end
-  
-  def payment
-    payments.last
+
+  def subscription
+    subscriptions.last
   end
 
   def account_status
-    active ? 'active' : (payment ? 'inactive' : 'needs approval')
+    active ? 'active' : (subscription ? 'inactive' : 'needs approval')
   end
 
   private 
@@ -131,7 +132,7 @@ class Organization < ActiveRecord::Base
   
   def setup_initial_todo
     logger.debug("setup_initial_todo: #{self.todos.count}")
-    self.todos.create(:critical_function => 'people', :description => "adding a second manager through the Settings menu to ensure your organization's access to the ArtsReady site", :priority => 'critical', :user => users.first, :due_on => Time.zone.now) if self.todos.count == 0
+    self.todos.create(:critical_function => 'people', :description => "adding a second manager through the Settings menu to ensure your organization's access to the ArtsReady site", :priority => 'critical', :user => users.first, :due_on => Time.zone.today) if self.todos.count == 0
   end
 
 end

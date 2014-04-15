@@ -9,9 +9,9 @@
   </div>
 <% end %>
 
-<%= form_for @payment, :url => billing_path, :onkeypress => "return handleEnter(this,event)" do |f| %>
+<%= form_for @subscription, :url => billing_path, :onkeypress => "return handleEnter(this,event)" do |f| %>
   <%= f.hidden_field :organization_id, value: @organization.id %>
-  <%= f.hidden_field :discount_code_id, value: @payment.discount_code_id %>
+  <%= f.hidden_field :discount_code_id, value: @subscription.discount_code_id %>
 
   <p>
     <%= f.label :billing_first_name %>
@@ -52,14 +52,14 @@
 
   <% if f.object.new_record? %>
     <h3 style="margin-left:26px;">First Year Fee: (due today)
-      <span id="starting_amount_display" style="margin-left:24px;"><%= money_from_cents(@payment.starting_amount_in_cents) %></span>
+      <span id="starting_amount_display" style="margin-left:24px;"><%= money_from_cents(@subscription.starting_amount_in_cents) %></span>
     </h3>
   <% end %>
 
   <h3 style="margin-left:26px;">
     Annual Subscription:
       <span id="regular_amount_display" style="margin-left:62px;">
-        <%= money_from_cents @payment.regular_amount_in_cents %>
+        <%= money_from_cents @subscription.regular_amount_in_cents %>
       </span>
   </h3>
   <br/>
@@ -237,9 +237,9 @@
           if (data.good == true) {
             $("#starting_amount_display").text("$" + (data.start / 100).toFixed(2));
             $("#regular_amount_display").text("$" + (data.regular / 100).toFixed(2));
-            $("#payment_discount_code_id").attr("value", data.code_id);
-            $("#payment_discount_code_id").text(data.code_id);
-            $("#new_payment").attr("action", "/billing#" + $("#discount_code").val());
+            $("#subscription_discount_code_id").attr("value", data.code_id);
+            $("#subscription_discount_code_id").text(data.code_id);
+            $("#new_subscription").attr("action", "/billing#" + $("#discount_code").val());
             $("#applied").fadeIn();
             var timeout = setTimeout(function () {
               $("#applied").fadeOut();
@@ -264,7 +264,7 @@
         $(type).slideDown();
       });
 
-      $("#payment_number").blur(function () {
+      $("#subscription_number").blur(function () {
         if (validateCreditCard($(this).val()) == false) {
           $("#bad_card").slideDown();
         } else {

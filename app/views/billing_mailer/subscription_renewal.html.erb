@@ -1,6 +1,6 @@
-<p>Your ArtsReady account for <%= @organization.name %> will renew its subscription automatically on <%= @organization.payment.start_date.strftime("%m/%d") %>. </p>
+<p>Your ArtsReady account for <%= @organization.name %> will renew its subscription automatically on <%= @organization.subscription.start_date.strftime("%m/%d") %>. </p>
 <br />
-<p>Your organization's previously selected form of payment will be charged <%= money_from_cents @organization.payment.regular_amount_in_cents %>.</p>
+<p>Your organization's previously selected form of payment will be charged <%= money_from_cents @organization.subscription.regular_amount_in_cents %>.</p>
 <br />
 <p>
 	Please log in to your account and visit billing to review your payment information.

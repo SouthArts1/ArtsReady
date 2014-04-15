@@ -16,17 +16,17 @@ class BillingController < ApplicationController
       start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
       regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
       
-      if current_org.payments.last
+      if current_org.subscriptions.last
         return redirect_to edit_billing_path
       else
-        @payment = Payment.new({organization_id: @organization.id, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
+        @subscription = Subscription.new({organization_id: @organization.id, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
       end
             
       if session[:discount_code]
         d = DiscountCode.find_by_discount_code(session[:discount_code])
         if d
-          @payment.discount_code_id = d.id
-          @payment.validate_discount_code!
+          @subscription.discount_code_id = d.id
+          @subscription.validate_discount_code!
         end
       end
     else 
@@ -38,27 +38,27 @@ class BillingController < ApplicationController
     d = DiscountCode.find_by_discount_code(params[:code])
     start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
     regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
-    payment = Payment.new({starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
+    subscription = Subscription.new({starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
     
     if d
       session[:discount_code] = params[:code]
-      payment.discount_code_id = d.id
-      payment.validate_discount_code!
+      subscription.discount_code_id = d.id
+      subscription.validate_discount_code!
     end
     render json: {
       code_id: (d.id rescue ""),
       good: !d.nil?,
-      start: payment.starting_amount_in_cents,
-      regular: payment.regular_amount_in_cents
+      start: subscription.starting_amount_in_cents,
+      regular: subscription.regular_amount_in_cents
     } and return
   end
   
   def create
     @organization = current_org
-    @payment = @organization.payments.build
-    set_payment_attributes
+    @subscription = @organization.subscriptions.build
+    set_subscription_attributes
 
-    if @payment.save
+    if @subscription.save
       session[:discount_code] = nil
       redirect_to "/"
     else
@@ -68,26 +68,26 @@ class BillingController < ApplicationController
 
   def edit
     @organization = current_org
-    @payment = @organization.payment
-    return redirect_to :back unless @payment
+    @subscription = @organization.subscription
+    return redirect_to :back unless @subscription
     
     if params[:code]
       d = DiscountCode.find_by_discount_code(params[:code])
       if d
-        @payment.discount_code_id = d.id
-        @payment.validate_discount_code!
+        @subscription.discount_code_id = d.id
+        @subscription.validate_discount_code!
       end
     end
   end
   
   def update
     @organization = current_org
-    @payment = @organization.payment
-    set_payment_attributes
+    @subscription = @organization.subscription
+    set_subscription_attributes
 
-    return redirect_to(:back, notice: UNSPECIFIED_ERROR_MESSAGE) if !@payment
+    return redirect_to(:back, notice: UNSPECIFIED_ERROR_MESSAGE) if !@subscription
 
-    if @payment.save
+    if @subscription.save
       session[:discount_code] = nil
       redirect_to billing_path
     else
@@ -98,18 +98,18 @@ class BillingController < ApplicationController
   def show
     redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator." unless current_user.is_executive?
     @organization = current_org
-    @payment = current_org.payment
+    @subscription = current_org.subscription
   end
   
   def cancel
     if current_user.is_admin? && params[:id] != nil
-      @payment = Organization.find(params[:id]).payment
+      @subscription = Organization.find(params[:id]).subscription
     else
-      @payment = current_org.payment
+      @subscription = current_org.subscription
       redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator" and return unless current_user.is_executive?
     end
     
-    if @payment.cancel
+    if @subscription.cancel
       if current_user.is_admin?
         redirect_to "/admin/organizations", notice: "You've successfully cancelled the subscription."
       else
@@ -122,24 +122,24 @@ class BillingController < ApplicationController
 
   private
 
-  def set_payment_attributes
-    return if !@payment
+  def set_subscription_attributes
+    return if !@subscription
 
-    payment_params = params[:payment]
+    subscription_params = params[:subscription]
 
-    @payment.attributes = {
-      billing_first_name: payment_params[:billing_first_name],
-      billing_last_name:  payment_params[:billing_last_name],
-      billing_address:    payment_params[:billing_address],
-      billing_city:       payment_params[:billing_city],
-      billing_state:      payment_params[:billing_state],
-      billing_zipcode:    payment_params[:billing_zipcode],
-      billing_email:      payment_params[:billing_email],
-      billing_phone_number: payment_params[:billing_phone_number]
+    @subscription.attributes = {
+      billing_first_name: subscription_params[:billing_first_name],
+      billing_last_name:  subscription_params[:billing_last_name],
+      billing_address:    subscription_params[:billing_address],
+      billing_city:       subscription_params[:billing_city],
+      billing_state:      subscription_params[:billing_state],
+      billing_zipcode:    subscription_params[:billing_zipcode],
+      billing_email:      subscription_params[:billing_email],
+      billing_phone_number: subscription_params[:billing_phone_number]
     }
 
-    if @payment.new_record?
-      @payment.attributes = {
+    if @subscription.new_record?
+      @subscription.attributes = {
         starting_amount_in_cents:
           PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f,
         regular_amount_in_cents:
@@ -149,26 +149,26 @@ class BillingController < ApplicationController
 
     if session[:discount_code]
       begin
-        d = DiscountCode.find(payment_params[:discount_code_id])
-        @payment.discount_code_id = d.id
-        @payment.validate_discount_code!
+        d = DiscountCode.find(subscription_params[:discount_code_id])
+        @subscription.discount_code_id = d.id
+        @subscription.validate_discount_code!
       rescue Exception => e
         # do nothing
       end
     end
 
-    @payment.payment_type = params[:payment_type]
+    @subscription.payment_type = params[:payment_type]
 
-    if @payment.payment_type == "cc"
-      @payment.number       = payment_params[:number]
-      @payment.ccv          = payment_params[:ccv]
-      @payment.expiry_month = payment_params[:expiry_month]
-      @payment.expiry_year  = payment_params[:expiry_year]
-    elsif @payment.payment_type == "bank"
-      @payment.account_type   = payment_params[:account_type].downcase
-      @payment.bank_name      = payment_params[:bank_name]
-      @payment.routing_number = payment_params[:routing_number]
-      @payment.account_number = payment_params[:account_number]
+    if @subscription.payment_type == "cc"
+      @subscription.number       = subscription_params[:number]
+      @subscription.ccv          = subscription_params[:ccv]
+      @subscription.expiry_month = subscription_params[:expiry_month]
+      @subscription.expiry_year  = subscription_params[:expiry_year]
+    elsif @subscription.payment_type == "bank"
+      @subscription.account_type   = subscription_params[:account_type].downcase
+      @subscription.bank_name      = subscription_params[:bank_name]
+      @subscription.routing_number = subscription_params[:routing_number]
+      @subscription.account_number = subscription_params[:account_number]
     else
       # payment type is invalid, let `save` take care of it
     end

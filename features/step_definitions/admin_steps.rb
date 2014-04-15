@@ -34,9 +34,7 @@ end
 
 When /^I delete the organization "(.*)"$/ do |org|
   be_on 'the admin organizations page'
-  with_scope table_row_where('name' => org) do
-    click_link 'Edit'
-  end
+  edit_organization(org)
 
   click_button 'DELETE'
 end

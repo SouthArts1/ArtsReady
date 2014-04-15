@@ -1,5 +1,5 @@
 class DiscountCode < ActiveRecord::Base
-  has_many :payments
+  has_many :subscriptions
 
   validates_numericality_of :redemption_max
   validates_presence_of :active_on, :expires_on
@@ -23,7 +23,7 @@ class DiscountCode < ActiveRecord::Base
   
   def usage_validity
     return true if self.redemption_max == 0
-    return true if self.payments.count <= self.redemption_max
+    return true if self.subscriptions.count <= self.redemption_max
     return false
   end
 end

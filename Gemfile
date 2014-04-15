@@ -20,6 +20,8 @@ gem 'gmaps4rails', '1.3.1'
 gem 'csv_builder'
 gem 'RedCloth'
 gem 'acts-as-taggable-on', '>= 2.2.2'
+gem 'simple_form'
+gem 'strong_parameters'
 
 gem 'heroku'
 gem 'airbrake'
@@ -53,6 +55,8 @@ end
 group :development do
   gem 'rails-footnotes', '>= 3.7'
   gem 'sass'
+  gem "binding_of_caller"
+  gem 'better_errors'
 end
 
 group :test do

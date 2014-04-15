@@ -14,26 +14,22 @@
   <%= button_to("DELETE", admin_organization_path(@organization),
                 :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
                 :method  => :delete) if @organization.deletable? %>
-  <% if @organization.payment && @organization.payment.active? %>
+  <% if @organization.subscription && @organization.subscription.active? %>
     <%= button_to("Cancel Billing", billing_cancel_path(@organization),
                   :confirm => "THIS CAN NOT BE UNDONE.",
                   :method  => :delete) %>
   <% end %>
 </div>
 <div class="grid_12">
-  <ul class="top-nav settings">
-    <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
-    <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
-    <li class="active"><%= link_to "Billing", "/admin/organizations/billing/#{@organization.id}" %></li>
-  </ul>
+  <%= render 'admin/shared/organization_menu' %>
 </div>
 <div class="grid_8">
   <section>
     <h3>Billing Information:</h3>
-    <% if @payment && @payment.active? %>
+    <% if @subscription && @subscription.active? %>
       <%= render 'shared/billing_info' %>
 
-      <% code = @payment.discount_code %>
+      <% code = @subscription.discount_code %>
       <% if code %>
         <p>
           Discount code:

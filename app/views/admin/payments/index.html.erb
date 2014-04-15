@@ -1,0 +1,60 @@
+<div class="grid_12">
+  <%= render 'admin/shared/organization_menu' %>
+</div>
+
+<div class="grid_8">
+  <p>
+    <%= link_to 'Add a payment', [:new, :admin, @organization, :payment] %>
+  </p>
+
+  <table id="payments">
+    <% content_for :payment_table_header do %>
+      <tr>
+        <th>Date/Time</th>
+        <th>Discount code</th>
+        <th>Amount</th>
+        <th>ARB ID</th>
+        <th>Account type</th>
+        <th>Account number</th>
+        <th>Routing number</th>
+        <th><p>&nbsp;</p></th>
+      </tr>
+    <% end %>
+
+    <thead>
+      <%= content_for :payment_table_header %>
+    </thead>
+
+    <tbody>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
+          <td><%= payment.discount_code.discount_code %></td>
+          <td><%= number_to_currency payment.amount %></td>
+          <td><%= payment.arb_id %></td>
+          <td><%= payment.account_type %></td>
+          <td><%= payment.account_number %></td>
+          <td><%= payment.routing_number %></td>
+          <td class="actions">
+            <%= link_to 'Edit',
+              edit_admin_organization_payment_path(
+                payment.organization, payment
+              ),
+              :class => 'button' %>
+            <%= link_to 'Delete',
+              admin_organization_payment_path(
+                payment.organization, payment
+              ),
+              method: :delete,
+              confirm: 'Really delete this payment?',
+              :class => 'button' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <tfoot>
+      <%= content_for :payment_table_header %>
+    </tfoot>
+  </table>
+</div>

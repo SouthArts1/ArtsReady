@@ -16,10 +16,10 @@ class BillingFormTestPage
       'Billing email' => 'billing@example.com',
       'Billing phone number' => '555-555-1212',
       'payment_type' => 'Credit Card',
-      'payment_number' => '4007000000027',
-      'payment_expiry_month' => '1',
-      'payment_expiry_year' => (Time.now.year + 3).to_s,
-      'payment_ccv' => '888')
+      'subscription_number' => '4007000000027',
+      'subscription_expiry_month' => '1',
+      'subscription_expiry_year' => (Time.now.year + 3).to_s,
+      'subscription_ccv' => '888')
 
     self
   end
@@ -64,10 +64,10 @@ class BillingFormTestPage
     def default_fields
       {
         'payment_type'         => 'Credit Card',
-        'payment_number'       => '4007000000027',
-        'payment_expiry_month' => '1',
-        'payment_expiry_year'  => (Time.now.year + 3).to_s,
-        'payment_ccv'          => '888'
+        'subscription_number'       => '4007000000027',
+        'subscription_expiry_month' => '1',
+        'subscription_expiry_year'  => (Time.now.year + 3).to_s,
+        'subscription_ccv'          => '888'
       }
     end
   end
@@ -76,10 +76,10 @@ class BillingFormTestPage
     def default_fields
       {
         'payment_type'           => 'Bank Account',
-        'payment_bank_name'      => 'First Bank of Nowheresville',
-        'payment_account_type'   => account_type,
-        'payment_routing_number' => '061092387',
-        'payment_account_number' => '123456789'
+        'subscription_bank_name'      => 'First Bank of Nowheresville',
+        'subscription_account_type'   => account_type,
+        'subscription_routing_number' => '061092387',
+        'subscription_account_number' => '123456789'
       }
     end
   end
@@ -147,9 +147,9 @@ When(/^I update my subscription$/) do
   BillingFormTestPage.new(self).
     enter_payment(
       BillingFormTestPage.payment_method('credit card',
-        'payment_expiry_month' => 5,
-        'payment_expiry_year' => (Time.now.year + 4).to_s,
-        'payment_ccv' => '222'
+        'subscription_expiry_month' => 5,
+        'subscription_expiry_year' => (Time.now.year + 4).to_s,
+        'subscription_ccv' => '222'
       )
     ).submit
 end
