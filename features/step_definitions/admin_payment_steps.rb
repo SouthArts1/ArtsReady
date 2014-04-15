@@ -76,17 +76,20 @@ When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
 
   subscription = Organization.find_by_name(org_name).subscription
 
-  template = ERB.new(
-    File.read('spec/fixtures/payment_notifications/success.erb'))
-  raw_params = template.result(binding()).gsub(/\n\s*/, '')
+  params = YAML.load(
+    File.read(
+      'features/fixtures/payment_notifications/auth_capture_1_1_CC.yml')
+  ).with_indifferent_access
 
-  post "#{payment_notifications_path}?#{raw_params}"
+  params.merge!(
+    x_subscription_id: subscription.arb_id
+  )
+
+  post payment_notifications_path(params)
 end
 
 
 Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
-  pending
-
   click_on 'Manage Organizations'
   edit_organization(org_name)
   click_on 'Payment History'
@@ -95,13 +98,13 @@ Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
     {
       'Date/Time'      => '03/20/24 3:18 PM',
       'Discount code'  => '',
-      'Amount'         => '$0.44',
-      'ARB ID'         => '101635',
-      'Account type'   => '', # TODO: fetch via transaction details API
-      'Account number' => '',
+      'Amount'         => '$300.00',
+      'ARB ID'         => '2052813',
+      'Account type'   => 'American Express',
+      'Account number' => '0002',
       'Routing number' => ''
     }
   ])
 
-  payment_table.diff!(expected_table)
+  expected_table.diff!(payment_table)
 end

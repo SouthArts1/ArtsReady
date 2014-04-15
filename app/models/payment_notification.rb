@@ -3,4 +3,8 @@ class PaymentNotification < ActiveRecord::Base
 
   attr_accessible :params
   serialize :params
+
+  def param(key)
+    params[key.to_s]
+  end
 end

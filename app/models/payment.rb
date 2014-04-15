@@ -105,7 +105,8 @@ class Payment < ActiveRecord::Base
   end
 
   def associate_subscription
-    self.subscription = organization.try(:subscription)
+    self.subscription ||= organization.try(:subscription)
+    self.organization ||= subscription.try(:organization)
   end
 
   def clear_routing_number

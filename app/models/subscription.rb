@@ -3,6 +3,7 @@ class Subscription < ActiveRecord::Base
 
   belongs_to :organization
   belongs_to :discount_code
+  has_many :payments
 
   attr_accessor :skip_callbacks
   attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
