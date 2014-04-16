@@ -1,6 +1,4 @@
 class Subscription < ActiveRecord::Base
-  self.table_name = 'payments'
-
   belongs_to :organization
   belongs_to :discount_code
   has_many :payments

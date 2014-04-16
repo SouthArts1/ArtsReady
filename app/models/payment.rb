@@ -1,8 +1,6 @@
 class Payment < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  self.table_name = 'charges'
-
   belongs_to :organization
   belongs_to :subscription
   belongs_to :discount_code
