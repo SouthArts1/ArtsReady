@@ -56,7 +56,7 @@ class Admin::PaymentsController < Admin::AdminController
       :paid_at_time,
       :discount_code_id,
       :amount,
-      :arb_id,
+      :transaction_id,
       :account_type,
       :routing_number,
       :account_number

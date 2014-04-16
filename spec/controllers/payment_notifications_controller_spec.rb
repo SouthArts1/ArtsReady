@@ -6,9 +6,11 @@ describe PaymentNotificationsController do
     let(:notification) { double }
 
     before do
-      PaymentNotification.should_receive(:create).with(params: params).
+      PaymentNotification.
+        should_receive(:create).with(params: params).
         and_return(notification)
-      notification.should_receive(:param).and_return(nil)
+      PaymentFromNotificationFactory.
+        should_receive(:process).with(notification)
 
       post :create, params
     end

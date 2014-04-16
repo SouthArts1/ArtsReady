@@ -30,7 +30,7 @@ class Payment < ActiveRecord::Base
   validates_presence_of :organization,
     :amount, :account_type, :account_number, :paid_at
   validates_presence_of :routing_number, if: :bank_account?
-  validates_numericality_of :amount, :arb_id,
+  validates_numericality_of :amount, :transaction_id,
     :account_number, :routing_number,
     allow_blank: true
 

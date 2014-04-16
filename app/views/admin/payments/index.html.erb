@@ -13,7 +13,7 @@
         <th>Date/Time</th>
         <th>Discount code</th>
         <th>Amount</th>
-        <th>ARB ID</th>
+        <th>Transaction ID</th>
         <th>Account type</th>
         <th>Account number</th>
         <th>Routing number</th>
@@ -31,7 +31,7 @@
           <td><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
           <td><%= payment.discount_code.try(:discount_code) %></td>
           <td><%= number_to_currency payment.amount %></td>
-          <td><%= payment.arb_id %></td>
+          <td><%= payment.transaction_id %></td>
           <td><%= payment.account_type %></td>
           <td><%= payment.account_number %></td>
           <td><%= payment.routing_number %></td>

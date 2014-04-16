@@ -24,7 +24,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
       'Date/Time'      => '03/20/24 3:18 PM',
       'Discount code'  => 'DISCO',
       'Amount'         => '$50.00',
-      'ARB ID'         => '123456789',
+      'Transaction ID' => '123456789',
       'Account type'   => 'Savings',
       'Account number' => '4312',
       'Routing number' => '2387'
@@ -52,7 +52,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
       'Date/Time'      => '03/19/24 3:18 PM',
       'Discount code'  => 'DISCO',
       'Amount'         => '$75.00',
-      'ARB ID'         => '123456789',
+      'Transaction ID' => '123456789',
       'Account type'   => 'Visa',
       'Account number' => '1001',
       'Routing number' => ''
@@ -99,7 +99,7 @@ Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
       'Date/Time'      => '03/20/24 3:18 PM',
       'Discount code'  => '',
       'Amount'         => '$300.00',
-      'ARB ID'         => '2052813',
+      'Transaction ID' => '2210831157',
       'Account type'   => 'American Express',
       'Account number' => '0002',
       'Routing number' => ''

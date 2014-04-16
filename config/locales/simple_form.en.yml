@@ -13,7 +13,7 @@ en:
 
     labels:
       payment:
-        arb_id: 'Authorize.Net transaction ID'
+        transaction_id: 'Authorize.Net transaction ID'
         paid_at_date: 'Payment date'
         paid_at_time: 'Payment time'
     # Labels and hints examples

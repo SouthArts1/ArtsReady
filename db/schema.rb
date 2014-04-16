@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409195636) do
+ActiveRecord::Schema.define(:version => 20140416174902) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -97,13 +97,13 @@ ActiveRecord::Schema.define(:version => 20140409195636) do
     t.integer  "discount_code_id"
     t.datetime "paid_at"
     t.integer  "amount_in_cents"
-    t.integer  "arb_id"
+    t.integer  "transaction_id",   :limit => 8
     t.string   "payment_method"
     t.string   "routing_number"
     t.string   "account_number"
     t.string   "account_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "comments", :force => true do |t|
