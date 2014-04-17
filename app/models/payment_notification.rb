@@ -31,11 +31,29 @@ class PaymentNotification < ActiveRecord::Base
     param(:x_method)
   end
 
+  # Authorize.Net sends an x_subscription_id parameter only for ARB
+  # transactions, so we explicitly define a method that will exist
+  # whether or not the parameter is defined.
+  def subscription_id
+    params['x_subscription_id']
+  end
+
+  # Authorize.Net sends an x_subscription_paynum parameter only for ARB
+  # transactions, so we explicitly define a method that will exist
+  # whether or not the parameter is defined.
+  def subscription_paynum
+    params['x_subscription_paynum']
+  end
+
+  # Explicitly define a method without x_MD5_Hash's capitalization.
   def md5_hash
     param(:x_MD5_Hash)
   end
 
   def authenticated?
+    # NOTE: this method is accurate for ARB transactions (specifically
+    # captures), but not for other transactions. For a non-ARB method, see
+    # http://www.authorize.net/support/merchant/wwhelp/wwhimpl/js/html/wwhelp.htm#href=3_IntegrationSettings.html#1094478
     source = md5_hash_value + trans_id + amount
     computed = Digest::MD5.hexdigest(source)
     computed.upcase == md5_hash

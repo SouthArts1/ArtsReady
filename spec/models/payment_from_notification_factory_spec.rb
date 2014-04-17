@@ -17,9 +17,11 @@ describe PaymentFromNotificationFactory do
   describe '.process' do
     context 'given an eligible notification' do
       let(:notification) { eligible_notification }
+      let(:payment_date) { 45.minutes.ago }
 
       before do
         notification.stub(
+          created_at: payment_date,
           trans_id: '23876234',
           amount: '300.00',
           account_number: '87263287',
@@ -33,6 +35,7 @@ describe PaymentFromNotificationFactory do
 
       it 'creates a payment' do
         payments.should_receive(:create).with(
+          paid_at: payment_date,
           transaction_id: '23876234',
           discount_code: 'PASCO',
           amount: '300.00',

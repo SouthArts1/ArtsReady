@@ -24,6 +24,7 @@ class PaymentFromNotificationFactory
 
   def create_payment
     subscription.payments.create(
+      paid_at: notification.created_at,
       transaction_id: notification.trans_id,
       discount_code: subscription.discount_code,
       amount: notification.amount,

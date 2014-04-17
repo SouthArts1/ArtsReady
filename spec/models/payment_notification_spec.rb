@@ -88,6 +88,10 @@ describe PaymentNotification do
       PaymentNotification.new(params: {'x_subscription_id' => id})
     }
 
+    before do
+      Subscription.stub(:find_by_arb_id).and_return(nil)
+    end
+
     it 'returns a subscription if one is found' do
       Subscription.should_receive(:find_by_arb_id).
         with(id).
@@ -97,9 +101,11 @@ describe PaymentNotification do
     end
 
     it 'returns nil if no subscription is found' do
-      Subscription.should_receive(:find_by_arb_id).
-        with(id).
-        and_return(nil)
+      expect(notification.subscription).to eq(nil)
+    end
+
+    it 'returns nil if no subscription is provided' do
+      notification.params.delete('x_subscription_id')
 
       expect(notification.subscription).to eq(nil)
     end
