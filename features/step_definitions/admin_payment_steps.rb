@@ -14,6 +14,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   select 'Savings', from: 'Account type'
   fill_in 'Routing number', with: '061092387'
   fill_in 'Account number', with: '987654312'
+  fill_in 'Notes', with: 'Some notes.'
 
   click_on 'Save'
 
@@ -27,7 +28,8 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
       'Transaction ID' => '123456789',
       'Account type'   => 'Savings',
       'Account number' => '4312',
-      'Routing number' => '2387'
+      'Routing number' => '2387',
+      'Notes'          => 'Some notes.'
     }
   ])
 

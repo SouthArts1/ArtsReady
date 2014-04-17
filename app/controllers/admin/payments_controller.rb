@@ -59,7 +59,8 @@ class Admin::PaymentsController < Admin::AdminController
       :transaction_id,
       :account_type,
       :routing_number,
-      :account_number
+      :account_number,
+      :notes
     )
   end
 end

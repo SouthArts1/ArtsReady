@@ -2,7 +2,7 @@
   <%= render 'admin/shared/organization_menu' %>
 </div>
 
-<div class="grid_8">
+<div class="grid_12">
   <p>
     <%= link_to 'Add a payment', [:new, :admin, @organization, :payment] %>
   </p>
@@ -17,6 +17,7 @@
         <th>Account type</th>
         <th>Account number</th>
         <th>Routing number</th>
+        <th>Notes</th>
         <th><p>&nbsp;</p></th>
       </tr>
     <% end %>
@@ -28,13 +29,14 @@
     <tbody>
       <% @payments.each do |payment| %>
         <tr>
-          <td><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
+          <td class="datetime"><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
           <td><%= payment.discount_code.try(:discount_code) %></td>
           <td><%= number_to_currency payment.amount %></td>
           <td><%= payment.transaction_id %></td>
           <td><%= payment.account_type %></td>
           <td><%= payment.account_number %></td>
           <td><%= payment.routing_number %></td>
+          <td class="notes"><%= (payment.notes || '').truncate(100) %></td>
           <td class="actions">
             <%= link_to 'Edit',
               edit_admin_organization_payment_path(

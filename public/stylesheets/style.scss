@@ -1671,11 +1671,23 @@ td.actions {
   text-align: right; }
 
 table#payments {
-  th { padding: 10px; }
-  td { padding: 0 10px; }
+  th { padding: 1em; }
+  td { padding: 1em; }
   td {
+    padding: 1em;
     text-align: right;
-    white-space: nowrap;
+    vertical-align: top;
+    &.datetime {
+      white-space: nowrap;
+    }
+    &.notes {
+      text-align: left;
+    }
+    &.actions {
+      .button:not(:last-child) {
+        margin-bottom: 1em;
+      }
+    }
   }
 }
 
