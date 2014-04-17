@@ -31,6 +31,22 @@ class PaymentNotification < ActiveRecord::Base
     param(:x_method)
   end
 
+  def md5_hash
+    param(:x_MD5_Hash)
+  end
+
+  def authenticated?
+    source = md5_hash_value + trans_id + amount
+    computed = Digest::MD5.hexdigest(source)
+    computed.upcase == md5_hash
+  end
+
+  attr_accessor :md5_hash_value
+
+  def md5_hash_value
+    @md5_hash_value || ANET_MD5_HASH_VALUE
+  end
+
   private
 
   def param(key)

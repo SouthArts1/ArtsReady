@@ -7,8 +7,9 @@ class PaymentFromNotificationFactory
 
   def eligible?
     notification.success? &&
+      notification.authenticated? &&
       notification.capture? &&
-      subscription
+      subscription.present?
   end
 
   def self.process(notification)

@@ -4,7 +4,12 @@ describe PaymentFromNotificationFactory do
   subject(:factory) { PaymentFromNotificationFactory.new(notification) }
 
   let(:eligible_notification) {
-    double(success?: true, capture?: true, subscription: subscription)
+    double(
+      success?: true,
+      capture?: true,
+      authenticated?: true,
+      subscription: subscription
+    )
   }
   let(:subscription) { double(discount_code: 'PASCO', payments: payments) }
   let(:payments) { double }
@@ -83,6 +88,12 @@ describe PaymentFromNotificationFactory do
 
     context 'given a notification with no subscription' do
       before { notification.stub(:subscription).and_return(nil) }
+
+      it { should_not be_eligible }
+    end
+
+    context 'given a notification with an invalid MD5 hash' do
+      before { notification.stub(:authenticated?).and_return(false) }
 
       it { should_not be_eligible }
     end

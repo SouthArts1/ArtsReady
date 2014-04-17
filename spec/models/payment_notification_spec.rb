@@ -56,6 +56,31 @@ describe PaymentNotification do
     end
   end
 
+  describe '#authenticated?' do
+    let(:notification) {
+      notification = PaymentNotification.new(
+        params: {
+          'x_amount' => '300.00',
+          'x_trans_id' => '62352782566'
+        }
+      )
+    }
+
+    before { notification.md5_hash_value = 'hashvalue' }
+
+    it 'is true if the MD5 hash matches' do
+      notification.params['x_MD5_Hash'] = '2E15FA8146E3BFDE87B83DEBCE83473F'
+
+      expect(notification).to be_authenticated
+    end
+
+    it 'is false if the MD5 hash does not match' do
+      notification.params['x_MD5_Hash'] = 'C2DD3D9D4406290640CF833010543979'
+
+      expect(notification).not_to be_authenticated
+    end
+  end
+
   describe '#subscription' do
     let(:subscription) { double }
     let(:id) { double }

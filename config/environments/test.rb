@@ -46,3 +46,5 @@ ANET_MODE = :test
 # the same info, and Authorize.net flags duplicate transactions.
 # This setting reduces and may eliminate the pain.
 ANET_ALLOW_DUPLICATE_TRANSACTIONS = true
+
+ANET_MD5_HASH_VALUE = 'a hash value'
