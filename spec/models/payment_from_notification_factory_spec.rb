@@ -31,7 +31,7 @@ describe PaymentFromNotificationFactory do
       end
 
       it 'creates a payment' do
-        notification.should_receive(:create_payment).with(
+        notification.should_receive(:build_payment).with(
           subscription: subscription,
           paid_at: payment_date,
           transaction_id: '23876234',
@@ -39,6 +39,9 @@ describe PaymentFromNotificationFactory do
           amount: '300.00',
           account_number: '87263287',
           account_type: 'Bank'
+        )
+        notification.should_receive(:update_attributes).with(
+          state: 'processed'
         )
 
         PaymentFromNotificationFactory.process(notification)
@@ -52,7 +55,10 @@ describe PaymentFromNotificationFactory do
       end
 
       it 'does nothing' do
-        notification.should_not_receive(:create_payment)
+        notification.should_not_receive(:build_payment)
+        notification.should_receive(:update_attributes).with(
+          state: 'discarded'
+        )
 
         PaymentFromNotificationFactory.process(notification)
       end

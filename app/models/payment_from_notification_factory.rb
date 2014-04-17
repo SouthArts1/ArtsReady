@@ -18,12 +18,15 @@ class PaymentFromNotificationFactory
 
   def process
     if eligible?
-      create_payment
+      build_payment
+      notification.update_attributes(state: 'processed')
+    else
+      notification.update_attributes(state: 'discarded')
     end
   end
 
-  def create_payment
-    notification.create_payment(
+  def build_payment
+    notification.build_payment(
       subscription: subscription,
       paid_at: notification.created_at,
       transaction_id: notification.trans_id,

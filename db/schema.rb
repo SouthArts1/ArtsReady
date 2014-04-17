@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140417181805) do
+ActiveRecord::Schema.define(:version => 20140417205231) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -221,11 +221,13 @@ ActiveRecord::Schema.define(:version => 20140417181805) do
   create_table "payment_notifications", :force => true do |t|
     t.integer  "payment_id"
     t.text     "params"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "state",      :default => "new"
   end
 
   add_index "payment_notifications", ["payment_id"], :name => "index_payment_notifications_on_payment_id"
+  add_index "payment_notifications", ["state"], :name => "index_payment_notifications_on_state"
 
   create_table "payment_variables", :force => true do |t|
     t.string   "key"
