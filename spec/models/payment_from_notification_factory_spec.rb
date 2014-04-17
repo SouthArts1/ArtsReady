@@ -28,13 +28,11 @@ describe PaymentFromNotificationFactory do
           payment_method: 'ECHECK',
           card_type: ''
         )
-        subscription.stub(
-          payments: payments
-        )
       end
 
       it 'creates a payment' do
-        payments.should_receive(:create).with(
+        notification.should_receive(:create_payment).with(
+          subscription: subscription,
           paid_at: payment_date,
           transaction_id: '23876234',
           discount_code: 'PASCO',
@@ -54,7 +52,7 @@ describe PaymentFromNotificationFactory do
       end
 
       it 'does nothing' do
-        payments.should_not_receive(:create)
+        notification.should_not_receive(:create_payment)
 
         PaymentFromNotificationFactory.process(notification)
       end

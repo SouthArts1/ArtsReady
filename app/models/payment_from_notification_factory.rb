@@ -23,7 +23,8 @@ class PaymentFromNotificationFactory
   end
 
   def create_payment
-    subscription.payments.create(
+    notification.create_payment(
+      subscription: subscription,
       paid_at: notification.created_at,
       transaction_id: notification.trans_id,
       discount_code: subscription.discount_code,
