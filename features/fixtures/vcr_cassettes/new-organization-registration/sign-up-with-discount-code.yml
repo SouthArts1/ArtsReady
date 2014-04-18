@@ -19,9 +19,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Fri, 11 Apr 2014 17:50:39 GMT
+      - Fri, 18 Apr 2014 19:24:49 GMT
       Expires: 
-      - Sat, 12 Apr 2014 17:50:39 GMT
+      - Sat, 19 Apr 2014 19:24:49 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -125,7 +125,135 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 17:50:40 GMT
+  recorded_at: Fri, 18 Apr 2014 19:24:49 GMT
+- request: 
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Date: 
+      - Fri, 18 Apr 2014 19:24:50 GMT
+      Expires: 
+      - Sat, 19 Apr 2014 19:24:50 GMT
+      Cache-Control: 
+      - public, max-age=86400
+      Access-Control-Allow-Origin: 
+      - "*"
+      Server: 
+      - mafe
+      X-Xss-Protection: 
+      - 1; mode=block
+      X-Frame-Options: 
+      - SAMEORIGIN
+      Alternate-Protocol: 
+      - 80:quic
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Test Kitchen",
+                       "short_name" : "Test Kitchen",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "88",
+                       "short_name" : "88",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "West Broadway",
+                       "short_name" : "W Broadway",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10007",
+                       "short_name" : "10007",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "1195",
+                       "short_name" : "1195",
+                       "types" : []
+                    }
+                 ],
+                 "formatted_address" : "Test Kitchen, 88 West Broadway, New York, NY 10007, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7153919,
+                       "lng" : -74.00960409999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7167408802915,
+                          "lng" : -74.00825511970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7140429197085,
+                          "lng" : -74.01095308029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+
+    http_version: 
+  recorded_at: Fri, 18 Apr 2014 19:24:50 GMT
 - request: 
     method: post
     uri: https://test.authorize.net/gateway/transact.dll
@@ -147,7 +275,7 @@ http_interactions:
       Connection: 
       - close
       Date: 
-      - Fri, 11 Apr 2014 17:50:40 GMT
+      - Fri, 18 Apr 2014 19:24:52 GMT
       Server: 
       - Microsoft-IIS/6.0
       X-Powered-By: 
@@ -162,9 +290,9 @@ http_interactions:
       - Tue, 01 Jan 1980 00:00:00 GMT
     body: 
       encoding: US-ASCII
-      string: 1,1,1,This transaction has been approved.,1GLPOZ,Y,2210845628,,,150.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,6792061044F3C40477FF2090271AFA03,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
+      string: 1,1,1,This transaction has been approved.,8Q2LT5,Y,2211264015,,,150.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,486C75164B3466203E39E07501FB7B37,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 17:50:43 GMT
+  recorded_at: Fri, 18 Apr 2014 19:24:53 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -184,7 +312,7 @@ http_interactions:
                 <length>365</length>
                 <unit>days</unit>
               </interval>
-              <startDate>2014-04-12</startDate>
+              <startDate>2014-04-19</startDate>
               <totalOccurrences>9999</totalOccurrences>
               <trialOccurrences>1</trialOccurrences>
             </paymentSchedule>
@@ -229,7 +357,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 11 Apr 2014 17:50:42 GMT
+      - Fri, 18 Apr 2014 19:24:53 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -250,9 +378,9 @@ http_interactions:
       - "401"
     body: 
       encoding: ASCII-8BIT
-      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2052725</subscriptionId></ARBCreateSubscriptionResponse>"
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2059561</subscriptionId></ARBCreateSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 17:50:44 GMT
+  recorded_at: Fri, 18 Apr 2014 19:24:54 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -265,7 +393,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2052725</subscriptionId>
+          <subscriptionId>2059561</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -281,7 +409,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 11 Apr 2014 17:50:43 GMT
+      - Fri, 18 Apr 2014 19:24:56 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -304,7 +432,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 17:50:46 GMT
+  recorded_at: Fri, 18 Apr 2014 19:24:57 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -317,7 +445,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2052725</subscriptionId>
+          <subscriptionId>2059561</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -333,7 +461,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 11 Apr 2014 17:50:44 GMT
+      - Fri, 18 Apr 2014 19:24:58 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -356,5 +484,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 17:50:46 GMT
+  recorded_at: Fri, 18 Apr 2014 19:24:58 GMT
 recorded_with: VCR 2.9.0
