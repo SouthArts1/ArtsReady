@@ -57,7 +57,8 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
       'Transaction ID' => '123456789',
       'Account type'   => 'Visa',
       'Account number' => '1001',
-      'Routing number' => ''
+      'Routing number' => '',
+      'Notes'          => 'Some notes.'
     }
   ])
 
