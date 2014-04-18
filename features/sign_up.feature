@@ -47,6 +47,10 @@ Feature: New organization registration
     When I sign up using the discount code
     Then I should be signed in
 
+  Scenario: Sign up with invalid billing data
+    When I sign up and pay with invalid billing data
+    Then the billing form is rejected
+
 # When we upgraded to Capybara 2.1 and Poltergeist 1.5.0, the "should be
 # signed in" step seemingly stopped waiting for the new page to load, and
 # started failing intermittently.
