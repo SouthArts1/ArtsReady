@@ -3,6 +3,10 @@ Feature: Organization billing
   As an organization
   I want to manage my billing info
 
+  Scenario: Switch from provisional to paid
+    Given I have provisional access
+    Then I can switch to paid access
+
   Scenario: Manual renewal
     Given the date is March 19, 2024
     When I sign up and pay

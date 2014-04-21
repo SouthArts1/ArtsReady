@@ -127,6 +127,8 @@ class BillingController < ApplicationController
 
     subscription_params = params[:subscription]
 
+    @subscription.provisional = false
+
     @subscription.attributes = {
       billing_first_name: subscription_params[:billing_first_name],
       billing_last_name:  subscription_params[:billing_last_name],

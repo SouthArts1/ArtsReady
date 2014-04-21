@@ -278,3 +278,20 @@ When /^I cancel my subscription$/ do
   expect(page).
     to have_content 'successfully cancelled your subscription'
 end
+
+Given(/^I have provisional access$/) do
+  step %{I sign up}
+
+  Organization.last.create_provisional_subscription
+  expect(Organization.last.subscription).to be_persisted
+
+  visit billing_path
+  expect(page).to have_content 'Provisional Access'
+end
+
+Then(/^I can switch to paid access$/) do
+  step %{I update my subscription}
+
+  visit billing_path
+  expect(page).not_to have_content 'Provisional Access'
+end

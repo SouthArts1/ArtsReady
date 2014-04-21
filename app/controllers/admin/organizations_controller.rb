@@ -26,8 +26,8 @@ class Admin::OrganizationsController < Admin::AdminController
   
   def allow_provisionary_access
     o = Organization.find(params[:id])
-    @subscription = o.subscriptions.build_provisional
-    if @subscription.save
+    @subscription = o.create_provisional_subscription
+    if @subscription.persisted?
       @subscription.update_attribute(:billing_email, nil) # TODO: what's this about?
       redirect_to :back, :notice => "Provisional access has been granted"
     else

@@ -15,6 +15,10 @@ class Subscription < ActiveRecord::Base
     new(attrs).tap { |subscription| subscription.make_provisional }
   end
 
+  def self.create_provisional(attrs = {})
+    build_provisional.tap { |subscription| subscription.save }
+  end
+
   def make_provisional
     raise ArgumentError if !organization
 
