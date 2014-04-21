@@ -71,5 +71,8 @@ Then(/^I can grant provisional access$/) do
   click_on 'Billing'
 
   click_on 'Allow provisional access for 1 year'
-  expect(page).to have_content 'Provisional access has been granted'
+  expect(page).to have_content 'Provisional access has been granted' # flash
+
+  visit current_path
+  expect(page).to have_content 'Provisional Access'
 end

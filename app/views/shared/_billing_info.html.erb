@@ -1,6 +1,9 @@
 <p>
   Account status:
   <%= @organization.account_status.titleize %>
+  <% if @subscription.provisional? %>
+    [Provisional Access]
+  <% end %>
   <br/>
   <br/>
 
@@ -22,8 +25,10 @@
   <br/>
   <%= @subscription.billing_phone_number %><br/>
   <%= @subscription.billing_email %><br/>
-  <br/>
-  <%= @subscription.payment_method %> ending in <%= @subscription.payment_number %>
+  <% unless @subscription.provisional? %>
+    <br/>
+    <%= @subscription.payment_method %> ending in <%= @subscription.payment_number %>
+  <% end %>
 </p>
 
 <p>

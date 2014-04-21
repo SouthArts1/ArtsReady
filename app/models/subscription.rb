@@ -21,6 +21,7 @@ class Subscription < ActiveRecord::Base
     user = organization.users.first
 
     self.attributes = {
+      provisional: true,
       starting_amount_in_cents: 30000,
       regular_amount_in_cents: 22500,
       start_date: Time.now,
@@ -231,7 +232,7 @@ class Subscription < ActiveRecord::Base
       return false
     end
     
-    return false unless aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
+    return false unless aim_response.success? || provisional?
     # ARB doesn't support free subscriptions, so we bypass it in that case
     return false unless free_after_first_year? || create_arb_transaction(arb_sub)
 
@@ -343,7 +344,7 @@ class Subscription < ActiveRecord::Base
           return false
         end
 
-        if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
+        if aim_response.success? || provisional?
           arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
 
           response = arb_tran.create(arb_sub)
