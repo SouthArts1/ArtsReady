@@ -39,7 +39,7 @@
     <br/></p>
 
   <p><%= f.label :billing_phone_number, "Billing phone number" %>
-    <%= f.text_field :billing_phone_number, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_phone_number, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
   <br/>
 
