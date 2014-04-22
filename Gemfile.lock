@@ -148,11 +148,6 @@ GEM
       guard (>= 0.3.0)
     guard-rspec (0.7.3)
       guard (>= 0.10.0)
-    heroku (2.18.1)
-      launchy (>= 0.3.2)
-      rest-client (~> 1.6.1)
-      rubyzip
-      term-ansicolor (~> 1.0.5)
     hike (1.2.3)
     httparty (0.8.1)
       multi_json
@@ -218,8 +213,6 @@ GEM
     rb-fsevent (0.9.1)
     rdoc (3.12.2)
       json (~> 1.4)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -236,7 +229,6 @@ GEM
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
     ruby_gntp (0.3.4)
-    rubyzip (1.1.2)
     safe_yaml (1.0.2)
     sass (3.1.15)
     shoulda (3.5.0)
@@ -263,7 +255,6 @@ GEM
       activemodel (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-    term-ansicolor (1.0.7)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -317,7 +308,6 @@ DEPENDENCIES
   guard-cucumber
   guard-pow
   guard-rspec
-  heroku
   jquery-rails
   kelp!
   launchy

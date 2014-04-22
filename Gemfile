@@ -23,7 +23,6 @@ gem 'acts-as-taggable-on', '>= 2.2.2'
 gem 'simple_form'
 gem 'strong_parameters'
 
-gem 'heroku'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'awesome_print'
