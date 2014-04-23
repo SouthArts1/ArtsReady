@@ -279,97 +279,83 @@ class Subscription < ActiveRecord::Base
       return false
     end
   end
-  
+
   def update_arb_subscription
       if !payment_type_changed? && self.active?
         arb_sub = build_arb_subscription_for_update
-        if self.payment_type == "cc"
-          expiry = get_expiry(self.expiry_month, self.expiry_year)
-          arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
-          self.payment_method = "Credit Card"
-          self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
-        elsif self.payment_type == "bank"
-          arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
-          Rails.logger.debug("Account Number: #{self.account_number}")
-          self.payment_method = "#{self.account_type.capitalize} Account"
-          self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
-        end
+        set_payment_info(arb_sub)
       
         # Payment Authorization
-        aim_tran = build_transaction(AuthorizeNet::AIM::Transaction)
-        if self.payment_method == "Credit Card"
-          aim_response = aim_tran.authorize((self.regular_amount_in_cents.to_f / 100), arb_sub.credit_card)
-        elsif self.payment_type == "bank"
-          aim_response = aim_tran.authorize((self.regular_amount_in_cents.to_f / 100), arb_sub.bank_account)
-        else
-          return false
-        end
-      
-        if aim_response.success?
-          arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
-          Rails.logger.debug("UPdated Payment Number to #{self.payment_number}")
-          # fire away!
-          response = arb_tran.update(arb_sub)
-          # response logging
-          Rails.logger.debug("Response: \n #{response.inspect}")
-          if response.success?
-            self.active = true
-            self.end_date = nil
-            return true
-          else
-            return false
-          end
-          return true
-        else
-          return false
-        end
+        aim_response = authorize_aim_transaction(
+          arb_sub, regular_amount_in_cents, false)
+        return false unless aim_response
+        return false unless aim_response.success?
+        return false unless update_or_replace_arb_subscription(arb_sub, false)
       else
         cancel_arb_subscription
         arb_sub = build_arb_subscription_for_replace
-        if self.payment_type == "cc"
-          expiry = get_expiry(self.expiry_month, self.expiry_year)
-          arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
-          self.payment_method = "Credit Card"
-          self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
-        elsif self.payment_type == "bank"
-          arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
-          self.payment_method = "#{self.account_type.capitalize} Account"
-          self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
-        end
+        set_payment_info(arb_sub)
 
         # Payment Authorization
-        aim_tran = build_transaction(AuthorizeNet::AIM::Transaction, true)
-
-        if self.payment_method == "Credit Card"
-          aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
-        elsif self.payment_type == "bank"
-          aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.bank_account)
-        else
-          return false
-        end
-
-        if aim_response.success? || provisional?
-          arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
-
-          response = arb_tran.create(arb_sub)
-
-          if response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
-            self.arb_id = response.subscription_id
-            self.organization.update_attribute(:active, true)
-            Rails.logger.debug("Reset Active and End Date")
-            self.active = true
-            self.end_date = nil
-            return true
-          else
-            return false
-          end
-        else
-          return false
-        end
+        aim_response = authorize_aim_transaction(
+          arb_sub, starting_amount_in_cents, true)
+        return false unless aim_response
+        return false unless aim_response.success? || provisional?
+        return false unless update_or_replace_arb_subscription(arb_sub, true)
       end
-      return true
   end
-  
+
+  def set_payment_info(arb_sub)
+    if payment_type == "cc"
+      expiry              = get_expiry(expiry_month, expiry_year)
+      arb_sub.credit_card = AuthorizeNet::CreditCard.new(
+        number, expiry,
+        card_code: ccv
+      )
+      self.payment_method = "Credit Card"
+      self.payment_number = number.last(4)
+    elsif payment_type == "bank"
+      arb_sub.bank_account = AuthorizeNet::ECheck.new(
+        routing_number, account_number, bank_name,
+        billing_first_name + " " + billing_last_name,
+        account_type: account_type
+      )
+      self.payment_method  = "#{account_type.capitalize} Account"
+      self.payment_number  = account_number.last(4)
+    end
+  end
+
+  def authorize_aim_transaction(arb_sub, amount_in_cents, include_subscription_info)
+    aim_tran = build_transaction(
+      AuthorizeNet::AIM::Transaction, include_subscription_info)
+
+    payment_info = if payment_method == 'Credit Card'
+                     arb_sub.credit_card
+                   elsif payment_type == 'bank'
+                     arb_sub.bank_account
+                   end
+
+    aim_tran.authorize(amount_in_cents.to_f / 100, payment_info) if payment_info
+  end
+
+  def update_or_replace_arb_subscription(arb_sub, replacing)
+    arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
+    Rails.logger.debug("UPdated Payment Number to #{self.payment_number}")
+
+    response = replacing ?
+      arb_tran.create(arb_sub) :
+      arb_tran.update(arb_sub)
+    Rails.logger.debug("Response: \n #{response.inspect}")
+
+    if response.success? || (replacing && (response.response.response_reason_text.include?("ACH") rescue false))
+      self.arb_id = response.subscription_id
+      self.organization.update_attribute(:active, true)
+      self.active = true
+      self.end_date = nil
+      return true
+    end
+  end
+
   def cancel_arb_subscription
     status_arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
     status_response = status_arb_tran.get_status(self.arb_id)
