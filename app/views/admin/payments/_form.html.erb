@@ -3,7 +3,7 @@
   <%= f.input :paid_at_time %>
   <%= f.association :discount_code, label_method: :discount_code %>
   <%= f.input :amount %>
-  <%= f.input :arb_id %>
+  <%= f.input :transaction_id %>
   <%= f.input :account_type, as: :grouped_select,
         collection: Payment::ACCOUNT_TYPES,
         group_method: :last
@@ -11,6 +11,8 @@
 
   <%= f.input :account_number %>
   <%= f.input :routing_number %>
+
+  <%= f.input :notes %>
 
   <%= f.submit 'Save' %>
 <% end %>

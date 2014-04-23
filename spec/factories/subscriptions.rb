@@ -1,5 +1,3 @@
-# TODO: rename file
-
 FactoryGirl.define do
   factory :subscription do
     starting_amount_in_cents 100

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140404164254) do
+ActiveRecord::Schema.define(:version => 20140421173028) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -89,21 +89,6 @@ ActiveRecord::Schema.define(:version => 20140404164254) do
     t.boolean  "accepted",        :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "charges", :force => true do |t|
-    t.integer  "organization_id"
-    t.integer  "subscription_id"
-    t.integer  "discount_code_id"
-    t.datetime "paid_at"
-    t.integer  "amount_in_cents"
-    t.integer  "arb_id"
-    t.string   "payment_method"
-    t.string   "routing_number"
-    t.string   "account_number"
-    t.string   "account_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
   end
 
   create_table "comments", :force => true do |t|
@@ -233,6 +218,17 @@ ActiveRecord::Schema.define(:version => 20140404164254) do
     t.datetime "updated_at"
   end
 
+  create_table "payment_notifications", :force => true do |t|
+    t.integer  "payment_id"
+    t.text     "params"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "state",      :default => "new"
+  end
+
+  add_index "payment_notifications", ["payment_id"], :name => "index_payment_notifications_on_payment_id"
+  add_index "payment_notifications", ["state"], :name => "index_payment_notifications_on_state"
+
   create_table "payment_variables", :force => true do |t|
     t.string   "key"
     t.string   "value"
@@ -242,27 +238,18 @@ ActiveRecord::Schema.define(:version => 20140404164254) do
 
   create_table "payments", :force => true do |t|
     t.integer  "organization_id"
+    t.integer  "subscription_id"
     t.integer  "discount_code_id"
-    t.integer  "starting_amount_in_cents"
-    t.integer  "regular_amount_in_cents"
-    t.integer  "arb_id"
+    t.datetime "paid_at"
+    t.integer  "amount_in_cents"
+    t.integer  "transaction_id",   :limit => 8
     t.string   "payment_method"
-    t.string   "payment_number"
-    t.integer  "expiry_month"
-    t.integer  "expiry_year"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.boolean  "active"
-    t.string   "billing_first_name"
-    t.string   "billing_last_name"
-    t.string   "billing_address"
-    t.string   "billing_city"
-    t.string   "billing_state"
-    t.string   "billing_zipcode"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "billing_email"
-    t.string   "billing_phone_number"
+    t.string   "routing_number"
+    t.string   "account_number"
+    t.string   "account_type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.text     "notes"
   end
 
   create_table "questions", :force => true do |t|
@@ -286,6 +273,32 @@ ActiveRecord::Schema.define(:version => 20140404164254) do
   end
 
   add_index "resources", ["organization_id"], :name => "index_resources_on_organization_id"
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "discount_code_id"
+    t.integer  "starting_amount_in_cents"
+    t.integer  "regular_amount_in_cents"
+    t.integer  "arb_id"
+    t.string   "payment_method"
+    t.string   "payment_number"
+    t.integer  "expiry_month"
+    t.integer  "expiry_year"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "active"
+    t.string   "billing_first_name"
+    t.string   "billing_last_name"
+    t.string   "billing_address"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_zipcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "billing_email"
+    t.string   "billing_phone_number"
+    t.boolean  "provisional",              :default => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

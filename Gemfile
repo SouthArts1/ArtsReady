@@ -12,7 +12,7 @@ gem 'bcrypt-ruby', '2.1.4', :require => 'bcrypt'
 gem 'cancan', '1.6.7'
 
 gem 'carrierwave', '0.5.7'
-gem 'fog', '0.11.0'
+gem 'fog'
 
 gem 'geocoder'
 gem 'gmaps4rails', '1.3.1'
@@ -23,9 +23,9 @@ gem 'acts-as-taggable-on', '>= 2.2.2'
 gem 'simple_form'
 gem 'strong_parameters'
 
-gem 'heroku'
 gem 'airbrake'
 gem 'newrelic_rpm'
+gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'
 
@@ -73,4 +73,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'kelp', github: 'eostrom/kelp', branch: 'capybara-2-1'
   gem 'email_spec'
+  gem 'webmock'
+  gem 'vcr'
 end

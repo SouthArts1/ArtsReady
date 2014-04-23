@@ -14,6 +14,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   select 'Savings', from: 'Account type'
   fill_in 'Routing number', with: '061092387'
   fill_in 'Account number', with: '987654312'
+  fill_in 'Notes', with: 'Some notes.'
 
   click_on 'Save'
 
@@ -24,10 +25,11 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
       'Date/Time'      => '03/20/24 3:18 PM',
       'Discount code'  => 'DISCO',
       'Amount'         => '$50.00',
-      'ARB ID'         => '123456789',
+      'Transaction ID' => '123456789',
       'Account type'   => 'Savings',
       'Account number' => '4312',
-      'Routing number' => '2387'
+      'Routing number' => '2387',
+      'Notes'          => 'Some notes.'
     }
   ])
 
@@ -52,10 +54,11 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
       'Date/Time'      => '03/19/24 3:18 PM',
       'Discount code'  => 'DISCO',
       'Amount'         => '$75.00',
-      'ARB ID'         => '123456789',
+      'Transaction ID' => '123456789',
       'Account type'   => 'Visa',
       'Account number' => '1001',
-      'Routing number' => ''
+      'Routing number' => '',
+      'Notes'          => 'Some notes.'
     }
   ])
 
@@ -69,4 +72,42 @@ And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
 
   # with no remaining payments, there's nothing to edit:
   expect(page).not_to have_button('Edit')
+end
+
+When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
+  Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
+
+  subscription = Organization.find_by_name(org_name).subscription
+
+  params = YAML.load(
+    File.read(
+      'features/fixtures/payment_notifications/auth_capture_1_1_CC.yml')
+  ).with_indifferent_access
+
+  params.merge!(
+    x_subscription_id: subscription.arb_id
+  )
+
+  post payment_notifications_path(params)
+end
+
+
+Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
+  click_on 'Manage Organizations'
+  edit_organization(org_name)
+  click_on 'Payment History'
+
+  expected_table = Cucumber::Ast::Table.new([
+    {
+      'Date/Time'      => '03/20/24 3:18 PM',
+      'Discount code'  => '',
+      'Amount'         => '$300.00',
+      'Transaction ID' => '2210831157',
+      'Account type'   => 'American Express',
+      'Account number' => '0002',
+      'Routing number' => ''
+    }
+  ])
+
+  expected_table.diff!(payment_table)
 end

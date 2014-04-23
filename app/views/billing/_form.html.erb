@@ -15,36 +15,36 @@
 
   <p>
     <%= f.label :billing_first_name %>
-    <%= f.text_field :billing_first_name, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_first_name, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
 
   <p><%= f.label :billing_last_name %>
-    <%= f.text_field :billing_last_name, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_last_name, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
 
   <p><%= f.label :billing_address %>
-    <%= f.text_field :billing_address, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_address, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
 
   <p><%= f.label :billing_city %>
-    <%= f.text_field :billing_city, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_city, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
 
   <p><%= f.label :billing_state %>
-    <%= f.text_field :billing_state, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_state, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
 
   <p><%= f.label :billing_zipcode, "Billing zip code" %>
-    <%= f.text_field :billing_zipcode, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_zipcode, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
 
   <p><%= f.label :billing_phone_number, "Billing phone number" %>
-    <%= f.text_field :billing_phone_number, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_phone_number, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
   <br/>
 
   <p><%= f.label :billing_email, "Billing email" %>
-    <%= f.text_field :billing_email, :onkeypress => "return handleEnter(this,event)" %>
+    <%= f.text_field :billing_email, required: true, :onkeypress => "return handleEnter(this,event)" %>
     <br/></p>
   <br/>
   Payment information:
@@ -85,8 +85,8 @@
       <td>
         <p>
           Please choose your payment type:
-          <select id="payment_type" name="payment_type">
-            <option value="blank"></option>
+          <select required id="payment_type" name="payment_type">
+            <option value=""></option>
             <option value="cc">Credit Card</option>
             <option value="bank">Bank Account</option>
           </select>

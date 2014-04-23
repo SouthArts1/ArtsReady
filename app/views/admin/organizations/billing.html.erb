@@ -37,8 +37,12 @@
         </p>
       <% end %>
     <% else %>
-      <p>This organization has not setup their billing
-        yet! <%= link_to "Allow provisionary access for 1 year", "/admin/organizations/allow_provisionary_access/#{@organization.id}" %></p>
+      <p>
+        This organization has not set up their billing yet!
+        <%= link_to "Allow provisional access for 1 year",
+          "/admin/organizations/allow_provisionary_access/#{@organization.id}"
+        %>
+      </p>
 
     <% end %>
   </section>

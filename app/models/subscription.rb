@@ -1,10 +1,9 @@
 class Subscription < ActiveRecord::Base
-  self.table_name = 'payments'
-
   belongs_to :organization
   belongs_to :discount_code
-  
-  cattr_accessor :skip_callbacks
+  has_many :payments
+
+  attr_accessor :skip_callbacks
   attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
   
   before_create :create_and_charge_arb_subscription
@@ -16,12 +15,17 @@ class Subscription < ActiveRecord::Base
     new(attrs).tap { |subscription| subscription.make_provisional }
   end
 
+  def self.create_provisional(attrs = {})
+    build_provisional.tap { |subscription| subscription.save }
+  end
+
   def make_provisional
     raise ArgumentError if !organization
 
     user = organization.users.first
 
     self.attributes = {
+      provisional: true,
       starting_amount_in_cents: 30000,
       regular_amount_in_cents: 22500,
       start_date: Time.now,
@@ -92,19 +96,22 @@ class Subscription < ActiveRecord::Base
     expiry_year = expiry_year.to_s.split("")[2] + expiry_year.to_s.split("")[3]
     return expiry_month.to_s + expiry_year.to_s
   end
-  
+
+  def skipping_callbacks
+    was_skipping_callbacks = skip_callbacks
+    self.skip_callbacks = true
+    yield self
+  ensure
+    self.skip_callbacks = was_skipping_callbacks
+  end
+
   def cancel
-    if cancel_arb_subscription
-      Subscription.skip_callbacks = true
-      if self.update_attributes({ active: false, end_date: Time.now })
-        Subscription.skip_callbacks = false
-        return true
+    skipping_callbacks do
+      if cancel_arb_subscription
+        return update_attributes({ active: false, end_date: Time.now })
       else
-        Subscription.skip_callbacks = false
         return false
       end
-    else
-      return false
     end
   end
 
@@ -229,7 +236,7 @@ class Subscription < ActiveRecord::Base
       return false
     end
     
-    return false unless aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
+    return false unless aim_response.success? || provisional?
     # ARB doesn't support free subscriptions, so we bypass it in that case
     return false unless free_after_first_year? || create_arb_transaction(arb_sub)
 
@@ -341,7 +348,7 @@ class Subscription < ActiveRecord::Base
           return false
         end
 
-        if aim_response.success? || (self.payment_type == "cc" && self.number == "4007000000027")
+        if aim_response.success? || provisional?
           arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
 
           response = arb_tran.create(arb_sub)

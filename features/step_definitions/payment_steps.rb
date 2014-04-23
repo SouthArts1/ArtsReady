@@ -5,8 +5,8 @@ class BillingFormTestPage
     self.world = world
   end
 
-  def fill_out
-    world.fill_in_fields(
+  def fill_out(overrides = {})
+    fields = {
       'Billing first name' => 'Bill',
       'Billing last name' => 'Lastname',
       'Billing address' => '100 Test St',
@@ -19,7 +19,10 @@ class BillingFormTestPage
       'subscription_number' => '4007000000027',
       'subscription_expiry_month' => '1',
       'subscription_expiry_year' => (Time.now.year + 3).to_s,
-      'subscription_ccv' => '888')
+      'subscription_ccv' => '888'
+    }.merge(overrides)
+
+    world.fill_in_fields(fields)
 
     self
   end
@@ -222,6 +225,19 @@ When(/^I sign up and pay with a (checking account)$/) do |payment|
     submit
 end
 
+When(/^I sign up and pay with invalid billing data$/) do
+  step %{I sign up}
+
+  BillingFormTestPage.new(self).
+    fill_out('Billing first name' => '').
+    submit
+end
+
+Then(/^the billing form is rejected$/) do
+  expect(current_path).to eq(new_billing_path)
+  expect(page).to have_content 'a problem processing your request'
+end
+
 When /^I sign up using the discount code$/ do
   step %{I sign up}
 
@@ -261,4 +277,21 @@ When /^I cancel my subscription$/ do
 
   expect(page).
     to have_content 'successfully cancelled your subscription'
+end
+
+Given(/^I have provisional access$/) do
+  step %{I sign up}
+
+  Organization.last.create_provisional_subscription
+  expect(Organization.last.subscription).to be_persisted
+
+  visit billing_path
+  expect(page).to have_content 'Provisional Access'
+end
+
+Then(/^I can switch to paid access$/) do
+  step %{I update my subscription}
+
+  visit billing_path
+  expect(page).not_to have_content 'Provisional Access'
 end

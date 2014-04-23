@@ -95,7 +95,11 @@ class Organization < ActiveRecord::Base
   def is_approved?
     active
   end
-  
+
+  def create_provisional_subscription
+    subscriptions.create_provisional
+  end
+
   def active_subscription_end_date
     return nil if !self.subscription || !self.subscription.active?
     return (self.subscription.start_date + 365.days)
