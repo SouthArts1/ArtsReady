@@ -12,7 +12,7 @@
   <br/>
 
   Next date for billing occurs in
-  <%= @subscription.days_left_until_rebill %> days.<br/>
+  <%= pluralize @subscription.days_left_until_rebill, 'day' %>.<br/>
   <br/>
 </p>
 

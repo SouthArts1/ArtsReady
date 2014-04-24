@@ -127,6 +127,7 @@ Then /^I should be able to view the organization's billing info$/ do
   # after the user submits the payment form, so we follow their
   # lead.
   expect(page).to have_content "Date joined: March 20, 2024"
+  expect(page).to have_content "Next date for billing occurs in 1 day."
 
   expect(page).to have_link('DISCO',
     href: edit_admin_discount_code_path(DiscountCode.last))

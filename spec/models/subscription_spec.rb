@@ -308,10 +308,10 @@ describe Subscription do
 
   describe 'billing_date_after(time)' do
     let(:subscription) {
-      FactoryGirl.build(:subscription, start_date: start_date)
+      FactoryGirl.build(:subscription, start_date: start_date.beginning_of_day)
     }
 
-    let(:start_date) { Time.zone.parse('May 13, 2013') }
+    let(:start_date) { Date.parse('May 13, 2013') }
 
     subject(:next_billing_date) {
       subscription.billing_date_after(time)
@@ -364,7 +364,7 @@ describe Subscription do
       # Our Authorize.Net subscriptions run 365 days instead of a full
       # year, which matters when a leap year occurs.
       it 'returns 5 * 365 days after the start date' do
-        expect(next_billing_date).to eq(start_date + 5 * 365.days)
+        expect(next_billing_date).to eq(start_date + 5 * 365)
         expect(next_billing_date).not_to eq(start_date + 5.years)
       end
     end
