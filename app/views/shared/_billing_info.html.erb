@@ -11,8 +11,9 @@
   <%= @subscription.start_date.try(:strftime, "%B %d, %Y") %>
   <br/>
 
-  Next date for billing occurs in
-  <%= pluralize @subscription.days_left_until_rebill, 'day' %>.<br/>
+  Next billing date:
+  <%= @subscription.next_billing_date.try(:strftime, "%B %d, %Y") %>
+  (<%= pluralize @subscription.days_left_until_rebill, 'day' %>)
   <br/>
 </p>
 
