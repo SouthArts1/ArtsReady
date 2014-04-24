@@ -154,7 +154,7 @@ class Subscription < ActiveRecord::Base
       name: "ArtsReady Yearly Subscription",
       length: 365, 
       unit: AuthorizeNet::ARB::Subscription::IntervalUnits::DAY,
-      start_date: next_billing_date,
+      start_date: next_billing_date.beginning_of_day,
       total_occurrences: 9999,
       amount: regular_amount_in_cents.to_f / 100,
       description: "#{organization.name} subscription for ArtsReady",

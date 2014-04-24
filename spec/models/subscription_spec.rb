@@ -51,11 +51,6 @@ describe Subscription do
       p = Subscription.create()
       expect(p).not_to be_active
     end
-    
-    it "should show 0 days left before rebill if invalid" do
-      p = Subscription.create()
-      expect(p.days_left_until_rebill).to eq 0
-    end
   end
     
   context "valid subscription object" do
@@ -191,11 +186,6 @@ describe Subscription do
     end
     
     context "payment type agnostic" do
-      it "should show 0 days if new" do
-        p = Subscription.new()
-        expect(p.days_left_until_rebill).to eq 0
-      end
-
       it "should show 364 days if created yesterday" do
         p = Subscription.new()
         Timecop.freeze(Time.now)
