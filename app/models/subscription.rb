@@ -281,28 +281,21 @@ class Subscription < ActiveRecord::Base
   end
 
   def update_arb_subscription
-      if !payment_type_changed? && self.active?
-        arb_sub = build_arb_subscription_for_update
-        set_payment_info(arb_sub)
-      
-        # Payment Authorization
-        aim_response = authorize_aim_transaction(
-          arb_sub, regular_amount_in_cents, false)
-        return false unless aim_response
-        return false unless aim_response.success?
-        return false unless update_or_replace_arb_subscription(arb_sub, false)
-      else
-        cancel_arb_subscription
-        arb_sub = build_arb_subscription_for_replace
-        set_payment_info(arb_sub)
+    replacing = payment_type_changed? || !active?
 
-        # Payment Authorization
-        aim_response = authorize_aim_transaction(
-          arb_sub, starting_amount_in_cents, true)
-        return false unless aim_response
-        return false unless aim_response.success? || provisional?
-        return false unless update_or_replace_arb_subscription(arb_sub, true)
-      end
+    arb_sub = replacing ?
+      build_arb_subscription_for_replace :
+      build_arb_subscription_for_update
+
+    set_payment_info(arb_sub)
+
+    amount = replacing ? starting_amount_in_cents : regular_amount_in_cents
+    aim_response = authorize_aim_transaction(
+      arb_sub, amount, replacing)
+
+    return false unless aim_response
+    return false unless aim_response.success? || (replacing && provisional?)
+    return false unless update_or_replace_arb_subscription(arb_sub, replacing)
   end
 
   def set_payment_info(arb_sub)
@@ -339,6 +332,8 @@ class Subscription < ActiveRecord::Base
   end
 
   def update_or_replace_arb_subscription(arb_sub, replacing)
+    cancel_arb_subscription if replacing
+
     arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
     Rails.logger.debug("UPdated Payment Number to #{self.payment_number}")
 
