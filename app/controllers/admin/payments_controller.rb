@@ -42,10 +42,6 @@ class Admin::PaymentsController < Admin::AdminController
 
   private
 
-  def find_organization
-    @organization = Organization.find(params[:organization_id])
-  end
-
   def find_payment
     @payment = @organization.payments.find(params[:id])
   end

@@ -4,12 +4,24 @@ class Subscription < ActiveRecord::Base
   has_many :payments
 
   attr_accessor :skip_callbacks
-  attr_accessor :amount, :number, :ccv, :bank_name, :account_type, :routing_number, :account_number, :payment_type
-  
+  attr_accessor :amount, :number, :ccv,
+    :bank_name, :account_type, :routing_number, :account_number,
+    :payment_type,
+    :skip_authorization
+  alias_method :skip_authorization?, :skip_authorization
+
   before_create :create_and_charge_arb_subscription
   before_update :update_arb_subscription, :unless => :skip_callbacks
-  
+
   validates_presence_of :organization_id
+
+  def regular_amount
+    regular_amount_in_cents.to_f / 100
+  end
+
+  def regular_amount=(amount_in_dollars)
+    self.regular_amount_in_cents = amount_in_dollars.to_f * 100
+  end
 
   def self.build_provisional(attrs = {})
     new(attrs).tap { |subscription| subscription.make_provisional }
@@ -289,12 +301,13 @@ class Subscription < ActiveRecord::Base
 
     set_payment_info(arb_sub)
 
-    amount = replacing ? starting_amount_in_cents : regular_amount_in_cents
-    aim_response = authorize_aim_transaction(
-      arb_sub, amount, replacing)
+    if !provisional? && !skip_authorization?
+      amount = replacing ? starting_amount_in_cents : regular_amount_in_cents
+      aim_response = authorize_aim_transaction(arb_sub, amount, replacing)
 
-    return false unless aim_response
-    return false unless aim_response.success? || (replacing && provisional?)
+      return false unless aim_response && aim_response.success?
+    end
+
     return false unless update_or_replace_arb_subscription(arb_sub, replacing)
   end
 
