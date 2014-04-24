@@ -74,8 +74,8 @@ class Subscription < ActiveRecord::Base
     if time < start_date
       start_date
     else
-      distance_in_years = (time - start_date) / 1.year
-      start_date + (distance_in_years.floor + 1).years
+      distance_in_years = (time - start_date) / 365.days
+      start_date + (distance_in_years.floor + 1) * 365.days
     end
   end
 

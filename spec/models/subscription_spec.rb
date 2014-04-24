@@ -357,6 +357,17 @@ describe Subscription do
         expect(next_billing_date).to eq(start_date + 2.years)
       end
     end
+
+    context 'four years later' do
+      let(:time) { start_date + 4.years + 1.day }
+
+      # Our Authorize.Net subscriptions run 365 days instead of a full
+      # year, which matters when a leap year occurs.
+      it 'returns 5 * 365 days after the start date' do
+        expect(next_billing_date).to eq(start_date + 5 * 365.days)
+        expect(next_billing_date).not_to eq(start_date + 5.years)
+      end
+    end
   end
 
   describe 'ARB subscription builders' do
