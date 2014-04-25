@@ -32,6 +32,7 @@ describe PaymentFromNotificationFactory do
 
       it 'creates a payment' do
         notification.should_receive(:build_payment).with(
+          notification: notification,
           subscription: subscription,
           paid_at: payment_date,
           transaction_id: '23876234',
