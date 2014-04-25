@@ -3,6 +3,53 @@ require 'spec_helper'
 describe Payment do
   let(:datetime) { Time.zone.parse('March 20, 2024 03:13:13 PM') }
 
+  subject(:payment) { FactoryGirl.build(:payment) }
+
+  it 'has a valid factory' do
+    expect(payment).to be_valid
+  end
+
+  context 'when saved' do
+    let(:payment_date) { Date.today }
+    let(:subscription) { FactoryGirl.build(:subscription) }
+    subject(:payment) {
+      FactoryGirl.build(:payment,
+        paid_at: payment_date,
+        subscription: subscription
+      )
+    }
+
+    context 'if derived from a notification' do
+      before do
+        payment.notification = PaymentNotification.new
+      end
+
+      it "sets the subscription's next billing date" do
+        subscription.should_receive(:skipping_callbacks).and_yield
+        subscription.should_receive(:update_attributes).with(
+          next_billing_date: payment_date + 365
+        )
+
+        payment.save
+
+        expect(payment).to be_persisted
+      end
+    end
+
+    context 'if entered manually' do
+      before { payment.notification = nil }
+
+      it "does not set the subscription's next billing date" do
+        subscription.should_not_receive(:skipping_callbacks)
+        subscription.should_not_receive(:update_attributes)
+
+        payment.save
+
+        expect(payment).to be_persisted
+      end
+    end
+  end
+
   describe 'paid_at_date' do
     it 'returns the date component of paid_at' do
       payment = Payment.new(paid_at: datetime)

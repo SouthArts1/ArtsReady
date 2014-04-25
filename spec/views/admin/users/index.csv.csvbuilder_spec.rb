@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "admin/users/index.csv.csvbuilder" do
-  let(:paid_user) { FactoryGirl.create(:paid_user) }
-  let(:unpaid_user) { FactoryGirl.create(:unpaid_user) }
+  let(:paid_user) { FactoryGirl.build(:paid_user) }
+  let(:unpaid_user) { FactoryGirl.build(:unpaid_user) }
 
   before do
     users = double

@@ -4,10 +4,12 @@ class Payment < ActiveRecord::Base
   belongs_to :organization
   belongs_to :subscription
   belongs_to :discount_code
+  has_one :notification, class_name: 'PaymentNotification'
 
   before_validation :set_default_paid_at, on: :create
   before_validation :associate_subscription, on: :create
   before_save :clear_routing_number, unless: :bank_account?
+  after_save :update_next_billing_date, if: :notification
 
   CREDIT_ACCOUNT_TYPES = [
     'Visa', 'MasterCard', 'American Express',
@@ -93,6 +95,16 @@ class Payment < ActiveRecord::Base
       )
     else
       self.paid_at = time
+    end
+  end
+
+  private
+
+  def update_next_billing_date
+    return unless subscription
+
+    subscription.skipping_callbacks do
+      subscription.update_attributes(next_billing_date: paid_at.to_date + 365)
     end
   end
 

@@ -12,3 +12,4 @@ Feature: Admin payment history
   Scenario: Automatic payment notification
     When we receive automatic payment notifications for "Paying Org"
     Then I can view the automatic payment details for "Paying Org"
+    And the next billing date for "Paying Org" is extended by 365 days

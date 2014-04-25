@@ -27,6 +27,7 @@ class PaymentFromNotificationFactory
 
   def build_payment
     notification.build_payment(
+      notification: notification,
       subscription: subscription,
       paid_at: notification.created_at,
       transaction_id: notification.trans_id,

@@ -158,3 +158,15 @@ Then(/^I can update the organization's subscription price$/) do
   expect(page).to have_content 'Next billing amount: $223.52'
   expect(page).to have_content /Authorize.Net subscription ID: [0-9]+/
 end
+
+And(/^the next billing date for "([^"]*)" is extended by (\d+) days$/) do |org_name, days|
+  days = Integer(days)
+
+  click_on 'Admin'
+  click_on 'Manage Organizations'
+  edit_organization(org_name)
+  click_on 'Billing'
+
+  page.text.match /Next billing date: (.*)/
+  expect(Date.parse($1)).to eq(Date.today + days)
+end

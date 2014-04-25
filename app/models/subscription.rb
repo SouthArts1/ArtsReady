@@ -57,14 +57,11 @@ class Subscription < ActiveRecord::Base
     return (next_billing_date - Time.zone.today).to_i
   end
 
-  # TODO: Instead of computing the next billing date based on the start date,
-  # create an attribute that stores the next billing date. Set that attribute
-  # when we create the subscription, and subsequently when we receive payment
-  # notifications. Also create a way for admins to correct it when we get out
-  # of sync with Authorize.Net, or to set it for accounts that don't use
-  # Authorize.Net.
+  # For unsaved accounts (e.g., in tests), or for accounts that predate
+  # the database column, we fall back to a calculation based on the
+  # subscription's start date.
   def next_billing_date
-    billing_date_after(Time.zone.today)
+    self[:next_billing_date] || billing_date_after(Time.zone.today)
   end
 
   # Utility for `next_billing_date`. Easier to test.
@@ -220,7 +217,9 @@ class Subscription < ActiveRecord::Base
     return false if !validate_for_creation
 
     self.start_date = Time.now + 1.day unless self.start_date
-    
+    self.next_billing_date = start_date.to_date
+    self.next_billing_date += 365 if provisional?
+
     arb_sub = build_arb_subscription_for_create()
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
