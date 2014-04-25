@@ -34,8 +34,7 @@ describe Answer do
   
   context "valid answer" do
     it "should be valid" do
-      pending
-      answer = Factory.create(:answer)
+      answer = FactoryGirl.build(:answer)
       answer.priority='critical'
       answer.preparedness='ready'
       answer.should be_valid
@@ -51,9 +50,14 @@ describe Answer do
 
   context "with one action item" do
     let(:question) { Factory.create(:question, :action_items => [Factory.create(:action_item)]) }
+    let(:answer) { FactoryGirl.create(:answer, question: question) }
+
     it "should create one todo" do
-      pending
-      expect {Answer.create(:preparedness => 'not ready', :priority => 'critical', :organization => Factory.create(:organization), :question => question) }.to change { Todo.count }.by(1)
+      expect {
+        answer.update_attributes(
+          :preparedness => 'not ready', :priority => 'critical'
+        )
+      }.to change { Todo.count }.by(1)
     end
   end
   

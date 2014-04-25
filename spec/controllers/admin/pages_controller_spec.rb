@@ -67,6 +67,7 @@ describe Admin::PagesController do
 
     before(:each) do
       controller.stub(:authenticate_admin!).and_return(sysadmin)
+      Page.stub(:find).and_return(page)
     end
 
     describe "GET 'index'" do
@@ -85,10 +86,9 @@ describe Admin::PagesController do
       end
     end
 
-    describe "PUT 'edit'" do
+    describe "PUT 'update'" do
       it "should succeed" do
-        pending
-        page.should_receive(:update_attributes).with(:page => {'body' => 'params'})
+        page.should_receive(:update_attributes).with('body' => 'params')
         put :update, :id => page.id, :page => {'body' => 'params'}
         response.should redirect_to admin_pages_path
       end
