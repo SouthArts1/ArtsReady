@@ -18,6 +18,7 @@
     <%= button_to("Cancel Billing", billing_cancel_path(@organization),
                   :confirm => "THIS CAN NOT BE UNDONE.",
                   :method  => :delete) %>
+    <%= link_to 'Edit Billing', [:edit, :admin, @organization, :billing], class: 'button' %>
   <% end %>
 </div>
 <div class="grid_12">

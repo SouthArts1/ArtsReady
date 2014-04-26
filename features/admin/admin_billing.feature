@@ -13,3 +13,8 @@ Feature: Admin billing management
 
     When I sign out
     Then I can sign in as "provisional@example.com/password"
+
+  Scenario: Update subscription price
+    Given a paid organization exists
+    And I am signed in as a sysadmin
+    Then I can update the organization's subscription price

@@ -111,3 +111,48 @@ Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
 
   expected_table.diff!(payment_table)
 end
+
+Then /^I should be able to view the organization's billing info$/ do
+  click_on 'Manage Organizations'
+  click_on 'Edit'
+  click_on 'Billing'
+
+  expect(page).to have_content 'Test Organization'
+  expect(page).to have_content 'Bill Lastname'
+  expect(page).to have_content '100 Test St'
+  expect(page).to have_content 'New York, NY 10001'
+  expect(page).to have_content 'Credit Card'
+  expect(page).to have_content 'Discount code: DISCO'
+  # Authorize.net actually charges the card on the business day
+  # after the user submits the payment form, so we follow their
+  # lead.
+  expect(page).to have_content "Date joined: March 20, 2024"
+
+  expect(page).to have_link('DISCO',
+    href: edit_admin_discount_code_path(DiscountCode.last))
+  expect(page).to have_content 'Account status: Active'
+end
+
+Then(/^I can grant provisional access$/) do
+  click_on 'Manage Organizations'
+  click_on 'Edit'
+  click_on 'Billing'
+
+  click_on 'Allow provisional access for 1 year'
+  expect(page).to have_content 'Provisional access has been granted' # flash
+
+  visit current_path
+  expect(page).to have_content 'Provisional Access'
+end
+
+Then(/^I can update the organization's subscription price$/) do
+  click_on 'Manage Organizations'
+  click_on 'Edit'
+  click_on 'Billing'
+  click_on 'Edit Billing'
+
+  fill_in 'Recurring amount', with: '223.52'
+  click_on 'Update Subscription'
+
+  expect(page).to have_content 'Next billing amount: $223.52'
+end

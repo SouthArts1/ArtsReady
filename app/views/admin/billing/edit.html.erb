@@ -1,0 +1,15 @@
+<div class="grid_12">
+  <%= render 'admin/shared/organization_menu' %>
+</div>
+
+<div class="grid_8">
+  <section>
+    <h3>Billing Information:</h3>
+
+    <%= simple_form_for @subscription, url: [:admin, @organization, :billing] do |f| %>
+      <%= f.input :regular_amount %>
+
+      <%= f.submit %>
+    <% end %>
+  </section>
+</div>
