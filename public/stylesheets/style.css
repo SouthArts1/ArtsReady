@@ -222,6 +222,9 @@ input[type="text"], input[type="password"] {
   border-bottom-color: #ddd;
   width: 98%; }
 
+.input.date .hint {
+  display: block; }
+
 textarea {
   border-radius: 5px;
   -moz-border-radius: 5px;

@@ -18,3 +18,8 @@ Feature: Admin billing management
     Given a paid organization exists
     And I am signed in as a sysadmin
     Then I can update the organization's subscription price
+
+  Scenario: Update next billing date
+    Given a paid organization exists
+    And I am signed in as a sysadmin
+    Then I can update the organization's next billing date

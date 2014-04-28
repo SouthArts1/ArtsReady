@@ -159,6 +159,22 @@ Then(/^I can update the organization's subscription price$/) do
   expect(page).to have_content /Authorize.Net subscription ID: [0-9]+/
 end
 
+Then(/^I can update the organization's next billing date$/) do
+  Timecop.freeze(Date.parse('2023-11-11'))
+
+  click_on 'Manage Organizations'
+  click_on 'Edit'
+  click_on 'Billing'
+  click_on 'Edit Billing'
+
+  select '2024', from: 'subscription_next_billing_date_1i'
+  select 'March', from: 'subscription_next_billing_date_2i'
+  select '19', from: 'subscription_next_billing_date_3i'
+  click_on 'Update Subscription'
+
+  expect(page).to have_content 'Next billing date: March 19, 2024'
+end
+
 And(/^the next billing date for "([^"]*)" is extended by (\d+) days$/) do |org_name, days|
   days = Integer(days)
 

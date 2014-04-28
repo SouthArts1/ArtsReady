@@ -19,6 +19,15 @@ en:
       subscription:
         regular_amount: 'Recurring amount'
 
+    hints:
+      subscription:
+        next_billing_date: >
+          Note: This changes the date displayed on the billing page, but
+          does not affect the actual date Authorize.Net will charge the
+          organization. Use this only for organizations that haven't set
+          up automatic payment, or to correct the date on the billing page
+          if it's out of sync with Authorize.Net's records.
+
     # Labels and hints examples
     # labels:
     #   defaults:

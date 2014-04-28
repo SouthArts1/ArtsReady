@@ -230,6 +230,14 @@ input {
     border-bottom-color: #ddd;
     width: 98%; } }
 
+.input {
+  &.date {
+    .hint {
+      display: block; // for very long hint on next billing date
+    }
+  }
+}
+
 textarea {
   border-radius: 5px;
   -moz-border-radius: 5px;
