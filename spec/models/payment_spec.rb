@@ -25,9 +25,8 @@ describe Payment do
       end
 
       it "sets the subscription's next billing date" do
-        subscription.should_receive(:skipping_callbacks).and_yield
-        subscription.should_receive(:update_attributes).with(
-          next_billing_date: payment_date + 365
+        subscription.should_receive(:update_column).with(
+          :next_billing_date, payment_date + 365
         )
 
         payment.save

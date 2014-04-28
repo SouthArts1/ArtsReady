@@ -50,7 +50,34 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   ])
 
   payment_table.diff!(expected_table)
+end
 
+When(/^I add a payment by check for "([^"]*)"$/) do |org_name|
+  Organization.find_by_name(org_name).subscription.
+    update_column(:next_billing_date, Date.parse('March 20, 2024'))
+
+  click_on 'Manage Organizations'
+  edit_organization(org_name)
+  click_on 'Payment History'
+  click_on 'Add a payment'
+
+  AdminPaymentFormTestPage.new(self).
+    fill_out(
+      'Authorize.Net transaction ID' => nil,
+      'Account type' => 'Checking',
+      'Check number' => '1001'
+    ) do
+      check 'Extend subscription to March 20, 2025?'
+    end.
+    submit
+
+  expect(page).to have_content 'Saved new payment'
+
+  click_on 'Edit'
+  expect(find_field('Check number').value).to eq '1001'
+end
+
+Then(/^I can extend the next billing date for "([^"]*)" by 365 days$/) do |org_name_|
   click_on 'Billing'
   expect(page).to have_content 'Next billing date: March 20, 2025'
 end
@@ -206,3 +233,4 @@ And(/^the next billing date for "([^"]*)" is extended by (\d+) days$/) do |org_n
   page.text.match /Next billing date: (.*)/
   expect(Date.parse($1)).to eq(Date.today + days)
 end
+

@@ -9,6 +9,10 @@ Feature: Admin payment history
     And I can edit the payment for "Paying Org"
     And I can delete the payment for "Paying Org"
 
+  Scenario: Manage payments by check
+    When I add a payment by check for "Paying Org"
+    Then I can extend the next billing date for "Paying Org" by 365 days
+
   Scenario: Automatic payment notification
     When we receive automatic payment notifications for "Paying Org"
     Then I can view the automatic payment details for "Paying Org"

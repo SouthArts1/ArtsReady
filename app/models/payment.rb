@@ -12,9 +12,8 @@ class Payment < ActiveRecord::Base
   before_validation :set_default_paid_at, on: :create
   before_validation :associate_subscription, on: :create
   before_save :clear_routing_number, unless: :bank_account?
-  after_save :update_next_billing_date, if: lambda { |payment|
-    payment.extend_subscription? || payment.notification
-  }
+  after_save :update_next_billing_date_on_notification, if: :notification
+  after_save :extend_next_billing_date_by_request, if: :extend_subscription?
 
   CREDIT_ACCOUNT_TYPES = [
     'Visa', 'MasterCard', 'American Express',
@@ -105,15 +104,23 @@ class Payment < ActiveRecord::Base
 
   private
 
-  def update_next_billing_date
+  # if we received a notification, we should expect the account to be
+  # charged again 365 days after the notification.
+  def update_next_billing_date_on_notification
     return unless subscription
 
-    subscription.skipping_callbacks do
-      subscription.update_attributes(next_billing_date: paid_at.to_date + 365)
-    end
+    subscription.update_column(
+      :next_billing_date, paid_at.to_date + 365)
   end
 
-  private
+  # if an admin requests to extend the next billing date, we should set
+  # it to 365 days after the previous billing date.
+  def extend_next_billing_date_by_request
+    return unless subscription
+
+    subscription.update_column(
+      :next_billing_date, subscription.next_billing_date + 365)
+  end
 
   def set_default_paid_at
     self.paid_at ||= Time.zone.now
