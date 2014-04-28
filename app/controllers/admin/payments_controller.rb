@@ -48,6 +48,7 @@ class Admin::PaymentsController < Admin::AdminController
 
   def payment_params
     params.require(:payment).permit(
+      :extend_subscription,
       :paid_at_date,
       :paid_at_time,
       :discount_code_id,

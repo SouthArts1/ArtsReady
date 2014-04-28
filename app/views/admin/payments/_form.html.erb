@@ -1,4 +1,6 @@
 <%= simple_form_for [:admin, @organization, @payment] do |f| %>
+  <% subscription = @organization.subscription %>
+
   <%= f.input :paid_at_date, input_html: {class: 'datepicker', placeholder: 'MM/DD/YY'} %>
   <%= f.input :paid_at_time %>
   <%= f.association :discount_code, label_method: :discount_code %>
@@ -13,6 +15,13 @@
   <%= f.input :routing_number %>
 
   <%= f.input :notes %>
+
+  <% if subscription && f.object.new_record? %>
+    <% extended_subscription_date = subscription.next_billing_date + 365 %>
+    <%= f.input :extend_subscription, as: :boolean,
+      label: "Extend subscription to #{extended_subscription_date.to_s(:long)}?"
+    %>
+  <% end %>
 
   <%= f.submit 'Save' %>
 <% end %>

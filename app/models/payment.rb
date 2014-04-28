@@ -6,10 +6,15 @@ class Payment < ActiveRecord::Base
   belongs_to :discount_code
   has_one :notification, class_name: 'PaymentNotification'
 
+  attr_accessor :extend_subscription
+  alias_method :extend_subscription?, :extend_subscription
+
   before_validation :set_default_paid_at, on: :create
   before_validation :associate_subscription, on: :create
   before_save :clear_routing_number, unless: :bank_account?
-  after_save :update_next_billing_date, if: :notification
+  after_save :update_next_billing_date, if: lambda { |payment|
+    payment.extend_subscription? || payment.notification
+  }
 
   CREDIT_ACCOUNT_TYPES = [
     'Visa', 'MasterCard', 'American Express',

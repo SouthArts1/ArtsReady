@@ -1,5 +1,7 @@
 Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
+  Organization.find_by_name(org_name).subscription.
+    update_column(:next_billing_date, Time.zone.today)
   FactoryGirl.create(:discount_code, discount_code: 'DISCO')
 
   click_on 'Manage Organizations'
@@ -15,6 +17,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   fill_in 'Routing number', with: '061092387'
   fill_in 'Account number', with: '987654312'
   fill_in 'Notes', with: 'Some notes.'
+  check 'Extend subscription to March 20, 2025?'
 
   click_on 'Save'
 
@@ -34,9 +37,13 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   ])
 
   payment_table.diff!(expected_table)
+
+  click_on 'Billing'
+  expect(page).to have_content 'Next billing date: March 20, 2025'
 end
 
 And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
+  click_on 'Payment History'
   click_on 'Edit'
 
   fill_in 'Payment date', with: '2024-03-19'
