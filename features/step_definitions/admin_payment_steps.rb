@@ -1,7 +1,28 @@
+class AdminPaymentFormTestPage < TestPage
+  def fill_out(overrides = {})
+    fields = {
+      'Amount'                       => '50',
+      'Authorize.Net transaction ID' => '123456789',
+      'Account type'                 => 'Savings',
+      'Routing number'               => '061092387',
+      'Account number'               => '987654312',
+      'Notes'                        => 'Some notes.'
+    }.merge(overrides)
+
+    world.fill_in_fields(fields)
+
+    yield if block_given?
+
+    self
+  end
+
+  def submit
+    world.click_on 'Save'
+  end
+end
+
 Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
-  Organization.find_by_name(org_name).subscription.
-    update_column(:next_billing_date, Time.zone.today)
   FactoryGirl.create(:discount_code, discount_code: 'DISCO')
 
   click_on 'Manage Organizations'
@@ -9,17 +30,9 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   click_on 'Payment History'
   click_on 'Add a payment'
 
-  # Use default date and time
-  select 'DISCO', from: 'Discount code'
-  fill_in 'Amount', with: '50'
-  fill_in 'Authorize.Net transaction ID', with: '123456789'
-  select 'Savings', from: 'Account type'
-  fill_in 'Routing number', with: '061092387'
-  fill_in 'Account number', with: '987654312'
-  fill_in 'Notes', with: 'Some notes.'
-  check 'Extend subscription to March 20, 2025?'
-
-  click_on 'Save'
+  AdminPaymentFormTestPage.new(self).
+    fill_out('Discount code' => 'DISCO').
+    submit
 
   expect(page).to have_content 'Saved new payment'
 

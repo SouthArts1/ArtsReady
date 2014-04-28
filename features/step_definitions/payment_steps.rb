@@ -1,10 +1,4 @@
-class BillingFormTestPage
-  attr_accessor :world
-
-  def initialize(world)
-    self.world = world
-  end
-
+class BillingFormTestPage < TestPage
   def fill_out(overrides = {})
     fields = {
       'Billing first name' => 'Bill',
@@ -100,13 +94,13 @@ class BillingFormTestPage
   end
 end
 
-class BillingInfoTestPage
-  attr_accessor :page
+class BillingInfoTestPage < TestPage
+  # attr_accessor :page
   attr_accessor :missing_info
 
-  def initialize(page)
-    self.page = page
-  end
+  # def initialize(page)
+  #   self.page = page
+  # end
 
   def missing_billing_info
     [
@@ -171,7 +165,7 @@ Then(/^my billing info should be saved$/) do
   click_on 'Settings'
   click_on 'Billing'
 
-  billing_page = BillingInfoTestPage.new(page)
+  billing_page = BillingInfoTestPage.new(self)
   expect(billing_page.missing_billing_info).to eq []
 end
 
