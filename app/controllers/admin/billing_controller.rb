@@ -9,6 +9,7 @@ class Admin::BillingController < Admin::AdminController
     if @subscription.update_attributes(subscription_params)
       redirect_to admin_organization_billing_path(@organization)
     else
+      flash.now[:error] = 'Error updating subscription'
       render 'edit'
     end
   end

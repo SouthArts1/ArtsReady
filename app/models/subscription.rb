@@ -356,7 +356,7 @@ class Subscription < ActiveRecord::Base
     Rails.logger.debug("Response: \n #{response.inspect}")
 
     if response.success? || (replacing && (response.response.response_reason_text.include?("ACH") rescue false))
-      self.arb_id = response.subscription_id
+      self.arb_id = response.subscription_id if response.subscription_id
       self.organization.update_attribute(:active, true)
       self.active = true
       self.end_date = nil

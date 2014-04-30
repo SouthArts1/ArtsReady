@@ -155,4 +155,5 @@ Then(/^I can update the organization's subscription price$/) do
   click_on 'Update Subscription'
 
   expect(page).to have_content 'Next billing amount: $223.52'
+  expect(page).to have_content /Authorize.Net subscription ID: [0-9]+/
 end

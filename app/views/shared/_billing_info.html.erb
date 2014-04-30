@@ -25,6 +25,13 @@
   <br/>
   <%= @subscription.billing_phone_number %><br/>
   <%= @subscription.billing_email %><br/>
+
+  <% if current_user.admin? %>
+    <br/>
+    Authorize.Net subscription ID:
+    <%= @subscription.arb_id %>
+  <% end %>
+
   <% unless @subscription.provisional? %>
     <br/>
     <%= @subscription.payment_method %> ending in <%= @subscription.payment_number %>
