@@ -22,8 +22,11 @@ class Admin::BillingController < Admin::AdminController
 
   def subscription_params
     params.require(:subscription).permit(
-      :next_billing_date,
-      :regular_amount
+      :regular_amount,
+      :organization_attributes => [
+        :id,
+        :next_billing_date
+      ]
     ).merge(:skip_authorization => true)
   end
 end

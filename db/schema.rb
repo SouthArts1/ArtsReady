@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140428211907) do
+ActiveRecord::Schema.define(:version => 20140429163228) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -208,6 +208,7 @@ ActiveRecord::Schema.define(:version => 20140428211907) do
     t.string   "nsic_code"
     t.integer  "users_count",                :default => 0
     t.string   "other_nsic_code"
+    t.date     "next_billing_date"
   end
 
   create_table "pages", :force => true do |t|
@@ -299,7 +300,6 @@ ActiveRecord::Schema.define(:version => 20140428211907) do
     t.string   "billing_email"
     t.string   "billing_phone_number"
     t.boolean  "provisional",              :default => false
-    t.date     "next_billing_date"
   end
 
   create_table "taggings", :force => true do |t|

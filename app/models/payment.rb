@@ -107,19 +107,13 @@ class Payment < ActiveRecord::Base
   # if we received a notification, we should expect the account to be
   # charged again 365 days after the notification.
   def update_next_billing_date_on_notification
-    return unless subscription
-
-    subscription.update_column(
-      :next_billing_date, paid_at.to_date + 365)
+    organization.extend_subscription!(paid_at.to_date + 365)
   end
 
   # if an admin requests to extend the next billing date, we should set
   # it to 365 days after the previous billing date.
   def extend_next_billing_date_by_request
-    return unless subscription
-
-    subscription.update_column(
-      :next_billing_date, subscription.next_billing_date + 365)
+    organization.extend_subscription!
   end
 
   def set_default_paid_at

@@ -15,6 +15,9 @@ class Subscription < ActiveRecord::Base
 
   validates_presence_of :organization_id
 
+  delegate :next_billing_date, :days_left_until_rebill, to: :organization
+  accepts_nested_attributes_for :organization
+
   def regular_amount
     regular_amount_in_cents.to_f / 100
   end
@@ -51,17 +54,6 @@ class Subscription < ActiveRecord::Base
       expiry_month: "02", expiry_year: Date.today.year + 1,
       ccv: "123", payment_type: 'cc'
     }
-  end
-
-  def days_left_until_rebill
-    return (next_billing_date - Time.zone.today).to_i
-  end
-
-  # For unsaved accounts (e.g., in tests), or for accounts that predate
-  # the database column, we fall back to a calculation based on the
-  # subscription's start date.
-  def next_billing_date
-    self[:next_billing_date] || billing_date_after(Time.zone.today)
   end
 
   # Utility for `next_billing_date`. Easier to test.
@@ -217,8 +209,6 @@ class Subscription < ActiveRecord::Base
     return false if !validate_for_creation
 
     self.start_date = Time.now + 1.day unless self.start_date
-    self.next_billing_date = start_date.to_date
-    self.next_billing_date += 365 if provisional?
 
     arb_sub = build_arb_subscription_for_create()
     if self.payment_type == "cc"
@@ -251,7 +241,10 @@ class Subscription < ActiveRecord::Base
     # ARB doesn't support free subscriptions, so we bypass it in that case
     return false unless free_after_first_year? || create_arb_transaction(arb_sub)
 
-    organization.update_attribute(:active, true)
+    organization.update_attributes(
+      active: true,
+      next_billing_date: start_date.to_date + (provisional? ? 365 : 0)
+    )
     self.active = true
   end
   

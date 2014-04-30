@@ -8,10 +8,12 @@
 
     <%= simple_form_for @subscription, url: [:admin, @organization, :billing] do |f| %>
       <%= f.input :regular_amount %>
-      <%= f.input :next_billing_date,
-        start_year: [Date.today.year, f.object.next_billing_date.year].min,
-        end_year: Date.today.year + 3
-      %>
+      <%= f.fields_for :organization do |ff| %>
+        <%= ff.input :next_billing_date, as: :date,
+          start_year: [Date.today.year, ff.object.next_billing_date.year].min,
+          end_year: Date.today.year + 3
+        %>
+      <% end %>
 
       <%= f.submit %>
     <% end %>

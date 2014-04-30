@@ -136,4 +136,60 @@ describe Organization do
       Article.find_by_id(public_article.id).organization_id.should be_nil
     end
   end
+
+  describe 'days_left_until_rebill' do
+    context 'given a next billing date' do
+      before { org.next_billing_date = Date.tomorrow }
+
+      it 'should count the days until then' do
+        expect(org.days_left_until_rebill).to eq(1)
+      end
+    end
+
+    context 'given no next billing date' do
+      before { org.next_billing_date = nil }
+
+      it 'should return nil' do
+        expect(org.days_left_until_rebill).to be_nil
+      end
+    end
+  end
+
+  describe '#extend_subscription!' do
+    let(:organization) { FactoryGirl.create(:organization) }
+
+    around do |example|
+      Timecop.freeze(Time.zone.now) { example.run }
+    end
+
+    context 'given a date parameter' do
+      it 'sets the next billing date to that date' do
+        organization.extend_subscription!(Date.tomorrow)
+        expect(organization.next_billing_date).to eq(Date.tomorrow)
+        expect(organization).not_to be_changed
+      end
+    end
+
+    context 'given no date parameter' do
+      context 'if a next billing date has previously been set' do
+        before { organization.next_billing_date = Date.yesterday }
+
+        it 'extends the next billing date by 365 days' do
+          organization.extend_subscription!
+          expect(organization.next_billing_date).to eq(Date.today + 364.days)
+          expect(organization).not_to be_changed
+        end
+      end
+
+      context 'if no next billing date has been set' do
+        before { organization.next_billing_date = nil }
+
+        it 'sets the next billing date to 365 days from today' do
+          organization.extend_subscription!
+          expect(organization.next_billing_date).to eq(Date.today + 365.days)
+          expect(organization).not_to be_changed
+        end
+      end
+    end
+  end
 end

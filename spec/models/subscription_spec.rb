@@ -184,22 +184,6 @@ describe Subscription do
         expect(p).to be_active
       end
     end
-    
-    context "payment type agnostic" do
-      it "should show 364 days if created yesterday" do
-        p = Subscription.new()
-        Timecop.freeze(Time.now)
-        p.start_date = Time.now - 1.day
-        expect(p.days_left_until_rebill).to eq 364
-      end
-
-      it "should show 355 days if created 10 days ago" do
-        p = Subscription.new()
-        Timecop.freeze(Time.now)
-        p.start_date = Time.now - 10.day
-        expect(p.days_left_until_rebill).to eq 355
-      end
-    end
   end
   
   context "cancel subscription" do
@@ -414,7 +398,6 @@ describe Subscription do
       let(:subscription) {
         FactoryGirl.build(:subscription,
           organization: org,
-          start_date: Time.zone.parse('May 13, 2013'),
           billing_first_name: 'Fred',
           billing_email: 'refresh@test.host'
         )
@@ -424,6 +407,7 @@ describe Subscription do
       }
 
       before do
+        org.stub(:next_billing_date).and_return(Date.parse('May 13, 2014'))
         Timecop.freeze(Time.parse('March 31, 2014'))
       end
 

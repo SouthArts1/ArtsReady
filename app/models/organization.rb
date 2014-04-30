@@ -102,11 +102,31 @@ class Organization < ActiveRecord::Base
 
   def active_subscription_end_date
     return nil if !self.subscription || !self.subscription.active?
-    return (self.subscription.start_date + 365.days)
+    return next_billing_date
   end
 
   def subscription
     subscriptions.last
+  end
+
+  # For unsaved accounts (e.g., in tests), or for accounts that predate
+  # the database column, we fall back to a calculation based on the
+  # subscription's start date.
+  def next_billing_date
+    self[:next_billing_date] ||
+      subscription.try(:billing_date_after, Time.zone.today)
+  end
+
+  def days_left_until_rebill
+    (next_billing_date - Time.zone.today).to_i if next_billing_date
+  end
+
+  def extend_subscription!(date = nil)
+    update_attribute(:next_billing_date, date || extended_subscription_date)
+  end
+
+  def extended_subscription_date
+    (next_billing_date ? next_billing_date : Time.zone.today) + 365
   end
 
   def account_status

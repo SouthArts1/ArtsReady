@@ -63,6 +63,8 @@ FactoryGirl.define do
     end
 
     factory :paid_organization do
+      next_billing_date { ((created_at || Time.zone.now) + 1.day).to_date }
+
       after_create do |org|
         org.subscriptions << FactoryGirl.build(:subscription)
       end

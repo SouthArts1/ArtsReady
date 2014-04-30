@@ -53,7 +53,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
 end
 
 When(/^I add a payment by check for "([^"]*)"$/) do |org_name|
-  Organization.find_by_name(org_name).subscription.
+  Organization.find_by_name(org_name).
     update_column(:next_billing_date, Date.parse('March 20, 2024'))
 
   click_on 'Manage Organizations'
@@ -214,9 +214,9 @@ Then(/^I can update the organization's next billing date$/) do
   click_on 'Billing'
   click_on 'Edit Billing'
 
-  select '2024', from: 'subscription_next_billing_date_1i'
-  select 'March', from: 'subscription_next_billing_date_2i'
-  select '19', from: 'subscription_next_billing_date_3i'
+  select '2024', from: 'subscription_organization_attributes_next_billing_date_1i'
+  select 'March', from: 'subscription_organization_attributes_next_billing_date_2i'
+  select '19', from: 'subscription_organization_attributes_next_billing_date_3i'
   click_on 'Update Subscription'
 
   expect(page).to have_content 'Next billing date: March 19, 2024'

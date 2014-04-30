@@ -37,6 +37,12 @@
           <%= link_to code.discount_code, [:edit, :admin, code] %>
         </p>
       <% end %>
+    <% elsif @organization.next_billing_date %>
+      <p>
+        Next billing date:
+        <%= @organization.next_billing_date.try(:strftime, "%B %d, %Y") %>
+        (<%= pluralize @organization.days_left_until_rebill, 'day' %>)
+      </p>
     <% else %>
       <p>
         This organization has not set up their billing yet!

@@ -11,11 +11,11 @@ describe Payment do
 
   context 'when saved' do
     let(:payment_date) { Date.today }
-    let(:subscription) { FactoryGirl.build(:subscription) }
+    let(:organization) { FactoryGirl.build(:organization) }
     subject(:payment) {
       FactoryGirl.build(:payment,
         paid_at: payment_date,
-        subscription: subscription
+        organization: organization
       )
     }
 
@@ -24,9 +24,9 @@ describe Payment do
         payment.notification = PaymentNotification.new
       end
 
-      it "sets the subscription's next billing date" do
-        subscription.should_receive(:update_column).with(
-          :next_billing_date, payment_date + 365
+      it "sets the organization's next billing date" do
+        organization.should_receive(:extend_subscription!).with(
+          payment_date + 365
         )
 
         payment.save
@@ -38,14 +38,28 @@ describe Payment do
     context 'if entered manually' do
       before { payment.notification = nil }
 
-      it "does not set the subscription's next billing date" do
-        subscription.should_not_receive(:skipping_callbacks)
-        subscription.should_not_receive(:update_attributes)
+      context do
+        it "does not set the organization's next billing date" do
+          organization.should_not_receive(:extend_subscription!)
 
-        payment.save
+          payment.save
 
-        expect(payment).to be_persisted
+          expect(payment).to be_persisted
+        end
       end
+
+      context 'and extend_subscription is set' do
+        before { payment.extend_subscription = true }
+
+        it "sets the organization's next billing date" do
+          organization.should_receive(:extend_subscription!).with()
+
+          payment.save
+
+          expect(payment).to be_persisted
+        end
+      end
+
     end
   end
 
