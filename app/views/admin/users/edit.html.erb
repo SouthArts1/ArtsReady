@@ -1,11 +1,8 @@
-<h1>Admin: User Info</h1>
-<h2><%= @organization.name %></h2>
+<%= render 'admin/shared/organization_header' %>
 
-<ul class="top-nav settings">
-  <li><%= link_to "Organization", edit_admin_organization_path(@organization) %></li>
-  <li><%= link_to "Users", admin_organization_users_path(@organization) %></li>
-  <li class="active"><%= link_to 'Edit User', edit_admin_organization_user_path(@organization,@user) %></li>
-</ul>
+<div class="grid_12">
+  <%= render 'admin/shared/organization_menu' %>
+</div>
 
 <div class="grid_8">
   <section>

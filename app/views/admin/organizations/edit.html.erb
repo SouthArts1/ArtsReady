@@ -1,28 +1,13 @@
-<h1>Admin: Organization</h1>
-<h2><%= @organization.name %></h2>
+<%= render 'admin/shared/organization_header' %>
 
 <div class="grid_8 admin-actions">
-  <h4>Admin Actions</h4>
-  <%= form_for([:admin, @organization]) do |f| %>
-    <%= f.hidden_field :active, :value => true %>
-    <%= f.submit "Approve" %>
-  <% end unless @organization.active?%>
-  <%= form_for([:admin, @organization]) do |f| %>
-    <%= f.hidden_field :active, :value => false %>
-    <%= f.submit "Disable" %>
-  <% end if @organization.active? %>
-  <%= button_to("DELETE", admin_organization_path(@organization),
-                :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
-                :method => :delete) if @organization.deletable? %>
-	<% if @organization.subscription && @organization.subscription.active? %>
-		<%= button_to("Cancel Billing", billing_cancel_path(@organization),
-	                :confirm => "THIS CAN NOT BE UNDONE.",
-	                :method => :delete) %>
-	<% end %>
+  <%= render 'admin/shared/organization_actions' %>
 </div>
+
 <div class="grid_12">
   <%= render 'admin/shared/organization_menu' %>
 </div>
+
 <div class="grid_8">
   <section>
     <%= form_for([:admin, @organization]) do |f| %>
