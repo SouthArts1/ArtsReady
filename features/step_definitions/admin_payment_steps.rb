@@ -158,8 +158,7 @@ Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
 end
 
 Then /^I should be able to view the organization's billing info$/ do
-  click_on 'Manage Organizations'
-  click_on 'Edit'
+  edit_last_organization
   click_on 'Billing'
 
   expect(page).to have_content 'Test Organization'
@@ -180,8 +179,7 @@ Then /^I should be able to view the organization's billing info$/ do
 end
 
 Then(/^I can grant provisional access$/) do
-  click_on 'Manage Organizations'
-  click_on 'Edit'
+  edit_last_organization
   click_on 'Billing'
 
   click_on 'Allow provisional access for 1 year'
@@ -192,8 +190,7 @@ Then(/^I can grant provisional access$/) do
 end
 
 Then(/^I can update the organization's subscription price$/) do
-  click_on 'Manage Organizations'
-  click_on 'Edit'
+  edit_last_organization
   click_on 'Billing'
   click_on 'Edit Billing'
 
@@ -207,8 +204,7 @@ end
 Then(/^I can update the organization's next billing date$/) do
   Timecop.freeze(Date.parse('2023-11-11'))
 
-  click_on 'Manage Organizations'
-  click_on 'Edit'
+  edit_last_organization
   click_on 'Billing'
   click_on 'Edit Billing'
 
