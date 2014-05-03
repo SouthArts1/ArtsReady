@@ -21,9 +21,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Fri, 11 Apr 2014 19:47:17 GMT
+      - Sat, 03 May 2014 06:30:02 GMT
       Expires: 
-      - Sat, 12 Apr 2014 19:47:17 GMT
+      - Sun, 04 May 2014 06:30:02 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -127,7 +127,7 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 19:47:17 GMT
+  recorded_at: Sat, 03 May 2014 06:30:02 GMT
 - request: 
     method: post
     uri: https://test.authorize.net/gateway/transact.dll
@@ -149,7 +149,7 @@ http_interactions:
       Connection: 
       - close
       Date: 
-      - Fri, 11 Apr 2014 19:47:20 GMT
+      - Sat, 03 May 2014 06:30:06 GMT
       Server: 
       - Microsoft-IIS/6.0
       X-Powered-By: 
@@ -164,9 +164,9 @@ http_interactions:
       - Tue, 01 Jan 1980 00:00:00 GMT
     body: 
       encoding: US-ASCII
-      string: 1,1,1,This transaction has been approved.,TWNNUV,Y,2210852245,,,300.00,CC,auth_only,,Bill,Lastname,New Organization,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,53D4415A6F4E413E0BD530753A89103A,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
+      string: 1,1,1,This transaction has been approved.,8QX3P5,Y,2212302016,,,300.00,CC,auth_only,,Bill,Lastname,New Organization,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,C77FDC46D65D7307CE3CB56A2B65AA99,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 19:47:20 GMT
+  recorded_at: Sat, 03 May 2014 06:30:06 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -186,7 +186,7 @@ http_interactions:
                 <length>365</length>
                 <unit>days</unit>
               </interval>
-              <startDate>2014-04-12</startDate>
+              <startDate>2014-05-04</startDate>
               <totalOccurrences>9999</totalOccurrences>
               <trialOccurrences>1</trialOccurrences>
             </paymentSchedule>
@@ -231,11 +231,11 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 11 Apr 2014 19:47:21 GMT
+      - Sat, 03 May 2014 06:30:07 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
-      - http://developer.authorize.net
+      - "*"
       Access-Control-Allow-Methods: 
       - GET, POST, OPTIONS
       Access-Control-Allow-Headers: 
@@ -252,9 +252,9 @@ http_interactions:
       - "401"
     body: 
       encoding: ASCII-8BIT
-      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2052838</subscriptionId></ARBCreateSubscriptionResponse>"
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2071982</subscriptionId></ARBCreateSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 19:47:21 GMT
+  recorded_at: Sat, 03 May 2014 06:30:07 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -267,7 +267,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2052838</subscriptionId>
+          <subscriptionId>2071982</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -283,11 +283,11 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 11 Apr 2014 19:47:23 GMT
+      - Sat, 03 May 2014 06:30:09 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
-      - http://developer.authorize.net
+      - "*"
       Access-Control-Allow-Methods: 
       - GET, POST, OPTIONS
       Access-Control-Allow-Headers: 
@@ -306,7 +306,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 19:47:23 GMT
+  recorded_at: Sat, 03 May 2014 06:30:09 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -319,7 +319,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2052838</subscriptionId>
+          <subscriptionId>2071982</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -335,11 +335,11 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 11 Apr 2014 19:47:22 GMT
+      - Sat, 03 May 2014 06:30:10 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
-      - http://developer.authorize.net
+      - "*"
       Access-Control-Allow-Methods: 
       - GET, POST, OPTIONS
       Access-Control-Allow-Headers: 
@@ -358,5 +358,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 19:47:23 GMT
+  recorded_at: Sat, 03 May 2014 06:30:11 GMT
 recorded_with: VCR 2.9.0

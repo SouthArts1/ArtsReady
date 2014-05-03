@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :organization do
     name "Test Organization"
     address "100 Test St"
@@ -57,12 +56,18 @@ FactoryGirl.define do
       crises
     end
 
-    factory :unpaid_organization do
+    trait :unpaid do
+      name 'Unpaid Organization'
       # no subscription, and
       active false
     end
 
-    factory :paid_organization do
+    factory :unpaid_organization do
+      unpaid
+    end
+
+    trait :paid do
+      name 'Paid Organization'
       next_billing_date { ((created_at || Time.zone.now) + 1.day).to_date }
 
       after_create do |org, evaluator|
@@ -84,7 +89,36 @@ FactoryGirl.define do
       end
     end
 
+    factory :paid_organization do
+      paid
+
+      factory :renewing_organization do
+        name 'Renewing Organization'
+
+        next_billing_date { Date.today + 1.month }
+
+        after_create do |org, evaluator|
+          org.update_column(:next_billing_date, evaluator.next_billing_date)
+        end
+      end
+    end
+
+    trait :admin do
+      # just to help us distinguish in tests
+      name 'Admin Organization'
+    end
+
+    factory :admin_organization do
+      admin
+
+      factory :paid_admin_organization do
+        paid
+        admin # explicitly, so the name overrides 'paid'
+      end
+    end
+
     factory :paid_organization_with_discount_code do
+      name 'Discount Organization'
       after_create do |org|
         org.subscriptions << FactoryGirl.build(:subscription_with_discount_code)
       end

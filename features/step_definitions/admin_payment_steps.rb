@@ -161,7 +161,7 @@ Then /^I should be able to view the organization's billing info$/ do
   edit_last_organization
   click_on 'Billing'
 
-  expect(page).to have_content 'Test Organization'
+  expect(page).to have_content 'Discount Organization'
   expect(page).to have_content 'Bill Lastname'
   expect(page).to have_content '100 Test St'
   expect(page).to have_content 'New York, NY 10001'

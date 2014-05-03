@@ -19,9 +19,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Fri, 11 Apr 2014 17:50:34 GMT
+      - Sat, 03 May 2014 06:31:21 GMT
       Expires: 
-      - Sat, 12 Apr 2014 17:50:34 GMT
+      - Sun, 04 May 2014 06:31:21 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -45,5 +45,53 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Fri, 11 Apr 2014 17:50:36 GMT
+  recorded_at: Sat, 03 May 2014 06:31:21 GMT
+- request: 
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=,%20,%20,%20&language=en&sensor=false
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Date: 
+      - Sat, 03 May 2014 06:31:21 GMT
+      Expires: 
+      - Sun, 04 May 2014 06:31:21 GMT
+      Cache-Control: 
+      - public, max-age=86400
+      Access-Control-Allow-Origin: 
+      - "*"
+      Server: 
+      - mafe
+      X-Xss-Protection: 
+      - 1; mode=block
+      X-Frame-Options: 
+      - SAMEORIGIN
+      Alternate-Protocol: 
+      - 80:quic
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "results" : [],
+           "status" : "ZERO_RESULTS"
+        }
+
+    http_version: 
+  recorded_at: Sat, 03 May 2014 06:31:21 GMT
 recorded_with: VCR 2.9.0

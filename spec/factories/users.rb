@@ -12,6 +12,14 @@ FactoryGirl.define do
     accepted_terms true
     association :organization, :factory => :organization
 
+    trait :paid do
+      association :organization, :factory => :paid_organization
+    end
+
+    trait :unpaid do
+      association :organization, :factory => :unpaid_organization
+    end
+
     factory :editor do
       role 'editor'
     end
@@ -26,6 +34,7 @@ FactoryGirl.define do
 
     factory :sysadmin do
       admin true
+      association :organization, factory: :admin_organization
     end
   
     factory :disabled_user do
@@ -41,11 +50,11 @@ FactoryGirl.define do
     end
 
     factory :paid_user do
-      association :organization, :factory => :paid_organization
+      paid
     end
 
     factory :unpaid_user do
-      association :organization, :factory => :unpaid_organization
+      unpaid
     end
   end
 end
