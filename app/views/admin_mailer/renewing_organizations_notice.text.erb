@@ -1,0 +1,5 @@
+The following organization(s) are due to renew this month:
+
+<% @organizations.order(:next_billing_date).each do |org| %>
+  <%= org.next_billing_date.to_s(:slashed) %> <%= org.name %>
+<% end %>

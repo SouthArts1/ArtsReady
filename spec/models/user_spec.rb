@@ -16,7 +16,16 @@ describe User do
   specify {subject.role.should == 'reader'}
   specify {subject.admin.should be_false}
   specify {subject.is_admin?.should be_false}
-  
+
+  describe 'admin_emails' do
+    it "is a list of admins' email addresses" do
+      admin = Factory.create(:sysadmin, email: 'myemail@admin.example.org')
+      Factory.create(:executive)
+
+      expect(User.admin_emails).to eq(['myemail@admin.example.org'])
+    end
+  end
+
   context "roles should only be chosen from the list in the Artsready domain" do
     it { should allow_value('reader').for(:role)}
     it { should allow_value('editor').for(:role)}

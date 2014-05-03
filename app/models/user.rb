@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.admin_emails
+    admins.pluck(:email)
+  end
+
   def name
     "#{first_name} #{last_name}".strip
   end

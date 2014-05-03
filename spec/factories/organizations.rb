@@ -72,6 +72,16 @@ FactoryGirl.define do
         # want to use the factory-set value, so we reset it here.
         org.update_column(:next_billing_date, next_billing_date)
       end
+
+      factory :renewing_organization do
+        next_billing_date { Date.today + 1.month }
+
+        after_create do |org, evaluator|
+          # Creating the subscription in the parent factory changes the
+          # next billing date, so we set it again here.
+          org.update_column(:next_billing_date, evaluator.next_billing_date)
+        end
+      end
     end
 
     factory :paid_organization_with_discount_code do

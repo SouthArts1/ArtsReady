@@ -192,4 +192,19 @@ describe Organization do
       end
     end
   end
+
+  describe '.billing_this_month' do
+    it 'returns organizations whose next billing date is this month' do
+      Timecop.freeze(Time.now)
+
+      before =
+        FactoryGirl.create(:organization, next_billing_date: 1.month.ago)
+      during =
+        FactoryGirl.create(:organization, next_billing_date: Time.now)
+      after =
+        FactoryGirl.create(:organization, next_billing_date: 1.month.from_now)
+
+      expect(Organization.billing_this_month).to eq([during])
+    end
+  end
 end

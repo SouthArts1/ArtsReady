@@ -18,3 +18,7 @@ end
 Given /^the time is (.*) on (.*)$/ do |time, date|
   Timecop.travel(Time.zone.parse("#{date} #{time}"))
 end
+
+And(/^today is the first of the month$/) do
+  Timecop.freeze((Time.zone.now + 1.month).beginning_of_month)
+end

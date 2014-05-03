@@ -236,3 +236,10 @@ And(/^I should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
   expect(notices.count).to eq 1
   expect(notices.last.body).to include org_name
 end
+
+Then(/^I should receive a renewing organizations notice for "(.*)"$/) do |org_name|
+  message = unread_emails_for(@current_user.email).last
+
+  expect(message.subject).to include 'renewing soon'
+  expect(message.body).to include org_name
+end

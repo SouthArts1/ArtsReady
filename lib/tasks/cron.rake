@@ -10,6 +10,10 @@ task :cron => :environment do
     Reminder.todos_nearly_due
   end
 
+  if Time.zone.today.day == 1
+    AdminMailer.renewing_organizations_notice.deliver
+  end
+
   puts "done."
 end
 

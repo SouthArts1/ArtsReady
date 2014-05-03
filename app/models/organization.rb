@@ -46,7 +46,13 @@ class Organization < ActiveRecord::Base
   scope :to_approve, where(:active => false)
   scope :nearing_expiration, where('0=1')
   scope :in_crisis, includes(:crisis).where('crises.resolved_on IS NULL')
-  
+  scope :billing_this_month, -> {
+    where("next_billing_date BETWEEN ? and ?",
+      Time.zone.today.beginning_of_month,
+      Time.zone.today.end_of_month
+    )
+  }
+
   delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
 
