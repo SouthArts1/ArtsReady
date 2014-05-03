@@ -157,6 +157,7 @@ describe Organization do
 
   describe '#extend_subscription!' do
     let(:organization) { FactoryGirl.create(:organization) }
+    let(:today) { Time.zone.today }
 
     around do |example|
       Timecop.freeze(Time.zone.now) { example.run }
@@ -164,19 +165,19 @@ describe Organization do
 
     context 'given a date parameter' do
       it 'sets the next billing date to that date' do
-        organization.extend_subscription!(Date.tomorrow)
-        expect(organization.next_billing_date).to eq(Date.tomorrow)
+        organization.extend_subscription!(today + 1)
+        expect(organization.next_billing_date).to eq(today + 1)
         expect(organization).not_to be_changed
       end
     end
 
     context 'given no date parameter' do
       context 'if a next billing date has previously been set' do
-        before { organization.next_billing_date = Date.yesterday }
+        before { organization.next_billing_date = today - 1 }
 
         it 'extends the next billing date by 365 days' do
           organization.extend_subscription!
-          expect(organization.next_billing_date).to eq(Date.today + 364.days)
+          expect(organization.next_billing_date).to eq(today + 364)
           expect(organization).not_to be_changed
         end
       end
@@ -186,7 +187,7 @@ describe Organization do
 
         it 'sets the next billing date to 365 days from today' do
           organization.extend_subscription!
-          expect(organization.next_billing_date).to eq(Date.today + 365.days)
+          expect(organization.next_billing_date).to eq(today + 365)
           expect(organization).not_to be_changed
         end
       end
