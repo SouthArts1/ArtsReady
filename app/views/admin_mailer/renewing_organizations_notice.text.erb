@@ -1,5 +1,6 @@
 The following organization(s) are due to renew this month:
 
 <% @organizations.order(:next_billing_date).each do |org| %>
-  <%= org.next_billing_date.to_s(:slashed) %> <%= org.name %>
+  <% url = edit_admin_organization_url(org) %>
+  <%= org.next_billing_date.to_s(:slashed) %> <%= org.name %> <%= url %>
 <% end %>

@@ -38,9 +38,10 @@ describe AdminMailer do
     it 'sends the list to admins' do
       mail = AdminMailer.renewing_organizations_notice
 
-      mail.to.should eq([admin_email])
-      mail.subject.should include 'renewing soon'
-      mail.body.should include 'Renewing Org'
+      expect(mail.to).to eq([admin_email])
+      expect(mail.subject).to include 'renewing soon'
+      expect(mail.body).to include 'Renewing Org'
+      expect(mail.body).to include edit_admin_organization_path(renewing_org)
     end
   end
 end
