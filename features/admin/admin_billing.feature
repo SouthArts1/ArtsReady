@@ -27,10 +27,14 @@ Feature: Admin billing management
     Given the following renewing organization exists:
       | Name    | Member Count |
       | Renewer | 1            |
+    And the following expiring organization exists:
+      | Name    | Member Count |
+      | Expirer | 1            |
     And I have paid for my subscription
     And today is the first of the month
     And the scheduled tasks have run
     Then I should receive a renewing organizations notice for "Renewer"
+    And I should receive an expiring credit card admin notice for "Expirer"
 
   Scenario: Subscriptions expire
     Given the following paid organizations exist:

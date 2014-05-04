@@ -29,6 +29,8 @@ class Organization < ActiveRecord::Base
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
   has_many :subscriptions
+  has_one :active_subscription, class_name: 'Subscription',
+    conditions: {subscriptions: {active: true}}
   has_many :payments
 
   accepts_nested_attributes_for :users
@@ -51,6 +53,10 @@ class Organization < ActiveRecord::Base
       Time.zone.today.beginning_of_month,
       Time.zone.today.end_of_month
     )
+  }
+  scope :credit_card_expiring_this_month, -> {
+    joins(:active_subscription).
+      merge(Subscription.credit_card_expiring_this_month)
   }
 
   delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true

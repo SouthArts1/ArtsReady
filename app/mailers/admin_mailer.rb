@@ -36,7 +36,19 @@ class AdminMailer < ActionMailer::Base
     recipients = User.admin_emails
 
     count = @organizations.count
-    subject = "#{count} #{'organizations'.pluralize(count)} renewing soon"
+    noun = 'ArtsReady organizations'.pluralize(count)
+    subject = "#{count} #{noun} renewing soon"
+
+    mail to: recipients, subject: subject
+  end
+
+  def credit_card_expiring_organizations_notice
+    @organizations = Organization.credit_card_expiring_this_month
+    recipients = User.admin_emails
+
+    count = @organizations.count
+    noun = 'ArtsReady credit cards'.pluralize(count)
+    subject = "#{count} #{noun} expiring soon"
 
     mail to: recipients, subject: subject
   end

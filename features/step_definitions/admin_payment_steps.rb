@@ -238,8 +238,11 @@ And(/^I should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
 end
 
 Then(/^I should receive a renewing organizations notice for "(.*)"$/) do |org_name|
-  message = unread_emails_for(@current_user.email).last
+  message = find_email!(@current_user.email, with_subject: 'renewing soon')
+  expect(message.body).to include org_name
+end
 
-  expect(message.subject).to include 'renewing soon'
+And(/^I should receive an expiring credit card admin notice for "([^"]*)"$/) do |org_name|
+  message = find_email!(@current_user.email, with_subject: 'expiring soon')
   expect(message.body).to include org_name
 end

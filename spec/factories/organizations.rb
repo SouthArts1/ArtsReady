@@ -70,22 +70,16 @@ FactoryGirl.define do
       name 'Paid Organization'
       next_billing_date { ((created_at || Time.zone.now) + 1.day).to_date }
 
+      ignore do
+        subscription_factory :subscription
+      end
+
       after_create do |org, evaluator|
         next_billing_date = org.next_billing_date
-        org.subscriptions << FactoryGirl.build(:subscription)
+        org.subscriptions << FactoryGirl.build(evaluator.subscription_factory)
         # Creating the subscription changes the next billing date, but we
         # want to use the factory-set value, so we reset it here.
         org.update_column(:next_billing_date, next_billing_date)
-      end
-
-      factory :renewing_organization do
-        next_billing_date { Date.today + 1.month }
-
-        after_create do |org, evaluator|
-          # Creating the subscription in the parent factory changes the
-          # next billing date, so we set it again here.
-          org.update_column(:next_billing_date, evaluator.next_billing_date)
-        end
       end
     end
 
@@ -95,11 +89,12 @@ FactoryGirl.define do
       factory :renewing_organization do
         name 'Renewing Organization'
 
-        next_billing_date { Date.today + 1.month }
+        next_billing_date { Time.zone.today + 1.month }
+      end
 
-        after_create do |org, evaluator|
-          org.update_column(:next_billing_date, evaluator.next_billing_date)
-        end
+      factory :expiring_organization do
+        name 'Expiring Organization'
+        subscription_factory :expiring_subscription
       end
     end
 

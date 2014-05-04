@@ -24,5 +24,14 @@ FactoryGirl.define do
     factory :subscription_with_discount_code do
       discount_code
     end
+
+    factory :expiring_subscription do
+      ignore do
+        expiration_date { Time.zone.now + 1.month }
+      end
+
+      expiry_month { expiration_date.month }
+      expiry_year { expiration_date.year }
+    end
   end
 end

@@ -44,4 +44,30 @@ describe AdminMailer do
       expect(mail.body).to include edit_admin_organization_path(renewing_org)
     end
   end
+
+  describe 'credit_card_expiring_organizations_notice' do
+    let(:admin_email) { 'adminemail@example.org' }
+    let(:expiring_org) {
+      FactoryGirl.build_stubbed(:expiring_organization,
+        name: 'Expiring Org'
+      )
+    }
+
+    before do
+      orgs = [expiring_org]
+      orgs.stub(:order).and_return(orgs)
+      Organization.stub(:credit_card_expiring_this_month).and_return(orgs)
+
+      User.stub(:admin_emails).and_return([admin_email])
+    end
+
+    it 'sends the list to admins' do
+      mail = AdminMailer.credit_card_expiring_organizations_notice
+
+      expect(mail.to).to eq([admin_email])
+      expect(mail.subject).to include 'expiring soon'
+      expect(mail.body).to include 'Expiring Org'
+      expect(mail.body).to include edit_admin_organization_path(expiring_org)
+    end
+  end
 end

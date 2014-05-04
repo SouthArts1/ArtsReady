@@ -12,6 +12,7 @@ task :cron => :environment do
 
   if Time.zone.today.day == 1
     AdminMailer.renewing_organizations_notice.deliver
+    AdminMailer.credit_card_expiring_organizations_notice.deliver
   end
 
   puts "done."

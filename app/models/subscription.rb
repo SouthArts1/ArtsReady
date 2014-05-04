@@ -18,6 +18,12 @@ class Subscription < ActiveRecord::Base
   delegate :next_billing_date, :days_left_until_rebill, to: :organization
   accepts_nested_attributes_for :organization
 
+  scope :credit_card_expiring_this_month, -> {
+    now = Time.zone.now
+
+    where(expiry_month: now.month, expiry_year: now.year)
+  }
+
   def regular_amount
     regular_amount_in_cents.to_f / 100
   end

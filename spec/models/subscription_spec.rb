@@ -466,5 +466,21 @@ describe Subscription do
       end
     end
   end
+
+  describe '.credit_card_expiring_this_month' do
+    it 'returns subscriptions with credit cards expiring this month' do
+      Timecop.freeze(Date.parse('March 12, 2024'))
+
+      subscriptions = [2, 3, 4].map do |month|
+        FactoryGirl.create(:subscription,
+          expiry_month: month, expiry_year: 2024,
+          organization: FactoryGirl.create(:organization,
+            name: "Expiring #{month}/2024")
+        )
+      end
+
+      expect(Subscription.credit_card_expiring_this_month).
+        to eq([subscriptions[1]])
+    end
+  end
 end
-  
