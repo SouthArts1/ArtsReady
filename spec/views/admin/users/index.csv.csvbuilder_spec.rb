@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe "admin/users/index.csv.csvbuilder" do
-  let(:paid_user) { FactoryGirl.build(:paid_user) }
+  let(:paid_org) { FactoryGirl.build_stubbed(:paid_organization) }
+  let(:paid_user) { FactoryGirl.build(:paid_user, organization: paid_org) }
   let(:unpaid_user) { FactoryGirl.build(:unpaid_user) }
 
   before do
