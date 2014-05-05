@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   belongs_to :organization, :counter_cache => true
+  has_one :active_subscription, through: :organization
   has_many :articles
   has_many :messages
   has_many :todos

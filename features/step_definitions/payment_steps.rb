@@ -1,4 +1,8 @@
 class BillingFormTestPage < TestPage
+  def self.default_billing_address
+    'billing@example.com'
+  end
+
   def fill_out(overrides = {})
     fields = {
       'Billing first name' => 'Bill',
@@ -7,7 +11,7 @@ class BillingFormTestPage < TestPage
       'Billing city' => 'New York',
       'Billing state' => 'NY',
       'Billing zip code' => '10001',
-      'Billing email' => 'billing@example.com',
+      'Billing email' => self.class.default_billing_address,
       'Billing phone number' => '555-555-1212',
       'payment_type' => 'Credit Card',
       'subscription_number' => '4007000000027',
@@ -201,6 +205,7 @@ When /^I sign up$/ do
   click_button 'Create Organization'
 
   expect(current_path).to eq(new_billing_path)
+  @current_user = User.find_by_email(email)
 
   remember_sign_in_credentials(email, password)
 end
@@ -243,6 +248,16 @@ When /^I sign up using the discount code$/ do
   expect(page).to have_content :visible, 'code applied'
 
   step %{I fill out and submit the billing form}
+end
+
+When(/^I have renewed automatically$/) do
+  receive_payment_notification_for(@current_user.active_subscription)
+end
+
+Then(/^I should receive a renewal receipt$/) do
+  address = BillingFormTestPage.default_billing_address
+
+  expect(unread_emails_for(address).last.subject).to match /renewal/
 end
 
 Then(/^my billing info should reflect automatic renewal$/) do

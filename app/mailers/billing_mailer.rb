@@ -15,4 +15,8 @@ class BillingMailer < ActionMailer::Base
     @user = @organization.users.first
     mail :to => @user.email, :subject => "Your ArtsReady Account is about to Expire"
   end
+
+  def renewal_receipt(payment)
+    mail to: payment.billing_emails, subject: 'Your ArtsReady renewal receipt'
+  end
 end

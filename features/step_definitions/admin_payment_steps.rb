@@ -122,20 +122,9 @@ And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
 end
 
 When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
-  subscription = Organization.find_by_name(org_name).subscription
-
-  params = YAML.load(
-    File.read(
-      'features/fixtures/payment_notifications/auth_capture_1_1_CC.yml')
-  ).with_indifferent_access
-
-  params.merge!(
-    x_subscription_id: subscription.arb_id
-  )
-
-  post payment_notifications_path(params)
+  organization = Organization.find_by_name(org_name)
+  receive_payment_notification_for(organization.subscription)
 end
-
 
 Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
   click_on 'Manage Organizations'

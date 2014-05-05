@@ -35,4 +35,6 @@ Feature: Organization billing
     Given the date is March 19, 2024
     When I sign up and pay
     And 367 days pass
+    And I have renewed automatically
     Then my billing info should reflect automatic renewal
+    And I should receive a renewal receipt

@@ -121,6 +121,10 @@ class Organization < ActiveRecord::Base
     subscriptions.last
   end
 
+  def billing_emails
+    subscription.try(:billing_email).presence || executives.pluck(:email)
+  end
+
   # For unsaved accounts (e.g., in tests), or for accounts that predate
   # the database column, we fall back to a calculation based on the
   # subscription's start date.
