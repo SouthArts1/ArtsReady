@@ -1,0 +1,20 @@
+<hgroup>
+  <h1>Template: <%= @template.name %></h1>
+</hgroup>
+
+<div class="grid_12">
+  <%= simple_form_for([:admin, @template]) do |f| %>
+    <section>
+      <%= f.input :subject %>
+      <%= f.input :body %>
+
+      <div class="actions">
+        <%= f.submit 'Save', :class => 'button' %>
+      </div>
+    </section>
+  <% end %>
+
+  <p>
+    <%= link_to "View All", admin_templates_path %>
+  </p>
+</div>

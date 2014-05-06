@@ -224,6 +224,13 @@ input[type="text"], input[type="password"] {
 
 .input.date .hint {
   display: block; }
+.input.field_with_errors label {
+  color: red; }
+.input.field_with_errors input, .input.field_with_errors textarea {
+  background-color: #ffeeee; }
+.input.field_with_errors .error {
+  display: block;
+  color: red; }
 
 textarea {
   border-radius: 5px;
@@ -373,15 +380,15 @@ hgroup {
   border-bottom: 1px solid #eee;
   margin-bottom: 10px; }
 
-.field {
+.field, .input {
   margin-bottom: 20px; }
-  .field input {
+  .field input, .input input {
     width: 95%; }
-    .field input[type=checkbox], .field input[type=radio] {
+    .field input[type=checkbox], .field input[type=radio], .input input[type=checkbox], .input input[type=radio] {
       width: auto; }
-  .field textarea {
+  .field textarea, .input textarea {
     width: 95%; }
-    .field textarea.tall {
+    .field textarea.tall, .input textarea.tall {
       height: 500px; }
 
 html {

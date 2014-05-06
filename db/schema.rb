@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429163228) do
+ActiveRecord::Schema.define(:version => 20140505194931) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -317,6 +317,14 @@ ActiveRecord::Schema.define(:version => 20140429163228) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "templates", :force => true do |t|
+    t.string   "name"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "todo_notes", :force => true do |t|

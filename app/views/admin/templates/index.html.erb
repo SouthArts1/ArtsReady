@@ -1,0 +1,24 @@
+<div class="grid_12">
+  <h1>Email Templates</h1>
+  <hr>
+  <section>
+    <table class="resource side-nav-panels">
+      <thead>
+      <td><p>Name</p></td>
+      <td><p>Subject</p></td>
+      <td><p>Last Updated</p></td>
+      </thead>
+      <tbody>
+      <% @templates.each do |template| %>
+        <tr>
+          <td class="name">
+            <p><%= link_to template.name, [:edit, :admin, template] %></p>
+          </td>
+          <td class="subject"><p><%= template.subject %></p></td>
+          <td class="updated"><p><%= template.updated_at %></p></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

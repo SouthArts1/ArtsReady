@@ -36,6 +36,7 @@ Artsready::Application.routes.draw do
     resources :comments, :only => [:destroy]
     resources :messages, :only => [:destroy]
     resources :pages, :only => [:index, :edit, :update]
+    resources :templates, only: [:index, :edit, :update]
     resources :questions
     resources :action_items
     resources :discount_codes, except: [:show, :destroy]

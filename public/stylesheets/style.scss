@@ -236,6 +236,17 @@ input {
       display: block; // for very long hint on next billing date
     }
   }
+
+  &.field_with_errors {
+    label { color: red; }
+    input, textarea {
+      background-color: #ffeeee;
+    }
+    .error {
+      display: block;
+      color: red;
+    }
+  }
 }
 
 textarea {
@@ -391,7 +402,7 @@ hgroup {
   border-bottom: 1px solid #eee;
   margin-bottom: 10px; }
 
-.field {
+.field, .input {
   margin-bottom: 20px;
   input {
     width: 95%;
