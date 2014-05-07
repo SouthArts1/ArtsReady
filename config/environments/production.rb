@@ -23,7 +23,7 @@ Artsready::Application.configure do
   # config.log_level = :debug
 
   config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger::DEBUG
+  config.logger.level = Logger::INFO
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
