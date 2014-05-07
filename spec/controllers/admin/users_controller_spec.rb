@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 describe Admin::UsersController do
-  context "logged in a sysadmin" do
-    let(:sysadmin) { FactoryGirl.create(:sysadmin)}
-
+  context "logged in as a sysadmin" do
     before(:each) do
-      controller.stub(:authenticate_admin!).and_return(sysadmin)
+      controller.stub(:authenticate_admin!)
     end
 
     describe "GET 'index'" do
@@ -31,6 +29,5 @@ describe Admin::UsersController do
       end
     end
   end
-  
 end
 
