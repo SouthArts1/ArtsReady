@@ -35,10 +35,6 @@ describe ArticlesController do
       response.should render_template(:new)
     end
 
-
-
-
-
     describe "POST create" do
       describe "with valid params" do
         it "creates a new Article" do
@@ -60,16 +56,17 @@ describe ArticlesController do
       end
 
       describe "with invalid params" do
-        it "assigns a newly created but unsaved article as @article" do
+        before do
           # Trigger the behavior that occurs when invalid params are submitted
-          Article.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Article).to receive(:save).and_return(false)
+        end
+
+        it "assigns a newly created but unsaved article as @article" do
           post :create, :article => {}
           assigns(:article).should be_a_new(Article)
         end
 
         it "re-renders the 'new' template" do
-          # Trigger the behavior that occurs when invalid params are submitted
-          Article.any_instance.stub(:save).and_return(false)
           post :create, :article => {}
           response.should render_template("new")
         end
@@ -84,7 +81,8 @@ describe ArticlesController do
           # specifies that the Article created on the previous line
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
-          Article.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+          expect_any_instance_of(Article).
+            to receive(:update_attributes).with({'these' => 'params'})
           put :update, :id => article.id, :article => {'these' => 'params'}
         end
 
@@ -102,35 +100,24 @@ describe ArticlesController do
       end
 
       describe "with invalid params" do
+        before do
+          # Trigger the behavior that occurs when invalid params are submitted
+          allow_any_instance_of(Article).
+            to receive(:save).and_return(false)
+        end
+
         it "assigns the article as @article" do
           article = Factory.create(:article, :organization => organization)
-          # Trigger the behavior that occurs when invalid params are submitted
-          Article.any_instance.stub(:save).and_return(false)
           put :update, :id => article.id.to_s, :article => {}
           assigns(:article).should eq(article)
         end
 
         it "re-renders the 'edit' template" do
           article = Factory.create(:article, :organization => organization)
-          # Trigger the behavior that occurs when invalid params are submitted
-          Article.any_instance.stub(:save).and_return(false)
           put :update, :id => article.id.to_s, :article => {}
           response.should render_template("edit")
         end
       end
-    end
-
-
-
-    it "create action should render new template when model is invalid" do
-      Article.any_instance.stubs(:valid?).returns(false)
-      post :create, :article => {}
-      response.should render_template(:new)
-    end
-
-    it "create action should redirect when model is valid" do
-      post :create, :article => Factory.attributes_for(:article)
-      response.should redirect_to(article_url(assigns[:article]))
     end
 
     it "create action should redirect to todo when article has a todo" do
@@ -147,21 +134,6 @@ describe ArticlesController do
       response.should render_template(:edit)
     end
 
-    it "update action should render edit template when model is invalid" do
-      article = Factory.create(:article,
-        :organization => organization, :user => user)
-      put :update, :id => article.id, :article => {:title => ''}
-      response.should render_template(:edit)
-    end
-
-    it "update action should redirect when model is valid" do
-      Article.any_instance.stubs(:valid?).returns(true)
-      article = Factory.create(:article,
-        :organization => organization, :user => user)
-      put :update, :id => article.id
-      response.should redirect_to(article_url(assigns[:article]))
-    end
-
     it "destroy action should destroy model and redirect to index action" do
       article = Factory.create(:article,
         :organization => organization, :user => user)
@@ -169,6 +141,5 @@ describe ArticlesController do
       response.should redirect_to(articles_url)
       Article.exists?(article.id).should be_false
     end
-
   end
 end

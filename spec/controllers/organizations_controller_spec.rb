@@ -14,7 +14,7 @@ describe OrganizationsController do
   context "when not logged in" do
     it "requires authentication" do
       controller.expects :authenticate!
-      controller.stub!(:current_org).and_return(nil)
+      controller.stub(:current_org).and_return(nil)
       get 'edit', :id => 1
     end
   end
@@ -52,16 +52,18 @@ describe OrganizationsController do
       end
 
       describe "with invalid params" do
-        it "assigns the organization as @organization" do
+        before do
           # Trigger the behavior that occurs when invalid params are submitted
-          Organization.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Organization).
+            to receive(:save).and_return(false)
+        end
+
+        it "assigns the organization as @organization" do
           put :update, :id => organization.id.to_s, :organization => {}
           assigns(:organization).should eq(organization)
         end
 
         it "re-renders the 'edit' template" do
-          # Trigger the behavior that occurs when invalid params are submitted
-          Organization.any_instance.stub(:save).and_return(false)
           put :update, :id => organization.id.to_s, :organization => {}
           response.should render_template("edit")
         end
