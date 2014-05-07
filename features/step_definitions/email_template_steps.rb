@@ -9,9 +9,28 @@ Then(/^I can edit the "([^"]*)" email template$/) do |template|
   fill_in 'Body', with: body
 
   click_on 'Save'
+end
 
-  # verify that it was saved
+And(/^I can preview the "([^"]*)" email template$/) do |template|
   click_on template
-  expect(find_field('Subject').value).to eq subject
-  expect(find_field('Body').value).to eq body
+  click_on 'Preview'
+
+  expect(page).
+    to have_content 'Subject: ArtsReady has received your renewal payment'
+  expect(page).
+    to have_content 'Thanks for your payment.'
+
+  # Verify that we can edit and save from the preview page.
+  new_subject = 'Thanks for your ArtsReady renewal'
+
+  click_on 'Edit'
+  fill_in 'Subject', with: new_subject
+  click_on 'Preview'
+
+  expect(page).
+    to have_content new_subject
+
+  click_on 'Save'
+  click_on 'renewal receipt'
+  expect(find_field('Subject').value).to eq new_subject
 end

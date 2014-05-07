@@ -1,5 +1,6 @@
 class Admin::TemplatesController < Admin::AdminController
   before_filter :find_template, except: :index
+  before_filter :divert_update, only: :update
 
   def index
     Template.create_required_templates
@@ -8,6 +9,12 @@ class Admin::TemplatesController < Admin::AdminController
   end
 
   def edit
+    # set attributes if we're returning from the preview page
+    @template.attributes = template_params
+
+    # render explicitly, because we may be called from the `update` action
+    # (via the `divert_update` filter)
+    render 'edit'
   end
 
   def update
@@ -18,6 +25,12 @@ class Admin::TemplatesController < Admin::AdminController
     end
   end
 
+  def preview
+    @template.attributes = template_params
+
+    render 'preview'
+  end
+
   private
 
   def find_template
@@ -25,6 +38,22 @@ class Admin::TemplatesController < Admin::AdminController
   end
 
   def template_params
-    params.require(:template).permit(:subject, :body)
+    params.fetch(:template, {}).permit(:subject, :body)
+  end
+
+  def divert_update
+    case params[:commit]
+    when 'Save'
+      true
+    when 'Preview'
+      preview
+      false
+    when 'Edit'
+      edit
+      false
+    else
+      render text: 'Unknown button', status: :bad_request
+      false
+    end
   end
 end

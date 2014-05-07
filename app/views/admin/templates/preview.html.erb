@@ -1,0 +1,30 @@
+<hgroup>
+  <h1>Template: <%= @template.name %></h1>
+</hgroup>
+
+<div class="grid_12">
+  <p>
+    <strong>
+      Your changes have not been saved! Use the Save button below, or
+      the Edit button to go back to the edit form.
+    </strong>
+  </p>
+
+  <p>
+    Subject: <%= @template.subject %>
+  </p>
+
+  <%= simple_format(@template.body) %>
+
+  <%= simple_form_for([:admin, @template]) do |f| %>
+    <section>
+      <%= f.input :subject, as: :hidden %>
+      <%= f.input :body, as: :hidden %>
+
+      <div class="actions">
+        <%= f.submit 'Save', :class => 'button' %>
+        <%= f.submit 'Edit', :class => 'button' %>
+      </div>
+    </section>
+  <% end %>
+</div>
