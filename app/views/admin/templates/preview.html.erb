@@ -14,7 +14,7 @@
     Subject: <%= @template.subject %>
   </p>
 
-  <%= simple_format(@template.body) %>
+  <%= simple_format(@template.preview) %>
 
   <%= simple_form_for([:admin, @template]) do |f| %>
     <section>

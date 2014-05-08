@@ -18,11 +18,11 @@ class Template < ActiveRecord::Base
   end
 
   def render(model)
-    template_view(model).render
+    template_view_class.new(body, model).render
   end
 
-  def template_view(model)
-    template_view_class.new(body, model)
+  def preview
+    template_view_class.new_for_preview(body).render
   end
 
   def template_view_class

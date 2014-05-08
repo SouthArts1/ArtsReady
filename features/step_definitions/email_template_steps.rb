@@ -3,7 +3,7 @@ Then(/^I can edit the "([^"]*)" email template$/) do |template|
   click_on template
 
   subject = 'ArtsReady has received your renewal payment'
-  body = 'Thanks for your payment.'
+  body = 'Thanks for your payment of {{amount}}.'
 
   fill_in 'Subject', with: subject
   fill_in 'Body', with: body
@@ -11,14 +11,14 @@ Then(/^I can edit the "([^"]*)" email template$/) do |template|
   click_on 'Save'
 end
 
-And(/^I can preview the "([^"]*)" email template$/) do |template|
+Given(/^I can preview the "([^"]*)" email template$/) do |template|
   click_on template
   click_on 'Preview'
 
   expect(page).
     to have_content 'Subject: ArtsReady has received your renewal payment'
   expect(page).
-    to have_content 'Thanks for your payment.'
+    to have_content 'Thanks for your payment of $225.00.'
 
   # Verify that we can edit and save from the preview page.
   new_subject = 'Thanks for your ArtsReady renewal'
