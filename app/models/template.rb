@@ -8,6 +8,27 @@ class Template < ActiveRecord::Base
     'renewal receipt'
   ]
 
+  scope :usable, -> {
+    where("subject IS NOT NULL AND subject <> ''").
+      where("body IS NOT NULL AND subject <> ''")
+  }
+
+  def self.find_usable(name)
+    usable.find_by_name(name)
+  end
+
+  def render(model)
+    template_view(model).render
+  end
+
+  def template_view(model)
+    template_view_class.new(body, model)
+  end
+
+  def template_view_class
+    "#{name.parameterize.underscore.classify}TemplateView".constantize
+  end
+
   def self.create_required_templates
     TEMPLATE_NAMES.each do |name|
       find_or_create_by_name(name)

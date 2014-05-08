@@ -17,6 +17,10 @@ class BillingMailer < ActionMailer::Base
   end
 
   def renewal_receipt(payment)
-    mail to: payment.billing_emails, subject: 'Your ArtsReady renewal receipt'
+    template = Template.find_usable('renewal receipt')
+    return unless template
+
+    mail to: payment.billing_emails, subject: template.subject,
+      body: template.render(payment)
   end
 end

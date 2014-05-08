@@ -33,6 +33,7 @@ Feature: Organization billing
 
   Scenario: Automatic renewal
     Given the date is March 19, 2024
+    And there is a renewal receipt template
     When I sign up and pay
     And 367 days pass
     And I have renewed automatically

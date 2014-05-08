@@ -254,10 +254,20 @@ When(/^I have renewed automatically$/) do
   receive_payment_notification_for(@current_user.active_subscription)
 end
 
+Given(/^there is a renewal receipt template$/) do
+  FactoryGirl.create(:template,
+    name: 'renewal receipt',
+    subject: 'Thanks for your ArtsReady renewal',
+    body: 'You paid {{amount}}.'
+  )
+end
+
 Then(/^I should receive a renewal receipt$/) do
   address = BillingFormTestPage.default_billing_address
 
-  expect(unread_emails_for(address).last.subject).to match /renewal/
+  message = unread_emails_for(address).last
+  expect(message.subject).to eq 'Thanks for your ArtsReady renewal'
+  expect(message.body).to match /You paid \$[0-9]+\.[0-9]{2}\./
 end
 
 Then(/^my billing info should reflect automatic renewal$/) do

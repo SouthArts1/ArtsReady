@@ -19,6 +19,7 @@ gem 'gmaps4rails', '1.3.1'
 
 gem 'csv_builder'
 gem 'RedCloth'
+gem 'mustache'
 gem 'acts-as-taggable-on', '>= 2.2.2'
 gem 'simple_form'
 gem 'strong_parameters'
