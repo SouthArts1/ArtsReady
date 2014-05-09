@@ -248,13 +248,13 @@ end
 Then(/^my billing info should reflect automatic renewal$/) do
   visit billing_path
 
-  expect(page).to have_content 'Date joined: March 20, 2024'
+  expect(page).to have_content 'Date joined: March 19, 2024'
 end
 
 Then(/^my billing info should reflect manual renewal$/) do
   visit billing_path
 
-  expect(page).to have_content 'Date joined: March 20, 2024'
+  expect(page).to have_content 'Date joined: March 19, 2024'
   expect(page).to have_content 'update@test.host'
 end
 

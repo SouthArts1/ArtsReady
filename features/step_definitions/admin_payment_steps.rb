@@ -170,10 +170,10 @@ Then /^I should be able to view the organization's billing info$/ do
   expect(page).to have_content 'New York, NY 10001'
   expect(page).to have_content 'Credit Card'
   expect(page).to have_content 'Discount code: DISCO'
+  expect(page).to have_content "Date joined: March 19, 2024"
   # Authorize.net actually charges the card on the business day
   # after the user submits the payment form, so we follow their
   # lead.
-  expect(page).to have_content "Date joined: March 20, 2024"
   expect(page).to have_content "Next billing date: March 20, 2024 (1 day)"
 
   expect(page).to have_link('DISCO',
