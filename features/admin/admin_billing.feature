@@ -23,3 +23,16 @@ Feature: Admin billing management
     Given a paid organization exists
     And I am signed in as a sysadmin
     Then I can update the organization's next billing date
+
+  Scenario: Subscriptions expire
+    Given the following paid organizations exist:
+      | Name            | Next Billing Date |
+      | Yesterday's Org | March 20, 2025    |
+      | Expiring Org    | March 21, 2025    |
+      | Renewing Org    | March 21, 2025    |
+      | Tomorrow's Org  | March 22, 2025    |
+    And I am signed in as a sysadmin
+    When the date is March 21, 2025
+    And we receive automatic payment notifications for "Renewing Org"
+    And the scheduled tasks have run
+    Then I should receive an admin expiration notice for "Expiring Org"

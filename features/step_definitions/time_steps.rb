@@ -14,3 +14,7 @@ end
 Given(/^the date is (.*)$/) do |date|
   Timecop.travel(Date.parse(date))
 end
+
+Given /^the time is (.*) on (.*)$/ do |time, date|
+  Timecop.travel(Time.zone.parse("#{date} #{time}"))
+end

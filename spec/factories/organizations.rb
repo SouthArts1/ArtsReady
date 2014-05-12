@@ -65,8 +65,12 @@ FactoryGirl.define do
     factory :paid_organization do
       next_billing_date { ((created_at || Time.zone.now) + 1.day).to_date }
 
-      after_create do |org|
+      after_create do |org, evaluator|
+        next_billing_date = org.next_billing_date
         org.subscriptions << FactoryGirl.build(:subscription)
+        # Creating the subscription changes the next billing date, but we
+        # want to use the factory-set value, so we reset it here.
+        org.update_column(:next_billing_date, next_billing_date)
       end
     end
 

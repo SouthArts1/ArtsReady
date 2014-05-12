@@ -9,7 +9,6 @@ module Arbly
           begin
             if ((Time.now - o.created_at).to_i / (24 * 60 * 60)) > 2
               o.update_attribute(:active, false)
-              AdminMailer.organization_expired(o).deliver
             end
           rescue Exception => e
             # rescue
@@ -33,6 +32,10 @@ module Arbly
         #     BillingMailer.subscription_renewal(o).deliver
         #   end
         # end
+      end
+
+      Organization.where(next_billing_date: Time.zone.today).find_each do |org|
+        AdminMailer.organization_expired(org).deliver
       end
     end
   end

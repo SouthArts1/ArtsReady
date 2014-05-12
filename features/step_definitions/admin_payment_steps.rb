@@ -122,8 +122,6 @@ And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
 end
 
 When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
-  Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
-
   subscription = Organization.find_by_name(org_name).subscription
 
   params = YAML.load(
@@ -234,3 +232,11 @@ And(/^the next billing date for "([^"]*)" is extended by (\d+) days$/) do |org_n
   expect(Date.parse($1)).to eq(Date.today + days)
 end
 
+And(/^I should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
+  notices = unread_emails_for('admin@artsready.org').select do |m|
+    m.subject =~ /organization has expired/
+  end
+
+  expect(notices.count).to eq 1
+  expect(notices.last.body).to include org_name
+end

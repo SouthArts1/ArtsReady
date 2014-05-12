@@ -16,6 +16,7 @@ Feature: Admin payment history
 
   Scenario: Automatic payment notification
     Given a paid organization exists with a name of "Paying Org"
-    When we receive automatic payment notifications for "Paying Org"
+    When the time is "3:18 PM" on "March 20, 2024"
+    And we receive automatic payment notifications for "Paying Org"
     Then I can view the automatic payment details for "Paying Org"
     And the next billing date for "Paying Org" is extended by 365 days
