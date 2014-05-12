@@ -3,5 +3,17 @@ FactoryGirl.define do
     name 'template name'
     subject 'Subject Template'
     body 'This is the body of the template.'
+
+    factory :renewal_receipt_template do
+      name 'renewal receipt'
+      subject 'Thanks for your ArtsReady renewal'
+      body 'You paid {{amount}}.'
+    end
+
+    factory :renewal_reminder_template do
+      name 'renewal reminder'
+      subject 'Your ArtsReady subscription will expire soon!'
+      body 'Soon like on {{next_billing_date}}.'
+    end
   end
 end

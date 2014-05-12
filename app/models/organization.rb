@@ -54,6 +54,9 @@ class Organization < ActiveRecord::Base
       Time.zone.today.end_of_month
     )
   }
+  scope :renewing_in, lambda { |days|
+    approved.where(next_billing_date: Time.zone.today + days)
+  }
   scope :credit_card_expiring_this_month, -> {
     joins(:active_subscription).
       merge(Subscription.credit_card_expiring_this_month)
@@ -149,7 +152,19 @@ class Organization < ActiveRecord::Base
     active ? 'active' : (subscription ? 'inactive' : 'needs approval')
   end
 
-  private 
+  def self.send_renewal_reminders
+    [30, 15].each do |days|
+      renewing_in(days).find_each do |org|
+        org.send_renewal_reminder
+      end
+    end
+  end
+
+  def send_renewal_reminder
+    BillingMailer.renewal_reminder(self).deliver
+  end
+
+  private
    
   def send_admin_notification
     logger.debug("Sending sign_up email for organization #{name}")

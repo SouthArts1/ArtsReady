@@ -250,16 +250,8 @@ When /^I sign up using the discount code$/ do
   step %{I fill out and submit the billing form}
 end
 
-When(/^I have renewed automatically$/) do
+When(/^I have (?:been charged|renewed) automatically$/) do
   receive_payment_notification_for(@current_user.active_subscription)
-end
-
-Given(/^there is a renewal receipt template$/) do
-  FactoryGirl.create(:template,
-    name: 'renewal receipt',
-    subject: 'Thanks for your ArtsReady renewal',
-    body: 'You paid {{amount}}.'
-  )
 end
 
 Then(/^I should receive a renewal receipt$/) do
@@ -313,4 +305,17 @@ Then(/^I can switch to paid access$/) do
 
   visit billing_path
   expect(page).not_to have_content 'Provisional Access'
+end
+
+
+Then(/^I should receive a (\d+)-day renewal reminder$/) do |days|
+  days = Integer(days)
+  address = BillingFormTestPage.default_billing_address
+
+  reminder = unread_emails_for(address).select do |message|
+    message.subject.include? 'subscription will expire'
+  end.last
+
+  expect(reminder).to be_present
+  expect(reminder.body).to include (Time.zone.today + days).to_s(:long)
 end

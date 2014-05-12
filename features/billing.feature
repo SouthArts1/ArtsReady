@@ -33,9 +33,20 @@ Feature: Organization billing
 
   Scenario: Automatic renewal
     Given the date is March 19, 2024
-    And there is a renewal receipt template
+    And a renewal receipt template exists
     When I sign up and pay
     And 367 days pass
     And I have renewed automatically
     Then my billing info should reflect automatic renewal
     And I should receive a renewal receipt
+
+  Scenario: Renewal reminders
+    Given a renewal reminder template exists
+    When I sign up and pay
+    And a day passes
+    And I have been charged automatically
+    And 335 days pass
+    And the scheduled tasks have run
+    Then I should receive a 30-day renewal reminder
+    When 15 days pass
+    Then I should receive a 15-day renewal reminder

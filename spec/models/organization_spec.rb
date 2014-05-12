@@ -208,4 +208,22 @@ describe Organization do
       expect(Organization.billing_this_month).to eq([during])
     end
   end
+
+  describe '.renewing_in(days)' do
+    it 'finds organizations whose next billing date is that many days away' do
+      Timecop.freeze(Time.zone.parse('February 21, 2015'))
+
+      right = FactoryGirl.create(:organization,
+        next_billing_date: Time.zone.parse('March 23, 2015'))
+      wrong = FactoryGirl.create(:organization,
+        next_billing_date: Time.zone.parse('March 24, 2015'))
+      inactive = FactoryGirl.create(:organization,
+        active: false,
+        next_billing_date: Time.zone.parse('March 23, 2015'))
+
+      expect(Organization.renewing_in(30)).to include right
+      expect(Organization.renewing_in(30)).not_to include wrong
+      expect(Organization.renewing_in(30)).not_to include inactive
+    end
+  end
 end

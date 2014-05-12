@@ -16,6 +16,14 @@ class BillingMailer < ActionMailer::Base
     mail :to => @user.email, :subject => "Your ArtsReady Account is about to Expire"
   end
 
+  def renewal_reminder(organization)
+    template = Template.find_usable('renewal reminder')
+    return unless template
+
+    mail to: organization.billing_emails, subject: template.subject,
+      body: template.render(organization)
+  end
+
   def renewal_receipt(payment)
     template = Template.find_usable('renewal receipt')
     return unless template

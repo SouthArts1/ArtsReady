@@ -5,6 +5,7 @@ class Template < ActiveRecord::Base
   validates_uniqueness_of :name
 
   TEMPLATE_NAMES = [
+    'renewal reminder',
     'renewal receipt'
   ]
 
