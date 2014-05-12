@@ -43,7 +43,7 @@ class Organization < ActiveRecord::Base
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
   after_update :setup_initial_todo, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
-  scope :approved, where(:active => true)
+  scope :active, where(:active => true)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
   scope :nearing_expiration, where('0=1')
@@ -55,7 +55,7 @@ class Organization < ActiveRecord::Base
     )
   }
   scope :renewing_in, lambda { |days|
-    approved.where(next_billing_date: Time.zone.today + days)
+    active.where(next_billing_date: Time.zone.today + days)
   }
   scope :credit_card_expiring_this_month, -> {
     joins(:active_subscription).
@@ -67,11 +67,11 @@ class Organization < ActiveRecord::Base
 
   
   def self.with_user_activity_since(last=1.week.ago)
-    approved.select('DISTINCT organizations.id').joins(:users).where('users.last_login_at > ?',last)
+    active.select('DISTINCT organizations.id').joins(:users).where('users.last_login_at > ?',last)
   end
   
   def self.activity_percentage(last=1.week.ago)
-    ((Organization.with_user_activity_since(last).count.to_f / Organization.approved.count.to_f)*100).to_i rescue 0
+    ((Organization.with_user_activity_since(last).count.to_f / Organization.active.count.to_f)*100).to_i rescue 0
   end
   
   def full_street_address
@@ -107,10 +107,6 @@ class Organization < ActiveRecord::Base
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
   end
   
-  def is_approved?
-    active
-  end
-
   def create_provisional_subscription
     subscriptions.create_provisional
   end

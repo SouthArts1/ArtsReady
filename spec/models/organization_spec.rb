@@ -21,7 +21,6 @@ describe Organization do
   it {subject.assessment_percentage_complete.should be_nil}
   it {subject.declared_crisis?.should be_false}
   it {subject.active?.should be_false}
-  it {subject.is_approved?.should be_false}
 
   describe '#account_status' do
     subject { org.account_status }

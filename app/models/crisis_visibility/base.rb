@@ -11,11 +11,11 @@ module CrisisVisibility
     end
 
     def organizations_for_declaration
-      buddies.approved
+      buddies.active
     end
 
     def organizations_for_update
-      buddies.approved
+      buddies.active
     end
   end
 end
