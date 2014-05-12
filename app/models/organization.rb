@@ -39,7 +39,7 @@ class Organization < ActiveRecord::Base
 
   after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
-  after_create :send_sign_up_email, :send_admin_notification
+  after_create :send_admin_notification
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
   after_update :setup_initial_todo, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
@@ -172,12 +172,6 @@ class Organization < ActiveRecord::Base
       logger.debug("Trying to send to #{admin.email}")
       AdminMailer.new_organization(self,admin).deliver rescue logger.debug("send org notification to admin email failed")
     end
-  end
-
-  def send_sign_up_email
-    logger.debug("Sending sign_up email for organization #{name}")
-    # OrganizationMailer.sign_up(self).deliver rescue logger.debug("send sign_up email failed")
-    # No longer need to do this with proper billing set up. - KH
   end
 
   def send_approval_email
