@@ -19,9 +19,11 @@ class Subscription < ActiveRecord::Base
   accepts_nested_attributes_for :organization
 
   scope :credit_card_expiring_this_month, -> {
-    now = Time.zone.now
+    credit_card_expiring_month_of(Time.zone.today)
+  }
 
-    where(expiry_month: now.month, expiry_year: now.year)
+  scope :credit_card_expiring_month_of, lambda { |date|
+    where(expiry_month: date.month, expiry_year: date.year)
   }
 
   def regular_amount

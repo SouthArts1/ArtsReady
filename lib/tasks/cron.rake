@@ -16,6 +16,7 @@ task :cron => :environment do
   end
 
   Organization.send_renewal_reminders
+  Organization.send_credit_card_expiration_notices
 
   puts "done."
 end

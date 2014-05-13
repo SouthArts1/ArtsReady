@@ -58,8 +58,12 @@ class Organization < ActiveRecord::Base
     active.where(next_billing_date: Time.zone.today + days)
   }
   scope :credit_card_expiring_this_month, -> {
-    joins(:active_subscription).
-      merge(Subscription.credit_card_expiring_this_month)
+    credit_card_expiring_month_of(Time.zone.today)
+  }
+  scope :credit_card_expiring_month_of, lambda { |date|
+    active.
+      joins(:active_subscription).
+      merge(Subscription.credit_card_expiring_month_of(date))
   }
 
   delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true
@@ -158,6 +162,19 @@ class Organization < ActiveRecord::Base
 
   def send_renewal_reminder
     BillingMailer.renewal_reminder(self).deliver
+  end
+
+  def self.send_credit_card_expiration_notices
+    plus_thirty = Time.zone.today + 30
+    return unless plus_thirty.day == 1
+
+    credit_card_expiring_month_of(plus_thirty - 1).find_each do |org|
+      org.send_credit_card_expiration_notice
+    end
+  end
+
+  def send_credit_card_expiration_notice
+    BillingMailer.credit_card_expiration(self).deliver
   end
 
   private

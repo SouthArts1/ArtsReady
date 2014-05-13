@@ -232,6 +232,19 @@ When(/^I sign up and pay with invalid billing data$/) do
     submit
 end
 
+Given(/^my credit card expires in (\d+) days$/) do |days|
+  Timecop.freeze(Time.zone.parse('June 1, 2022'))
+
+  step %{I sign up}
+
+  BillingFormTestPage.new(self).
+    fill_out(
+      'subscription_expiry_month' => '6',
+      'subscription_expiry_year' => '2022',
+    ).
+    submit
+end
+
 Then(/^the billing form is rejected$/) do
   expect(current_path).to eq(new_billing_path)
   expect(page).to have_content 'a problem processing your request'
@@ -316,4 +329,12 @@ Then(/^I should receive a (\d+)-day renewal reminder$/) do |days|
 
   expect(current_email.body).to include (Time.zone.today + days).to_s(:long)
   expect(current_email.body).to include '<strong>Soon</strong>'
+end
+
+Then(/^I should receive a credit card expiration notice$/) do
+  address = BillingFormTestPage.default_billing_address
+
+  open_email(address, with_subject: /card will expire in 30 days/)
+
+  expect(current_email.body).to include 'update'
 end

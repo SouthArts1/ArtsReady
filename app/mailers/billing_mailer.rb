@@ -33,4 +33,13 @@ class BillingMailer < ActionMailer::Base
       subject: template.render_subject(payment),
       body: template.render(payment)
   end
+
+  def credit_card_expiration(organization)
+    template = Template.find_usable('credit card expiration')
+    return unless template
+
+    mail to: organization.billing_emails,
+      subject: template.render_subject(organization),
+      body: template.render(organization)
+  end
 end

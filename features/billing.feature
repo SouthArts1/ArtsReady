@@ -51,3 +51,9 @@ Feature: Organization billing
     When 15 days pass
     And the scheduled tasks have run
     Then I should receive a 15-day renewal reminder
+
+  Scenario: Credit card expiration notice
+    Given a credit card expiration template exists
+    And my credit card expires in 30 days
+    When the scheduled tasks have run
+    Then I should receive a credit card expiration notice
