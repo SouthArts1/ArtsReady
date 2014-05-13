@@ -17,29 +17,25 @@ class BillingMailer < ActionMailer::Base
   end
 
   def renewal_reminder(organization)
-    template = Template.find_usable('renewal reminder')
-    return unless template
-
-    mail to: organization.billing_emails,
-      subject: template.render_subject(organization),
-      body: template.render(organization)
+    render_template_to_mail 'renewal reminder', organization
   end
 
   def renewal_receipt(payment)
-    template = Template.find_usable('renewal receipt')
-    return unless template
-
-    mail to: payment.billing_emails,
-      subject: template.render_subject(payment),
-      body: template.render(payment)
+    render_template_to_mail 'renewal receipt', payment
   end
 
   def credit_card_expiration(organization)
-    template = Template.find_usable('credit card expiration')
+    render_template_to_mail 'credit card expiration', organization
+  end
+
+  private
+
+  def render_template_to_mail(template_name, model)
+    template = Template.find_usable(template_name)
     return unless template
 
-    mail to: organization.billing_emails,
-      subject: template.render_subject(organization),
-      body: template.render(organization)
+    mail to: model.billing_emails,
+      subject: template.render_subject(model),
+      body: template.render(model)
   end
 end
