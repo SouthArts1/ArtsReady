@@ -26,6 +26,14 @@ class Template < ActiveRecord::Base
     template_view_class.new_for_preview(body).render
   end
 
+  def render_subject(model)
+    template_view_class.new(subject, model).render
+  end
+
+  def render_preview_subject
+    template_view_class.new_for_preview(subject).render
+  end
+
   def template_view_class
     "#{name.parameterize.underscore.classify}TemplateView".constantize
   end

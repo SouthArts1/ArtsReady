@@ -12,7 +12,7 @@ FactoryGirl.define do
 
     factory :renewal_reminder_template do
       name 'renewal reminder'
-      subject 'Your ArtsReady subscription will expire soon!'
+      subject 'Your ArtsReady subscription will renew in {{days_left_until_rebill}} days'
       body 'Soon like on {{next_billing_date}}.'
     end
   end

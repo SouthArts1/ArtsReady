@@ -20,7 +20,8 @@ class BillingMailer < ActionMailer::Base
     template = Template.find_usable('renewal reminder')
     return unless template
 
-    mail to: organization.billing_emails, subject: template.subject,
+    mail to: organization.billing_emails,
+      subject: template.render_subject(organization),
       body: template.render(organization)
   end
 
@@ -28,7 +29,8 @@ class BillingMailer < ActionMailer::Base
     template = Template.find_usable('renewal receipt')
     return unless template
 
-    mail to: payment.billing_emails, subject: template.subject,
+    mail to: payment.billing_emails,
+      subject: template.render_subject(payment),
       body: template.render(payment)
   end
 end

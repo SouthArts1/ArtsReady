@@ -6,7 +6,7 @@ describe BillingMailer do
     let(:recipients) { 'billingemail@example.org' }
     let(:template) {
       double('template',
-        subject: 'renewal receipt subject',
+        render_subject: 'rendered subject',
         render: 'rendered body'
       )
     }
@@ -20,7 +20,7 @@ describe BillingMailer do
 
     it "mails the organization's billing contact(s)" do
       expect(mail.to).to eq [recipients]
-      expect(mail.subject).to eq 'renewal receipt subject'
+      expect(mail.subject).to eq 'rendered subject'
       expect(mail.body).to eq 'rendered body'
     end
 

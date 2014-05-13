@@ -49,4 +49,5 @@ Feature: Organization billing
     And the scheduled tasks have run
     Then I should receive a 30-day renewal reminder
     When 15 days pass
+    And the scheduled tasks have run
     Then I should receive a 15-day renewal reminder

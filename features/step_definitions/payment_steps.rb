@@ -312,10 +312,7 @@ Then(/^I should receive a (\d+)-day renewal reminder$/) do |days|
   days = Integer(days)
   address = BillingFormTestPage.default_billing_address
 
-  reminder = unread_emails_for(address).select do |message|
-    message.subject.include? 'subscription will expire'
-  end.last
+  open_email(address, with_subject: /will renew in #{days} days/)
 
-  expect(reminder).to be_present
-  expect(reminder.body).to include (Time.zone.today + days).to_s(:long)
+  expect(current_email.body).to include (Time.zone.today + days).to_s(:long)
 end
