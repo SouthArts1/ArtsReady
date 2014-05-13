@@ -1,4 +1,4 @@
-desc "This task is called by the Heroku cron add-on"
+desc "This task is called by the Heroku scheduler add-on"
 task :cron => :environment do
   puts "Creating reassessment todos"
   Assessment.create_reassessment_todos
