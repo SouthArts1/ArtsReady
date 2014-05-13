@@ -2,8 +2,8 @@ Then(/^I can edit the "([^"]*)" email template$/) do |template|
   click_on 'Manage Email Templates'
   click_on template
 
-  subject = 'Your subscription will renew in {{days_left_until_rebill}} days'
-  body = 'Please update your billing info by {{next_billing_date}}.'
+  subject = 'Your subscription _will renew_ in {{days_left_until_rebill}} days'
+  body = '*Please* update your billing info by {{next_billing_date}}.'
 
   fill_in 'Subject', with: subject
   fill_in 'Body', with: body
@@ -18,7 +18,7 @@ Given(/^I can preview the "([^"]*)" email template$/) do |template|
   date = (Time.zone.today + 30).to_s(:long)
 
   expect(page).
-    to have_content 'Your subscription will renew in 30 days'
+    to have_content 'Subject: Your subscription _will renew_ in 30 days'
   expect(page).
     to have_content "Please update your billing info by #{date}."
 

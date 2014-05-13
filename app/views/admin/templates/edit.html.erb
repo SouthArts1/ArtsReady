@@ -3,6 +3,12 @@
 </hgroup>
 
 <div class="grid_12">
+  <p>
+    <%= link_to 'Textile Reference', 'http://redcloth.org/textile/',
+      target: '_blank'
+    %>
+  </p>
+
   <%= simple_form_for([:admin, @template]) do |f| %>
     <section>
       <%= f.input :subject %>

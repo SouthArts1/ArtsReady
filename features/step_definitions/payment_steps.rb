@@ -315,4 +315,5 @@ Then(/^I should receive a (\d+)-day renewal reminder$/) do |days|
   open_email(address, with_subject: /will renew in #{days} days/)
 
   expect(current_email.body).to include (Time.zone.today + days).to_s(:long)
+  expect(current_email.body).to include '<strong>Soon</strong>'
 end

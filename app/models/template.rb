@@ -19,11 +19,11 @@ class Template < ActiveRecord::Base
   end
 
   def render(model)
-    template_view_class.new(body, model).render
+    htmlify(template_view_class.new(body, model).render)
   end
 
   def preview
-    template_view_class.new_for_preview(body).render
+    htmlify(template_view_class.new_for_preview(body).render)
   end
 
   def render_subject(model)
@@ -42,5 +42,11 @@ class Template < ActiveRecord::Base
     TEMPLATE_NAMES.each do |name|
       find_or_create_by_name(name)
     end
+  end
+
+  private
+
+  def htmlify(string)
+    RedCloth.new(string).to_html
   end
 end
