@@ -34,8 +34,10 @@ class BillingMailer < ActionMailer::Base
     template = Template.find_usable(template_name)
     return unless template
 
+    rendering = template.render(model)
+
     mail to: model.billing_emails,
-      subject: template.render_subject(model),
-      body: template.render(model)
+      subject: rendering.subject,
+      body: rendering.body
   end
 end

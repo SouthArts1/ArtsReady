@@ -4,12 +4,13 @@ describe BillingMailer do
   describe "renewal_receipt" do
     let(:payment) { FactoryGirl.build_stubbed(:payment) }
     let(:recipients) { 'billingemail@example.org' }
-    let(:template) {
-      double('template',
-        render_subject: 'rendered subject',
-        render: 'rendered body'
+    let(:rendering) {
+      double(
+        subject: 'rendered subject',
+        body: 'rendered body'
       )
     }
+    let(:template) { double('template', render: rendering) }
 
     subject(:mail) { BillingMailer.renewal_receipt(payment) }
 

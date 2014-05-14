@@ -18,20 +18,12 @@ class Template < ActiveRecord::Base
     usable.find_by_name(name)
   end
 
+  def render_preview
+    TemplateRendering.new(template_view_class.new_for_preview, self)
+  end
+
   def render(model)
-    htmlify(template_view_class.new(body, model).render)
-  end
-
-  def preview
-    htmlify(template_view_class.new_for_preview(body).render)
-  end
-
-  def render_subject(model)
-    template_view_class.new(subject, model).render
-  end
-
-  def render_preview_subject
-    template_view_class.new_for_preview(subject).render
+    TemplateRendering.new(template_view_class.new(model), self)
   end
 
   def template_view_class
@@ -42,11 +34,5 @@ class Template < ActiveRecord::Base
     TEMPLATE_NAMES.each do |name|
       find_or_create_by_name(name)
     end
-  end
-
-  private
-
-  def htmlify(string)
-    RedCloth.new(string).to_html
   end
 end

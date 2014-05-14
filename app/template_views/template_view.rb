@@ -1,12 +1,11 @@
 class TemplateView < Mustache
   attr_accessor :model
 
-  def initialize(body, model)
-    self.template = body
+  def initialize(model)
     self.model = model
   end
 
-  def self.new_for_preview(body)
-    new(body, model_for_preview)
+  def self.new_for_preview
+    new(model_for_preview)
   end
 end

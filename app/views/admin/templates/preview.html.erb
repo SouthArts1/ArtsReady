@@ -17,11 +17,13 @@
   </p>
 
   <div class="template-preview">
+    <% rendering = @template.render_preview %>
+
     <p class="subject">
-      Subject: <%= @template.render_preview_subject %>
+      Subject: <%= rendering.subject %>
     </p>
 
-    <%= raw(@template.preview) %>
+    <%= raw(rendering.body) %>
   </div>
 
   <%= simple_form_for([:admin, @template]) do |f| %>
