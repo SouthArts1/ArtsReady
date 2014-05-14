@@ -1687,3 +1687,16 @@ h3 {
     font-size: 17px;
     width: 200px;
     padding: 10px 10px; }
+
+.template-preview {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px;
+  background: #f2f8fc; }
+  .template-preview .subject {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    font-size: 1.4rem;
+    font-weight: bold; }
+  .template-preview ul, .template-preview ol {
+    list-style-position: inside; }

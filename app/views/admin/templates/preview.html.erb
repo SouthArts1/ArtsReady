@@ -11,10 +11,18 @@
   </p>
 
   <p>
-    Subject: <%= @template.render_preview_subject %>
+    <em>
+      Note: "Look and feel" is approximate.
+    </em>
   </p>
 
-  <%= raw(@template.preview) %>
+  <div class="template-preview">
+    <p class="subject">
+      Subject: <%= @template.render_preview_subject %>
+    </p>
+
+    <%= raw(@template.preview) %>
+  </div>
 
   <%= simple_form_for([:admin, @template]) do |f| %>
     <section>
