@@ -20,10 +20,6 @@ class BillingMailer < ActionMailer::Base
     render_template_to_mail 'renewal reminder', organization
   end
 
-  def renewal_receipt(payment)
-    render_template_to_mail 'renewal receipt', payment
-  end
-
   def credit_card_expiration(organization)
     render_template_to_mail 'credit card expiration', organization
   end

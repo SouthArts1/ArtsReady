@@ -15,7 +15,7 @@ describe Template do
     it 'creates missing templates' do
       Template.create_required_templates
 
-      expect(Template.pluck(:name)).to include 'renewal receipt'
+      expect(Template.pluck(:name)).to include 'renewal reminder'
     end
 
     it 'does not recreate existing templates' do

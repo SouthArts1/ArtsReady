@@ -23,7 +23,6 @@ describe Payment do
       before do
         payment.notification = PaymentNotification.new
         organization.stub(:extend_subscription!)
-        BillingMailer.stub(:renewal_receipt).and_return(double(deliver: true))
       end
 
       it "sets the organization's next billing date" do
@@ -34,12 +33,6 @@ describe Payment do
         payment.save
 
         expect(payment).to be_persisted
-      end
-
-      it "sends the organization a renewal receipt" do
-        BillingMailer.should_receive(:renewal_receipt).with(payment)
-
-        payment.save
       end
     end
 

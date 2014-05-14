@@ -267,14 +267,6 @@ When(/^I have (?:been charged|renewed) automatically$/) do
   receive_payment_notification_for(@current_user.active_subscription)
 end
 
-Then(/^I should receive a renewal receipt$/) do
-  address = BillingFormTestPage.default_billing_address
-
-  message = unread_emails_for(address).last
-  expect(message.subject).to eq 'Thanks for your ArtsReady renewal'
-  expect(message.body).to match /You paid \$[0-9]+\.[0-9]{2}\./
-end
-
 Then(/^my billing info should reflect automatic renewal$/) do
   visit billing_path
 

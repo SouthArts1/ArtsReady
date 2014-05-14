@@ -6,7 +6,6 @@ class Template < ActiveRecord::Base
 
   TEMPLATE_NAMES = [
     'renewal reminder',
-    'renewal receipt',
     'credit card expiration'
   ]
 

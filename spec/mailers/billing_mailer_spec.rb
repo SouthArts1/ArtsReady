@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe BillingMailer do
-  describe "renewal_receipt" do
+  describe "renewal_reminder" do
     let(:payment) { FactoryGirl.build_stubbed(:payment) }
     let(:recipients) { 'billingemail@example.org' }
     let(:rendering) {
@@ -12,7 +12,7 @@ describe BillingMailer do
     }
     let(:template) { double('template', render: rendering) }
 
-    subject(:mail) { BillingMailer.renewal_receipt(payment) }
+    subject(:mail) { BillingMailer.renewal_reminder(payment) }
 
     before do
       payment.stub(:billing_emails).and_return(recipients)

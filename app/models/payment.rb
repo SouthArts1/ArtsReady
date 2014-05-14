@@ -15,7 +15,6 @@ class Payment < ActiveRecord::Base
   before_validation :associate_subscription, on: :create
   before_save :clear_routing_number, unless: :bank_account?
   after_save :update_next_billing_date_on_notification, if: :notification
-  after_save :send_renewal_receipt, if: :notification
   after_save :extend_next_billing_date_by_request, if: :extend_subscription?
 
   CREDIT_ACCOUNT_TYPES = [
@@ -106,10 +105,6 @@ class Payment < ActiveRecord::Base
   end
 
   private
-
-  def send_renewal_receipt
-    BillingMailer.renewal_receipt(self).deliver
-  end
 
   # if we received a notification, we should expect the account to be
   # charged again 365 days after the notification.
