@@ -6,7 +6,8 @@ class Template < ActiveRecord::Base
 
   TEMPLATE_NAMES = [
     'renewal reminder',
-    'renewal receipt'
+    'renewal receipt',
+    'credit card expiration'
   ]
 
   scope :usable, -> {
