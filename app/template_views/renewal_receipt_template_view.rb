@@ -1,22 +1,13 @@
-class RenewalReceiptTemplateView < Mustache
+class RenewalReceiptTemplateView < TemplateView
   include ActionView::Helpers::NumberHelper
 
-  attr_accessor :payment
-
-  def initialize(body, payment)
-    self.template = body
-    self.payment = payment
-  end
-
-  def self.new_for_preview(body)
-    new(body, payment_for_preview)
-  end
+  alias_method :payment, :model
 
   def amount
     number_to_currency(payment.amount)
   end
 
-  def self.payment_for_preview
+  def self.model_for_preview
     Payment.new(
       amount: 225
     )
