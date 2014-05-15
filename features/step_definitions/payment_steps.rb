@@ -246,8 +246,9 @@ Given(/^my credit card expires in (\d+) days$/) do |days|
 end
 
 Then(/^the billing form is rejected$/) do
-  expect(current_path).to eq(new_billing_path)
+  expect(current_path).to eq(billing_path)
   expect(page).to have_content 'a problem processing your request'
+  expect(page).to have_content "can't be blank"
 end
 
 When /^I sign up using the discount code$/ do

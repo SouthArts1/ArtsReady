@@ -13,7 +13,17 @@ class Subscription < ActiveRecord::Base
   before_create :create_and_charge_arb_subscription
   before_update :update_arb_subscription, :unless => :skip_callbacks
 
-  validates_presence_of :organization_id
+  validates_presence_of :billing_first_name, :billing_last_name,
+    :billing_address, :billing_city, :billing_state, :billing_zipcode
+  validates_inclusion_of :payment_type, in: %w(cc bank),
+    message: 'must be Credit Card or Bank Account',
+    allow_nil: true # for updates that don't include payment info
+  validates_presence_of :billing_email, on: :create
+  validates_presence_of :number, :expiry_month, :expiry_year, :ccv,
+    if: :submitted_as_cc?
+  validates_presence_of :routing_number, :account_number, :bank_name,
+    :account_type,
+    if: :submitted_as_bank?
 
   delegate :next_billing_date, :days_left_until_rebill, to: :organization
   accepts_nested_attributes_for :organization
@@ -25,6 +35,14 @@ class Subscription < ActiveRecord::Base
   scope :credit_card_expiring_month_of, lambda { |date|
     where(expiry_month: date.month, expiry_year: date.year)
   }
+
+  def submitted_as_cc? # via billing form
+    payment_type == 'cc'
+  end
+
+  def submitted_as_bank? # via billing form
+    payment_type == 'bank'
+  end
 
   def regular_amount
     regular_amount_in_cents.to_f / 100
@@ -201,15 +219,7 @@ class Subscription < ActiveRecord::Base
     return false if self.id
     return false if !Organization.exists?(self.organization_id)
     return false if self.regular_amount_in_cents.nil? || self.starting_amount_in_cents.nil?
-    return false if self.billing_first_name.nil? || self.billing_last_name.nil? || self.billing_address.nil? || self.billing_city.nil? || self.billing_state.nil? || self.billing_zipcode.nil? || billing_email.blank?
-    if self.payment_type == "cc"
-      return false if self.number.nil? || self.expiry_month.nil? || self.expiry_year.nil? || self.ccv.nil?
-    elsif self.payment_type == "bank"
-      return false if self.routing_number.nil? || self.account_number.nil? || self.bank_name.nil? || self.account_type.nil?
-    else
-      return false
-    end
-    
+
     return true
   end
   

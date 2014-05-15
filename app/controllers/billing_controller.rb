@@ -62,7 +62,8 @@ class BillingController < ApplicationController
       session[:discount_code] = nil
       redirect_to "/"
     else
-      redirect_to :back, notice: UNSPECIFIED_ERROR_MESSAGE
+      flash.now[:notice] = UNSPECIFIED_ERROR_MESSAGE
+      render 'new'
     end
   end
 
@@ -91,7 +92,8 @@ class BillingController < ApplicationController
       session[:discount_code] = nil
       redirect_to billing_path
     else
-      redirect_to :back, notice: UNSPECIFIED_ERROR_MESSAGE
+      flash.now[:notice] = UNSPECIFIED_ERROR_MESSAGE
+      render 'edit'
     end
   end
   

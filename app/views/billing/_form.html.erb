@@ -1,8 +1,8 @@
-<% if @organization.errors.any? %>
+<% if @subscription.errors.any? %>
   <div class="error_messages">
     <h4>Form is invalid</h4>
     <ul>
-      <% for message in @organization.errors.full_messages %>
+      <% for message in @subscription.errors.full_messages %>
         <li><%= message %></li>
       <% end %>
     </ul>
