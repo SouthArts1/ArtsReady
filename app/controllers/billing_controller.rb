@@ -139,7 +139,8 @@ class BillingController < ApplicationController
       billing_state:      subscription_params[:billing_state],
       billing_zipcode:    subscription_params[:billing_zipcode],
       billing_email:      subscription_params[:billing_email],
-      billing_phone_number: subscription_params[:billing_phone_number]
+      billing_phone_number: subscription_params[:billing_phone_number],
+      payment_type:       subscription_params[:payment_type]
     }
 
     if @subscription.new_record?
@@ -160,8 +161,6 @@ class BillingController < ApplicationController
         # do nothing
       end
     end
-
-    @subscription.payment_type = params[:payment_type]
 
     if @subscription.payment_type == "cc"
       @subscription.number       = subscription_params[:number]

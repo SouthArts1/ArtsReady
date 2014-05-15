@@ -240,12 +240,25 @@ input {
 
 .field_with_errors {
   label { color: red; }
-  input, textarea {
+  input, textarea, select {
     background-color: #ffeeee;
   }
   .error {
     display: block;
     color: red;
+  }
+}
+
+.field.payment_type {
+  margin: 5px 10px;
+
+  .field_with_errors {
+    display: inline;
+  }
+
+  label {
+    display: inline;
+    font-weight: normal;
   }
 }
 

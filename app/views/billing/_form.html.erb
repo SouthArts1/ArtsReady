@@ -83,14 +83,16 @@
   <table style="border:none;">
     <tr>
       <td>
-        <p>
-          Please choose your payment type:
-          <select required id="payment_type" name="payment_type">
-            <option value=""></option>
-            <option value="cc">Credit Card</option>
-            <option value="bank">Bank Account</option>
-          </select>
-        </p>
+        <div class="field payment_type">
+          <%= f.label :payment_type, 'Please choose your payment type:' %>
+          <%= f.select :payment_type,
+            options_for_select(
+              {'Credit Card' => 'cc', 'Bank Account' => 'bank'},
+              f.object.payment_type
+            ),
+            required: true, include_blank: true
+          %>
+        </div>
       </td>
     </tr>
   </table>
@@ -256,13 +258,13 @@
         });
       });
 
-      $("#payment_type").change(function () {
-        var type = "#" + $("#payment_type").val() + "_info";
+      $("#subscription_payment_type").change(function () {
+        var type = "#" + $(this).val() + "_info";
         $("#cc_info").slideUp();
         $("#bank_info").slideUp();
 
         $(type).slideDown();
-      });
+      }).trigger('change');
 
       $("#subscription_number").blur(function () {
         if (validateCreditCard($(this).val()) == false) {

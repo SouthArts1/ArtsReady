@@ -13,7 +13,7 @@ class BillingFormTestPage < TestPage
       'Billing zip code' => '10001',
       'Billing email' => self.class.default_billing_address,
       'Billing phone number' => '555-555-1212',
-      'payment_type' => 'Credit Card',
+      'Please choose your payment type:' => 'Credit Card',
       'subscription_number' => '4007000000027',
       'subscription_expiry_month' => '1',
       'subscription_expiry_year' => (Time.now.year + 3).to_s,
@@ -64,7 +64,7 @@ class BillingFormTestPage < TestPage
   class CreditCardPaymentMethod < PaymentMethod
     def default_fields
       {
-        'payment_type'         => 'Credit Card',
+        'subscription_payment_type' => 'Credit Card',
         'subscription_number'       => '4007000000027',
         'subscription_expiry_month' => '1',
         'subscription_expiry_year'  => (Time.now.year + 3).to_s,
@@ -76,7 +76,7 @@ class BillingFormTestPage < TestPage
   class BankAccountPaymentMethod < PaymentMethod
     def default_fields
       {
-        'payment_type'           => 'Bank Account',
+        'subscription_payment_type'   => 'Bank Account',
         'subscription_bank_name'      => 'First Bank of Nowheresville',
         'subscription_account_type'   => account_type,
         'subscription_routing_number' => '061092387',
