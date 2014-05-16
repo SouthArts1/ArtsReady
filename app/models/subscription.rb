@@ -372,7 +372,7 @@ class Subscription < ActiveRecord::Base
     cancel_arb_subscription if replacing
 
     arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
-    Rails.logger.debug("UPdated Payment Number to #{self.payment_number}")
+    Rails.logger.debug("Updating Payment Number to #{self.payment_number}")
 
     response = replacing ?
       arb_tran.create(arb_sub) :
