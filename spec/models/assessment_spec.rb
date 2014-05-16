@@ -124,15 +124,17 @@ describe Assessment do
       assessment.completed_at.should be_nil
       
       time = Time.now
-      Timecop.freeze(time)
-      assessment.stub(:completed?) { true }
-      assessment.check_complete
-      assessment.completed_at.should == time
-      
-      Timecop.freeze(time + 1.day)
-      assessment.stub(:completed?) { true }
-      assessment.check_complete
-      assessment.completed_at.should == time # still
+      Timecop.freeze(time) do
+        assessment.stub(:completed?) { true }
+        assessment.check_complete
+        assessment.completed_at.should == time
+      end
+
+      Timecop.freeze(time + 1.day) do
+        assessment.stub(:completed?) { true }
+        assessment.check_complete
+        assessment.completed_at.should == time # still
+      end
     end
   end
   

@@ -295,10 +295,10 @@ describe Subscription do
     end
   
     it "should update the end_date to today when cancelled" do
-      Timecop.freeze(Time.now)
-
-      @subscription.cancel
-      expect(@subscription.end_date).to eq Time.now
+      Timecop.freeze(Time.now) do
+        @subscription.cancel
+        expect(@subscription.end_date).to eq Time.now
+      end
     end
     
     it "should mark as inactive when cancelled" do
@@ -308,8 +308,10 @@ describe Subscription do
   end
 
   describe 'build_provisional' do
-    before do
-      Timecop.travel('3400 AD')
+    around(:each) do |example|
+      Timecop.travel(Date.parse('August 10, 3400')) do
+        example.run
+      end
     end
 
     let(:user) { FactoryGirl.build_stubbed(:user, organization: nil) }
@@ -460,7 +462,12 @@ describe Subscription do
 
       before do
         org.stub(:next_billing_date).and_return(Date.parse('May 13, 2014'))
-        Timecop.freeze(Time.parse('March 31, 2014'))
+      end
+
+      around do |example|
+        Timecop.freeze(Time.parse('March 31, 2014')) do
+          example.run
+        end
       end
 
       it 'builds an ARB subscription' do
@@ -529,10 +536,10 @@ describe Subscription do
         )
       end
 
-      Timecop.freeze(Date.parse('March 12, 2024'))
-
-      expect(Subscription.credit_card_expiring_this_month).
-        to eq([subscriptions[1]])
+      Timecop.freeze(Date.parse('March 12, 2024')) do
+        expect(Subscription.credit_card_expiring_this_month).
+          to eq([subscriptions[1]])
+      end
     end
   end
 end

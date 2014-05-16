@@ -195,34 +195,34 @@ describe Organization do
 
   describe '.billing_this_month' do
     it 'returns organizations whose next billing date is this month' do
-      Timecop.freeze(Time.now)
+      Timecop.freeze(Time.now) do
+        before =
+          FactoryGirl.create(:organization, next_billing_date: 1.month.ago)
+        during =
+          FactoryGirl.create(:organization, next_billing_date: Time.now)
+        after =
+          FactoryGirl.create(:organization, next_billing_date: 1.month.from_now)
 
-      before =
-        FactoryGirl.create(:organization, next_billing_date: 1.month.ago)
-      during =
-        FactoryGirl.create(:organization, next_billing_date: Time.now)
-      after =
-        FactoryGirl.create(:organization, next_billing_date: 1.month.from_now)
-
-      expect(Organization.billing_this_month).to eq([during])
+        expect(Organization.billing_this_month).to eq([during])
+      end
     end
   end
 
   describe '.renewing_in(days)' do
     it 'finds organizations whose next billing date is that many days away' do
-      Timecop.freeze(Time.zone.parse('February 21, 2015'))
+      Timecop.freeze(Time.zone.parse('February 21, 2015')) do
+        right = FactoryGirl.create(:organization,
+          next_billing_date: Time.zone.parse('March 23, 2015'))
+        wrong = FactoryGirl.create(:organization,
+          next_billing_date: Time.zone.parse('March 24, 2015'))
+        inactive = FactoryGirl.create(:organization,
+          active: false,
+          next_billing_date: Time.zone.parse('March 23, 2015'))
 
-      right = FactoryGirl.create(:organization,
-        next_billing_date: Time.zone.parse('March 23, 2015'))
-      wrong = FactoryGirl.create(:organization,
-        next_billing_date: Time.zone.parse('March 24, 2015'))
-      inactive = FactoryGirl.create(:organization,
-        active: false,
-        next_billing_date: Time.zone.parse('March 23, 2015'))
-
-      expect(Organization.renewing_in(30)).to include right
-      expect(Organization.renewing_in(30)).not_to include wrong
-      expect(Organization.renewing_in(30)).not_to include inactive
+        expect(Organization.renewing_in(30)).to include right
+        expect(Organization.renewing_in(30)).not_to include wrong
+        expect(Organization.renewing_in(30)).not_to include inactive
+      end
     end
   end
 end
