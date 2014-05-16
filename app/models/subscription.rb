@@ -24,6 +24,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :routing_number, :account_number, :bank_name,
     :account_type,
     if: :submitted_as_bank?
+  validates_length_of :number, in: 13..16, allow_nil: true
 
   delegate :next_billing_date, :days_left_until_rebill, to: :organization
   accepts_nested_attributes_for :organization
@@ -50,6 +51,12 @@ class Subscription < ActiveRecord::Base
 
   def regular_amount=(amount_in_dollars)
     self.regular_amount_in_cents = amount_in_dollars.to_f * 100
+  end
+
+  def number=(number)
+    number.gsub!(/\s+/, '') if number
+
+    @number = number
   end
 
   def self.build_provisional(attrs = {})

@@ -14,7 +14,7 @@ class BillingFormTestPage < TestPage
       'Billing email' => self.class.default_billing_address,
       'Billing phone number' => '555-555-1212',
       'Please choose your payment type:' => 'Credit Card',
-      'subscription_number' => '4007000000027',
+      'subscription_number' => '5555 5555 5555 4444',
       'subscription_expiry_month' => '1',
       'subscription_expiry_year' => (Time.now.year + 3).to_s,
       'subscription_ccv' => '888'
@@ -65,7 +65,7 @@ class BillingFormTestPage < TestPage
     def default_fields
       {
         'subscription_payment_type' => 'Credit Card',
-        'subscription_number'       => '4007000000027',
+        'subscription_number'       => '5555 5555 5555 4444',
         'subscription_expiry_month' => '1',
         'subscription_expiry_year'  => (Time.now.year + 3).to_s,
         'subscription_ccv'          => '888'
@@ -284,7 +284,7 @@ end
 Then /^my billing info should show payment by credit card$/ do
   visit billing_path
 
-  expect(page).to have_content 'Credit Card ending in 0027'
+  expect(page).to have_content 'Credit Card ending in 4444'
 end
 
 When /^I cancel my subscription$/ do

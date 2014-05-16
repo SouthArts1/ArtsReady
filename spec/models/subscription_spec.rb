@@ -28,6 +28,14 @@ describe Subscription do
     arb_subscription.stub(:credit_card) # for logging!?
   end
 
+  describe 'number=' do
+    it 'removes white space' do
+      subscription = Subscription.new
+      subscription.number = '5555 5555 5555 4444 '
+      expect(subscription.number).not_to match /\s/
+    end
+  end
+
   context "invalid subscription object" do
     it "should not save with no attributes" do
       p = Subscription.new()

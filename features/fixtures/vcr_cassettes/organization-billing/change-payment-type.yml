@@ -19,9 +19,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Sat, 03 May 2014 06:21:46 GMT
+      - Fri, 16 May 2014 16:53:26 GMT
       Expires: 
-      - Sun, 04 May 2014 06:21:46 GMT
+      - Sat, 17 May 2014 16:53:26 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -119,13 +119,87 @@ http_interactions:
                  },
                  "partial_match" : true,
                  "types" : [ "point_of_interest", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "short_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "48",
+                       "short_name" : "48",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Wall Street",
+                       "short_name" : "Wall St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10005",
+                       "short_name" : "10005",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc., 48 Wall Street, New York, NY 10005, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7063559,
+                       "lng" : -74.00924689999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7077048802915,
+                          "lng" : -74.00789791970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7050069197085,
+                          "lng" : -74.01059588029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
               }
            ],
            "status" : "OK"
         }
 
     http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:00 GMT
+  recorded_at: Tue, 19 Mar 2024 05:00:01 GMT
 - request: 
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
@@ -147,9 +221,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Sat, 03 May 2014 06:21:46 GMT
+      - Fri, 16 May 2014 16:53:27 GMT
       Expires: 
-      - Sun, 04 May 2014 06:21:46 GMT
+      - Sat, 17 May 2014 16:53:27 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -242,6 +316,80 @@ http_interactions:
                        "southwest" : {
                           "lat" : 40.7140429197085,
                           "lng" : -74.01095308029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "short_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "48",
+                       "short_name" : "48",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Wall Street",
+                       "short_name" : "Wall St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10005",
+                       "short_name" : "10005",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc., 48 Wall Street, New York, NY 10005, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7063559,
+                       "lng" : -74.00924689999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7077048802915,
+                          "lng" : -74.00789791970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7050069197085,
+                          "lng" : -74.01059588029149
                        }
                     }
                  },
@@ -275,7 +423,7 @@ http_interactions:
       Connection: 
       - close
       Date: 
-      - Sat, 03 May 2014 06:21:48 GMT
+      - Fri, 16 May 2014 16:53:29 GMT
       Server: 
       - Microsoft-IIS/6.0
       X-Powered-By: 
@@ -290,9 +438,9 @@ http_interactions:
       - Tue, 01 Jan 1980 00:00:00 GMT
     body: 
       encoding: US-ASCII
-      string: 1,1,1,This transaction has been approved.,,P,2212301925,,,300.00,ECHECK,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,B867AFDF7D4B0015FEE845D6D3037935,,,,,,,,,,,,,XXXX6789,Bank Account,,,,,,,,,,,,,,,,
+      string: 1,1,1,This transaction has been approved.,,P,2213401330,,,300.00,ECHECK,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,C519953E99BD515A4B6DCD82D433F28E,,,,,,,,,,,,,XXXX6789,Bank Account,,,,,,,,,,,,,,,,
     http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:04 GMT
+  recorded_at: Tue, 19 Mar 2024 05:00:03 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -360,7 +508,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Sat, 03 May 2014 06:21:51 GMT
+      - Fri, 16 May 2014 16:53:30 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -381,15 +529,15 @@ http_interactions:
       - "401"
     body: 
       encoding: ASCII-8BIT
-      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2071978</subscriptionId></ARBCreateSubscriptionResponse>"
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2082914</subscriptionId></ARBCreateSubscriptionResponse>"
     http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:05 GMT
+  recorded_at: Tue, 19 Mar 2024 05:00:04 GMT
 - request: 
     method: post
     uri: https://test.authorize.net/gateway/transact.dll
     body: 
       encoding: US-ASCII
-      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=4007000000027&x_exp_date=0128&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
+      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=5555555555554444&x_exp_date=0128&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
     headers: 
       Accept: 
       - "*/*"
@@ -405,7 +553,7 @@ http_interactions:
       Connection: 
       - close
       Date: 
-      - Sat, 03 May 2014 06:21:53 GMT
+      - Fri, 16 May 2014 16:53:32 GMT
       Server: 
       - Microsoft-IIS/6.0
       X-Powered-By: 
@@ -413,16 +561,16 @@ http_interactions:
       Content-Type: 
       - text/html
       Content-Length: 
-      - "261"
+      - "267"
       Cache-Control: 
       - private, must-revalidate, max-age=0
       Expires: 
       - Tue, 01 Jan 1980 00:00:00 GMT
     body: 
       encoding: US-ASCII
-      string: 1,1,1,This transaction has been approved.,9Q9IAU,Y,2212301927,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,F3EA40BE00F908BA77CB515C5E8A05CA,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
+      string: 1,1,1,This transaction has been approved.,7UJMV5,Y,2213401334,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,A95A53FD4E242DA2E7619CE64BDC128D,P,2,,,,,,,,,,,XXXX4444,MasterCard,,,,,,,,,,,,,,,,
     http_version: 
-  recorded_at: Fri, 14 Mar 2025 05:00:08 GMT
+  recorded_at: Fri, 14 Mar 2025 05:00:06 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -435,7 +583,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2071978</subscriptionId>
+          <subscriptionId>2082914</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -451,7 +599,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Sat, 03 May 2014 06:21:55 GMT
+      - Fri, 16 May 2014 16:53:33 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -474,7 +622,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Fri, 14 Mar 2025 05:00:10 GMT
+  recorded_at: Fri, 14 Mar 2025 05:00:08 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -487,7 +635,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2071978</subscriptionId>
+          <subscriptionId>2082914</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -503,7 +651,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Sat, 03 May 2014 06:21:57 GMT
+      - Fri, 16 May 2014 16:53:34 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -526,7 +674,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 14 Mar 2025 05:00:12 GMT
+  recorded_at: Fri, 14 Mar 2025 05:00:09 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -552,7 +700,7 @@ http_interactions:
             <amount>225.0</amount>
             <payment>
               <creditCard>
-                <cardNumber>4007000000027</cardNumber>
+                <cardNumber>5555555555554444</cardNumber>
                 <expirationDate>2028-01</expirationDate>
                 <cardCode>888</cardCode>
               </creditCard>
@@ -589,7 +737,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Sat, 03 May 2014 06:21:58 GMT
+      - Fri, 16 May 2014 16:53:35 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -610,9 +758,9 @@ http_interactions:
       - "401"
     body: 
       encoding: ASCII-8BIT
-      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2071979</subscriptionId></ARBCreateSubscriptionResponse>"
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2082916</subscriptionId></ARBCreateSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 14 Mar 2025 05:00:14 GMT
+  recorded_at: Fri, 14 Mar 2025 05:00:10 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -625,7 +773,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2071979</subscriptionId>
+          <subscriptionId>2082916</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -641,7 +789,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Sat, 03 May 2014 06:22:01 GMT
+      - Fri, 16 May 2014 16:53:36 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -664,7 +812,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Sat, 03 May 2014 06:22:01 GMT
+  recorded_at: Fri, 16 May 2014 16:53:36 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -677,7 +825,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2071979</subscriptionId>
+          <subscriptionId>2082916</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -693,7 +841,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Sat, 03 May 2014 06:22:02 GMT
+      - Fri, 16 May 2014 16:53:37 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -716,5 +864,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Sat, 03 May 2014 06:22:03 GMT
+  recorded_at: Fri, 16 May 2014 16:53:37 GMT
 recorded_with: VCR 2.9.0

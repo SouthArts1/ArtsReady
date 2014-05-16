@@ -19,9 +19,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Mon, 12 May 2014 18:22:28 GMT
+      - Fri, 16 May 2014 16:54:56 GMT
       Expires: 
-      - Tue, 13 May 2014 18:22:28 GMT
+      - Sat, 17 May 2014 16:54:56 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -199,7 +199,7 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Mon, 12 May 2014 18:22:29 GMT
+  recorded_at: Fri, 16 May 2014 16:54:56 GMT
 - request: 
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
@@ -221,9 +221,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Mon, 12 May 2014 18:22:28 GMT
+      - Fri, 16 May 2014 16:54:56 GMT
       Expires: 
-      - Tue, 13 May 2014 18:22:28 GMT
+      - Sat, 17 May 2014 16:54:56 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -401,13 +401,13 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Mon, 12 May 2014 18:22:30 GMT
+  recorded_at: Fri, 16 May 2014 16:54:56 GMT
 - request: 
     method: post
     uri: https://test.authorize.net/gateway/transact.dll
     body: 
       encoding: US-ASCII
-      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=4007000000027&x_exp_date=0117&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
+      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=5555555555554444&x_exp_date=0117&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
     headers: 
       Accept: 
       - "*/*"
@@ -423,7 +423,7 @@ http_interactions:
       Connection: 
       - close
       Date: 
-      - Mon, 12 May 2014 18:22:31 GMT
+      - Fri, 16 May 2014 16:54:58 GMT
       Server: 
       - Microsoft-IIS/6.0
       X-Powered-By: 
@@ -431,16 +431,16 @@ http_interactions:
       Content-Type: 
       - text/html
       Content-Length: 
-      - "261"
+      - "267"
       Cache-Control: 
       - private, must-revalidate, max-age=0
       Expires: 
       - Tue, 01 Jan 1980 00:00:00 GMT
     body: 
       encoding: US-ASCII
-      string: 1,1,1,This transaction has been approved.,XZ0SET,Y,2212915035,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,98F32EBA5A2333E53AD086D81AE6B2FF,P,2,,,,,,,,,,,XXXX0027,Visa,,,,,,,,,,,,,,,,
+      string: 1,1,1,This transaction has been approved.,RTQ17P,Y,2213401374,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,70C3059CC40B25949D7817A3CDFC176B,P,2,,,,,,,,,,,XXXX4444,MasterCard,,,,,,,,,,,,,,,,
     http_version: 
-  recorded_at: Mon, 12 May 2014 18:22:35 GMT
+  recorded_at: Fri, 16 May 2014 16:54:58 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -460,7 +460,7 @@ http_interactions:
                 <length>365</length>
                 <unit>days</unit>
               </interval>
-              <startDate>2014-05-13</startDate>
+              <startDate>2014-05-17</startDate>
               <totalOccurrences>9999</totalOccurrences>
               <trialOccurrences>1</trialOccurrences>
             </paymentSchedule>
@@ -468,7 +468,7 @@ http_interactions:
             <trialAmount>300.0</trialAmount>
             <payment>
               <creditCard>
-                <cardNumber>4007000000027</cardNumber>
+                <cardNumber>5555555555554444</cardNumber>
                 <expirationDate>2017-01</expirationDate>
                 <cardCode>888</cardCode>
               </creditCard>
@@ -505,7 +505,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Mon, 12 May 2014 18:22:34 GMT
+      - Fri, 16 May 2014 16:54:59 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -526,9 +526,9 @@ http_interactions:
       - "401"
     body: 
       encoding: ASCII-8BIT
-      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2078685</subscriptionId></ARBCreateSubscriptionResponse>"
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2082920</subscriptionId></ARBCreateSubscriptionResponse>"
     http_version: 
-  recorded_at: Mon, 12 May 2014 18:22:36 GMT
+  recorded_at: Fri, 16 May 2014 16:54:59 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -541,7 +541,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2078685</subscriptionId>
+          <subscriptionId>2082920</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -557,7 +557,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Mon, 12 May 2014 18:22:36 GMT
+      - Fri, 16 May 2014 16:55:01 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -580,7 +580,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Mon, 12 May 2014 18:22:38 GMT
+  recorded_at: Fri, 16 May 2014 16:55:01 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -593,7 +593,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2078685</subscriptionId>
+          <subscriptionId>2082920</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -609,7 +609,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Mon, 12 May 2014 18:22:37 GMT
+      - Fri, 16 May 2014 16:55:02 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -632,5 +632,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Mon, 12 May 2014 18:22:39 GMT
+  recorded_at: Fri, 16 May 2014 16:55:02 GMT
 recorded_with: VCR 2.9.0
