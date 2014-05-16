@@ -114,10 +114,11 @@ describe Payment do
     end
 
     it 'sets paid_at to today if not previously set' do
-      Timecop.freeze(datetime)
-      payment = Payment.new
-      payment.paid_at_time = '3:13:13 PM'
-      expect(payment.paid_at).to eq(datetime)
+      Timecop.freeze(datetime) do
+        payment = Payment.new
+        payment.paid_at_time = '3:13:13 PM'
+        expect(payment.paid_at).to eq(datetime)
+      end
     end
 
     it 'has no effect if the value is blank' do

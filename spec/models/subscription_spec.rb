@@ -36,6 +36,52 @@ describe Subscription do
     end
   end
 
+  it 'validates expired credit cards' do
+    Timecop.freeze(Time.zone.parse('February 23, 2021')) do
+      subscription = FactoryGirl.build(:subscription,
+        payment_type: 'cc',
+        expiry_month: '1',
+        expiry_year: '2021'
+      )
+
+      subscription.valid?
+
+      expect(subscription.errors.full_messages.join("\n")).
+        to include 'expired'
+    end
+  end
+
+  it 'validates soon-to-expire credit cards on create' do
+    Timecop.freeze(Time.zone.parse('January 31, 2022 12:00pm')) do
+      subscription = FactoryGirl.build(:subscription,
+        payment_type: 'cc',
+        expiry_month: '1',
+        expiry_year: '2022'
+      )
+
+      subscription.valid?
+
+      expect(subscription.errors.full_messages.join("\n")).
+        to include 'will expire'
+    end
+  end
+
+  it 'validates soon-to-expire credit cards on update' do
+    Timecop.freeze(Time.zone.parse('November 12, 2021')) do
+      subscription = FactoryGirl.build(:subscription,
+        start_date: Time.zone.parse('February 1, 2021'),
+        payment_type: 'cc',
+        expiry_month: '1',
+        expiry_year: '2022'
+      )
+
+      subscription.valid?
+
+      expect(subscription.errors.full_messages.join("\n")).
+        to include 'will expire'
+    end
+  end
+
   context "invalid subscription object" do
     it "should not save with no attributes" do
       p = Subscription.new()
@@ -475,8 +521,6 @@ describe Subscription do
 
   describe '.credit_card_expiring_this_month' do
     it 'returns subscriptions with credit cards expiring this month' do
-      Timecop.freeze(Date.parse('March 12, 2024'))
-
       subscriptions = [2, 3, 4].map do |month|
         FactoryGirl.create(:subscription,
           expiry_month: month, expiry_year: 2024,
@@ -484,6 +528,8 @@ describe Subscription do
             name: "Expiring #{month}/2024")
         )
       end
+
+      Timecop.freeze(Date.parse('March 12, 2024'))
 
       expect(Subscription.credit_card_expiring_this_month).
         to eq([subscriptions[1]])

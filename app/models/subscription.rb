@@ -10,6 +10,7 @@ class Subscription < ActiveRecord::Base
     :skip_authorization
   alias_method :skip_authorization?, :skip_authorization
 
+  before_validation :initialize_start_date, on: :create
   before_create :create_and_charge_arb_subscription
   before_update :update_arb_subscription, :unless => :skip_callbacks
 
@@ -25,6 +26,7 @@ class Subscription < ActiveRecord::Base
     :account_type,
     if: :submitted_as_bank?
   validates_length_of :number, in: 13..16, allow_nil: true
+  validate :credit_card_must_not_have_expired_by_billing_date
 
   delegate :next_billing_date, :days_left_until_rebill, to: :organization
   accepts_nested_attributes_for :organization
@@ -59,12 +61,19 @@ class Subscription < ActiveRecord::Base
     @number = number
   end
 
+  def initialize_start_date
+    self.start_date ||= Time.now + 1.day
+  end
+
   def self.build_provisional(attrs = {})
     new(attrs).tap { |subscription| subscription.make_provisional }
   end
 
   def self.create_provisional(attrs = {})
-    build_provisional.tap { |subscription| subscription.save }
+    build_provisional.tap { |subscription|
+      subscription.save
+      1
+    }
   end
 
   def make_provisional
@@ -232,8 +241,6 @@ class Subscription < ActiveRecord::Base
   
   def create_and_charge_arb_subscription
     return false if !validate_for_creation
-
-    self.start_date = Time.now + 1.day unless self.start_date
 
     arb_sub = build_arb_subscription_for_create()
     if self.payment_type == "cc"
@@ -415,6 +422,22 @@ class Subscription < ActiveRecord::Base
         transaction.set_address(billing_address_for_transaction)
         transaction.set_customer(email: billing_email.presence || organization.email)
       end
+    end
+  end
+
+  def credit_card_must_not_have_expired_by_billing_date
+    return unless payment_type == 'cc'
+    return unless expiry_month.presence && expiry_year.presence
+    return if provisional?
+
+    expiration =
+      Date.new(Integer(expiry_year), Integer(expiry_month)).
+      end_of_month
+
+    if Time.zone.today > expiration
+      errors[:base] << 'Credit card has expired'
+    elsif billing_date_after(Time.zone.today) > expiration
+      errors[:base] << 'Credit card will expire before billing date'
     end
   end
 end
