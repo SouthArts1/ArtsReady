@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Subscription do
   let(:aim_transaction) { double('AIM transaction') }
-  let(:subscription) { double('subscription') }
+  let(:arb_subscription) { double('ARB subscription') }
   let(:arb_transaction) { double('ARB transaction') }
   let(:arb_id) { 6525121 }
   let(:arb_response) { double }
@@ -10,7 +10,7 @@ describe Subscription do
 
   before(:each) do
     AuthorizeNet::AIM::Transaction.stub(:new).and_return(aim_transaction)
-    AuthorizeNet::ARB::Subscription.stub(:new).and_return(subscription)
+    AuthorizeNet::ARB::Subscription.stub(:new).and_return(arb_subscription)
     AuthorizeNet::ARB::Transaction.stub(:new).and_return(arb_transaction)
     AuthorizeNet::CreditCard.stub(:new).and_return(card)
 
@@ -24,8 +24,8 @@ describe Subscription do
     arb_transaction.stub(:create).and_return(arb_response)
     arb_response.stub(:success?).and_return(true)
     arb_response.stub(:subscription_id).and_return(arb_id)
-    subscription.stub(:credit_card=)
-    subscription.stub(:credit_card) # for logging!?
+    arb_subscription.stub(:credit_card=)
+    arb_subscription.stub(:credit_card) # for logging!?
   end
 
   context "invalid subscription object" do
@@ -165,8 +165,8 @@ describe Subscription do
         @info_params["bank_name"] = "BBT"
         @info_params["account_type"] = "Checking"
 
-        subscription.stub(:bank_account=)
-        subscription.stub(:bank_account)
+        arb_subscription.stub(:bank_account=)
+        arb_subscription.stub(:bank_account)
       end
 
       it "should validate attributes" do
@@ -349,11 +349,9 @@ describe Subscription do
       FactoryGirl.build_stubbed(:organization, name: 'Refresh, Inc.')
     }
 
-    let(:subscription_double) { double }
-
     before do
       AuthorizeNet::ARB::Subscription.
-        stub(:new).and_return(subscription_double)
+        stub(:new).and_return(arb_subscription)
     end
 
     describe 'build_subscription_object' do
@@ -390,7 +388,7 @@ describe Subscription do
       end
 
       it 'returns the ARB subscription' do
-        expect(build_subscription).to eq(subscription_double)
+        expect(build_subscription).to eq(arb_subscription)
       end
     end
 
@@ -429,7 +427,7 @@ describe Subscription do
       end
 
       it 'returns the ARB subscription' do
-        expect(build_subscription).to eq(subscription_double)
+        expect(build_subscription).to eq(arb_subscription)
       end
     end
 
@@ -462,7 +460,7 @@ describe Subscription do
       end
 
       it 'returns the ARB subscription' do
-        expect(build_subscription).to eq(subscription_double)
+        expect(build_subscription).to eq(arb_subscription)
       end
     end
   end
