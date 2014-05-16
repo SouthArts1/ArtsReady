@@ -86,7 +86,7 @@ end
 Then /^I should receive todo reminders on Tuesdays$/ do
   reset_mailer
 
-  Timecop.travel(Date.today.end_of_week + 2) # a future Tuesday
+  Timecop.travel(Time.zone.today.end_of_week + 2) # a future Tuesday
   step %{the scheduled tasks have run} # Reminder.todos_nearly_due
 
   emails = my_todo_emails

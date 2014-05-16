@@ -5,7 +5,7 @@ task :cron => :environment do
   puts "Sending billing notifications"
   Arbly::Checker.start
 
-  if Date.today.tuesday?
+  if Time.zone.today.tuesday?
     puts "Sending todo reminders"
     Reminder.todos_nearly_due
   end
