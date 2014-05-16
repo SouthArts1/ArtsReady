@@ -220,7 +220,7 @@ describe Subscription do
     
     before(:each) do
       @subscription = Subscription.create(@info_params)
-      assert(@subscription.persisted?)
+      expect(@subscription).to be_persisted
     end
 
     it "should cancel if created" do
