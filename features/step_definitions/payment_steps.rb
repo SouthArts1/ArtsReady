@@ -299,7 +299,8 @@ end
 Given(/^I have provisional access$/) do
   step %{I sign up}
 
-  subscription = Organization.last.create_provisional_subscription
+  subscription = Organization.last.build_provisional_subscription
+  subscription.save
   expect(subscription).to be_persisted
 
   visit billing_path

@@ -111,8 +111,8 @@ class Organization < ActiveRecord::Base
     ((todos.completed.count.to_f / todos.count.to_f)*100).to_i rescue 0
   end
   
-  def create_provisional_subscription
-    subscriptions.create_provisional
+  def build_provisional_subscription
+    subscriptions.build_provisional
   end
 
   def active_subscription_end_date
