@@ -34,7 +34,7 @@ class AdminMailer < ActionMailer::Base
   end
 
   def renewing_organizations_notice
-    @organizations = Organization.billing_this_month
+    @organizations = Organization.billing_next_month
     recipients = ADMIN_RECIPIENTS
 
     count = @organizations.count

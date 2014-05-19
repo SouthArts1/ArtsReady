@@ -27,11 +27,11 @@ FactoryGirl.define do
 
     factory :expiring_subscription do
       ignore do
-        expiration_date { Time.zone.now + 1.month }
+        expiration { Time.zone.now }
       end
 
-      expiry_month { expiration_date.month }
-      expiry_year { expiration_date.year }
+      expiry_month { expiration.month }
+      expiry_year { expiration.year }
     end
   end
 end

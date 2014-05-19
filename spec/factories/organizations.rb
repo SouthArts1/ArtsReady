@@ -16,6 +16,7 @@ FactoryGirl.define do
       member_count nil
       completed_answers_count nil
       to_do_usage nil
+      renewing_in nil
     end
 
     after_build do |org, evaluator|
@@ -23,6 +24,12 @@ FactoryGirl.define do
         org.users << FactoryGirl.build_list(
           :member, evaluator.member_count.to_i,
           :organization => org)
+      end
+
+      if evaluator.renewing_in
+        count, unit = evaluator.renewing_in.split(/\s+/)
+        time = (count == 'a' ? 1 : count.to_i).send(unit)
+        org.next_billing_date = Time.zone.today + time
       end
     end
 
@@ -85,12 +92,6 @@ FactoryGirl.define do
 
     factory :paid_organization do
       paid
-
-      factory :renewing_organization do
-        name 'Renewing Organization'
-
-        next_billing_date { Time.zone.today + 1.month }
-      end
 
       factory :expiring_organization do
         name 'Expiring Organization'

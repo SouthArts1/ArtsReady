@@ -24,14 +24,14 @@ Feature: Admin billing management
     Then I can update the organization's next billing date
 
   Scenario: Monthly admin notifications
-    Given the following renewing organization exists:
-      | Name    | Member Count |
-      | Renewer | 1            |
+    Given today is the first of the month
+    Given the following organization exists:
+      | Name    | Member Count | Renewing in |
+      | Renewer | 1            | 45 days     |
     And the following expiring organization exists:
       | Name    | Member Count |
       | Expirer | 1            |
     And I have paid for my subscription
-    And today is the first of the month
     And the scheduled tasks have run
     Then admins should receive a renewing organizations notice for "Renewer"
     And admins should receive an expiring credit card admin notice for "Expirer"
