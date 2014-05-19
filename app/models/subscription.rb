@@ -15,11 +15,11 @@ class Subscription < ActiveRecord::Base
   before_update :update_arb_subscription, :unless => :skip_callbacks
 
   validates_presence_of :billing_first_name, :billing_last_name,
-    :billing_address, :billing_city, :billing_state, :billing_zipcode
+    :billing_address, :billing_city, :billing_state, :billing_zipcode,
+    :billing_email
   validates_inclusion_of :payment_type, in: %w(cc bank),
     message: 'must be Credit Card or Bank Account',
     allow_nil: true # for updates that don't include payment info
-  validates_presence_of :billing_email, on: :create
   validates_presence_of :number, :expiry_month, :expiry_year, :ccv,
     if: :submitted_as_cc?
   validates_presence_of :routing_number, :account_number, :bank_name,
