@@ -217,7 +217,7 @@ And(/^the next billing date for "([^"]*)" is extended by (\d+) days$/) do |org_n
   expect(Date.parse($1)).to eq(Date.today + days)
 end
 
-And(/^I should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
+And(/^admins should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
   notices = unread_emails_for('admin@artsready.org').select do |m|
     m.subject =~ /organization has expired/
   end
@@ -226,12 +226,12 @@ And(/^I should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
   expect(notices.last.body).to include org_name
 end
 
-Then(/^I should receive a renewing organizations notice for "(.*)"$/) do |org_name|
-  message = find_email!(@current_user.email, with_subject: 'renewing soon')
+Then(/^admins should receive a renewing organizations notice for "(.*)"$/) do |org_name|
+  message = find_email!('admin@artsready.org', with_subject: 'renewing soon')
   expect(message.body).to include org_name
 end
 
-And(/^I should receive an expiring credit card admin notice for "([^"]*)"$/) do |org_name|
-  message = find_email!(@current_user.email, with_subject: 'expiring soon')
+And(/^admins should receive an expiring credit card admin notice for "([^"]*)"$/) do |org_name|
+  message = find_email!('admin@artsready.org', with_subject: 'expiring soon')
   expect(message.body).to include org_name
 end

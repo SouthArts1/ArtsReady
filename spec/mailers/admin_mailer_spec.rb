@@ -35,10 +35,10 @@ describe AdminMailer do
       User.stub(:admin_emails).and_return([admin_email])
     end
 
-    it 'sends the list to admins' do
+    it 'sends the list to admin@artsready.org' do
       mail = AdminMailer.renewing_organizations_notice
 
-      expect(mail.to).to eq([admin_email])
+      expect(mail.to).to eq(['admin@artsready.org'])
       expect(mail.subject).to include 'renewing soon'
       expect(mail.body).to include 'Renewing Org'
       expect(mail.body).to include edit_admin_organization_path(renewing_org)
@@ -61,10 +61,10 @@ describe AdminMailer do
       User.stub(:admin_emails).and_return([admin_email])
     end
 
-    it 'sends the list to admins' do
+    it 'sends the list to admin@artsready.org' do
       mail = AdminMailer.credit_card_expiring_organizations_notice
 
-      expect(mail.to).to eq([admin_email])
+      expect(mail.to).to eq(['admin@artsready.org'])
       expect(mail.subject).to include 'expiring soon'
       expect(mail.body).to include 'Expiring Org'
       expect(mail.body).to include edit_admin_organization_path(expiring_org)

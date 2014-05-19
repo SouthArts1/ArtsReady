@@ -1,4 +1,6 @@
 class AdminMailer < ActionMailer::Base
+  ADMIN_RECIPIENTS = ['admin@artsready.org']
+
   default :from => "no-reply@artsready.org"
   layout 'email'
   helper :layout
@@ -24,16 +26,16 @@ class AdminMailer < ActionMailer::Base
   end
   
   def subscription_renewal(organization)
-    mail :to => "admin@artsready.org; info@artsready.org", :subject => "An organization is coming up for renewal", :body => "#{organization.name} is coming up for renewal of #{money_from_cents organization.subscription.regular_amount_in_cents} in #{organization.subscription.days_left_until_rebill} days."
+    mail :to => ADMIN_RECIPIENTS, :subject => "An organization is coming up for renewal", :body => "#{organization.name} is coming up for renewal of #{money_from_cents organization.subscription.regular_amount_in_cents} in #{organization.subscription.days_left_until_rebill} days."
   end
   
   def organization_expired(organization)
-    mail :to => "admin@artsready.org; info@artsready.org", :subject => "An organization has expired", :body => "#{organization.name} has been marked expired in ArtsReady."
+    mail :to => ADMIN_RECIPIENTS, :subject => "An organization has expired", :body => "#{organization.name} has been marked expired in ArtsReady."
   end
 
   def renewing_organizations_notice
     @organizations = Organization.billing_this_month
-    recipients = User.admin_emails
+    recipients = ADMIN_RECIPIENTS
 
     count = @organizations.count
     noun = 'ArtsReady organizations'.pluralize(count)
@@ -44,7 +46,7 @@ class AdminMailer < ActionMailer::Base
 
   def credit_card_expiring_organizations_notice
     @organizations = Organization.credit_card_expiring_this_month
-    recipients = User.admin_emails
+    recipients = ADMIN_RECIPIENTS
 
     count = @organizations.count
     noun = 'ArtsReady credit cards'.pluralize(count)

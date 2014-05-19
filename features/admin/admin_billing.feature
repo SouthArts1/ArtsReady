@@ -33,8 +33,8 @@ Feature: Admin billing management
     And I have paid for my subscription
     And today is the first of the month
     And the scheduled tasks have run
-    Then I should receive a renewing organizations notice for "Renewer"
-    And I should receive an expiring credit card admin notice for "Expirer"
+    Then admins should receive a renewing organizations notice for "Renewer"
+    And admins should receive an expiring credit card admin notice for "Expirer"
 
   Scenario: Subscriptions expire
     Given the following paid organizations exist:
@@ -46,4 +46,4 @@ Feature: Admin billing management
     When the date is March 21, 2025
     And we receive automatic payment notifications for "Renewing Org"
     And the scheduled tasks have run
-    Then I should receive an admin expiration notice for "Expiring Org"
+    Then admins should receive an admin expiration notice for "Expiring Org"
