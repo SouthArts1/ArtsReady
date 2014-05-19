@@ -10,11 +10,10 @@ task :cron => :environment do
     Reminder.todos_nearly_due
   end
 
-  # Temporarily disabled: https://www.pivotaltracker.com/story/show/70452188
-  # if Time.zone.today.day == 1
-  #   AdminMailer.renewing_organizations_notice.deliver
-  #   AdminMailer.credit_card_expiring_organizations_notice.deliver
-  # end
+  if Time.zone.today.day == 1
+    AdminMailer.renewing_organizations_notice.deliver
+    AdminMailer.credit_card_expiring_organizations_notice.deliver
+  end
 
   Organization.send_renewal_reminders
   Organization.send_credit_card_expiration_notices
