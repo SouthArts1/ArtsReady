@@ -11,7 +11,7 @@ Then(/^I can edit the "([^"]*)" email template$/) do |template|
   click_on 'Save'
 end
 
-Given(/^I can preview the "([^"]*)" email template$/) do |template|
+Given(/^I can preview the "(renewal reminder)" email template$/) do |template|
   click_on template
   click_on 'Preview'
 
@@ -35,4 +35,15 @@ Given(/^I can preview the "([^"]*)" email template$/) do |template|
   click_on 'Save'
   click_on template
   expect(find_field('Subject').value).to eq new_subject
+end
+
+Given(/^I can preview the "(credit card expiration)" email template$/) do |template|
+  click_on 'Manage Email Templates'
+  click_on template
+  click_on 'Preview'
+
+  date = (Time.zone.today + 30).to_s(:long)
+
+  expect(page).
+    to have_content "before #{date}."
 end
