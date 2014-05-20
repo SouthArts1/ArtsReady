@@ -2,5 +2,5 @@ The following organization(s) have credit cards expiring this month:
 
 <% @organizations.each do |org| %>
   <% url = edit_admin_organization_url(org) %>
-  <%= org.next_billing_date.to_s(:slashed) %> <%= org.name %> <%= url %>
+  <%= org.name %> <%= url %>
 <% end %>
