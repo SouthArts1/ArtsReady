@@ -331,4 +331,6 @@ Then(/^I should receive a credit card expiration notice$/) do
   open_email(address, with_subject: /card will expire in 30 days/)
 
   expect(current_email.body).to include 'update'
+  expect(current_email.body).
+    to include 'June  1, 2023' # see "my credit card expires" step
 end
