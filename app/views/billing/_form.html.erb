@@ -13,39 +13,39 @@
   <%= f.hidden_field :organization_id, value: @organization.id %>
   <%= f.hidden_field :discount_code_id, value: @subscription.discount_code_id %>
 
-  <p>
+  <div class="field">
     <%= f.label :billing_first_name %>
     <%= f.text_field :billing_first_name, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
 
-  <p><%= f.label :billing_last_name %>
+  <div class="field"><%= f.label :billing_last_name %>
     <%= f.text_field :billing_last_name, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
 
-  <p><%= f.label :billing_address %>
+  <div class="field"><%= f.label :billing_address %>
     <%= f.text_field :billing_address, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
 
-  <p><%= f.label :billing_city %>
+  <div class="field"><%= f.label :billing_city %>
     <%= f.text_field :billing_city, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
 
-  <p><%= f.label :billing_state %>
+  <div class="field"><%= f.label :billing_state %>
     <%= f.text_field :billing_state, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
 
-  <p><%= f.label :billing_zipcode, "Billing zip code" %>
+  <div class="field"><%= f.label :billing_zipcode, "Billing zip code" %>
     <%= f.text_field :billing_zipcode, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
 
-  <p><%= f.label :billing_phone_number, "Billing phone number" %>
+  <div class="field"><%= f.label :billing_phone_number, "Billing phone number" %>
     <%= f.text_field :billing_phone_number, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
-  <br/>
+  </div>
 
-  <p><%= f.label :billing_email, "Billing email" %>
+
+  <div class="field"><%= f.label :billing_email, "Billing email" %>
     <%= f.text_field :billing_email, required: true, :onkeypress => "return handleEnter(this,event)" %>
-    <br/></p>
+  </div>
   <br/>
   Payment information:
   <br/><br/>
@@ -103,7 +103,10 @@
       <tr>
         <td><p>Credit Card Number:</p></td>
         <td>
-          <p><%= f.text_field :number, :onkeypress => "return handleEnter(this,event)" %> <%= image_tag "cc_image.jpg", :width => "120px" %></p>
+          <div class="field">
+            <%= f.text_field :number, :onkeypress => "return handleEnter(this,event)" %>
+            <%= image_tag "cc_image.jpg", :width => "120px" %>
+          </div>
 
           <p id="bad_card" style="color:#ff0000; display:none;">Credit Card
             Number is invalid.</p></td>
@@ -111,16 +114,18 @@
       <tr>
         <td><p>Expiration Date:</p></td>
         <td>
-          <p>
+          <div class="field">
             <%= f.select :expiry_month, 1..12, :onkeypress => "return handleEnter(this,event)" %>
             <%= f.select :expiry_year, (Time.now.year..Time.now.year + 10), :onkeypress => "return handleEnter(this,event)" %>
-          </p>
+          </div>
         </td>
       </tr>
       <tr>
         <td><p>Verification Number (CCV):</p></td>
         <td>
-          <p><%= f.text_field :ccv, :onkeypress => "return handleEnter(this,event)" %></p>
+          <div class="field">
+            <%= f.text_field :ccv, :onkeypress => "return handleEnter(this,event)" %>
+          </div>
         </td>
       </tr>
     </table>
@@ -144,25 +149,33 @@
       <tr>
         <td><p>Bank Name:</p></td>
         <td>
-          <p><%= f.text_field :bank_name, :onkeypress => "return handleEnter(this,event)" %></p>
+          <div class="field">
+            <%= f.text_field :bank_name, :onkeypress => "return handleEnter(this,event)" %>
+          </div>
         </td>
       </tr>
       <tr>
         <td><p>Account Type:</p></td>
         <td>
-          <p><%= f.select :account_type, ["Checking", "Savings"], :onkeypress => "return handleEnter(this,event)" %></p>
+          <div class="field">
+            <%= f.select :account_type, ["Checking", "Savings"], :onkeypress => "return handleEnter(this,event)" %>
+          </div>
         </td>
       </tr>
       <tr>
         <td><p>ABA Routing Number:</p></td>
         <td>
-          <p><%= f.text_field :routing_number, :onkeypress => "return handleEnter(this,event)" %></p>
+          <div class="field">
+            <%= f.text_field :routing_number, :onkeypress => "return handleEnter(this,event)" %>
+          </div>
         </td>
       </tr>
       <tr>
         <td><p>Account Number:</p></td>
         <td>
-          <p><%= f.text_field :account_number, :onkeypress => "return handleEnter(this,event)" %></p>
+          <div class="field">
+            <%= f.text_field :account_number, :onkeypress => "return handleEnter(this,event)" %>
+          </div>
         </td>
       </tr>
     </table>

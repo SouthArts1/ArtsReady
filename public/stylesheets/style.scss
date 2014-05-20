@@ -239,6 +239,8 @@ input {
 }
 
 .field_with_errors {
+  display: inline;
+
   label { color: red; }
   input, textarea, select {
     background-color: #ffeeee;
@@ -694,8 +696,11 @@ thead, tfoot {
     margin: 5px, 10px;
     color: #fff; } }
 
-table p {
-  margin: 5px 10px; }
+table {
+  p, .field {
+    margin: 5px 10px;
+  }
+}
 
 tbody {
   td {
