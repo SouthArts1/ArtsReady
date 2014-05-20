@@ -235,3 +235,16 @@ And(/^admins should receive an expiring credit card admin notice for "([^"]*)"$/
   message = find_email!('admin@artsready.org', with_subject: 'expiring soon')
   expect(message.body).to include org_name
 end
+
+
+And(/^admins should receive a failed payment form notification$/) do
+  message = find_email!('admin@artsready.org', with_subject: 'ArtsReady payment submission error')
+
+  expect(message.body).to include 'cannot be processed'
+  expect(message.body).to include @current_user.email
+  expect(message.body).to include @current_user.organization_name
+  expect(message.body).to include(
+    edit_admin_organization_url(@current_user.organization)
+  )
+  expect(message.body).to include('XXXXXXXXXXX')
+end

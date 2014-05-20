@@ -1,0 +1,14 @@
+Authorize.Net returned a transaction error:
+
+<%= @response.message_text %>
+
+Organization: <%= @subscription.organization_name %>
+<%= edit_admin_organization_url(@subscription.organization) %>
+
+Current user: <%= @user.name %>
+<%= @user.email %>
+
+Transaction data:
+<% @transaction.fields.each do |key, value| %>
+  <%= key %>: <%= safe_payment_input_value(value, key) %>
+<% end %>

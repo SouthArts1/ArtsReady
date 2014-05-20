@@ -49,7 +49,12 @@ Feature: New organization registration
 
   Scenario: Sign up with invalid billing data
     When I sign up and pay with invalid billing data
+    Then the billing form is rejected with the message "can't be blank"
+
+  Scenario: Sign up rejected by payment gateway
+    When I sign up and pay and am rejected by the payment gateway
     Then the billing form is rejected
+    And admins should receive a failed payment form notification
 
 # When we upgraded to Capybara 2.1 and Poltergeist 1.5.0, the "should be
 # signed in" step seemingly stopped waiting for the new page to load, and

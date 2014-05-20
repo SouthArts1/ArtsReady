@@ -64,6 +64,12 @@ class BillingController < ApplicationController
     else
       flash.now[:notice] = UNSPECIFIED_ERROR_MESSAGE
       render 'new'
+
+      if @subscription.failed_transaction_response
+        AdminMailer.payment_submission_error(
+          @subscription, current_user
+        ).deliver
+      end
     end
   end
 

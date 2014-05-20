@@ -8,6 +8,7 @@ class Subscription < ActiveRecord::Base
     :bank_name, :account_type, :routing_number, :account_number,
     :payment_type,
     :skip_authorization
+  attr_accessor :failed_transaction_response
   alias_method :skip_authorization?, :skip_authorization
 
   before_validation :initialize_start_date, on: :create
@@ -29,6 +30,7 @@ class Subscription < ActiveRecord::Base
   validate :credit_card_must_not_have_expired_by_billing_date
 
   delegate :next_billing_date, :days_left_until_rebill, to: :organization
+  delegate :name, to: :organization, prefix: true
   accepts_nested_attributes_for :organization
 
   scope :credit_card_expiring_this_month, -> {
@@ -287,6 +289,8 @@ class Subscription < ActiveRecord::Base
           response_response: (response.response rescue nil).inspect
         }
       )
+
+      self.failed_transaction_response = response
     end
 
     success = response.success? || (response.response.response_reason_text.include?("ACH") rescue false)

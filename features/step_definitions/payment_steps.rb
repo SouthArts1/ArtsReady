@@ -232,6 +232,19 @@ When(/^I sign up and pay with invalid billing data$/) do
     submit
 end
 
+When /^I sign up and pay and am rejected by the payment gateway$/ do
+  step %{I sign up}
+
+  BillingFormTestPage.new(self).
+    fill_out.
+    enter_payment(
+      BillingFormTestPage.payment_method('savings account',
+        subscription_account_number: '4222222222222'
+      )
+    ).
+    submit
+end
+
 Given(/^my credit card expires in (\d+) days$/) do |days|
   Timecop.freeze(Time.zone.parse('June 1, 2022'))
 
@@ -245,10 +258,10 @@ Given(/^my credit card expires in (\d+) days$/) do |days|
     submit
 end
 
-Then(/^the billing form is rejected$/) do
+Then(/^the billing form is rejected(?: with the message "(.*)")?$/) do |message|
   expect(current_path).to eq(billing_path)
   expect(page).to have_content 'a problem processing your request'
-  expect(page).to have_content "can't be blank"
+  expect(page).to have_content message if message
 end
 
 When /^I sign up using the discount code$/ do

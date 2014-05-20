@@ -3,12 +3,7 @@ class AdminMailer < ActionMailer::Base
 
   default :from => "no-reply@artsready.org"
   layout 'email'
-  helper :layout
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.admin.review_public.subject
-  #
+  helper :layout, :billing
 
   def new_organization(organization,admin)
     @organization = organization
@@ -24,7 +19,16 @@ class AdminMailer < ActionMailer::Base
     @comment = comment
     mail :to => admin.email, :subject => "There is a new comment to review."
   end
-  
+
+  def payment_submission_error(subscription, user)
+    @subscription = subscription
+    @response = subscription.failed_transaction_response
+    @transaction = @response.transaction
+    @user = user
+
+    mail to: ADMIN_RECIPIENTS, subject: 'ArtsReady payment submission error'
+  end
+
   def subscription_renewal(organization)
     mail :to => ADMIN_RECIPIENTS, :subject => "An organization is coming up for renewal", :body => "#{organization.name} is coming up for renewal of #{money_from_cents organization.subscription.regular_amount_in_cents} in #{organization.subscription.days_left_until_rebill} days."
   end
