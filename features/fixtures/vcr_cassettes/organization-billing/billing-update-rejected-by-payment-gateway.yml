@@ -1,0 +1,751 @@
+--- 
+http_interactions: 
+- request: 
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Date: 
+      - Tue, 20 May 2014 18:57:53 GMT
+      Expires: 
+      - Wed, 21 May 2014 18:57:53 GMT
+      Cache-Control: 
+      - public, max-age=86400
+      Access-Control-Allow-Origin: 
+      - "*"
+      Server: 
+      - mafe
+      X-Xss-Protection: 
+      - 1; mode=block
+      X-Frame-Options: 
+      - SAMEORIGIN
+      Alternate-Protocol: 
+      - 80:quic
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Test Kitchen",
+                       "short_name" : "Test Kitchen",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "88",
+                       "short_name" : "88",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "West Broadway",
+                       "short_name" : "W Broadway",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10007",
+                       "short_name" : "10007",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "1195",
+                       "short_name" : "1195",
+                       "types" : []
+                    }
+                 ],
+                 "formatted_address" : "Test Kitchen, 88 West Broadway, New York, NY 10007, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7153919,
+                       "lng" : -74.00960409999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7167408802915,
+                          "lng" : -74.00825511970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7140429197085,
+                          "lng" : -74.01095308029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "short_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "48",
+                       "short_name" : "48",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Wall Street",
+                       "short_name" : "Wall St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10005",
+                       "short_name" : "10005",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc., 48 Wall Street, New York, NY 10005, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7063559,
+                       "lng" : -74.00924689999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7077048802915,
+                          "lng" : -74.00789791970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7050069197085,
+                          "lng" : -74.01059588029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:57:54 GMT
+- request: 
+    method: get
+    uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
+    body: 
+      encoding: US-ASCII
+      string: ""
+    headers: 
+      Accept-Encoding: 
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Content-Type: 
+      - application/json; charset=UTF-8
+      Date: 
+      - Tue, 20 May 2014 18:57:54 GMT
+      Expires: 
+      - Wed, 21 May 2014 18:57:54 GMT
+      Cache-Control: 
+      - public, max-age=86400
+      Access-Control-Allow-Origin: 
+      - "*"
+      Server: 
+      - mafe
+      X-Xss-Protection: 
+      - 1; mode=block
+      X-Frame-Options: 
+      - SAMEORIGIN
+      Alternate-Protocol: 
+      - 80:quic
+      Transfer-Encoding: 
+      - chunked
+    body: 
+      encoding: US-ASCII
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "Test Kitchen",
+                       "short_name" : "Test Kitchen",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "88",
+                       "short_name" : "88",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "West Broadway",
+                       "short_name" : "W Broadway",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10007",
+                       "short_name" : "10007",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "1195",
+                       "short_name" : "1195",
+                       "types" : []
+                    }
+                 ],
+                 "formatted_address" : "Test Kitchen, 88 West Broadway, New York, NY 10007, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7153919,
+                       "lng" : -74.00960409999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7167408802915,
+                          "lng" : -74.00825511970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7140429197085,
+                          "lng" : -74.01095308029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "short_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "48",
+                       "short_name" : "48",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Wall Street",
+                       "short_name" : "Wall St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10005",
+                       "short_name" : "10005",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc., 48 Wall Street, New York, NY 10005, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7063559,
+                       "lng" : -74.00924689999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7077048802915,
+                          "lng" : -74.00789791970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7050069197085,
+                          "lng" : -74.01059588029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
+              }
+           ],
+           "status" : "OK"
+        }
+
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:57:54 GMT
+- request: 
+    method: post
+    uri: https://test.authorize.net/gateway/transact.dll
+    body: 
+      encoding: US-ASCII
+      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=5555555555554444&x_exp_date=0117&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - application/x-www-form-urlencoded
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Connection: 
+      - close
+      Date: 
+      - Tue, 20 May 2014 18:57:56 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      X-Powered-By: 
+      - ASP.NET
+      Content-Type: 
+      - text/html
+      Content-Length: 
+      - "267"
+      Cache-Control: 
+      - private, must-revalidate, max-age=0
+      Expires: 
+      - Tue, 01 Jan 1980 00:00:00 GMT
+    body: 
+      encoding: US-ASCII
+      string: 1,1,1,This transaction has been approved.,7T76LM,Y,2213620581,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,EB0EDE61393CB85C1B707732420F4C8D,P,2,,,,,,,,,,,XXXX4444,MasterCard,,,,,,,,,,,,,,,,
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:57:56 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBCreateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscription>
+            <name>ArtsReady Yearly Subscription</name>
+            <paymentSchedule>
+              <interval>
+                <length>365</length>
+                <unit>days</unit>
+              </interval>
+              <startDate>2014-05-21</startDate>
+              <totalOccurrences>9999</totalOccurrences>
+              <trialOccurrences>1</trialOccurrences>
+            </paymentSchedule>
+            <amount>225.0</amount>
+            <trialAmount>300.0</trialAmount>
+            <payment>
+              <creditCard>
+                <cardNumber>5555555555554444</cardNumber>
+                <expirationDate>2017-01</expirationDate>
+                <cardCode>888</cardCode>
+              </creditCard>
+            </payment>
+            <order>
+              <description>My Org subscription for ArtsReady</description>
+            </order>
+            <customer>
+              <email>billing@example.com</email>
+            </customer>
+            <billTo>
+              <firstName>Bill</firstName>
+              <lastName>Lastname</lastName>
+              <company>My Org</company>
+              <address>100 Test St</address>
+              <city>New York</city>
+              <state>NY</state>
+              <zip>10001</zip>
+              <country>United States</country>
+            </billTo>
+          </subscription>
+        </ARBCreateSubscriptionRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Tue, 20 May 2014 18:57:57 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - "*"
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "401"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2086149</subscriptionId></ARBCreateSubscriptionResponse>"
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:57:57 GMT
+- request: 
+    method: post
+    uri: https://test.authorize.net/gateway/transact.dll
+    body: 
+      encoding: US-ASCII
+      string: x_duplicate_window=0&x_method=CC&x_card_num=4222222222222&x_exp_date=0518&x_card_code=222&x_amount=225.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - application/x-www-form-urlencoded
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Connection: 
+      - close
+      Date: 
+      - Tue, 20 May 2014 18:58:00 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      X-Powered-By: 
+      - ASP.NET
+      Content-Type: 
+      - text/html
+      Content-Length: 
+      - "185"
+      Cache-Control: 
+      - private, must-revalidate, max-age=0
+      Expires: 
+      - Tue, 01 Jan 1980 00:00:00 GMT
+    body: 
+      encoding: US-ASCII
+      string: 1,1,1,This transaction has been approved.,SG5MTV,Y,2213620583,,,225.00,CC,auth_only,,,,,,,,,,,,,,,,,,,,,,,,,,81B5DBF94C8B9F50F5651298B7877D08,P,2,,,,,,,,,,,XXXX2222,Visa,,,,,,,,,,,,,,,,
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:58:00 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBUpdateSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscriptionId>2086149</subscriptionId>
+          <subscription>
+            <amount>225.0</amount>
+            <trialAmount>300.0</trialAmount>
+            <payment>
+              <creditCard>
+                <cardNumber>4222222222222</cardNumber>
+                <expirationDate>2018-05</expirationDate>
+                <cardCode>222</cardCode>
+              </creditCard>
+            </payment>
+            <customer>
+              <email>update@test.host</email>
+            </customer>
+            <billTo>
+              <firstName>Bill</firstName>
+              <lastName>Lastname</lastName>
+              <company>My Org</company>
+              <address>100 Test St</address>
+              <city>New York</city>
+              <state>NY</state>
+              <zip>10001</zip>
+              <country>United States</country>
+            </billTo>
+          </subscription>
+        </ARBUpdateSubscriptionRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Tue, 20 May 2014 18:58:01 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - "*"
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "437"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBUpdateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Error</resultCode><message><code>E00027</code><text>The test transaction was not successful. (225) This transaction cannot be processed.</text></message></messages></ARBUpdateSubscriptionResponse>"
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:58:01 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBGetSubscriptionStatusRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscriptionId>2086149</subscriptionId>
+        </ARBGetSubscriptionStatusRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Tue, 20 May 2014 18:58:02 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - "*"
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "459"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:58:02 GMT
+- request: 
+    method: post
+    uri: https://apitest.authorize.net/xml/v1/request.api
+    body: 
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ARBCancelSubscriptionRequest xmlns="AnetApi/xml/v1/schema/AnetApiSchema.xsd">
+          <merchantAuthentication>
+            <name>7932FsrFV</name>
+            <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
+          </merchantAuthentication>
+          <subscriptionId>2086149</subscriptionId>
+        </ARBCancelSubscriptionRequest>
+
+    headers: 
+      Accept: 
+      - "*/*"
+      User-Agent: 
+      - Ruby
+      Content-Type: 
+      - text/xml
+  response: 
+    status: 
+      code: 200
+      message: OK
+    headers: 
+      Date: 
+      - Tue, 20 May 2014 18:58:02 GMT
+      Server: 
+      - Microsoft-IIS/6.0
+      Access-Control-Allow-Origin: 
+      - "*"
+      Access-Control-Allow-Methods: 
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Headers: 
+      - x-requested-with, cache-control, content-type, origin, method
+      X-Powered-By: 
+      - ASP.NET
+      X-Aspnet-Version: 
+      - 2.0.50727
+      Cache-Control: 
+      - private
+      Content-Type: 
+      - text/xml; charset=utf-8
+      Content-Length: 
+      - "361"
+    body: 
+      encoding: ASCII-8BIT
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
+    http_version: 
+  recorded_at: Tue, 20 May 2014 18:58:02 GMT
+recorded_with: VCR 2.9.0

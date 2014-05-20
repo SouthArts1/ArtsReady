@@ -14,6 +14,12 @@ Feature: Organization billing
     And I update my subscription
     Then my billing info should reflect manual renewal
 
+  Scenario: Billing update rejected by payment gateway
+    When I sign up and pay
+    And I update my subscription and am rejected by the payment gateway
+    Then the billing form is rejected
+    And admins should receive a failed payment form notification
+
   Scenario: Change payment type
     Given the date is March 19, 2024
     When I sign up and pay with a checking account

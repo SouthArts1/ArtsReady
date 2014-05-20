@@ -3,6 +3,7 @@ class BillingController < ApplicationController
   UNSPECIFIED_ERROR_MESSAGE =
     "There was a problem processing your request. " +
     "Please check your billing address and payment information and try again."
+  after_filter :report_failed_transaction, only: [:create, :update]
 
   def new
     if current_org || (session[:organization_id] != nil && session[:organization_id] != "")
@@ -64,12 +65,6 @@ class BillingController < ApplicationController
     else
       flash.now[:notice] = UNSPECIFIED_ERROR_MESSAGE
       render 'new'
-
-      if @subscription.failed_transaction_response
-        AdminMailer.payment_submission_error(
-          @subscription, current_user
-        ).deliver
-      end
     end
   end
 
@@ -110,6 +105,7 @@ class BillingController < ApplicationController
   end
   
   def cancel
+    # FIXME: move admin functionality to admin controller
     if current_user.is_admin? && params[:id] != nil
       @subscription = Organization.find(params[:id]).subscription
     else
@@ -125,6 +121,26 @@ class BillingController < ApplicationController
       end
     else 
       redirect_to :back, notice: "There was a problem cancelling your subscription.  Please contact ArtsReady for assistance."
+    end
+  end
+
+  private
+
+  def report_failed_transaction
+    response = @subscription.failed_transaction_response
+
+    if response
+      Airbrake.notify_or_ignore(nil,
+        error_message: 'ARB response',
+        parameters: {
+          response: response.inspect.gsub(/([0-9]{2})[0-9]{10}[0-9]*/, '0x\1L0NGNUMB3R'),
+          response_response: (response.response rescue nil).inspect
+        }
+      )
+
+      AdminMailer.payment_submission_error(
+        @subscription, current_user
+      ).deliver
     end
   end
 

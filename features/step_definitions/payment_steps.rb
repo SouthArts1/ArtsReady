@@ -138,19 +138,27 @@ When /^I fill out and submit the billing form$/ do
     submit
 end
 
-When(/^I update my subscription$/) do
+When(/^I update my subscription( and am rejected.*)?$/) do |rejected|
   visit dashboard_path
   click_on 'Visit Billing'
   click_on 'Update Billing/Payment Information'
 
   fill_in 'Billing email', with: 'update@test.host'
 
+  credit_card_details = {
+    'subscription_expiry_month' => 5,
+    'subscription_expiry_year' => (Time.now.year + 4).to_s,
+    'subscription_ccv' => '222'
+  }
+
+  if rejected
+    credit_card_details[:subscription_number] = '4222222222222'
+  end
+
   BillingFormTestPage.new(self).
     enter_payment(
       BillingFormTestPage.payment_method('credit card',
-        'subscription_expiry_month' => 5,
-        'subscription_expiry_year' => (Time.now.year + 4).to_s,
-        'subscription_ccv' => '222'
+        credit_card_details
       )
     ).submit
 end

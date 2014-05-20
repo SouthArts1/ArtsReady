@@ -282,14 +282,6 @@ class Subscription < ActiveRecord::Base
     response = arb_tran.create(arb_sub)
 
     if !response.success?
-      Airbrake.notify_or_ignore(nil,
-        error_message: 'ARB response',
-        parameters: {
-          response: response.inspect.gsub(/([0-9]{2})[0-9]{10}[0-9]*/, '0x\1L0NGNUMB3R'),
-          response_response: (response.response rescue nil).inspect
-        }
-      )
-
       self.failed_transaction_response = response
     end
 
@@ -381,7 +373,12 @@ class Subscription < ActiveRecord::Base
       self.organization.update_attribute(:active, true)
       self.active = true
       self.end_date = nil
-      return true
+
+      true
+    else
+      self.failed_transaction_response = response
+
+      false
     end
   end
 
