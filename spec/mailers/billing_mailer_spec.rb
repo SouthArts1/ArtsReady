@@ -20,6 +20,7 @@ describe BillingMailer do
     end
 
     it "mails the organization's billing contact(s)" do
+      expect(mail.content_type).to include 'text/html'
       expect(mail.to).to eq [recipients]
       expect(mail.subject).to eq 'rendered subject'
       expect(mail.body).to eq 'rendered body'

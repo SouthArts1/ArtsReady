@@ -34,6 +34,7 @@ class BillingMailer < ActionMailer::Base
 
     mail to: model.billing_emails,
       subject: rendering.subject,
-      body: rendering.body
+      body: rendering.body,
+      content_type: 'text/html'
   end
 end
