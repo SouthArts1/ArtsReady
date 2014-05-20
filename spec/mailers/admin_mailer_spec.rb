@@ -22,7 +22,7 @@ describe AdminMailer do
   describe 'renewing_organizations_notice' do
     let(:admin_email) { 'adminemail@example.org' }
     let(:renewing_org) {
-      FactoryGirl.build_stubbed(:renewing_organization,
+      FactoryGirl.build_stubbed(:paid_organization,
         name: 'Renewing Org'
       )
     }
@@ -30,7 +30,7 @@ describe AdminMailer do
     before do
       orgs = [renewing_org]
       orgs.stub(:order).and_return(orgs)
-      Organization.stub(:billing_this_month).and_return(orgs)
+      Organization.stub(:billing_next_month).and_return(orgs)
 
       User.stub(:admin_emails).and_return([admin_email])
     end
@@ -48,7 +48,7 @@ describe AdminMailer do
   describe 'credit_card_expiring_organizations_notice' do
     let(:admin_email) { 'adminemail@example.org' }
     let(:expiring_org) {
-      FactoryGirl.build_stubbed(:expiring_organization,
+      FactoryGirl.build_stubbed(:paid_organization,
         name: 'Expiring Org'
       )
     }
