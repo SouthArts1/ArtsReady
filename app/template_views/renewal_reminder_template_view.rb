@@ -7,7 +7,14 @@ class RenewalReminderTemplateView < TemplateView
     organization.next_billing_date.to_s(:long)
   end
 
+  def organization_name
+    organization.name
+  end
+
   def self.model_for_preview
-    Organization.new(next_billing_date: Time.zone.today + 30)
+    Organization.new(
+      next_billing_date: Time.zone.today + 30,
+      name: 'Name of Organization'
+    )
   end
 end

@@ -42,8 +42,7 @@ Given(/^I can preview the "(credit card expiration)" email template$/) do |templ
   click_on template
   click_on 'Preview'
 
-  date = (Time.zone.today + 30).to_s(:long)
+  date = (Time.zone.today + 30)
 
-  expect(page).
-    to have_content "before #{date}."
+  expect(page).to have_content "before #{date.to_s(:long)}"
 end
