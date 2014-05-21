@@ -246,8 +246,8 @@ When /^I sign up and pay and am rejected by the payment gateway$/ do
   BillingFormTestPage.new(self).
     fill_out.
     enter_payment(
-      BillingFormTestPage.payment_method('savings account',
-        subscription_account_number: '4222222222222'
+      BillingFormTestPage.payment_method('credit card',
+        subscription_number: '4222222222222'
       )
     ).
     submit
