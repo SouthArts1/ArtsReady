@@ -334,7 +334,6 @@ class Subscription < ActiveRecord::Base
     response = replacing ?
       arb_tran.create(arb_sub) :
       arb_tran.update(arb_sub)
-    Rails.logger.debug("Response: \n #{response.inspect}")
 
     if response.success? || (replacing && (response.response.response_reason_text.include?("ACH") rescue false))
       self.arb_id = response.subscription_id if response.subscription_id
