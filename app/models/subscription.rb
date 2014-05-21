@@ -249,22 +249,10 @@ class Subscription < ActiveRecord::Base
       arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
       self.payment_method = "#{self.account_type.capitalize} Account"
       self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
-    end
-    
-    # Payment Authorization
-    aim_tran = build_transaction(AuthorizeNet::AIM::Transaction, true)
-    
-    if self.payment_method == "Credit Card"
-      Rails.logger.debug("AIM TRAN: #{aim_tran.inspect}")
-      aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.credit_card)
-      Rails.logger.debug("AIM TRAN RESPONSE: #{aim_response.inspect}")
-    elsif self.payment_type == "bank"
-      aim_response = aim_tran.authorize((self.starting_amount_in_cents.to_f / 100), arb_sub.bank_account)
     else
       return false
     end
-    
-    return false unless aim_response.success? || provisional?
+
     # ARB doesn't support free subscriptions, so we bypass it in that case
     return false unless free_after_first_year? || create_arb_transaction(arb_sub)
 
@@ -314,13 +302,6 @@ class Subscription < ActiveRecord::Base
 
     set_payment_info(arb_sub)
 
-    if !provisional? && !skip_authorization?
-      amount = replacing ? starting_amount_in_cents : regular_amount_in_cents
-      aim_response = authorize_aim_transaction(arb_sub, amount, replacing)
-
-      return false unless aim_response && aim_response.success?
-    end
-
     return false unless update_or_replace_arb_subscription(arb_sub, replacing)
   end
 
@@ -342,19 +323,6 @@ class Subscription < ActiveRecord::Base
       self.payment_method  = "#{account_type.capitalize} Account"
       self.payment_number  = account_number.last(4)
     end
-  end
-
-  def authorize_aim_transaction(arb_sub, amount_in_cents, include_subscription_info)
-    aim_tran = build_transaction(
-      AuthorizeNet::AIM::Transaction, include_subscription_info)
-
-    payment_info = if payment_method == 'Credit Card'
-                     arb_sub.credit_card
-                   elsif payment_type == 'bank'
-                     arb_sub.bank_account
-                   end
-
-    aim_tran.authorize(amount_in_cents.to_f / 100, payment_info) if payment_info
   end
 
   def update_or_replace_arb_subscription(arb_sub, replacing)

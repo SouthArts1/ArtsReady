@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Subscription do
-  let(:aim_transaction) { double('AIM transaction') }
   let(:arb_subscription) { double('ARB subscription') }
   let(:arb_transaction) { double('ARB transaction') }
   let(:arb_id) { 6525121 }
@@ -9,15 +8,10 @@ describe Subscription do
   let(:card) { double('card') }
 
   before(:each) do
-    AuthorizeNet::AIM::Transaction.stub(:new).and_return(aim_transaction)
     AuthorizeNet::ARB::Subscription.stub(:new).and_return(arb_subscription)
     AuthorizeNet::ARB::Transaction.stub(:new).and_return(arb_transaction)
     AuthorizeNet::CreditCard.stub(:new).and_return(card)
 
-    aim_transaction.stub(:set_fields)
-    aim_transaction.stub(:set_address)
-    aim_transaction.stub(:set_customer)
-    aim_transaction.stub(:authorize).and_return(double(:success? => true))
     arb_transaction.stub(:set_fields)
     arb_transaction.stub(:set_address)
     arb_transaction.stub(:set_customer)
