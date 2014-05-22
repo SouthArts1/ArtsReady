@@ -19,9 +19,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Fri, 16 May 2014 16:54:07 GMT
+      - Wed, 21 May 2014 17:49:56 GMT
       Expires: 
-      - Sat, 17 May 2014 16:54:07 GMT
+      - Thu, 22 May 2014 17:49:56 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -199,7 +199,7 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:01 GMT
+  recorded_at: Tue, 19 Mar 2024 04:00:01 GMT
 - request: 
     method: get
     uri: http://maps.googleapis.com/maps/api/geocode/json?address=100%20Test%20St,%20New%20York,%20NY,%2010001&language=en&sensor=false
@@ -221,9 +221,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Fri, 16 May 2014 16:54:08 GMT
+      - Wed, 21 May 2014 17:49:56 GMT
       Expires: 
-      - Sat, 17 May 2014 16:54:08 GMT
+      - Thu, 22 May 2014 17:49:56 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -401,46 +401,7 @@ http_interactions:
         }
 
     http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:02 GMT
-- request: 
-    method: post
-    uri: https://test.authorize.net/gateway/transact.dll
-    body: 
-      encoding: US-ASCII
-      string: x_duplicate_window=0&x_first_name=Bill&x_last_name=Lastname&x_company=My+Org&x_address=100+Test+St&x_city=New+York&x_state=NY&x_zip=10001&x_country=United+States&x_email=billing%40example.com&x_method=CC&x_card_num=5555555555554444&x_exp_date=0127&x_card_code=888&x_amount=300.00&x_type=AUTH_ONLY&x_delim_char=%2C&x_delim_data=TRUE&x_login=7932FsrFV&x_tran_key=6UeP6mu624N7uc4Y&x_relay_response=FALSE&x_version=3.1&x_test_request=FALSE
-    headers: 
-      Accept: 
-      - "*/*"
-      User-Agent: 
-      - Ruby
-      Content-Type: 
-      - application/x-www-form-urlencoded
-  response: 
-    status: 
-      code: 200
-      message: OK
-    headers: 
-      Connection: 
-      - close
-      Date: 
-      - Fri, 16 May 2014 16:54:10 GMT
-      Server: 
-      - Microsoft-IIS/6.0
-      X-Powered-By: 
-      - ASP.NET
-      Content-Type: 
-      - text/html
-      Content-Length: 
-      - "267"
-      Cache-Control: 
-      - private, must-revalidate, max-age=0
-      Expires: 
-      - Tue, 01 Jan 1980 00:00:00 GMT
-    body: 
-      encoding: US-ASCII
-      string: 1,1,1,This transaction has been approved.,AY6KP9,Y,2213401349,,,300.00,CC,auth_only,,Bill,Lastname,My Org,100 Test St,New York,NY,10001,United States,,,billing@example.com,,,,,,,,,,,,,,0F26A30E42C29BD1C263C8D3817687EF,P,2,,,,,,,,,,,XXXX4444,MasterCard,,,,,,,,,,,,,,,,
-    http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:04 GMT
+  recorded_at: Tue, 19 Mar 2024 04:00:01 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -505,7 +466,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 16 May 2014 16:54:11 GMT
+      - Wed, 21 May 2014 17:49:58 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -526,9 +487,9 @@ http_interactions:
       - "401"
     body: 
       encoding: ASCII-8BIT
-      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2082917</subscriptionId></ARBCreateSubscriptionResponse>"
+      string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCreateSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><subscriptionId>2087227</subscriptionId></ARBCreateSubscriptionResponse>"
     http_version: 
-  recorded_at: Tue, 19 Mar 2024 05:00:05 GMT
+  recorded_at: Tue, 19 Mar 2024 04:00:02 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -541,7 +502,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2082917</subscriptionId>
+          <subscriptionId>2087227</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -557,7 +518,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 16 May 2014 16:54:12 GMT
+      - Wed, 21 May 2014 17:50:00 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -580,7 +541,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>active</status><Status>active</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Tue, 04 Mar 2025 06:00:06 GMT
+  recorded_at: Tue, 04 Mar 2025 05:00:04 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -593,7 +554,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2082917</subscriptionId>
+          <subscriptionId>2087227</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -609,7 +570,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 16 May 2014 16:54:13 GMT
+      - Wed, 21 May 2014 17:50:01 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -632,7 +593,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Tue, 04 Mar 2025 06:00:07 GMT
+  recorded_at: Tue, 04 Mar 2025 05:00:05 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -645,7 +606,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2082917</subscriptionId>
+          <subscriptionId>2087227</subscriptionId>
         </ARBGetSubscriptionStatusRequest>
 
     headers: 
@@ -661,7 +622,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 16 May 2014 16:54:15 GMT
+      - Wed, 21 May 2014 17:50:03 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -684,7 +645,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBGetSubscriptionStatusResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" note=\"Status with a capital 'S' is obsolete.\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00001</code><text>Successful.</text></message></messages><status>canceled</status><Status>canceled</Status></ARBGetSubscriptionStatusResponse>"
     http_version: 
-  recorded_at: Fri, 16 May 2014 16:54:15 GMT
+  recorded_at: Wed, 21 May 2014 17:50:03 GMT
 - request: 
     method: post
     uri: https://apitest.authorize.net/xml/v1/request.api
@@ -697,7 +658,7 @@ http_interactions:
             <name>7932FsrFV</name>
             <transactionKey>6UeP6mu624N7uc4Y</transactionKey>
           </merchantAuthentication>
-          <subscriptionId>2082917</subscriptionId>
+          <subscriptionId>2087227</subscriptionId>
         </ARBCancelSubscriptionRequest>
 
     headers: 
@@ -713,7 +674,7 @@ http_interactions:
       message: OK
     headers: 
       Date: 
-      - Fri, 16 May 2014 16:54:16 GMT
+      - Wed, 21 May 2014 17:50:04 GMT
       Server: 
       - Microsoft-IIS/6.0
       Access-Control-Allow-Origin: 
@@ -736,5 +697,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: "\xEF\xBB\xBF<?xml version=\"1.0\" encoding=\"utf-8\"?><ARBCancelSubscriptionResponse xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns=\"AnetApi/xml/v1/schema/AnetApiSchema.xsd\"><messages><resultCode>Ok</resultCode><message><code>I00002</code><text>The subscription has already been canceled.</text></message></messages></ARBCancelSubscriptionResponse>"
     http_version: 
-  recorded_at: Fri, 16 May 2014 16:54:16 GMT
+  recorded_at: Wed, 21 May 2014 17:50:04 GMT
 recorded_with: VCR 2.9.0

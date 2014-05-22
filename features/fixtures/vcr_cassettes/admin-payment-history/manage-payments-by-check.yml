@@ -21,9 +21,9 @@ http_interactions:
       Content-Type: 
       - application/json; charset=UTF-8
       Date: 
-      - Sat, 03 May 2014 06:38:37 GMT
+      - Wed, 21 May 2014 17:39:56 GMT
       Expires: 
-      - Sun, 04 May 2014 06:38:37 GMT
+      - Thu, 22 May 2014 17:39:56 GMT
       Cache-Control: 
       - public, max-age=86400
       Access-Control-Allow-Origin: 
@@ -121,11 +121,85 @@ http_interactions:
                  },
                  "partial_match" : true,
                  "types" : [ "point_of_interest", "establishment" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "short_name" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc.",
+                       "types" : [ "point_of_interest", "establishment" ]
+                    },
+                    {
+                       "long_name" : "48",
+                       "short_name" : "48",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Wall Street",
+                       "short_name" : "Wall St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Lower Manhattan",
+                       "short_name" : "Lower Manhattan",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "New York",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10005",
+                       "short_name" : "10005",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "New York Bar Exam Tutoring Services by VirtuAtt, Inc., 48 Wall Street, New York, NY 10005, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.7063559,
+                       "lng" : -74.00924689999999
+                    },
+                    "location_type" : "APPROXIMATE",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7077048802915,
+                          "lng" : -74.00789791970848
+                       },
+                       "southwest" : {
+                          "lat" : 40.7050069197085,
+                          "lng" : -74.01059588029149
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "types" : [ "point_of_interest", "establishment" ]
               }
            ],
            "status" : "OK"
         }
 
     http_version: 
-  recorded_at: Sat, 03 May 2014 06:38:37 GMT
+  recorded_at: Wed, 21 May 2014 17:39:56 GMT
 recorded_with: VCR 2.9.0
