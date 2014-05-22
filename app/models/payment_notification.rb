@@ -1,7 +1,7 @@
 class PaymentNotification < ActiveRecord::Base
   belongs_to :payment
 
-  attr_accessible :params
+  attr_accessible :params, :state
   serialize :params
 
   def capture?
