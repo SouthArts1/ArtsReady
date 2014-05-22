@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for feature in `find features -name '*.feature'`
+do
+  for line in `grep -n Scenario: $feature | grep -v ':#' | cut -d: -f1`
+  do
+    cucumber $feature:$line
+  done
+done
