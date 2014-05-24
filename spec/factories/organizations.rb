@@ -78,7 +78,7 @@ FactoryGirl.define do
       next_billing_date { ((created_at || Time.zone.now) + 1.day).to_date }
 
       ignore do
-        subscription_factory :subscription
+        subscription_factory :authorize_net_subscription
       end
 
       after_create do |org, evaluator|

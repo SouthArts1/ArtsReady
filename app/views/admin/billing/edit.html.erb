@@ -8,7 +8,7 @@
   <section>
     <h3>Billing Information:</h3>
 
-    <%= simple_form_for @subscription, url: [:admin, @organization, :billing] do |f| %>
+    <%= simple_form_for @subscription, as: :subscription, url: [:admin, @organization, :billing] do |f| %>
       <%= f.input :regular_amount %>
       <%= f.fields_for :organization do |ff| %>
         <%= ff.input :next_billing_date, as: :date,
@@ -17,7 +17,7 @@
         %>
       <% end %>
 
-      <%= f.submit %>
+      <%= f.submit 'Update Subscription' %>
     <% end %>
   </section>
 </div>

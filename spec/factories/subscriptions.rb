@@ -12,26 +12,32 @@ FactoryGirl.define do
     billing_phone_number '555-555-1212'
     billing_email 'bill_lastname@example.com'
 
-    payment_method 'Credit Card'
-    payment_type 'cc' # why both?!?
-    number '4007000000027'
-    expiry_month '1'
-    expiry_year { Time.now.year + 3 }
-    ccv '888'
-
     active true
 
-    factory :subscription_with_discount_code do
-      discount_code
+    factory :provisional_subscription, class: ProvisionalSubscription do
+
     end
 
-    factory :expiring_subscription do
-      ignore do
-        expiration { Time.zone.now }
+    factory :authorize_net_subscription, class: AuthorizeNetSubscription do
+      payment_method 'Credit Card'
+      payment_type 'cc' # why both?!?
+      number '4007000000027'
+      expiry_month '1'
+      expiry_year { Time.now.year + 3 }
+      ccv '888'
+
+      factory :subscription_with_discount_code do
+        discount_code
       end
 
-      expiry_month { expiration.month }
-      expiry_year { expiration.year }
+      factory :expiring_subscription do
+        ignore do
+          expiration { Time.zone.now }
+        end
+
+        expiry_month { expiration.month }
+        expiry_year { expiration.year }
+      end
     end
   end
 end

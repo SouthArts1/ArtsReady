@@ -17,10 +17,18 @@ class BillingController < ApplicationController
       start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
       regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
       
-      if current_org.subscriptions.last
+      if current_org.subscription && current_org.subscription.automatic?
         return redirect_to edit_billing_path
       else
-        @subscription = Subscription.new({organization_id: @organization.id, starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount })
+        @subscription = AuthorizeNetSubscription.new(
+          organization_id: @organization.id,
+          starting_amount_in_cents: start_amount,
+          regular_amount_in_cents: regular_amount
+        )
+
+        if current_org.active_subscription
+          @subscription.copy_billing_info_from(current_org.active_subscription)
+        end
       end
             
       if session[:discount_code]
@@ -39,7 +47,7 @@ class BillingController < ApplicationController
     d = DiscountCode.find_by_discount_code(params[:code])
     start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
     regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
-    subscription = Subscription.new({starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
+    subscription = AuthorizeNetSubscription.new({starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
     
     if d
       session[:discount_code] = params[:code]
@@ -56,10 +64,10 @@ class BillingController < ApplicationController
   
   def create
     @organization = current_org
-    @subscription = @organization.subscriptions.build
+    @subscription = AuthorizeNetSubscription.new
     set_subscription_attributes
 
-    if @subscription.save
+    if @organization.subscriptions << @subscription
       session[:discount_code] = nil
       redirect_to "/"
     else
@@ -72,6 +80,7 @@ class BillingController < ApplicationController
     @organization = current_org
     @subscription = @organization.subscription
     return redirect_to :back unless @subscription
+    return redirect_to action: 'new' unless @subscription.automatic?
     
     if params[:code]
       d = DiscountCode.find_by_discount_code(params[:code])

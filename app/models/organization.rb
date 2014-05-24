@@ -111,7 +111,7 @@ class Organization < ActiveRecord::Base
   end
   
   def build_provisional_subscription
-    subscriptions.build_provisional
+    ProvisionalSubscription.new(organization: self)
   end
 
   def active_subscription_end_date
@@ -125,14 +125,6 @@ class Organization < ActiveRecord::Base
 
   def billing_emails
     subscription.try(:billing_email).presence || executives.pluck(:email)
-  end
-
-  # For unsaved accounts (e.g., in tests), or for accounts that predate
-  # the database column, we fall back to a calculation based on the
-  # subscription's start date.
-  def next_billing_date
-    self[:next_billing_date] ||
-      subscription.try(:billing_date_after, Time.zone.today)
   end
 
   def days_left_until_rebill
