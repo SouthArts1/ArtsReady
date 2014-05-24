@@ -66,13 +66,13 @@ describe Todo do
       Todo.nearing_due_date.should include(todo)
     end
     it "should include overdue todos" do
-      todo = Factory.create(:todo, complete:false, due_on: 1.day.ago)
+      todo = Factory.create(:todo, complete:false, due_on: Time.zone.today - 1)
       Todo.nearing_due_date.should include(todo)
     end
     it "should include a todo if its due within 2 days" do
-      todo = Factory.create(:todo, complete:false, due_on: 1.day.from_now)
+      todo = Factory.create(:todo, complete:false, due_on: Time.zone.today + 1)
       Todo.nearing_due_date.should include(todo)
-      todo = Factory.create(:todo, complete:false, due_on: 2.days.from_now)
+      todo = Factory.create(:todo, complete:false, due_on: Time.zone.today + 2)
       Todo.nearing_due_date.should include(todo)
     end
 
@@ -81,7 +81,7 @@ describe Todo do
       Todo.nearing_due_date.should_not include(todo)
     end
     it "should exclude a todo due in more than 2 days" do
-      todo = Factory.create(:todo, complete:false, due_on: 3.days.from_now)
+      todo = Factory.create(:todo, complete:false, due_on: Time.zone.today + 3)
       Todo.nearing_due_date.should_not include(todo)
     end
   end
