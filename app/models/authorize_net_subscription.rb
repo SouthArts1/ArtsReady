@@ -362,7 +362,6 @@ class AuthorizeNetSubscription < Subscription
   def credit_card_must_not_have_expired_by_billing_date
     return unless payment_type == 'cc'
     return unless expiry_month.presence && expiry_year.presence
-    return if provisional?
 
     expiration =
       Date.new(Integer(expiry_year), Integer(expiry_month)).
