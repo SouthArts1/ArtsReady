@@ -94,9 +94,11 @@ class BillingController < ApplicationController
   def update
     @organization = current_org
     @subscription = @organization.subscription
-    set_subscription_attributes
+    unless @subscription && @subscription.automatic?
+      return redirect_to(:back, notice: UNSPECIFIED_ERROR_MESSAGE)
+    end
 
-    return redirect_to(:back, notice: UNSPECIFIED_ERROR_MESSAGE) if !@subscription
+    set_subscription_attributes
 
     if @subscription.save
       session[:discount_code] = nil
