@@ -225,6 +225,9 @@ input[type="text"], input[type="password"] {
 .input.date .hint {
   display: block; }
 
+.error_messages {
+  color: red; }
+
 .field_with_errors {
   display: inline; }
   .field_with_errors label {
