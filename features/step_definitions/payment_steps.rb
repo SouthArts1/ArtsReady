@@ -329,10 +329,16 @@ Given(/^I have provisional access$/) do
 end
 
 Then(/^I can switch to paid access$/) do
+  old_subscription = Organization.last.subscriptions.first
+  expect(old_subscription).to be_active
+
   step %{I update my subscription}
 
   visit billing_path
   expect(page).not_to have_content 'Provisional Access'
+
+  old_subscription.reload
+  expect(old_subscription).not_to be_active
 end
 
 

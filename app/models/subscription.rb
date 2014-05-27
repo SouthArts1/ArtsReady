@@ -5,6 +5,7 @@ class Subscription < ActiveRecord::Base
 
   after_create :set_next_billing_date
   after_save :activate_organization, if: :active?
+  after_save :cancel_previous_subscription, if: :active?
 
   delegate :next_billing_date, :days_left_until_rebill, to: :organization
   delegate :name, to: :organization, prefix: true
@@ -30,6 +31,10 @@ class Subscription < ActiveRecord::Base
   end
 
   private
+
+  def cancel_previous_subscription
+    organization.cancel_subscriptions(except: self)
+  end
 
   def activate_organization
     organization.update_attributes(active: true)

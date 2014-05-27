@@ -143,6 +143,11 @@ class Organization < ActiveRecord::Base
     active ? 'active' : (subscription ? 'inactive' : 'needs approval')
   end
 
+  def cancel_subscriptions(options)
+    subscriptions.active.where('id <> ?', options[:except]).
+      find_each(&:cancel)
+  end
+
   def self.send_renewal_reminders
     [30, 15].each do |days|
       renewing_in(days).find_each do |org|
