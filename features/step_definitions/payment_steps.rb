@@ -253,14 +253,14 @@ When /^I sign up and pay and am rejected by the payment gateway$/ do
     submit
 end
 
-Given(/^my credit card expires in (\d+) days$/) do |days|
-  Timecop.freeze(Time.zone.parse('June 1, 2022'))
+Given(/^my credit card expires at the end of this month$/) do
+  Timecop.freeze(Time.zone.parse('July 1, 2022'))
 
   step %{I sign up}
 
   BillingFormTestPage.new(self).
     fill_out(
-      'subscription_expiry_month' => '6',
+      'subscription_expiry_month' => '7',
       'subscription_expiry_year' => '2022',
     ).
     submit
@@ -353,5 +353,5 @@ Then(/^I should receive a credit card expiration notice$/) do
 
   expect(current_email.body).to include 'update'
   expect(current_email.body).
-    to include 'June  1, 2023' # see "my credit card expires" step
+    to include 'July  1, 2023' # see "my credit card expires" step
 end

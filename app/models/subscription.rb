@@ -34,10 +34,7 @@ class Subscription < ActiveRecord::Base
   accepts_nested_attributes_for :organization
 
   scope :credit_card_expiring_this_month, -> {
-    credit_card_expiring_month_of(Time.zone.today)
-  }
-
-  scope :credit_card_expiring_month_of, lambda { |date|
+    date = Time.zone.today
     where(expiry_month: date.month, expiry_year: date.year)
   }
 

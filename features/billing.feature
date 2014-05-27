@@ -58,7 +58,7 @@ Feature: Organization billing
 
   Scenario: Credit card expiration notice
     Given a credit card expiration template exists
-    And my credit card expires in 30 days
+    And my credit card expires at the end of this month
     And I have been charged automatically
     When the scheduled tasks have run
     Then I should receive a credit card expiration notice

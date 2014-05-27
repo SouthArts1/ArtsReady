@@ -13,10 +13,10 @@ task :cron => :environment do
   if Time.zone.today.day == 1
     AdminMailer.renewing_organizations_notice.deliver
     AdminMailer.credit_card_expiring_organizations_notice.deliver
+    Organization.send_credit_card_expiration_notices
   end
 
   Organization.send_renewal_reminders
-  Organization.send_credit_card_expiration_notices
 
   puts "done."
 end
