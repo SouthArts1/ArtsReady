@@ -181,20 +181,23 @@ end
 Then(/^I can update the organization's subscription price$/) do
   edit_last_organization
   click_on 'Billing'
+  arb_id = BillingInfoTestPage.new(self).arb_id
   click_on 'Edit Billing'
 
   fill_in 'Recurring amount', with: '223.52'
   click_on 'Update Subscription'
 
   expect(page).to have_content 'Next billing amount: $223.52'
-  expect(page).to have_content /Authorize.Net subscription ID: [0-9]+/
+  expect(BillingInfoTestPage.new(self).arb_id).to eq arb_id
 end
 
 Then(/^I can update the organization's next billing date$/) do
   Timecop.freeze(Date.parse('2023-11-11'))
 
-  edit_last_organization
-  click_on 'Billing'
+  unless page.has_link? 'Edit Billing'
+    edit_last_organization
+    click_on 'Billing'
+  end
   click_on 'Edit Billing'
 
   select '2024', from: 'subscription_organization_attributes_next_billing_date_1i'

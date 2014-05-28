@@ -23,8 +23,6 @@ class AuthorizeNetSubscription < Subscription
   validates_length_of :number, in: 13..16, allow_nil: true
   validate :credit_card_must_not_have_expired_by_billing_date
 
-  accepts_nested_attributes_for :organization # TODO: move to superclass?
-
   scope :credit_card_expiring_this_month, -> {
     date = Time.zone.today
     where(expiry_month: date.month, expiry_year: date.year)
@@ -50,14 +48,6 @@ class AuthorizeNetSubscription < Subscription
 
   def submitted_as_bank? # via billing form
     payment_type == 'bank'
-  end
-
-  def regular_amount
-    regular_amount_in_cents.to_f / 100
-  end
-
-  def regular_amount=(amount_in_dollars)
-    self.regular_amount_in_cents = amount_in_dollars.to_f * 100
   end
 
   def number=(number)

@@ -17,11 +17,19 @@ Feature: Admin billing management
 
   Scenario: Update subscription price
     Given a paid organization exists
+    # On the first day, the billing info page shows starting amount,
+    # so we can't use it to verify changes to recurring amount.
+    And a day has passed
     Then I can update the organization's subscription price
 
   Scenario: Update next billing date
     Given a paid organization exists
     Then I can update the organization's next billing date
+
+  Scenario: Update provisional subscription
+    Given a provisional organization exists
+    Then I can update the organization's subscription price
+    And I can update the organization's next billing date
 
   Scenario: Monthly admin notifications
     Given today is the first of the month

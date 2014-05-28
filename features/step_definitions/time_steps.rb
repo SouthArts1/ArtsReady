@@ -1,4 +1,4 @@
-When /^(an?|[\d]+) (.*) pass(?:es)?$/ do |count, unit|
+When /^(an?|[\d]+) (.*) (?:(?:has|have) passed|pass(?:es))?$/ do |count, unit|
   time = (count == 'a' ? 1 : count.to_i).send(unit)
   Timecop.travel(time)
 end

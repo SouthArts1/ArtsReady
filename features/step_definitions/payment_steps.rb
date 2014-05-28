@@ -118,6 +118,10 @@ class BillingInfoTestPage < TestPage
       page.has_no_content?(text)
     end
   end
+
+  def arb_id
+    $1 if page.body =~ /Authorize.Net subscription ID:\s+([0-9]+)/
+  end
 end
 
 Given /^I have paid for my subscription$/ do

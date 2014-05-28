@@ -17,6 +17,8 @@ class Subscription < ActiveRecord::Base
       merge(AuthorizeNetSubscription.credit_card_expiring_this_month)
   }
 
+  accepts_nested_attributes_for :organization
+
   def provisional # TODO: do we need the non-question-mark version?
     false
   end
@@ -24,6 +26,14 @@ class Subscription < ActiveRecord::Base
 
   def automatic?
     false
+  end
+
+  def regular_amount
+    regular_amount_in_cents.to_f / 100
+  end
+
+  def regular_amount=(amount_in_dollars)
+    self.regular_amount_in_cents = amount_in_dollars.to_f * 100
   end
 
   def cancel

@@ -73,6 +73,15 @@ FactoryGirl.define do
       unpaid
     end
 
+    factory :provisional_organization do
+      name 'Provisional Organization'
+      member_count 1 # so the subscription can copy the user's info
+
+      after_create do |org|
+        org.subscriptions << FactoryGirl.build(:provisional_subscription)
+      end
+    end
+
     trait :paid do
       name 'Paid Organization'
       next_billing_date { ((created_at || Time.zone.now) + 1.day).to_date }

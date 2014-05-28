@@ -41,7 +41,7 @@
 
 <p>
   Next billing amount:
-  <% if @subscription.days_left_until_rebill >= 365 %>
+  <% if Time.zone.today < @subscription.start_date.to_date %>
     <%= money_from_cents @subscription.starting_amount_in_cents %>
   <% else %>
     <%= money_from_cents @subscription.regular_amount_in_cents %>
