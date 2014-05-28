@@ -176,6 +176,7 @@ Then(/^I can grant provisional access$/) do
 
   visit current_path
   expect(page).to have_content 'Provisional Access'
+  expect(page).to have_content 'Next billing amount: $225.00'
 end
 
 Then(/^I can update the organization's subscription price$/) do

@@ -13,6 +13,10 @@ describe 'ProvisionalSubscription' do
     FactoryGirl.build(:provisional_subscription, organization: org)
   }
 
+  before do
+    PaymentVariable.stub(:float_value).and_return(225.0)
+  end
+
   it_behaves_like 'a subscription'
 
   describe 'before validation' do
