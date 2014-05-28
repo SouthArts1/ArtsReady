@@ -27,6 +27,6 @@ class Admin::BillingController < Admin::AdminController
         :id,
         :next_billing_date
       ]
-    ).merge(:skip_authorization => true)
+    )
   end
 end

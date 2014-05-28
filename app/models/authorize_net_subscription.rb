@@ -2,10 +2,8 @@ class AuthorizeNetSubscription < Subscription
   attr_accessor :skip_callbacks
   attr_accessor :amount, :number, :ccv,
     :bank_name, :account_type, :routing_number, :account_number,
-    :payment_type,
-    :skip_authorization
+    :payment_type
   attr_accessor :failed_transaction_response
-  alias_method :skip_authorization?, :skip_authorization
 
   before_validation :initialize_start_date, on: :create
   before_create :create_and_charge_arb_subscription
