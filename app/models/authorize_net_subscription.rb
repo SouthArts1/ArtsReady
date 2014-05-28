@@ -72,7 +72,6 @@ class AuthorizeNetSubscription < Subscription
     self.start_date ||= Time.now + 1.day
   end
 
-  # Utility for `next_billing_date`. Easier to test.
   def billing_date_after(date)
     start = start_date.to_date
 
