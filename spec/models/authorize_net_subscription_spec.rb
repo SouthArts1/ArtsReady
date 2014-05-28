@@ -30,7 +30,6 @@ describe AuthorizeNetSubscription do
     arb_transaction.stub(:set_address)
     arb_transaction.stub(:set_customer)
     arb_subscription.stub(:credit_card=)
-    arb_subscription.stub(:credit_card) # for logging!?
     arb_transaction.stub(:create).and_return(create_response)
     arb_transaction.stub(:cancel).and_return(cancel_response)
     arb_transaction.stub(:get_status).and_return(status_response)

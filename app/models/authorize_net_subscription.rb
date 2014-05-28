@@ -219,7 +219,6 @@ class AuthorizeNetSubscription < Subscription
     if self.payment_type == "cc"
       expiry = get_expiry(self.expiry_month, self.expiry_year)
       arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
-      Rails.logger.debug("ARB: #{arb_sub.credit_card.inspect}")
       self.payment_method = "Credit Card"
       self.number = self.number.to_s
       self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
