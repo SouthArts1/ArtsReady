@@ -84,8 +84,8 @@ class AuthorizeNetSubscription < Subscription
   end
 
   def validate_discount_code!
-    start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
-    regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+    start_amount = PaymentVariable.float_value("starting_amount_in_cents")
+    regular_amount = PaymentVariable.float_value("regular_amount_in_cents")
 
     d = self.discount_code
     if d && d.is_valid?

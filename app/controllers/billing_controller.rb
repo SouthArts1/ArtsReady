@@ -14,8 +14,8 @@ class BillingController < ApplicationController
         @organization = Organization.find(session[:organization_id])
       end 
       
-      start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
-      regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+      start_amount = PaymentVariable.float_value("starting_amount_in_cents")
+      regular_amount = PaymentVariable.float_value("regular_amount_in_cents")
       
       if current_org.subscription && current_org.subscription.automatic?
         return redirect_to edit_billing_path
@@ -45,21 +45,20 @@ class BillingController < ApplicationController
   
   def get_discount
     d = DiscountCode.find_by_discount_code(params[:code])
-    start_amount = PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f
-    regular_amount = PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
-    subscription = AuthorizeNetSubscription.new({starting_amount_in_cents: start_amount, regular_amount_in_cents: regular_amount})
+    subscription = AuthorizeNetSubscription.new
     
     if d
       session[:discount_code] = params[:code]
       subscription.discount_code_id = d.id
       subscription.validate_discount_code!
     end
+
     render json: {
       code_id: (d.id rescue ""),
       good: !d.nil?,
       start: subscription.starting_amount_in_cents,
       regular: subscription.regular_amount_in_cents
-    } and return
+    }
   end
   
   def create
@@ -177,9 +176,9 @@ class BillingController < ApplicationController
     if @subscription.new_record?
       @subscription.attributes = {
         starting_amount_in_cents:
-          PaymentVariable.find_by_key("starting_amount_in_cents").value.to_f,
+          PaymentVariable.float_value("starting_amount_in_cents"),
         regular_amount_in_cents:
-          PaymentVariable.find_by_key("regular_amount_in_cents").value.to_f
+          PaymentVariable.float_value("regular_amount_in_cents")
       }
     end
 
