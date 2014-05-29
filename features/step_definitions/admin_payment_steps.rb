@@ -25,16 +25,14 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
   FactoryGirl.create(:discount_code, discount_code: 'DISCO')
 
-  click_on 'Manage Organizations'
-  edit_organization(org_name)
-  click_on 'Payment History'
-  click_on 'Add a payment'
+  visit_admin_notes_for(org_name)
+  click_on 'Add a note'
 
   AdminPaymentFormTestPage.new(self).
     fill_out('Discount code' => 'DISCO').
     submit
 
-  expect(page).to have_content 'Saved new payment'
+  expect(page).to have_content 'Saved new note'
 
   expected_table = Cucumber::Ast::Table.new([
     {
@@ -56,10 +54,8 @@ When(/^I add a payment by check for "([^"]*)"$/) do |org_name|
   Organization.find_by_name(org_name).
     update_column(:next_billing_date, Date.parse('March 20, 2024'))
 
-  click_on 'Manage Organizations'
-  edit_organization(org_name)
-  click_on 'Payment History'
-  click_on 'Add a payment'
+  visit_admin_notes_for(org_name)
+  click_on 'Add a note'
 
   AdminPaymentFormTestPage.new(self).
     fill_out(
@@ -71,7 +67,7 @@ When(/^I add a payment by check for "([^"]*)"$/) do |org_name|
     end.
     submit
 
-  expect(page).to have_content 'Saved new payment'
+  expect(page).to have_content 'Saved new note'
 
   click_on 'Edit'
   expect(find_field('Check number').value).to eq '1001'
@@ -83,7 +79,7 @@ Then(/^I can extend the next billing date for "([^"]*)" by 365 days$/) do |org_n
 end
 
 And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
-  click_on 'Payment History'
+  click_on 'Notes'
   click_on 'Edit'
 
   fill_in 'Payment date', with: '2024-03-19'
@@ -94,7 +90,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
 
   click_on 'Save'
 
-  expect(page).to have_content 'Updated payment'
+  expect(page).to have_content 'Updated note'
 
   expected_table = Cucumber::Ast::Table.new([
     {
@@ -115,7 +111,7 @@ end
 And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
   click_on 'Delete'
 
-  expect(page).to have_content 'Deleted payment'
+  expect(page).to have_content 'Deleted note'
 
   # with no remaining payments, there's nothing to edit:
   expect(page).not_to have_button('Edit')
@@ -127,9 +123,7 @@ When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
 end
 
 Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
-  click_on 'Manage Organizations'
-  edit_organization(org_name)
-  click_on 'Payment History'
+  visit_admin_notes_for(org_name)
 
   expected_table = Cucumber::Ast::Table.new([
     {

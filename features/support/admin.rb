@@ -10,6 +10,12 @@ module AdminStepHelpers
     all(:link, 'Edit').last.click
   end
 
+  def visit_admin_notes_for(org_name)
+    click_on 'Manage Organizations'
+    edit_organization(org_name)
+    click_on 'Notes'
+  end
+
   def payment_table
     # exclude the footer row, since Cucumber::Ast::Table doesn't
     # understand it.

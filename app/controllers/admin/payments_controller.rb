@@ -14,7 +14,7 @@ class Admin::PaymentsController < Admin::AdminController
     @payment = @organization.payments.build(payment_params)
 
     if @payment.save
-      redirect_to({action: 'index'}, notice: 'Saved new payment.')
+      redirect_to({action: 'index'}, notice: 'Saved new note.')
     else
       render 'new'
     end
@@ -26,7 +26,7 @@ class Admin::PaymentsController < Admin::AdminController
 
   def update
     if @payment.update_attributes(payment_params)
-      redirect_to({action: 'index'}, notice: 'Updated payment.')
+      redirect_to({action: 'index'}, notice: 'Updated note.')
     else
       render 'edit'
     end
@@ -34,9 +34,9 @@ class Admin::PaymentsController < Admin::AdminController
 
   def destroy
     if @payment.destroy
-      redirect_to({action: 'index'}, notice: 'Deleted payment.')
+      redirect_to({action: 'index'}, notice: 'Deleted note.')
     else
-      redirect_to({action: 'index'}, notice: "Can't delete payment.")
+      redirect_to({action: 'index'}, notice: "Can't delete note.")
     end
   end
 
