@@ -1,6 +1,7 @@
 class SubscriptionEvent < ActiveRecord::Base
   belongs_to :organization
-  has_one :payment, dependent: :destroy
+  has_one :payment, dependent: :destroy, inverse_of: :subscription_event
+  has_one :subscription, through: :payment
 
   accepts_nested_attributes_for :payment,
     reject_if: lambda { |attrs| Payment.blank_attributes?(attrs) }
@@ -9,6 +10,7 @@ class SubscriptionEvent < ActiveRecord::Base
   validates_associated :payment
 
   before_validation :set_default_happened_at, on: :create
+  before_validation :associate_subscription, on: :create
 
   def prepare_for_editing
     build_payment unless payment
@@ -56,5 +58,10 @@ class SubscriptionEvent < ActiveRecord::Base
 
   def set_default_happened_at
     self.happened_at ||= Time.zone.now
+  end
+
+  def associate_subscription
+    self.subscription ||= organization.try(:subscription)
+    self.organization ||= subscription.try(:organization)
   end
 end

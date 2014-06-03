@@ -1,8 +1,7 @@
 class Payment < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
-  belongs_to :subscription_event
-  has_one :organization, through: :subscription_event
+  belongs_to :subscription_event, inverse_of: :payment
   belongs_to :subscription
   belongs_to :discount_code
   has_one :notification, class_name: 'PaymentNotification'
@@ -10,9 +9,9 @@ class Payment < ActiveRecord::Base
   attr_accessor :extend_subscription
   alias_method :extend_subscription?, :extend_subscription
 
+  delegate :organization, to: :subscription_event
   delegate :billing_emails, to: :organization
 
-  before_validation :associate_subscription, on: :create
   before_save :clear_routing_number, unless: :bank_account?
   after_save :maybe_extend_next_billing_date
 
@@ -32,7 +31,7 @@ class Payment < ActiveRecord::Base
   # NOTE: We don't validate account type, because if Authorize.Net
   # sends us an unknown account type, we want to record it instead
   # of discarding it.
-  validates_presence_of :organization, :subscription_event,
+  validates_presence_of :subscription_event,
     :amount, :account_type, :account_number
   validates_presence_of :routing_number, if: :bank_account?
   validates_numericality_of :amount, :transaction_id,
@@ -82,11 +81,6 @@ class Payment < ActiveRecord::Base
     if extend_subscription? || notification
       organization.extend_subscription!
     end
-  end
-
-  def associate_subscription
-    self.subscription ||= organization.try(:subscription)
-    self.organization ||= subscription.try(:organization)
   end
 
   def clear_routing_number
