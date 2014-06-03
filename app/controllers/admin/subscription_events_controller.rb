@@ -1,6 +1,6 @@
-class Admin::PaymentsController < Admin::AdminController
+class Admin::SubscriptionEventsController < Admin::AdminController
   before_filter :find_organization
-  before_filter :find_payment, only: [:edit, :update, :destroy]
+  before_filter :find_event, only: [:edit, :update, :destroy]
 
   def index
     @events = @organization.subscription_events.
@@ -47,7 +47,7 @@ class Admin::PaymentsController < Admin::AdminController
 
   private
 
-  def find_payment
+  def find_event
     @event = @organization.subscription_events.find(params[:id])
   end
 
