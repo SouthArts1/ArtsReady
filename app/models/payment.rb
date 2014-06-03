@@ -2,6 +2,7 @@ class Payment < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :subscription_event
+  has_one :organization, through: :subscription_event
   belongs_to :subscription
   belongs_to :discount_code
   has_one :notification, class_name: 'PaymentNotification'
@@ -62,6 +63,15 @@ class Payment < ActiveRecord::Base
 
   def routing_number=(value)
     super value.try(:last, 4)
+  end
+
+  def self.blank_attributes?(attrs)
+    attrs.all? do |name, value|
+      case name
+        when 'extend_subscription' then value == '0'
+        else value.blank?
+      end
+    end
   end
 
   private

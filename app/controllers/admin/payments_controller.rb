@@ -10,6 +10,7 @@ class Admin::PaymentsController < Admin::AdminController
 
   def new
     @event = @organization.subscription_events.build
+    @event.prepare_for_editing
   end
 
   def create
@@ -18,18 +19,20 @@ class Admin::PaymentsController < Admin::AdminController
     if @event.save
       redirect_to({action: 'index'}, notice: 'Saved new note.')
     else
+      @event.prepare_for_editing
       render 'new'
     end
   end
 
   def edit
-
+    @event.prepare_for_editing
   end
 
   def update
-    if @payment.update_attributes(event_params)
+    if @event.update_attributes(event_params)
       redirect_to({action: 'index'}, notice: 'Updated note.')
     else
+      @event.prepare_for_editing
       render 'edit'
     end
   end
@@ -45,7 +48,7 @@ class Admin::PaymentsController < Admin::AdminController
   private
 
   def find_payment
-    @payment = @organization.payments.find(params[:id])
+    @event = @organization.subscription_events.find(params[:id])
   end
 
   def event_params

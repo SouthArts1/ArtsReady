@@ -2,12 +2,17 @@ class SubscriptionEvent < ActiveRecord::Base
   belongs_to :organization
   has_one :payment
 
-  attr_accessible :organization_id, :happened_at, :notes
-  accepts_nested_attributes_for :payment
+  accepts_nested_attributes_for :payment,
+    reject_if: lambda { |attrs| Payment.blank_attributes?(attrs) }
 
   validates_presence_of :happened_at
+  validates_associated :payment
 
   before_validation :set_default_happened_at, on: :create
+
+  def prepare_for_editing
+    build_payment unless payment
+  end
 
   def happened_at_date
     happened_at.try(:strftime, '%Y-%m-%d')

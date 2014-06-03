@@ -4,7 +4,7 @@
 
   <%= f.input :notes %>
 
-  <% f.fields_for :payment do |pf| %>
+  <%= f.fields_for :payment do |pf| %>
     <%= pf.association :discount_code, label_method: :discount_code %>
     <%= pf.input :amount %>
     <%= pf.input :transaction_id %>

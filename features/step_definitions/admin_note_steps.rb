@@ -55,3 +55,31 @@ Then(/^I can add a note for "([^"]*)"$/) do |org_name|
 
   payment_table.diff!(expected_table)
 end
+
+And(/^I can add payment info to the note for "([^"]*)"$/) do |org_name|
+  click_on 'Notes'
+  click_on 'Edit'
+
+  AdminNotesFormTestPage.new(self).
+    fill_out_payment(
+      'Amount' => '$75.00',
+      'Notes' => 'Note with added payment.'
+    ).submit
+
+  expect(page).to have_content 'Updated note'
+
+  expected_table = Cucumber::Ast::Table.new([
+    {
+      'Date/Time'      => '03/20/24 3:18 PM',
+      'Discount code'  => '',
+      'Amount'         => '$75.00',
+      'Transaction ID' => '123456789',
+      'Account type'   => 'Savings',
+      'Account number' => '4312',
+      'Routing number' => '2387',
+      'Notes'          => 'Note with added payment.'
+    }
+  ])
+
+  payment_table.diff!(expected_table)
+end
