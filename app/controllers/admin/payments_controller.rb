@@ -38,7 +38,7 @@ class Admin::PaymentsController < Admin::AdminController
   end
 
   def destroy
-    if @payment.destroy
+    if @event.destroy
       redirect_to({action: 'index'}, notice: 'Deleted note.')
     else
       redirect_to({action: 'index'}, notice: "Can't delete note.")

@@ -83,3 +83,12 @@ And(/^I can add payment info to the note for "([^"]*)"$/) do |org_name|
 
   payment_table.diff!(expected_table)
 end
+
+And(/^I can delete the note for "([^"]*)"$/) do |org_name|
+  click_on 'Delete'
+
+  expect(page).to have_content 'Deleted note'
+
+  # with no remaining notes, there's nothing to edit:
+  expect(page).not_to have_button('Edit')
+end

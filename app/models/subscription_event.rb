@@ -1,6 +1,6 @@
 class SubscriptionEvent < ActiveRecord::Base
   belongs_to :organization
-  has_one :payment
+  has_one :payment, dependent: :destroy
 
   accepts_nested_attributes_for :payment,
     reject_if: lambda { |attrs| Payment.blank_attributes?(attrs) }

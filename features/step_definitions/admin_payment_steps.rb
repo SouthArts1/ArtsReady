@@ -86,12 +86,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
 end
 
 And(/^I can delete the payment for "([^"]*)"$/) do |org_name|
-  click_on 'Delete'
-
-  expect(page).to have_content 'Deleted note'
-
-  # with no remaining payments, there's nothing to edit:
-  expect(page).not_to have_button('Edit')
+  step %{I can delete the note for "#{org_name}"}
 end
 
 When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
