@@ -6,11 +6,11 @@
 
 <div class="grid_12">
   <p>
-    <%= link_to 'Add a note', [:new, :admin, @organization, :payment] %>
+    <%= link_to 'Add a note', [:new, :admin, @organization, :subscription_event] %>
   </p>
 
-  <table id="payments">
-    <% content_for :payment_table_header do %>
+  <table id="subscription_events">
+    <% content_for :event_table_header do %>
       <tr>
         <th>Date/Time</th>
         <th>Discount code</th>
@@ -25,32 +25,27 @@
     <% end %>
 
     <thead>
-      <%= content_for :payment_table_header %>
+      <%= content_for :event_table_header %>
     </thead>
 
     <tbody>
-      <% @payments.each do |payment| %>
+      <% @events.each do |event| %>
+        <% payment = event.payment || Payment.new %>
         <tr>
-          <td class="datetime"><%= payment.paid_at.to_formatted_s(:slashed_with_time) %></td>
+          <td class="datetime"><%= event.happened_at.to_formatted_s(:slashed_with_time) %></td>
           <td><%= payment.discount_code.try(:discount_code) %></td>
           <td><%= number_to_currency payment.amount %></td>
           <td><%= payment.transaction_id %></td>
           <td><%= payment.account_type %></td>
           <td><%= payment.account_number %></td>
           <td><%= payment.routing_number %></td>
-          <td class="notes"><%= (payment.notes || '').truncate(100) %></td>
+          <td class="notes"><%= (event.notes || '').truncate(100) %></td>
           <td class="actions">
-            <%= link_to 'Edit',
-              edit_admin_organization_payment_path(
-                payment.organization, payment
-              ),
+            <%= link_to 'Edit', [:edit, :admin, event.organization, event],
               :class => 'button' %>
-            <%= link_to 'Delete',
-              admin_organization_payment_path(
-                payment.organization, payment
-              ),
+            <%= link_to 'Delete', [:admin, event.organization, event],
               method: :delete,
-              confirm: 'Really delete this payment?',
+              confirm: 'Really delete this note?',
               :class => 'button' %>
           </td>
         </tr>
@@ -58,7 +53,7 @@
     </tbody>
 
     <tfoot>
-      <%= content_for :payment_table_header %>
+      <%= content_for :event_table_header %>
     </tfoot>
   </table>
 </div>

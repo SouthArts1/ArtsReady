@@ -31,7 +31,7 @@ class Organization < ActiveRecord::Base
   has_many :subscriptions
   has_one :active_subscription, class_name: 'Subscription',
     conditions: {subscriptions: {active: true}}
-  has_many :payments
+  has_many :subscription_events
 
   accepts_nested_attributes_for :users
 

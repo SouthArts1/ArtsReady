@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140522153648) do
+ActiveRecord::Schema.define(:version => 20140529175757) do
 
   create_table "action_items", :force => true do |t|
     t.string   "description"
@@ -238,21 +238,21 @@ ActiveRecord::Schema.define(:version => 20140522153648) do
   end
 
   create_table "payments", :force => true do |t|
-    t.integer  "organization_id"
     t.integer  "subscription_id"
     t.integer  "discount_code_id"
-    t.datetime "paid_at"
     t.integer  "amount_in_cents"
-    t.integer  "transaction_id",   :limit => 8
+    t.integer  "transaction_id",        :limit => 8
     t.string   "payment_method"
     t.string   "routing_number"
     t.string   "account_number"
     t.string   "account_type"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.text     "notes"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "check_number"
+    t.integer  "subscription_event_id"
   end
+
+  add_index "payments", ["subscription_event_id"], :name => "index_payments_on_subscription_event_id"
 
   create_table "questions", :force => true do |t|
     t.text     "description"
@@ -275,6 +275,16 @@ ActiveRecord::Schema.define(:version => 20140522153648) do
   end
 
   add_index "resources", ["organization_id"], :name => "index_resources_on_organization_id"
+
+  create_table "subscription_events", :force => true do |t|
+    t.text     "notes"
+    t.integer  "organization_id"
+    t.datetime "happened_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "subscription_events", ["organization_id"], :name => "index_subscription_events_on_organization_id"
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "organization_id"

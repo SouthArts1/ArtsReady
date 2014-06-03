@@ -3,17 +3,19 @@ class Admin::PaymentsController < Admin::AdminController
   before_filter :find_payment, only: [:edit, :update, :destroy]
 
   def index
-    @payments = @organization.payments.order('paid_at DESC')
+    @events = @organization.subscription_events.
+      includes(:payment).
+      order('happened_at DESC') # TODO: test table order
   end
 
   def new
-    @payment = @organization.payments.build
+    @event = @organization.subscription_events.build
   end
 
   def create
-    @payment = @organization.payments.build(payment_params)
+    @event = @organization.subscription_events.build(event_params)
 
-    if @payment.save
+    if @event.save
       redirect_to({action: 'index'}, notice: 'Saved new note.')
     else
       render 'new'
@@ -25,7 +27,7 @@ class Admin::PaymentsController < Admin::AdminController
   end
 
   def update
-    if @payment.update_attributes(payment_params)
+    if @payment.update_attributes(event_params)
       redirect_to({action: 'index'}, notice: 'Updated note.')
     else
       render 'edit'
@@ -46,19 +48,21 @@ class Admin::PaymentsController < Admin::AdminController
     @payment = @organization.payments.find(params[:id])
   end
 
-  def payment_params
-    params.require(:payment).permit(
-      :extend_subscription,
-      :paid_at_date,
-      :paid_at_time,
-      :discount_code_id,
-      :amount,
-      :transaction_id,
-      :account_type,
-      :routing_number,
-      :account_number,
-      :check_number,
-      :notes
+  def event_params
+    params.require(:subscription_event).permit(
+      :happened_at_date,
+      :happened_at_time,
+      :notes,
+      :payment_attributes => [
+        :extend_subscription,
+        :discount_code_id,
+        :amount,
+        :transaction_id,
+        :account_type,
+        :routing_number,
+        :account_number,
+        :check_number
+      ]
     )
   end
 end

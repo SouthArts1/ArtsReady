@@ -26,7 +26,7 @@ Artsready::Application.routes.draw do
     
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
-      resources :payments, except: :show
+      resources :payments, except: :show, as: :subscription_events
       resource :billing, controller: 'billing', only: [:edit, :update]
       get 'billing', on: :member
     end

@@ -19,7 +19,7 @@ module AdminStepHelpers
   def payment_table
     # exclude the footer row, since Cucumber::Ast::Table doesn't
     # understand it.
-    rows = page.find('#payments').all('thead tr, tbody tr')
+    rows = page.find('#subscription_events').all('thead tr, tbody tr')
     Cucumber::Ast::Table.new(
       rows.map do |row|
         row.

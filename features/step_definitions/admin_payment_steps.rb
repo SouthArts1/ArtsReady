@@ -1,26 +1,3 @@
-class AdminPaymentFormTestPage < TestPage
-  def fill_out(overrides = {})
-    fields = {
-      'Amount'                       => '50',
-      'Authorize.Net transaction ID' => '123456789',
-      'Account type'                 => 'Savings',
-      'Routing number'               => '061092387',
-      'Account number'               => '987654312',
-      'Notes'                        => 'Some notes.'
-    }.merge(overrides)
-
-    world.fill_in_fields(fields)
-
-    yield if block_given?
-
-    self
-  end
-
-  def submit
-    world.click_on 'Save'
-  end
-end
-
 Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   Timecop.freeze(Time.zone.parse('March 20, 2024 3:18:01pm'))
   FactoryGirl.create(:discount_code, discount_code: 'DISCO')
@@ -28,8 +5,8 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
   visit_admin_notes_for(org_name)
   click_on 'Add a note'
 
-  AdminPaymentFormTestPage.new(self).
-    fill_out('Discount code' => 'DISCO').
+  AdminNotesFormTestPage.new(self).
+    fill_out_payment('Discount code' => 'DISCO').
     submit
 
   expect(page).to have_content 'Saved new note'
@@ -57,8 +34,8 @@ When(/^I add a payment by check for "([^"]*)"$/) do |org_name|
   visit_admin_notes_for(org_name)
   click_on 'Add a note'
 
-  AdminPaymentFormTestPage.new(self).
-    fill_out(
+  AdminNotesFormTestPage.new(self).
+    fill_out_payment(
       'Authorize.Net transaction ID' => nil,
       'Account type' => 'Checking',
       'Check number' => '1001'
