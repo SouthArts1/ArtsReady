@@ -14,8 +14,9 @@ en:
     labels:
       payment:
         transaction_id: 'Authorize.Net transaction ID'
-        paid_at_date: 'Payment date'
-        paid_at_time: 'Payment time'
+      subscription_event:
+        happened_at_date: 'Date'
+        happened_at_time: 'Time'
       subscription:
         regular_amount: 'Recurring amount'
 

@@ -59,7 +59,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
   click_on 'Notes'
   click_on 'Edit'
 
-  fill_in 'Payment date', with: '2024-03-19'
+  fill_in 'Date', with: '2024-03-19'
   fill_in 'Amount', with: '$75.00'
   select 'Visa', from: 'Account type'
   fill_in 'Account number', with: '8362352839281001'
