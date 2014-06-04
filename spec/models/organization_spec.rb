@@ -154,7 +154,7 @@ describe Organization do
     end
   end
 
-  describe '#extend_subscription!' do
+  describe '#extend_next_billing_date!' do
     let(:organization) { FactoryGirl.create(:organization) }
     let(:today) { Time.zone.today }
 
@@ -166,7 +166,7 @@ describe Organization do
       before { organization.next_billing_date = today - 1 }
 
       it 'extends the next billing date by 365 days' do
-        organization.extend_subscription!
+        organization.extend_next_billing_date!
         expect(organization.next_billing_date).to eq(today + 364)
         expect(organization).not_to be_changed
       end
@@ -176,7 +176,7 @@ describe Organization do
       before { organization.next_billing_date = nil }
 
       it 'sets the next billing date to 365 days from today' do
-        organization.extend_subscription!
+        organization.extend_next_billing_date!
         expect(organization.next_billing_date).to eq(today + 365)
         expect(organization).not_to be_changed
       end

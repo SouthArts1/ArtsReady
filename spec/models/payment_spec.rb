@@ -8,23 +8,24 @@ describe Payment do
   end
 
   context 'when saved' do
-    let(:payment_date) { Date.today }
-    let(:organization) { FactoryGirl.build(:organization) }
+    let(:subscription_event) {
+      FactoryGirl.build_stubbed(:subscription_event)
+    }
+
     subject(:payment) {
       FactoryGirl.build(:payment,
-        paid_at: payment_date,
-        organization: organization
+        subscription_event: subscription_event
       )
     }
 
     context 'if derived from a notification' do
       before do
         payment.notification = PaymentNotification.new
-        organization.stub(:extend_subscription!)
+        subscription_event.stub(:extend_next_billing_date!)
       end
 
       it "sets the organization's next billing date" do
-        organization.should_receive(:extend_subscription!).with()
+        subscription_event.should_receive(:extend_next_billing_date!).with()
 
         payment.save
 
@@ -37,7 +38,7 @@ describe Payment do
 
       context do
         it "does not set the organization's next billing date" do
-          organization.should_not_receive(:extend_subscription!)
+          subscription_event.should_not_receive(:extend_next_billing_date!)
 
           payment.save
 
@@ -49,7 +50,7 @@ describe Payment do
         before { payment.extend_subscription = true }
 
         it "sets the organization's next billing date" do
-          organization.should_receive(:extend_subscription!).with()
+          subscription_event.should_receive(:extend_next_billing_date!).with()
 
           payment.save
 

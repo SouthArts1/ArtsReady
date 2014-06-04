@@ -19,7 +19,7 @@
 
     <% if pf.object.new_record? %>
       <%= pf.input :extend_subscription, as: :boolean,
-        label: "Extend subscription to #{@organization.extended_subscription_date.to_s(:long)}?"
+        label: "Extend subscription to #{@organization.extended_next_billing_date.to_s(:long)}?"
       %>
     <% end %>
   <% end %>

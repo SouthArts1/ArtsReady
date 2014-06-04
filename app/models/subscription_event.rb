@@ -12,6 +12,8 @@ class SubscriptionEvent < ActiveRecord::Base
   before_validation :set_default_happened_at, on: :create
   before_validation :associate_subscription, on: :create
 
+  delegate :extend_next_billing_date!, to: :organization
+
   def prepare_for_editing
     build_payment unless payment
   end

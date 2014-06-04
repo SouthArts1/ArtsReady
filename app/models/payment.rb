@@ -13,7 +13,8 @@ class Payment < ActiveRecord::Base
   delegate :billing_emails, to: :organization
 
   before_save :clear_routing_number, unless: :bank_account?
-  after_save :maybe_extend_next_billing_date
+  after_save :extend_next_billing_date, if: :extend_subscription?
+  after_create :extend_next_billing_date, if: :notification
 
   CREDIT_ACCOUNT_TYPES = [
     'Visa', 'MasterCard', 'American Express',
@@ -77,10 +78,8 @@ class Payment < ActiveRecord::Base
 
   # if an admin requests to extend the next billing date, we should set
   # it to 365 days after the previous billing date.
-  def maybe_extend_next_billing_date
-    if extend_subscription? || notification
-      organization.extend_subscription!
-    end
+  def extend_next_billing_date
+    subscription_event.extend_next_billing_date!
   end
 
   def clear_routing_number
