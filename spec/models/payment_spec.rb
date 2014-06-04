@@ -26,9 +26,7 @@ describe Payment do
       end
 
       it "sets the organization's next billing date" do
-        organization.should_receive(:extend_subscription!).with(
-          payment_date + 365
-        )
+        organization.should_receive(:extend_subscription!).with()
 
         payment.save
 

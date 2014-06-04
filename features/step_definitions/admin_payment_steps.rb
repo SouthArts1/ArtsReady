@@ -209,16 +209,14 @@ Then(/^I can update the organization's next billing date$/) do
   expect(page).to have_content 'Next billing date: March 19, 2024'
 end
 
-And(/^the next billing date for "([^"]*)" is extended by (\d+) days$/) do |org_name, days|
-  days = Integer(days)
-
+And(/^the next billing date for "([^"]*)" is "(.*)"$/) do |org_name, date|
   click_on 'Admin'
   click_on 'Manage Organizations'
   edit_organization(org_name)
   click_on 'Billing'
 
   page.text.match /Next billing date: (.*)/
-  expect(Date.parse($1)).to eq(Date.today + days)
+  expect($1).to start_with(date)
 end
 
 And(/^admins should receive an admin expiration notice for "([^"]*)"$/) do |org_name|

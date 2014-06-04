@@ -131,8 +131,8 @@ class Organization < ActiveRecord::Base
     (next_billing_date - Time.zone.today).to_i if next_billing_date
   end
 
-  def extend_subscription!(date = nil)
-    update_attribute(:next_billing_date, date || extended_subscription_date)
+  def extend_subscription!
+    update_attribute(:next_billing_date, extended_subscription_date)
   end
 
   def extended_subscription_date

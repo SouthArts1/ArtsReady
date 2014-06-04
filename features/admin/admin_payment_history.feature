@@ -15,8 +15,10 @@ Feature: Admin payment history
     Then I can extend the next billing date for "Unpaid Org" by 365 days
 
   Scenario: Automatic payment notification
-    Given a paid organization exists with a name of "Paying Org"
+    Given the following paid organization exists:
+      | Name       | Next Billing Date |
+      | Paying Org | March 17, 2024    |
     When the time is "3:18 PM" on "March 20, 2024"
     And we receive automatic payment notifications for "Paying Org"
     Then I can view the automatic payment details for "Paying Org"
-    And the next billing date for "Paying Org" is extended by 365 days
+    And the next billing date for "Paying Org" is "March 17, 2025"

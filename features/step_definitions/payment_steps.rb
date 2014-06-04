@@ -363,5 +363,5 @@ Then(/^I should receive a credit card expiration notice$/) do
 
   expect(current_email.body).to include 'update'
   expect(current_email.body).
-    to include 'July  1, 2023' # see "my credit card expires" step
+    to include 'July  2, 2023' # see "my credit card expires" step
 end

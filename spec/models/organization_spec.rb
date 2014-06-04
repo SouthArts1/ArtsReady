@@ -162,33 +162,23 @@ describe Organization do
       Timecop.freeze(Time.zone.now) { example.run }
     end
 
-    context 'given a date parameter' do
-      it 'sets the next billing date to that date' do
-        organization.extend_subscription!(today + 1)
-        expect(organization.next_billing_date).to eq(today + 1)
+    context 'if a next billing date has previously been set' do
+      before { organization.next_billing_date = today - 1 }
+
+      it 'extends the next billing date by 365 days' do
+        organization.extend_subscription!
+        expect(organization.next_billing_date).to eq(today + 364)
         expect(organization).not_to be_changed
       end
     end
 
-    context 'given no date parameter' do
-      context 'if a next billing date has previously been set' do
-        before { organization.next_billing_date = today - 1 }
+    context 'if no next billing date has been set' do
+      before { organization.next_billing_date = nil }
 
-        it 'extends the next billing date by 365 days' do
-          organization.extend_subscription!
-          expect(organization.next_billing_date).to eq(today + 364)
-          expect(organization).not_to be_changed
-        end
-      end
-
-      context 'if no next billing date has been set' do
-        before { organization.next_billing_date = nil }
-
-        it 'sets the next billing date to 365 days from today' do
-          organization.extend_subscription!
-          expect(organization.next_billing_date).to eq(today + 365)
-          expect(organization).not_to be_changed
-        end
+      it 'sets the next billing date to 365 days from today' do
+        organization.extend_subscription!
+        expect(organization.next_billing_date).to eq(today + 365)
+        expect(organization).not_to be_changed
       end
     end
   end
