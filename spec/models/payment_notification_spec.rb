@@ -107,6 +107,8 @@ describe PaymentNotification do
     it 'returns nil if no subscription is provided' do
       notification.params.delete('x_subscription_id')
 
+      Subscription.should_not_receive(:find_by_arb_id)
+
       expect(notification.subscription).to eq(nil)
     end
   end

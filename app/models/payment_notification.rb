@@ -13,7 +13,7 @@ class PaymentNotification < ActiveRecord::Base
   end
 
   def subscription
-    Subscription.find_by_arb_id(subscription_id)
+    Subscription.find_by_arb_id(subscription_id) if subscription_id
   end
 
   # Handle "notification.foo" by returning "params['x_foo']" if available.
