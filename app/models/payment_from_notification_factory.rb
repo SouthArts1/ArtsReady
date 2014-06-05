@@ -29,12 +29,14 @@ class PaymentFromNotificationFactory
     notification.build_payment(
       notification: notification,
       subscription: subscription,
-      paid_at: notification.created_at,
       transaction_id: notification.trans_id,
       discount_code: subscription.discount_code,
       amount: notification.amount,
       account_number: notification.account_number,
-      account_type: account_type
+      account_type: account_type,
+      subscription_event: SubscriptionEvent.new(
+        happened_at: notification.created_at
+      )
     )
   end
 

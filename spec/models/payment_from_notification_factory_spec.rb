@@ -18,6 +18,7 @@ describe PaymentFromNotificationFactory do
     context 'given an eligible notification' do
       let(:notification) { eligible_notification }
       let(:payment_date) { 45.minutes.ago }
+      let(:subscription_event) { double }
 
       before do
         notification.stub(
@@ -28,13 +29,15 @@ describe PaymentFromNotificationFactory do
           payment_method: 'ECHECK',
           card_type: ''
         )
+
+        SubscriptionEvent.stub(:new).and_return(subscription_event)
       end
 
       it 'creates a payment' do
         notification.should_receive(:build_payment).with(
           notification: notification,
           subscription: subscription,
-          paid_at: payment_date,
+          subscription_event: subscription_event,
           transaction_id: '23876234',
           discount_code: 'PASCO',
           amount: '300.00',
@@ -43,6 +46,9 @@ describe PaymentFromNotificationFactory do
         )
         notification.should_receive(:update_attributes).with(
           state: 'processed'
+        )
+        SubscriptionEvent.should_receive(:new).with(
+          happened_at: payment_date
         )
 
         PaymentFromNotificationFactory.process(notification)
