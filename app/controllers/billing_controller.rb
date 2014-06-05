@@ -6,40 +6,34 @@ class BillingController < ApplicationController
   after_filter :report_failed_transaction, only: [:create, :update]
 
   def new
-    if current_org || (session[:organization_id] != nil && session[:organization_id] != "")
-      @page = Page.find_by_slug('billing') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
-      if current_org
-        @organization = current_org
-      else
-        @organization = Organization.find(session[:organization_id])
-      end 
-      
-      start_amount = PaymentVariable.float_value("starting_amount_in_cents")
-      regular_amount = PaymentVariable.float_value("regular_amount_in_cents")
-      
-      if current_org.subscription && current_org.subscription.automatic?
-        return redirect_to edit_billing_path
-      else
-        @subscription = AuthorizeNetSubscription.new(
-          organization_id: @organization.id,
-          starting_amount_in_cents: start_amount,
-          regular_amount_in_cents: regular_amount
-        )
+    @organization = current_org
+    return redirect_to "/", notice: "Please contact ArtsReady for sign-in assistance." unless @organization
 
-        if current_org.active_subscription
-          @subscription.copy_billing_info_from(current_org.active_subscription)
-        end
+    @page = Page.find_by_slug('billing') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
+
+    start_amount = PaymentVariable.float_value("starting_amount_in_cents")
+    regular_amount = PaymentVariable.float_value("regular_amount_in_cents")
+
+    if current_org.subscription && current_org.subscription.automatic?
+      return redirect_to edit_billing_path
+    else
+      @subscription = AuthorizeNetSubscription.new(
+        organization_id: @organization.id,
+        starting_amount_in_cents: start_amount,
+        regular_amount_in_cents: regular_amount
+      )
+
+      if current_org.active_subscription
+        @subscription.copy_billing_info_from(current_org.active_subscription)
       end
-            
-      if session[:discount_code]
-        d = DiscountCode.find_by_discount_code(session[:discount_code])
-        if d
-          @subscription.discount_code_id = d.id
-          @subscription.validate_discount_code!
-        end
+    end
+
+    if session[:discount_code]
+      d = DiscountCode.find_by_discount_code(session[:discount_code])
+      if d
+        @subscription.discount_code_id = d.id
+        @subscription.validate_discount_code!
       end
-    else 
-      redirect_to "/", notice: "Please contact ArtsReady for sign-in assistance."
     end
   end
   
