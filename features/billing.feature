@@ -27,15 +27,21 @@ Feature: Organization billing
     And I change my payment method to a credit card
     Then my billing info should show payment by credit card
 
-  Scenario: Cancel subscription
+  Scenario: Cancel subscription and revive it
     Given the date is March 19, 2024
     When I sign up and pay
+    And I have been charged automatically
     And 350 days pass
     And I cancel my subscription
 
     When I sign out
     And the scheduled tasks have run
     Then I can't sign in
+
+    But I can revive my cancelled subscription
+    # Before the initial expiration date, so we start a new
+    # ARB subscription on the renewal date.
+    And my next billing date should be March 20, 2025
 
   Scenario: Automatic renewal
     Given the date is March 19, 2024

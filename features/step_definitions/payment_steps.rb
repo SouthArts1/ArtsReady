@@ -321,6 +321,14 @@ When /^I cancel my subscription$/ do
     to have_content 'successfully cancelled your subscription'
 end
 
+But(/^I can revive my cancelled subscription$/) do
+  BillingFormTestPage.new(self)
+    .fill_out
+    .submit
+
+  step %{I should be signed in}
+end
+
 Given(/^I have provisional access$/) do
   step %{I sign up}
 
@@ -364,4 +372,11 @@ Then(/^I should receive a credit card expiration notice$/) do
   expect(current_email.body).to include 'update'
   expect(current_email.body).
     to include 'July  2, 2023' # see "my credit card expires" step
+end
+
+And(/^my next billing date should be (.*)$/) do |date|
+  click_on 'Settings'
+  click_on 'Billing'
+
+  expect(page).to have_content "Next billing date: #{date}"
 end

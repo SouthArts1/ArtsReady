@@ -1,5 +1,5 @@
 class BillingController < ApplicationController
-  skip_before_filter :authenticate!, only: [:new, :create, :get_discount]
+  skip_before_filter :authenticate!, except: [:show, :cancel]
   UNSPECIFIED_ERROR_MESSAGE =
     "There was a problem processing your request. " +
     "Please check your billing address and payment information and try again."
@@ -71,6 +71,7 @@ class BillingController < ApplicationController
 
   def edit
     @organization = current_org
+    return redirect_to sign_in_path unless @organization
     @subscription = @organization.subscription
     return redirect_to :back unless @subscription
     return redirect_to action: 'new' unless @subscription.automatic?
@@ -86,6 +87,7 @@ class BillingController < ApplicationController
   
   def update
     @organization = current_org
+    return redirect_to sign_in_path unless @organization
     @subscription = @organization.subscription
     unless @subscription && @subscription.automatic?
       return redirect_to(:back, notice: UNSPECIFIED_ERROR_MESSAGE)
