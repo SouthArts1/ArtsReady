@@ -34,9 +34,8 @@ Feature: Organization billing
     And 350 days pass
     And I cancel my subscription
 
-    When I sign out
-    And the scheduled tasks have run
-    Then I can't sign in
+    Then I should be signed out
+    And I can't sign in
 
     But I can revive my cancelled subscription
     # Before the initial expiration date, so we start a new

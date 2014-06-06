@@ -4,7 +4,7 @@ module Arbly
       orgs = Organization.all
 
       orgs.each do |o|
-        if (o.subscription && !o.subscription.active?) || (!o.subscription && o.active?)
+        if !o.subscription && o.active?
           BillingMailer.setup_subscription_now(o).deliver
           begin
             if ((Time.now - o.created_at).to_i / (24 * 60 * 60)) > 2

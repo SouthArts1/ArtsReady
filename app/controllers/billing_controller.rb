@@ -120,10 +120,12 @@ class BillingController < ApplicationController
     end
     
     if @subscription.cancel
+      @subscription.organization.update_attributes!(active: false)
       if current_user.is_admin?
         redirect_to "/admin/organizations", notice: "You've successfully cancelled the subscription."
       else
-        redirect_to :dashboard, notice: "You have successfully cancelled your subscription.  Thanks for using ArtsReady!"
+        reset_session
+        redirect_to :root, notice: "You have successfully cancelled your subscription.  Thanks for using ArtsReady!"
       end
     else 
       redirect_to :back, notice: "There was a problem cancelling your subscription.  Please contact ArtsReady for assistance."
