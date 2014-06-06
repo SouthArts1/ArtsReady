@@ -181,8 +181,7 @@ And(/^the next billing date for "([^"]*)" is "(.*)"$/) do |org_name, date|
   edit_organization(org_name)
   click_on 'Billing'
 
-  page.text.match /Next billing date: (.*)/
-  expect($1).to start_with(date)
+  expect(page).to have_content "Next billing date: #{date}"
 end
 
 And(/^admins should receive an admin expiration notice for "([^"]*)"$/) do |org_name|
