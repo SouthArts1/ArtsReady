@@ -27,7 +27,9 @@ Artsready::Application.routes.draw do
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
       resources :subscription_events, except: :show
-      resource :billing, controller: 'billing', only: [:edit, :update]
+      resource :billing, controller: 'billing', only: [:edit, :update] do
+        delete :cancel, on: :member
+      end
       get 'billing', on: :member
     end
     resources :users, :only => [:index]

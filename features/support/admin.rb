@@ -1,6 +1,14 @@
 module AdminStepHelpers
-  def edit_organization(org)
+  def within_organization_row(org)
     with_scope table_row_where('name' => org) do
+      yield
+    end
+  end
+
+  def edit_organization(org)
+    click_on 'Manage Organizations' if first(:link, 'Manage Organizations')
+
+    within_organization_row(org) do
       click_link 'Edit'
     end
   end

@@ -215,3 +215,14 @@ And(/^admins should receive a failed payment form notification$/) do
   )
   expect(message.body).to include('XXXXXXXXXXX')
 end
+
+
+Then(/^I can cancel billing for "([^"]*)"$/) do |org_name|
+  edit_organization(org_name)
+  click_on 'Cancel Billing'
+
+  expect(page).to have_content 'cancelled the subscription'
+  within_organization_row(org_name) do
+    expect(page).to have_content 'Needs Approval' # TODO: indicate cancelled
+  end
+end

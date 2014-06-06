@@ -55,3 +55,7 @@ Feature: Admin billing management
     And we receive automatic payment notifications for "Renewing Org"
     And the scheduled tasks have run
     Then admins should receive an admin expiration notice for "Expiring Org"
+
+  Scenario: Cancel subscription
+    Given a paid organization exists with a name of "Paid Org"
+    Then I can cancel billing for "Paid Org"

@@ -111,23 +111,17 @@ class BillingController < ApplicationController
   end
   
   def cancel
-    # FIXME: move admin functionality to admin controller
-    if current_user.is_admin? && params[:id] != nil
-      @subscription = Organization.find(params[:id]).subscription
-    else
-      @subscription = current_org.subscription
-      redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator" and return unless current_user.is_executive?
+    @subscription = current_org.subscription
+    unless current_user.is_executive?
+      return redirect_to "/profile",
+        notice: "You don't have access to that.  Please contact your administrator"
     end
-    
+
     if @subscription.cancel
       @subscription.organization.update_attributes!(active: false)
-      if current_user.is_admin?
-        redirect_to "/admin/organizations", notice: "You've successfully cancelled the subscription."
-      else
-        reset_session
-        redirect_to :root, notice: "You have successfully cancelled your subscription.  Thanks for using ArtsReady!"
-      end
-    else 
+      reset_session
+      redirect_to :root, notice: "You have successfully cancelled your subscription.  Thanks for using ArtsReady!"
+    else
       redirect_to :back, notice: "There was a problem cancelling your subscription.  Please contact ArtsReady for assistance."
     end
   end

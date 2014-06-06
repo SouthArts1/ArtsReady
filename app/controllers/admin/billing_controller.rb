@@ -14,6 +14,17 @@ class Admin::BillingController < Admin::AdminController
     end
   end
 
+  def cancel
+    if @subscription.cancel
+      @subscription.organization.update_attributes!(active: false)
+      redirect_to [:admin, :organizations],
+        notice: "You've successfully cancelled the subscription."
+    else
+      redirect_to :back,
+        notice: "There was a problem cancelling the subscription."
+    end
+  end
+
   private
 
   def find_subscription
