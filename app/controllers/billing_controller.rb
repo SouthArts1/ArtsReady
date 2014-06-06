@@ -1,31 +1,32 @@
 class BillingController < ApplicationController
   skip_before_filter :authenticate!, except: [:show, :cancel]
+  before_filter :require_organization
+  before_filter :require_subscription, except: [:new, :create, :get_discount, :show]
+  before_filter :executives_only, only: [:show, :cancel]
+
   UNSPECIFIED_ERROR_MESSAGE =
     "There was a problem processing your request. " +
     "Please check your billing address and payment information and try again."
   after_filter :report_failed_transaction, only: [:create, :update]
 
   def new
-    @organization = current_org
-    return redirect_to "/", notice: "Please contact ArtsReady for sign-in assistance." unless @organization
-
     @page = Page.find_by_slug('billing') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
+
+    if current_org.subscription && current_org.subscription.automatic?
+      return redirect_to edit_billing_path
+    end
 
     start_amount = PaymentVariable.float_value("starting_amount_in_cents")
     regular_amount = PaymentVariable.float_value("regular_amount_in_cents")
 
-    if current_org.subscription && current_org.subscription.automatic?
-      return redirect_to edit_billing_path
-    else
-      @subscription = AuthorizeNetSubscription.new(
-        organization_id: @organization.id,
-        starting_amount_in_cents: start_amount,
-        regular_amount_in_cents: regular_amount
-      )
+    @subscription = AuthorizeNetSubscription.new(
+      organization_id: @organization.id,
+      starting_amount_in_cents: start_amount,
+      regular_amount_in_cents: regular_amount
+    )
 
-      if current_org.active_subscription
-        @subscription.copy_billing_info_from(current_org.active_subscription)
-      end
+    if current_org.active_subscription
+      @subscription.copy_billing_info_from(current_org.active_subscription)
     end
 
     if session[:discount_code]
@@ -36,7 +37,7 @@ class BillingController < ApplicationController
       end
     end
   end
-  
+
   def get_discount
     d = DiscountCode.find_by_discount_code(params[:code])
     subscription = AuthorizeNetSubscription.new
@@ -56,7 +57,6 @@ class BillingController < ApplicationController
   end
   
   def create
-    @organization = current_org
     @subscription = AuthorizeNetSubscription.new
     set_subscription_attributes
 
@@ -70,10 +70,6 @@ class BillingController < ApplicationController
   end
 
   def edit
-    @organization = current_org
-    return redirect_to sign_in_path unless @organization
-    @subscription = @organization.subscription
-    return redirect_to :back unless @subscription
     return redirect_to action: 'new' unless @subscription.automatic?
     
     if params[:code]
@@ -84,14 +80,9 @@ class BillingController < ApplicationController
       end
     end
   end
-  
+
   def update
-    @organization = current_org
-    return redirect_to sign_in_path unless @organization
-    @subscription = @organization.subscription
-    unless @subscription && @subscription.automatic?
-      return redirect_to(:back, notice: UNSPECIFIED_ERROR_MESSAGE)
-    end
+    return redirect_to action: 'new' unless @subscription.automatic?
 
     set_subscription_attributes
 
@@ -105,18 +96,10 @@ class BillingController < ApplicationController
   end
   
   def show
-    redirect_to "/profile", notice: "You don't have access to that.  Please contact your administrator." unless current_user.is_executive?
-    @organization = current_org
-    @subscription = current_org.subscription
+    find_subscription
   end
-  
-  def cancel
-    @subscription = current_org.subscription
-    unless current_user.is_executive?
-      return redirect_to "/profile",
-        notice: "You don't have access to that.  Please contact your administrator"
-    end
 
+  def cancel
     if @subscription.cancel
       @subscription.organization.update_attributes!(active: false)
       reset_session
@@ -127,6 +110,27 @@ class BillingController < ApplicationController
   end
 
   private
+
+  def require_organization
+    @organization = current_org
+    redirect_to "/", notice: "Please contact ArtsReady for sign-in assistance." unless @organization
+  end
+
+  def find_subscription
+    @subscription = current_org.subscription
+  end
+
+  def require_subscription
+    find_subscription
+    redirect_to :back unless @subscription
+  end
+
+  def executives_only
+    unless current_user.is_executive?
+      redirect_to "/profile",
+        notice: "You don't have access to that.  Please contact your administrator"
+    end
+  end
 
   def report_failed_transaction
     response = @subscription.failed_transaction_response
