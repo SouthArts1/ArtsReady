@@ -8,11 +8,11 @@
   <br/>
 
   Date joined:
-  <%= @organization.created_at.try(:strftime, "%B %d, %Y") %>
+  <%= @organization.created_at.try(:strftime, "%B %e, %Y") %>
   <br/>
 
   Next billing date:
-  <%= @subscription.next_billing_date.try(:strftime, "%B %d, %Y") %>
+  <%= @subscription.next_billing_date.try(:strftime, "%B %e, %Y") %>
   (<%= pluralize @subscription.days_left_until_rebill, 'day' %>)
   <br/>
 </p>
