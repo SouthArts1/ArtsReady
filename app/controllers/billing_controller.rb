@@ -12,7 +12,7 @@ class BillingController < ApplicationController
   def new
     @page = Page.find_by_slug('billing') #rescue OpenStruct(:title => 'Billing', :body => 'Body', :slug => 'Billing')
 
-    if current_org.subscription && current_org.subscription.automatic?
+    if updatable?(current_org.subscription)
       return redirect_to edit_billing_path
     end
 
@@ -70,7 +70,7 @@ class BillingController < ApplicationController
   end
 
   def edit
-    return redirect_to action: 'new' unless @subscription.automatic?
+    return redirect_to action: 'new' unless updatable?(@subscription)
     
     if params[:code]
       d = DiscountCode.find_by_discount_code(params[:code])
@@ -82,7 +82,7 @@ class BillingController < ApplicationController
   end
 
   def update
-    return redirect_to action: 'new' unless @subscription.automatic?
+    return redirect_to action: 'new' unless updatable?(@subscription)
 
     set_subscription_attributes
 
@@ -150,7 +150,9 @@ class BillingController < ApplicationController
     end
   end
 
-  private
+  def updatable?(subscription)
+    subscription && subscription.automatic? && !subscription.expired?
+  end
 
   def set_subscription_attributes
     return if !@subscription

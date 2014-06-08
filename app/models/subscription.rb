@@ -28,6 +28,10 @@ class Subscription < ActiveRecord::Base
     false
   end
 
+  def expired?
+    next_billing_date && (next_billing_date <= Time.zone.today)
+  end
+
   def regular_amount
     regular_amount_in_cents.to_f / 100
   end

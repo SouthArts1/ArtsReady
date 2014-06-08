@@ -10,6 +10,7 @@ Feature: Organization billing
   Scenario: Manual renewal
     Given the date is March 19, 2024
     When I sign up and pay
+    And I have been charged automatically
     And 360 days pass
     And I update my subscription
     Then my billing info should reflect manual renewal
@@ -23,6 +24,7 @@ Feature: Organization billing
   Scenario: Change payment type
     Given the date is March 19, 2024
     When I sign up and pay with a checking account
+    And I have been charged automatically
     And 360 days pass
     And I change my payment method to a credit card
     Then my billing info should show payment by credit card
@@ -41,6 +43,16 @@ Feature: Organization billing
     # Before the initial expiration date, so we start a new
     # ARB subscription on the renewal date.
     And my next billing date should be March 20, 2025
+
+  Scenario: Restart expired subscription
+    Given the date is March 19, 2024
+    When I sign up and pay
+    And I have been charged automatically
+
+    Given the date is March 31, 2025
+    And I have let my subscription expire
+    Then I can start a new subscription
+    And my next billing date should be April 1, 2025
 
   Scenario: Automatic renewal
     Given the date is March 19, 2024

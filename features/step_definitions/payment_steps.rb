@@ -128,6 +128,8 @@ Given /^I have paid for my subscription$/ do
   visit new_billing_path
   step %{I fill out and submit the billing form}
   expect(current_path).to eq(dashboard_path)
+
+  receive_payment_notification_for(@current_user.active_subscription)
 end
 
 Given /^I have renewed my subscription$/ do
@@ -322,6 +324,27 @@ When /^I cancel my subscription$/ do
 end
 
 But(/^I can revive my cancelled subscription$/) do
+  BillingFormTestPage.new(self)
+    .fill_out
+    .submit
+
+  step %{I should be signed in}
+end
+
+And(/^I have let my subscription expire$/) do
+  # At present, we don't automatically cancel subscriptions when they
+  # expire. An admin might manually cancel a lapsed subscription, but
+  # we don't want to sign out, sign in as an admin, find the organization,
+  # cancel its billing, sign out, and try to sign back in as a user in
+  # this integration test, so instead we simulate most of that by just
+  # calling the `cancel` method directly.
+  @current_user.organization.subscription.cancel
+  @current_user.organization.update_attribute(:active, false)
+end
+
+Then(/^I can start a new subscription$/) do
+  visit dashboard_path # redirects to billing page
+
   BillingFormTestPage.new(self)
     .fill_out
     .submit
