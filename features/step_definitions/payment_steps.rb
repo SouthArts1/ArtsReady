@@ -75,22 +75,12 @@ When /^I sign up$/ do
 
   visit sign_up_path
 
-  fill_in 'Name', with: 'My Org'
-  fill_in 'Address', with: '100 Test St'
-  fill_in_fields(
-    'City' => 'New York',
-    'State' => 'NY',
-    'Zipcode' => '10001',
-    'First Name' => 'New',
-    'Last Name' => 'User',
-    'Email' => email
-  )
-  fill_in 'Password', with: password
-  fill_in 'Confirm Password', with: password
-  select '02 Organization - Non-profit', from: 'Organizational Status *'
-  check 'terms'
-
-  click_button 'Create Organization'
+  SignUpFormTestPage.new(self)
+    .fill_out(
+      'Email' => email,
+      'Password' => password
+    )
+    .submit
 
   expect(current_path).to eq(new_billing_path)
   @current_user = User.find_by_email(email)

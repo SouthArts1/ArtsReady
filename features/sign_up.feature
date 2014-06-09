@@ -18,7 +18,7 @@ Feature: New organization registration
      | Confirm Password | password          |
      | NSI Code         | 33                |
     And I select "02 Organization - Non-profit" from "organization_organizational_status"
-    And I check "terms"
+    And I check "Terms"
     And I press "Create Organization"
     Then I should be on the new billing page
 
