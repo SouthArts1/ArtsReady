@@ -1644,19 +1644,19 @@ table .icon {
 td.actions {
   text-align: right; }
 
-table#payments th {
+table#subscription_events th {
   padding: 1em; }
-table#payments td {
+table#subscription_events td {
   padding: 1em; }
-table#payments td {
+table#subscription_events td {
   padding: 1em;
   text-align: right;
   vertical-align: top; }
-  table#payments td.datetime {
+  table#subscription_events td.datetime {
     white-space: nowrap; }
-  table#payments td.notes {
+  table#subscription_events td.notes {
     text-align: left; }
-  table#payments td.actions .button:not(:last-child) {
+  table#subscription_events td.actions .button:not(:last-child) {
     margin-bottom: 1em; }
 
 .todo-details h3, .todo-logs h3 {
