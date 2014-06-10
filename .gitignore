@@ -20,3 +20,6 @@ public/stylesheets/.sass-cache
 
 # Ignore application configuration
 /config/application.yml
+
+# RubyMine configuration
+/.idea
