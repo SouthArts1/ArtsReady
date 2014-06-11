@@ -43,3 +43,12 @@ Then /^the organization "(.*)" should be deleted$/ do |name|
   be_on 'the admin organizations page'
   page.should_not have_content(name)
 end
+
+
+Then(/^the organization should be added to Salesforce$/) do
+  org = Organization.last
+
+  account = SalesforceClient.new.find_account(org)
+
+  expect(account.Name).to eq(org.name)
+end

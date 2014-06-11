@@ -62,3 +62,10 @@ Given /^"([^"]*)" has a user with a first name of "([^"]*)"$/ do |org, name|
   FactoryGirl.create(:user, :first_name => name, :organization => org)
 end
 
+
+When(/^an organization signs up$/) do
+  visit sign_up_path
+  SignUpFormTestPage.new(self)
+    .fill_out
+    .submit
+end

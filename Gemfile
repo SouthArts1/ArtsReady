@@ -29,6 +29,7 @@ gem 'newrelic_rpm'
 gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'
+gem 'restforce'
 
 gem 'rack-ssl', :require => 'rack/ssl'
 gem 'delayed_job'

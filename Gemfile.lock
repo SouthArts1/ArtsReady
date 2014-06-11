@@ -102,9 +102,14 @@ GEM
     factory_girl_rails (1.7.0)
       factory_girl (~> 2.6.0)
       railties (>= 3.0.0)
+    faraday (0.8.9)
+      multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     ffi (1.9.3)
-    figaro (0.4.1)
-      rails (~> 3.0)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     fog (1.21.0)
       fog-brightbox
       fog-core (~> 1.21, >= 1.21.1)
@@ -148,6 +153,7 @@ GEM
       guard (>= 0.3.0)
     guard-rspec (0.7.3)
       guard (>= 0.10.0)
+    hashie (2.0.5)
     hike (1.2.3)
     httparty (0.8.1)
       multi_json
@@ -171,6 +177,7 @@ GEM
     multi_json (1.10.1)
     multi_test (0.1.1)
     multi_xml (0.4.1)
+    multipart-post (1.2.0)
     mustache (0.99.5)
     mysql2 (0.3.11)
     net-scp (1.1.2)
@@ -213,6 +220,11 @@ GEM
     rb-fsevent (0.9.1)
     rdoc (3.12.2)
       json (~> 1.4)
+    restforce (1.4.3)
+      faraday (~> 0.8.4)
+      faraday_middleware (>= 0.8.8)
+      hashie (>= 1.2.0, < 2.1)
+      json (>= 1.7.5, < 1.9.0)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -321,6 +333,7 @@ DEPENDENCIES
   rails (~> 3.2.3)
   rails-footnotes (>= 3.7)
   rb-fsevent
+  restforce
   rspec-rails
   ruby_gntp
   sass

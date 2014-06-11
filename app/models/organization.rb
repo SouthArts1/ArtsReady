@@ -43,6 +43,8 @@ class Organization < ActiveRecord::Base
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
   after_update :setup_initial_todo, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
+  after_save :update_salesforce
+
   scope :active, where(:active => true)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)
   scope :to_approve, where(:active => false)
@@ -172,6 +174,10 @@ class Organization < ActiveRecord::Base
 
   def send_credit_card_expiration_notice
     BillingMailer.credit_card_expiration(self).deliver
+  end
+
+  def update_salesforce
+    SalesforceClient.new.upsert_account(self)
   end
 
   private
