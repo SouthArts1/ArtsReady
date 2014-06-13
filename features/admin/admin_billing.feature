@@ -11,6 +11,7 @@ Feature: Admin billing management
   Scenario: Grant provisional access
     Given an unpaid user exists with an email of "provisional@example.com"
     Then I can grant provisional access
+    And a provisional access note is added
 
     When I sign out
     Then I can sign in as "provisional@example.com/password"

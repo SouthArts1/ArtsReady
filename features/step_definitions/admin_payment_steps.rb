@@ -145,6 +145,12 @@ Then(/^I can grant provisional access$/) do
   expect(page).to have_content 'Next billing amount: $225.00'
 end
 
+Then /^a provisional access note is added$/ do
+  click_on 'Notes'
+
+  expect(page).to have_content /granted provisional access/i
+end
+
 Then(/^I can update the organization's subscription price$/) do
   edit_last_organization
   click_on 'Billing'

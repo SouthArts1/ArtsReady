@@ -2,6 +2,7 @@ class ProvisionalSubscription < Subscription
   validates_presence_of :organization
 
   before_validation :initialize_defaults, on: :create
+  before_create :add_created_subscription_event
 
   def provisional
     true
@@ -30,5 +31,12 @@ class ProvisionalSubscription < Subscription
 
   def set_next_billing_date
     organization.update_attributes(next_billing_date: start_date.to_date + 365)
+  end
+
+  def add_created_subscription_event
+    organization.subscription_events.create(
+      happened_at: Time.zone.now,
+      notes: "Granted provisional access."
+    )
   end
 end
