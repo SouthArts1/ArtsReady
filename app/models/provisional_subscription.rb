@@ -15,7 +15,7 @@ class ProvisionalSubscription < Subscription
     user = organization.users.first
 
     self.attributes = {
-      start_date: Time.now,
+      start_date: Time.zone.now,
       active: true,
 
       starting_amount_in_cents: PaymentVariable.float_value('starting_amount_in_cents'),
