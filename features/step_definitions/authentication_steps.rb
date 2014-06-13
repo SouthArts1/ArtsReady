@@ -3,7 +3,7 @@ Given /^I sign in as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When /^I sign out$/ do
- step 'I follow "Logout"'
+ logout
 end
 
 Then /^I can sign in as "(.*)\/(.*)"$/ do |email, password|

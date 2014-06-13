@@ -19,5 +19,9 @@ module AuthenticationStepHelpers
 
     remember_sign_in_credentials email, password
   end
+
+  def logout
+    click_on 'Logout'
+  end
 end
 World(AuthenticationStepHelpers)

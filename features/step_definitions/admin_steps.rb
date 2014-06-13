@@ -52,3 +52,12 @@ Then(/^the organization should be added to Salesforce$/) do
 
   expect(account.Name).to eq(org.name)
 end
+
+
+Then(/^Salesforce should be updated$/) do
+  org = Organization.last
+
+  account = SalesforceClient.new.find_account(org)
+
+  expect(account.Name).to eq('New Name')
+end

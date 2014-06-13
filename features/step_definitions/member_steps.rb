@@ -63,9 +63,22 @@ Given /^"([^"]*)" has a user with a first name of "([^"]*)"$/ do |org, name|
 end
 
 
-When(/^an organization signs up$/) do
+When(/^an organization signs up and pays$/) do
   visit sign_up_path
   SignUpFormTestPage.new(self)
     .fill_out
     .submit
+
+  BillingFormTestPage.new(self).
+    fill_out.
+    submit
+end
+
+When(/^the organization is updated$/) do
+  click_on 'Settings'
+  click_on 'Organization'
+  fill_in 'Organization Name', with: 'New Name'
+  click_on 'Save Settings'
+
+  expect(page).to have_content 'updated'
 end
