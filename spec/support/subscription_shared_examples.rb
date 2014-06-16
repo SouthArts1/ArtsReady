@@ -12,6 +12,9 @@ shared_examples_for 'a subscription' do
     let(:result) { subscription.cancel }
 
     before do
+      subscription.organization.
+        stub(:create_subscription_event).and_return(double)
+
       subscription.save!
 
       Timecop.freeze(cancellation_date) do
@@ -27,6 +30,26 @@ shared_examples_for 'a subscription' do
 
     it 'sets the end date to today' do
       expect(subscription.end_date).to eq cancellation_date
+    end
+
+    context 'given an explanation' do
+      let(:canceler) { double(email: 'admin@example.com') }
+
+      it 'records an event' do
+        expect(subscription.organization).
+          to receive(:create_subscription_event).
+          with(notes: "Cancelled by admin (admin@example.com)")
+
+        subscription.cancel(role: :admin, canceler: canceler)
+      end
+    end
+
+    context 'given no explanation' do
+      it 'does not record an event' do
+        expect(subscription.organization).not_to receive(:create_subscription_event)
+
+        subscription.cancel
+      end
     end
   end
 end

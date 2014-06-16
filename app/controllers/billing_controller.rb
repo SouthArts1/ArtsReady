@@ -100,7 +100,7 @@ class BillingController < ApplicationController
   end
 
   def cancel
-    if @subscription.cancel
+    if @subscription.cancel(role: :organization, canceler: current_user)
       @subscription.organization.update_attributes!(active: false)
       reset_session
       redirect_to :root, notice: "You have successfully cancelled your subscription.  Thanks for using ArtsReady!"

@@ -148,6 +148,10 @@ class Organization < ActiveRecord::Base
       find_each(&:cancel)
   end
 
+  def create_subscription_event(attrs)
+    subscription_events.create(attrs)
+  end
+
   def self.send_renewal_reminders
     [30, 15].each do |days|
       renewing_in(days).find_each do |org|

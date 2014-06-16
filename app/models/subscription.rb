@@ -40,8 +40,16 @@ class Subscription < ActiveRecord::Base
     self.regular_amount_in_cents = amount_in_dollars.to_f * 100
   end
 
-  def cancel
-    update_attributes({ active: false, end_date: Time.now })
+  def cancel(metadata = nil)
+    if update_attributes({ active: false, end_date: Time.now })
+      if metadata
+        organization.create_subscription_event(
+          notes: "Cancelled by #{metadata[:role]} (#{metadata[:canceler].email})"
+        )
+      end
+
+      true
+    end
   end
 
   private

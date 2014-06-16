@@ -60,3 +60,4 @@ Feature: Admin billing management
   Scenario: Cancel subscription
     Given a paid organization exists with a name of "Paid Org"
     Then I can cancel billing for "Paid Org"
+    And an admin cancellation note is added for "Paid Org"

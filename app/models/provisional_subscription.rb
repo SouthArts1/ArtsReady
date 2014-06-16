@@ -34,7 +34,7 @@ class ProvisionalSubscription < Subscription
   end
 
   def add_created_subscription_event
-    organization.subscription_events.create(
+    organization.create_subscription_event(
       happened_at: Time.zone.now,
       notes: "Granted provisional access."
     )

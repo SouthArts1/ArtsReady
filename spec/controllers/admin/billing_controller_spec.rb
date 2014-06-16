@@ -1,15 +1,17 @@
 require 'spec_helper'
 
 describe Admin::BillingController do
-  let(:subscription) { double }
   let(:organization) {
     FactoryGirl.build_stubbed(:organization)
   }
+  let(:subscription) { double(organization: organization) }
+  let(:admin) { double('admin') }
 
   before do
     Organization.stub(:find => organization)
     organization.stub(:subscription => subscription)
     controller.stub(:authenticate_admin! => true)
+    controller.stub(:current_user => admin)
   end
 
   describe "edit" do
@@ -45,6 +47,22 @@ describe Admin::BillingController do
       let(:valid) { false }
 
       it { should render_template 'edit' }
+    end
+  end
+
+  describe '#cancel' do
+    before do
+      subscription.stub(:cancel).and_return(true)
+
+      delete :cancel, organization_id: 'moot'
+    end
+
+    it { should redirect_to [:admin, :organizations] }
+
+    it 'cancels the subscription with explanatory metadata' do
+      expect(subscription).
+        to have_received(:cancel).
+        with(role: :admin, canceler: admin)
     end
   end
 end

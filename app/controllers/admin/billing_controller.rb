@@ -15,7 +15,7 @@ class Admin::BillingController < Admin::AdminController
   end
 
   def cancel
-    if @subscription.cancel
+    if @subscription.cancel(role: :admin, canceler: current_user)
       @subscription.organization.update_attributes!(active: false)
       redirect_to [:admin, :organizations],
         notice: "You've successfully cancelled the subscription."

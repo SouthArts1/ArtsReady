@@ -62,3 +62,10 @@ And(/^I can delete the note for "([^"]*)"$/) do |org_name|
   # with no remaining notes, there's nothing to edit:
   expect(page).not_to have_button('Edit')
 end
+
+Then /^an admin cancellation note is added for "(.*)"$/ do |org_name|
+  edit_organization(org_name)
+  click_on 'Notes'
+
+  expect(page).to have_content /cancelled by admin/i
+end

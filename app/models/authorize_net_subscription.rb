@@ -109,10 +109,10 @@ class AuthorizeNetSubscription < Subscription
     self.skip_callbacks = was_skipping_callbacks
   end
 
-  def cancel
+  def cancel(metadata = nil)
     skipping_callbacks do
       if cancel_arb_subscription
-        return super
+        return super(metadata)
       else
         return false
       end
