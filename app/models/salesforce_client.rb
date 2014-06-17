@@ -21,6 +21,10 @@ class SalesforceClient
     fields = {
       ArtsReady_ID__c:   organization.id,
       Name:              organization.name,
+      BillingStreet:     organization.billing_address,
+      BillingCity:       organization.billing_city,
+      BillingState:      organization.billing_state,
+      BillingPostalCode: organization.billing_zipcode
     }
 
     restforce.upsert!('Account', EXTERNAL_ID_FIELD, fields)

@@ -30,13 +30,25 @@ describe SalesforceClient do
     }
 
     it 'upserts the account for the organization' do
+      organization.stub(:billing_address => '100 N Test St.')
+
       client.upsert_account(organization)
 
-      expect(restforce).to have_received(:upsert!).with(
-        'Account', external_id_field,
-        ArtsReady_ID__c: organization.id,
-        Name: 'Salesforce Org'
-      )
+      expect(restforce).to have_received(:upsert!) do |table, id_field, fields|
+        expect(table).to eq 'Account'
+        expect(id_field).to eq external_id_field
+        expect(fields[external_id_field]).to eq organization.id
+
+        # We don't want to list every field and its value here, so we
+        # loop over the ones we care about instead of just comparing two
+        # hashes.
+        {
+          Name: 'Salesforce Org',
+          BillingStreet: '100 N Test St.'
+        }.each do |field, value|
+          expect(fields[field]).to eq(value)
+        end
+      end
     end
   end
 

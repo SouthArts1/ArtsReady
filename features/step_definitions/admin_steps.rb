@@ -51,6 +51,8 @@ Then(/^the organization should be added to Salesforce$/) do
   account = SalesforceClient.new.find_account(org)
 
   expect(account.Name).to eq(org.name)
+  expect(account.BillingStreet).to eq(org.billing_address)
+  expect(account.BillingState).to eq(org.billing_state)
 end
 
 
