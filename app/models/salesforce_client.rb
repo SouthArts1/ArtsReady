@@ -21,6 +21,8 @@ class SalesforceClient
     fields = {
       ArtsReady_ID__c:   organization.id,
       Name:              organization.name,
+      Phone:             organization.phone_number,
+      Fax:               organization.fax_number,
       BillingStreet:     organization.billing_address,
       BillingCity:       organization.billing_city,
       BillingState:      organization.billing_state,
