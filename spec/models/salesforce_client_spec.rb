@@ -8,7 +8,7 @@ describe SalesforceClient do
   let(:sobject) { double('Restforce SObject', Id: salesforce_id) }
   let(:restforce) {
     double('Restforce client',
-      upsert: true,
+      upsert!: true,
       find: sobject,
       destroy: true
     )
@@ -32,7 +32,7 @@ describe SalesforceClient do
     it 'upserts the account for the organization' do
       client.upsert_account(organization)
 
-      expect(restforce).to have_received(:upsert).with(
+      expect(restforce).to have_received(:upsert!).with(
         'Account', external_id_field,
         ArtsReady_ID__c: organization.id,
         Name: 'Salesforce Org'

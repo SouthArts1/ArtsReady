@@ -18,11 +18,17 @@ class SalesforceClient
   end
 
   def upsert_account(organization)
-    restforce.upsert(
-      'Account', EXTERNAL_ID_FIELD,
-      ArtsReady_ID__c: organization.id,
-      Name: organization.name
-    )
+    fields = {
+      ArtsReady_ID__c:   organization.id,
+      Name:              organization.name,
+    }
+
+    restforce.upsert!('Account', EXTERNAL_ID_FIELD, fields)
+  rescue Faraday::Error::ClientError => e
+    # Airbrake helpfully removes the `ArtsReady_ID__c` parameter, so we
+    # duplicate it as `id`.
+    Airbrake.notify_or_ignore(e, parameters: fields.merge(id: organization.id))
+    false
   end
 
   def find_account(organization)
