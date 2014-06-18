@@ -23,3 +23,6 @@ public/stylesheets/.sass-cache
 
 # RubyMine configuration
 /.idea
+
+# Test records (may contain sensitive data).
+/features/fixtures/vcr_cassettes
