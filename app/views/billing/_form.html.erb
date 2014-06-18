@@ -194,7 +194,7 @@
     </p>
   </div>
   <br/>
-  <%= f.submit 'Submit Payment' %>
+  <%= f.submit(f.object.persisted? ? 'Update' : 'Submit Payment') %>
 
   <% if f.object.persisted? %>
     <br/><br/>

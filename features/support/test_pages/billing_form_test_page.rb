@@ -32,7 +32,9 @@ class BillingFormTestPage < TestPage
   end
 
   def submit
-    world.press 'Submit Payment'
+    button = world.first(:button, 'Submit Payment') ||
+      world.first(:button, 'Update')
+    button.click
 
     self
   end
