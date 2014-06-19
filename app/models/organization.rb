@@ -71,8 +71,10 @@ class Organization < ActiveRecord::Base
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :billing_first_name, :billing_last_name,
     :billing_address, :billing_city, :billing_state, :billing_zipcode,
+    :payment_method, :payment_number,
+    :discount_code, :next_billing_amount,
     to: :subscription, allow_nil: true
-  
+
   def self.with_user_activity_since(last=1.week.ago)
     active.select('DISTINCT organizations.id').joins(:users).where('users.last_login_at > ?',last)
   end
@@ -137,6 +139,18 @@ class Organization < ActiveRecord::Base
   def active_subscription_end_date
     return nil if !self.subscription || !self.subscription.active?
     return next_billing_date
+  end
+
+  def first_billing_date
+    first_subscription.start_date.to_date if first_subscription
+  end
+
+  def first_billing_amount
+    first_subscription.starting_amount if first_subscription
+  end
+
+  def first_subscription
+    subscriptions.order('created_at ASC').first
   end
 
   def subscription

@@ -39,6 +39,18 @@ class Subscription < ActiveRecord::Base
   def regular_amount=(amount_in_dollars)
     self.regular_amount_in_cents = amount_in_dollars.to_f * 100
   end
+  
+  def starting_amount
+    starting_amount_in_cents.to_f / 100
+  end
+
+  def starting_amount=(amount_in_dollars)
+    self.starting_amount_in_cents = amount_in_dollars.to_f * 100
+  end
+  
+  def next_billing_amount
+    (Time.zone.today < start_date.to_date) ? starting_amount : regular_amount
+  end
 
   def cancel(metadata = nil)
     if update_attributes({ active: false, end_date: Time.now })

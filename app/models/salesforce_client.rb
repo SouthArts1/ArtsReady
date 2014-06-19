@@ -38,7 +38,13 @@ class SalesforceClient
       BillingStreet:     organization.billing_address,
       BillingCity:       organization.billing_city,
       BillingState:      organization.billing_state,
-      BillingPostalCode: organization.billing_zipcode
+      BillingPostalCode: organization.billing_zipcode,
+      Payment_Type__c:   organization.payment_method,
+      Ends_in__c:        organization.payment_number,
+      Discount_code__c:  organization.discount_code,
+      First_Billing_Date__c: organization.first_billing_date,
+      First_Billing_Amount__c: organization.first_billing_amount,
+      Next_Billing_Amount__c: organization.next_billing_amount
     }
 
     restforce.upsert!('Account', EXTERNAL_ID_FIELD, fields)
