@@ -48,6 +48,23 @@ describe Organization do
     end
   end
 
+  describe 'contact_name' do
+    it 'can be broken into first and last names' do
+      org.contact_name = 'Thomas J. Flory, Esq.'
+
+      expect(org.contact_first_name).to eq 'Thomas J.'
+      expect(org.contact_last_name).to eq 'Flory'
+
+      org.contact_name = 'Rothrock'
+      expect(org.contact_first_name).to eq nil
+      expect(org.contact_last_name).to eq 'Rothrock'
+
+      org.contact_name = nil
+      expect(org.contact_first_name).to eq nil
+      expect(org.contact_last_name).to eq nil
+    end
+  end
+
   context 'given multiple assessments' do
     let(:organization) { Factory.create(:organization) }
     let!(:first_assessment) {

@@ -55,6 +55,15 @@ Then(/^the organization should be added to Salesforce$/) do
   expect(account.BillingState).to eq(org.billing_state)
 end
 
+When(/^the organization is updated$/) do
+  click_on 'Settings'
+  click_on 'Organization'
+  fill_in 'Organization Name', with: 'New Name'
+  fill_in 'Contact name', with: 'Thomas J. Flory, Esq.'
+  click_on 'Save Settings'
+
+  expect(page).to have_content 'updated'
+end
 
 Then(/^Salesforce should be updated$/) do
   org = Organization.last
@@ -62,4 +71,6 @@ Then(/^Salesforce should be updated$/) do
   account = SalesforceClient.new.find_account(org)
 
   expect(account.Name).to eq('New Name')
+  expect(account.Primary_Contact_First_Name__c).to eq('Thomas J.')
+  expect(account.Primary_Contact_Last_Name__c).to eq('Flory')
 end

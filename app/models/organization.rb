@@ -79,7 +79,23 @@ class Organization < ActiveRecord::Base
   def self.activity_percentage(last=1.week.ago)
     ((Organization.with_user_activity_since(last).count.to_f / Organization.active.count.to_f)*100).to_i rescue 0
   end
-  
+
+  def contact_first_name
+    split_name(contact_name).first
+  end
+
+  def contact_last_name
+    split_name(contact_name).last
+  end
+
+  def split_name(name)
+    return [nil, nil] if !name
+
+    name = name.split(/,/, 2).first # remove honorifics
+    words = name.split(/\s+/)
+    [words[0..-2].join(' '), words[-1]].map(&:presence)
+  end
+
   def full_street_address
     [address, city, state, zipcode].compact.join(', ')
   end

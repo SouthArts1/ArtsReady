@@ -30,6 +30,8 @@ class SalesforceClient
       Physical__c: organization.city,
       Physical_State__c: organization.state,
       Physical_Postal_Code__c: organization.zipcode,
+      Primary_Contact_First_Name__c: organization.contact_first_name,
+      Primary_Contact_Last_Name__c: organization.contact_last_name,
       BillingStreet:     organization.billing_address,
       BillingCity:       organization.billing_city,
       BillingState:      organization.billing_state,

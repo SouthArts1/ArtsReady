@@ -73,12 +73,3 @@ When(/^an organization signs up and pays$/) do
     fill_out.
     submit
 end
-
-When(/^the organization is updated$/) do
-  click_on 'Settings'
-  click_on 'Organization'
-  fill_in 'Organization Name', with: 'New Name'
-  click_on 'Save Settings'
-
-  expect(page).to have_content 'updated'
-end
