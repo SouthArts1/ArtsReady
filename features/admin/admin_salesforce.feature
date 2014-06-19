@@ -8,3 +8,5 @@ Scenario: Add new organization to Salesforce
   Then the organization should be added to Salesforce
   When the organization is updated
   Then Salesforce should be updated
+  When the organization's billing info is updated
+  Then Salesforce billing info should be updated

@@ -69,7 +69,8 @@ class Organization < ActiveRecord::Base
 
   delegate :complete?, :to => :assessment, :allow_nil => true, :prefix => true
   delegate :percentage_complete, :to => :assessment, :allow_nil => true, :prefix => true
-  delegate :billing_address, :billing_city, :billing_state, :billing_zipcode,
+  delegate :billing_first_name, :billing_last_name,
+    :billing_address, :billing_city, :billing_state, :billing_zipcode,
     to: :subscription, allow_nil: true
   
   def self.with_user_activity_since(last=1.week.ago)
