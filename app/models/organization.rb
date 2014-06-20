@@ -32,6 +32,8 @@ class Organization < ActiveRecord::Base
   has_one :active_subscription, class_name: 'Subscription',
     conditions: {subscriptions: {active: true}}
   has_many :subscription_events
+  has_many :payments, through: :subscription_events,
+    order: 'subscription_events.happened_at ASC'
 
   accepts_nested_attributes_for :users
 
@@ -151,6 +153,10 @@ class Organization < ActiveRecord::Base
 
   def first_subscription
     subscriptions.order('created_at ASC').first
+  end
+
+  def latest_billing_amount
+    payments.last.try(:amount)
   end
 
   def subscription

@@ -57,3 +57,26 @@ Then(/^Salesforce billing info should be updated$/) do
   expect(account.BillingCity).to eq('New Billing City')
   expect(account.Billing_First_Name__c).to eq('Jose')
 end
+
+
+When(/^the organization is charged$/) do
+  org = Organization.last
+
+  account = SalesforceClient.new.find_account(org)
+
+  # make sure amount paid is blank, so that when we later test
+  # that it isn't blank, we know that it's a result of the
+  # payment notification
+  expect(account.Amount_Paid__c).to be_blank
+
+  receive_payment_notification_for(Organization.last.active_subscription)
+end
+
+Then(/^Salesforce payment info should be updated$/) do
+  org = Organization.last
+
+  account = SalesforceClient.new.find_account(org)
+
+  expect(account.Amount_Paid__c).
+    to eq(PaymentVariable.float_value('starting_amount_in_cents') / 100)
+end

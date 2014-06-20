@@ -10,3 +10,5 @@ Scenario: Add new organization to Salesforce
   Then Salesforce should be updated
   When the organization's billing info is updated
   Then Salesforce billing info should be updated
+  When the organization is charged
+  Then Salesforce payment info should be updated

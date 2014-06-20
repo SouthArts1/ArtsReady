@@ -44,6 +44,7 @@ class SalesforceClient
       Discount_code__c:  organization.discount_code,
       First_Billing_Date__c: organization.first_billing_date,
       First_Billing_Amount__c: organization.first_billing_amount,
+      Amount_Paid__c:   organization.latest_billing_amount,
       Next_Billing_Amount__c: organization.next_billing_amount
     }
 
