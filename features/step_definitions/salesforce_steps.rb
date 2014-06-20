@@ -7,6 +7,9 @@ Then(/^the organization should be added to Salesforce$/) do
   expect(account.Name).to eq(org.name)
   expect(account.BillingStreet).to eq(org.billing_address)
   expect(account.BillingState).to eq(org.billing_state)
+  expect(account.Next_Billing_Amount__c).
+    to eq(PaymentVariable.float_value('starting_amount_in_cents') / 100)
+  expect(Date.parse(account.First_Billing_Date__c)).to eq(Time.zone.today + 1)
 end
 
 When(/^the organization is updated$/) do
