@@ -1,8 +1,18 @@
+class SalesforceTestClient
+  def initialize
+    @client = SalesforceClient.new
+  end
+
+  def get_account(org)
+    @client.find_account(org)
+  end
+end
 
 Then(/^the organization should be added to Salesforce$/) do
-  org = Organization.last
+  @salesforce = SalesforceTestClient.new
 
-  account = SalesforceClient.new.find_account(org)
+  org = Organization.last
+  account = @salesforce.get_account(org)
 
   expect(account.Name).to eq(org.name)
   expect(account.BillingStreet).to eq(org.billing_address)
@@ -23,9 +33,7 @@ When(/^the organization is updated$/) do
 end
 
 Then(/^Salesforce should be updated$/) do
-  org = Organization.last
-
-  account = SalesforceClient.new.find_account(org)
+  account = @salesforce.get_account(Organization.last)
 
   expect(account.Name).to eq('New Name')
   expect(account.Primary_Contact_First_Name__c).to eq('Thomas J.')
@@ -50,9 +58,7 @@ When(/^the organization's billing info is updated$/) do
 end
 
 Then(/^Salesforce billing info should be updated$/) do
-  org = Organization.last
-
-  account = SalesforceClient.new.find_account(org)
+  account = @salesforce.get_account(Organization.last)
 
   expect(account.BillingCity).to eq('New Billing City')
   expect(account.Billing_First_Name__c).to eq('Jose')
@@ -61,21 +67,18 @@ end
 
 When(/^the organization is charged$/) do
   org = Organization.last
-
-  account = SalesforceClient.new.find_account(org)
+  account = @salesforce.get_account(org)
 
   # make sure amount paid is blank, so that when we later test
   # that it isn't blank, we know that it's a result of the
   # payment notification
   expect(account.Amount_Paid__c).to be_blank
 
-  receive_payment_notification_for(Organization.last.active_subscription)
+  receive_payment_notification_for(org.active_subscription)
 end
 
 Then(/^Salesforce payment info should be updated$/) do
-  org = Organization.last
-
-  account = SalesforceClient.new.find_account(org)
+  account = @salesforce.get_account(Organization.last)
 
   expect(account.Amount_Paid__c).
     to eq(PaymentVariable.float_value('starting_amount_in_cents') / 100)
