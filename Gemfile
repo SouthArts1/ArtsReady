@@ -30,6 +30,7 @@ gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'
 gem 'restforce'
+gem 'activerecord-import', '~> 0.3.0'
 
 gem 'rack-ssl', :require => 'rack/ssl'
 gem 'delayed_job'
