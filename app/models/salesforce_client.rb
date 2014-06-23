@@ -34,7 +34,7 @@ class SalesforceClient
       Name:                          organization.name,
       Phone:                         organization.phone_number,
       Fax:                           organization.fax_number,
-      Subsidizing_Organization__c:   organization.subsidizing_organization,
+      # Subsidizing_Organization__c:   organization.subsidizing_organization,
       Parent_Organization__c:        organization.parent_organization,
       Operating_Budget__c:           organization.operating_budget,
       Physical_Address__c:           organization.address,
@@ -56,6 +56,7 @@ class SalesforceClient
       First_Billing_Date__c:         organization.first_billing_date,
       First_Billing_Amount__c:       organization.first_billing_amount,
       Amount_Paid__c:                organization.latest_billing_amount,
+      Next_Billing_Date__c:          organization.next_billing_date,
       Next_Billing_Amount__c:        organization.next_billing_amount
     }
   end

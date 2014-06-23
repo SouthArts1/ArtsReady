@@ -94,7 +94,7 @@ class Organization < ActiveRecord::Base
   end
 
   def split_name(name)
-    return [nil, nil] if !name
+    return [nil, nil] if name.blank?
 
     name = name.split(/,/, 2).first # remove honorifics
     words = name.split(/\s+/)
