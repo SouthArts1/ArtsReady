@@ -18,35 +18,7 @@ class SalesforceClient
   end
 
   def upsert_account(organization)
-    fields = {
-      ArtsReady_ID__c:   organization.id,
-      Name:              organization.name,
-      Phone:             organization.phone_number,
-      Fax:               organization.fax_number,
-      Subsidizing_Organization__c: organization.subsidizing_organization,
-      Parent_Organization__c: organization.parent_organization,
-      Operating_Budget__c: organization.operating_budget,
-      Physical_Address__c: organization.address,
-      Physical__c: organization.city,
-      Physical_State__c: organization.state,
-      Physical_Postal_Code__c: organization.zipcode,
-      Primary_Contact_First_Name__c: organization.contact_first_name,
-      Primary_Contact_Last_Name__c: organization.contact_last_name,
-      Primary_Contact_Email__c: organization.email,
-      Billing_First_Name__c: organization.billing_first_name,
-      Billing_Last_Name__c: organization.billing_last_name,
-      BillingStreet:     organization.billing_address,
-      BillingCity:       organization.billing_city,
-      BillingState:      organization.billing_state,
-      BillingPostalCode: organization.billing_zipcode,
-      Payment_Type__c:   organization.payment_method,
-      Ends_in__c:        organization.payment_number,
-      Discount_code__c:  organization.discount_code,
-      First_Billing_Date__c: organization.first_billing_date,
-      First_Billing_Amount__c: organization.first_billing_amount,
-      Amount_Paid__c:   organization.latest_billing_amount,
-      Next_Billing_Amount__c: organization.next_billing_amount
-    }
+    fields = account_fields(organization)
 
     restforce.upsert!('Account', EXTERNAL_ID_FIELD, fields)
   rescue Faraday::Error::ClientError => e
@@ -54,6 +26,38 @@ class SalesforceClient
     # duplicate it as `id`.
     Airbrake.notify_or_ignore(e, parameters: fields.merge(id: organization.id))
     false
+  end
+
+  def account_fields(organization)
+    {
+      ArtsReady_ID__c:               organization.id,
+      Name:                          organization.name,
+      Phone:                         organization.phone_number,
+      Fax:                           organization.fax_number,
+      Subsidizing_Organization__c:   organization.subsidizing_organization,
+      Parent_Organization__c:        organization.parent_organization,
+      Operating_Budget__c:           organization.operating_budget,
+      Physical_Address__c:           organization.address,
+      Physical__c:                   organization.city,
+      Physical_State__c:             organization.state,
+      Physical_Postal_Code__c:       organization.zipcode,
+      Primary_Contact_First_Name__c: organization.contact_first_name,
+      Primary_Contact_Last_Name__c:  organization.contact_last_name,
+      Primary_Contact_Email__c:      organization.email,
+      Billing_First_Name__c:         organization.billing_first_name,
+      Billing_Last_Name__c:          organization.billing_last_name,
+      BillingStreet:                 organization.billing_address,
+      BillingCity:                   organization.billing_city,
+      BillingState:                  organization.billing_state,
+      BillingPostalCode:             organization.billing_zipcode,
+      Payment_Type__c:               organization.payment_method,
+      Ends_in__c:                    organization.payment_number,
+      Discount_code__c:              organization.discount_code,
+      First_Billing_Date__c:         organization.first_billing_date,
+      First_Billing_Amount__c:       organization.first_billing_amount,
+      Amount_Paid__c:                organization.latest_billing_amount,
+      Next_Billing_Amount__c:        organization.next_billing_amount
+    }
   end
 
   def find_account(organization)
