@@ -4,6 +4,12 @@ class DiscountCode < ActiveRecord::Base
   validates_numericality_of :redemption_max
   validates_presence_of :active_on, :expires_on
 
+  # The database schema says that a DiscountCode has a discount_code,
+  # which is confusing, so we give it a different alias here.
+  def identifier
+    discount_code
+  end
+
   def total_deduction
     if self.deduction_type == "percentage"
       str = self.deduction_value.to_s + "%"

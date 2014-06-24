@@ -30,7 +30,10 @@ describe SalesforceClient do
     }
 
     it 'upserts the account for the organization' do
-      organization.stub(:billing_address => '100 N Test St.')
+      organization.stub(
+        billing_address: '100 N Test St.',
+        discount_code_identifier: 'DISCO'
+      )
 
       client.upsert_account(organization)
 
@@ -44,6 +47,7 @@ describe SalesforceClient do
         # hashes.
         {
           Name: 'Salesforce Org',
+          Discount_Code__c: 'DISCO',
           BillingStreet: '100 N Test St.'
         }.each do |field, value|
           expect(fields[field]).to eq(value)

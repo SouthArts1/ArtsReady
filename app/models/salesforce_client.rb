@@ -52,7 +52,7 @@ class SalesforceClient
       BillingPostalCode:             organization.billing_zipcode,
       Payment_Type__c:               organization.payment_method,
       Ends_in__c:                    organization.payment_number,
-      Discount_code__c:              organization.discount_code,
+      Discount_code__c:              organization.discount_code_identifier,
       First_Billing_Date__c:         organization.first_billing_date,
       First_Billing_Amount__c:       organization.first_billing_amount,
       Amount_Paid__c:                organization.latest_billing_amount,

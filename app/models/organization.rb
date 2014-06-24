@@ -76,6 +76,7 @@ class Organization < ActiveRecord::Base
     :payment_method, :payment_number,
     :discount_code, :next_billing_amount,
     to: :subscription, allow_nil: true
+  delegate :identifier, to: :discount_code, prefix: true, allow_nil: true
 
   def self.with_user_activity_since(last=1.week.ago)
     active.select('DISTINCT organizations.id').joins(:users).where('users.last_login_at > ?',last)
