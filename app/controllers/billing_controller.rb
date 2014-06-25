@@ -151,7 +151,7 @@ class BillingController < ApplicationController
   end
 
   def updatable?(subscription)
-    subscription && subscription.automatic? && !subscription.expired?
+    subscription && subscription.automatic? && !subscription.past_due?
   end
 
   def set_subscription_attributes
