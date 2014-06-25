@@ -24,6 +24,10 @@ class OrganizationStatus
     end
   end
 
+  def to_sym
+    label
+  end
+
   def to_s
     label.to_s.gsub('_', ' ')
   end
