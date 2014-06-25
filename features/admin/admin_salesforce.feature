@@ -4,6 +4,7 @@ Feature: Salesforce integration
   I want customer data imported into Salesforce
 
 Scenario: Add new organization to Salesforce
+  Given the date is "June 24, 2014"
   When an organization signs up and pays
   Then the organization should be added to Salesforce
   When the organization is updated
