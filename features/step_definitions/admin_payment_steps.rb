@@ -229,6 +229,6 @@ Then(/^I can cancel billing for "([^"]*)"$/) do |org_name|
 
   expect(page).to have_content 'cancelled the subscription'
   within_organization_row(org_name) do
-    expect(page).to have_content 'Needs Approval' # TODO: indicate cancelled
+    expect(find('td.status').text).to eq('cancelled')
   end
 end

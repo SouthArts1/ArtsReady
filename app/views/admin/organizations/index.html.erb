@@ -9,6 +9,7 @@
           <th><p>Latest Activity</p></th>
           <th><p>Assessment %</p></th>
           <th><p>To-do %</p></th>
+          <th><p>Status</p></th>
           <th><p>&nbsp;</p></th>
         </tr>
       </thead>
@@ -20,8 +21,8 @@
             <td class="activity"><p><%= org.last_activity %></p></td>
             <td class="assessment"><p><%= org.assessment_percentage_complete %>%</p></td>
             <td class="todo"><p><%= org.todo_percentage_complete %>%</p></td>
+            <td class="status"><p><%= org.status %></p></td>
             <td class="actions"><p>
-              <%= "Needs Approval" unless org.active?%>
               <%= link_to 'Edit', edit_admin_organization_path(org), :class => 'button' %>
             </p></td>
           </tr>

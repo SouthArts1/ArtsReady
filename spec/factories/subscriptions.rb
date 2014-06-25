@@ -15,7 +15,9 @@ FactoryGirl.define do
     active true
 
     factory :provisional_subscription, class: ProvisionalSubscription do
-
+      factory :inactive_provisional_subscription do
+        active false
+      end
     end
 
     factory :authorize_net_subscription, class: AuthorizeNetSubscription do

@@ -91,10 +91,13 @@ FactoryGirl.define do
       end
 
       after_create do |org, evaluator|
+        active = org.active
         next_billing_date = org.next_billing_date
+
         org.subscriptions << FactoryGirl.build(evaluator.subscription_factory)
-        # Creating the subscription changes the next billing date, but we
-        # want to use the factory-set value, so we reset it here.
+        # Creating the subscription may change active and next billing date,
+        # but we want to use the factory-set values, so we reset them here.
+        org.update_column(:active, active)
         org.update_column(:next_billing_date, next_billing_date)
       end
     end

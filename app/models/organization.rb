@@ -164,6 +164,10 @@ class Organization < ActiveRecord::Base
     subscriptions.last
   end
 
+  def status
+    @status ||= OrganizationStatus.new(self, subscription)
+  end
+
   def billing_emails
     subscription.try(:billing_email).presence || executives.pluck(:email)
   end

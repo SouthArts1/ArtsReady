@@ -41,3 +41,23 @@ Feature: Admin organization management
     #And the "Secret Stuff" article should be deleted
     And the "Open Stuff" article should still be in the public library
 
+  Scenario: Organization status
+    Given organizations with the following states:
+      | Name          | Active | Subscription | Past Due? |
+      | New Org       | false  | none         |           |
+      | Cancelled Org | false  | inactive     |           |
+      | Disabled Org  | false  | active       |           |
+      | Temporary Org | true   | none         |           |
+      | Active Org    | true   | active       |           |
+      | Lapsed Org    | true   | active       | true      |
+    And I am signed in as a sysadmin
+
+    When I follow "Manage Organizations"
+    Then I should see the following organization statuses:
+      | Name          | Status               |
+      | New Org       | new                  |
+      | Cancelled Org | cancelled            |
+      | Disabled Org  | disabled             |
+      | Temporary Org | temporarily approved |
+      | Active Org    | active               |
+      | Lapsed Org    | past due             |
