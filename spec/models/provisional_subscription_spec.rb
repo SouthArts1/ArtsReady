@@ -20,6 +20,10 @@ describe 'ProvisionalSubscription' do
   it_behaves_like 'a subscription'
 
   describe 'before validation' do
+    # Use `new` instead of a factory so that the subscription is a blank
+    # slate for `initialize_defaults` to write on.
+    let(:subscription) { ProvisionalSubscription.new(organization: org) }
+
     before { subscription.valid? }
 
     it 'copies contact data from the organization' do

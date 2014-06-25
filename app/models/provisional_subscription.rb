@@ -14,7 +14,7 @@ class ProvisionalSubscription < Subscription
   def initialize_defaults
     user = organization.users.first
 
-    self.attributes = {
+    {
       start_date: Time.zone.now,
       active: true,
 
@@ -26,7 +26,9 @@ class ProvisionalSubscription < Subscription
       billing_state: organization.state, billing_zipcode: organization.zipcode,
       billing_phone_number: organization.phone_number,
       billing_email: 'admin@artsready.org',
-    }
+    }.each do |attr, value|
+      self[attr] = value if self[attr].nil?
+    end
   end
 
   def set_next_billing_date
