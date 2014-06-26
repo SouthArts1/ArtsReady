@@ -24,8 +24,7 @@ class ProvisionalSubscription < Subscription
       billing_first_name: user.first_name, billing_last_name: user.last_name,
       billing_address: organization.address, billing_city: organization.city,
       billing_state: organization.state, billing_zipcode: organization.zipcode,
-      billing_phone_number: organization.phone_number,
-      billing_email: 'admin@artsready.org',
+      billing_phone_number: organization.phone_number
     }.each do |attr, value|
       self[attr] = value if self[attr].nil?
     end

@@ -29,7 +29,6 @@ class Admin::OrganizationsController < Admin::AdminController
     @subscription = @organization.build_provisional_subscription
 
     if @subscription.save
-      @subscription.update_attribute(:billing_email, nil) # TODO: what's this about?
       redirect_to :back, :notice => "Provisional access has been granted"
     else
       redirect_to :back, :notice => "Problem granting access."

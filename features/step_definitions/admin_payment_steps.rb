@@ -141,8 +141,12 @@ Then(/^I can grant provisional access$/) do
   expect(page).to have_content 'Provisional access has been granted' # flash
 
   visit current_path
-  expect(page).to have_content 'Provisional Access'
-  expect(page).to have_content 'Next billing amount: $225.00'
+
+  within '.billing_info' do
+    expect(page).to have_content 'Provisional Access'
+    expect(page).to have_content 'Next billing amount: $225.00'
+    expect(page).not_to have_content '@'
+  end
 end
 
 Then /^a provisional access note is added$/ do
