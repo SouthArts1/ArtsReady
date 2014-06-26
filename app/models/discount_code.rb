@@ -11,25 +11,49 @@ class DiscountCode < ActiveRecord::Base
   end
 
   def total_deduction
-    if self.deduction_type == "percentage"
-      str = self.deduction_value.to_s + "%"
+    if deduction_type == "percentage"
+      deduction_value.to_s + "%"
     else
-      str = "$" + self.deduction_value.to_s + " off"
+      "$" + deduction_value.to_s + " off"
     end
   end
   
   def is_valid?
-    return true if self.time_validity && self.usage_validity
+    time_validity && usage_validity
   end
   
   def time_validity
-    return true if self.active_on < Time.now && self.expires_on > Time.now
-    return false
+    active_on < Time.now && expires_on > Time.now
   end
   
   def usage_validity
-    return true if self.redemption_max == 0
-    return true if self.subscriptions.count <= self.redemption_max
-    return false
+    (redemption_max == 0) || (subscriptions.count <= redemption_max)
+  end
+
+  def starting_deduction
+    Deduction.new(deduction_type, deduction_value)
+  end
+
+  def recurring_deduction
+    Deduction.new(recurring_deduction_type, recurring_deduction_value)
+  end
+
+  class Deduction
+    attr_accessor :type, :value
+
+    def initialize(type, value)
+      self.type = type
+      self.value = value
+    end
+
+    def apply_to(cents)
+      if type == "percentage"
+        cents.to_f * ((100 - value).to_f / 100)
+      elsif type == "dollars"
+        cents.to_f - (value * 100)
+      else
+        cents
+      end
+    end
   end
 end

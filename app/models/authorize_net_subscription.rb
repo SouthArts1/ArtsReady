@@ -77,16 +77,8 @@ class AuthorizeNetSubscription < Subscription
 
     d = self.discount_code
     if d && d.is_valid?
-      if d.deduction_type == "percentage"
-        start_amount = start_amount.to_f * ((100 - d.deduction_value).to_f / 100) if d.apply_to_first_year?
-      elsif d.deduction_type == "dollars"
-        start_amount = start_amount.to_f - (d.deduction_value * 100) if d.apply_to_first_year?
-      end
-      if d.recurring_deduction_type == "percentage"
-        regular_amount = regular_amount.to_f * ((100 - d.recurring_deduction_value).to_f / 100) if d.apply_to_post_first_year?
-      elsif d.recurring_deduction_type == "dollars"
-        regular_amount = regular_amount.to_f - (d.recurring_deduction_value * 100) if d.apply_to_post_first_year?
-      end
+      start_amount = d.starting_deduction.apply_to(start_amount) if d.apply_to_first_year?
+      regular_amount = d.recurring_deduction.apply_to(regular_amount) if d.apply_to_post_first_year?
     end
 
     self.starting_amount_in_cents = start_amount
@@ -203,19 +195,8 @@ class AuthorizeNetSubscription < Subscription
     return false if !validate_for_creation
 
     arb_sub = build_arb_subscription_for_create()
-    if self.payment_type == "cc"
-      expiry = get_expiry(self.expiry_month, self.expiry_year)
-      arb_sub.credit_card = AuthorizeNet::CreditCard.new(self.number, expiry, { card_code: self.ccv })
-      self.payment_method = "Credit Card"
-      self.number = self.number.to_s
-      self.payment_number = "#{self.number[(self.number.length - 4)...self.number.length]}"
-    elsif self.payment_type == "bank"
-      arb_sub.bank_account = AuthorizeNet::ECheck.new(self.routing_number, self.account_number, self.bank_name, (self.billing_first_name + " " + self.billing_last_name), {account_type: self.account_type})
-      self.payment_method = "#{self.account_type.capitalize} Account"
-      self.payment_number = "#{self.account_number[(self.account_number.to_s.length-4)...self.account_number.to_s.length]}"
-    else
-      return false
-    end
+
+    set_payment_info(arb_sub)
 
     # ARB doesn't support free subscriptions, so we bypass it in that case
     return false unless free_after_first_year? || create_arb_transaction(arb_sub)
