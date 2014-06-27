@@ -9,6 +9,11 @@
   </div>
 <% end %>
 
+<p>
+  Please check billing and email address to make sure it is
+  correct before submitting.
+</p>
+
 <%= form_for @subscription, as: :subscription, :url => billing_path, :onkeypress => "return handleEnter(this,event)" do |f| %>
   <%= f.hidden_field :organization_id, value: @organization.id %>
   <%= f.hidden_field :discount_code_id, value: @subscription.discount_code_id %>
