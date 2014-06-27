@@ -1,0 +1,7 @@
+<p>
+  Account status:
+  <%= @organization.status.to_s.titleize %>
+  <% if @subscription && @subscription.provisional? %>
+    [Provisional Access]
+  <% end %>
+</p>

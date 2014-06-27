@@ -11,6 +11,8 @@
 <div class="grid_8">
   <section class="billing_info">
     <h3>Billing Information:</h3>
+    <%= render 'shared/account_status' %>
+
     <% if @subscription && @subscription.active? %>
       <%= render 'shared/billing_info' %>
 

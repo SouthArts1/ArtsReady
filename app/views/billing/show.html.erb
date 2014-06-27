@@ -6,6 +6,8 @@
 
 <div class="grid_8">
   <section class="billing_info">
+    <%= render 'shared/account_status' %>
+
     <% if @subscription && @subscription.active? %>
       <%= render 'shared/billing_info' %>
 

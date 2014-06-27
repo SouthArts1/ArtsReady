@@ -1,12 +1,4 @@
 <p>
-  Account status:
-  <%= @organization.account_status.titleize %>
-  <% if @subscription.provisional? %>
-    [Provisional Access]
-  <% end %>
-  <br/>
-  <br/>
-
   Date joined:
   <%= @organization.created_at.try(:strftime, "%B %e, %Y") %>
   <br/>
