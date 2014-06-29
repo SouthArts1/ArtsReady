@@ -9,10 +9,12 @@
   </div>
 <% end %>
 
-<p class="warning">
-  Please check billing and email address to make sure it is correct
-  before updating or submitting this page.
-</p>
+<% if @organization.subscription %>
+  <p class="warning">
+    Please check billing and email address to make sure it is correct
+    before updating or submitting this page.
+  </p>
+<% end %>
 
 <%= form_for @subscription, as: :subscription, :url => billing_path, :onkeypress => "return handleEnter(this,event)" do |f| %>
   <%= f.hidden_field :organization_id, value: @organization.id %>
