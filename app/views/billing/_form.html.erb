@@ -9,9 +9,9 @@
   </div>
 <% end %>
 
-<p>
-  Please check billing and email address to make sure it is
-  correct before submitting.
+<p class="warning">
+  Please check billing and email address to make sure it is correct
+  before updating or submitting this page.
 </p>
 
 <%= form_for @subscription, as: :subscription, :url => billing_path, :onkeypress => "return handleEnter(this,event)" do |f| %>
