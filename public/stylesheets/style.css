@@ -895,6 +895,12 @@ tbody tr:hover td {
     margin-left: 150px; }
 
 /*  Org Admin */
+.organizations .status.new {
+  font-weight: bold;
+  color: red; }
+.organizations .status.cancelled, .organizations .status.disabled {
+  color: #888; }
+
 .admin-actions form {
   float: left;
   margin-right: 10px; }

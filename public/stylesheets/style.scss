@@ -934,6 +934,12 @@ tbody {
 
 /*  Org Admin */
 
+.organizations {
+  .status {
+    &.new { font-weight: bold; color: red; }
+    &.cancelled, &.disabled { color: #888; }
+  }
+}
 .admin-actions {
   form {
     float: left;
