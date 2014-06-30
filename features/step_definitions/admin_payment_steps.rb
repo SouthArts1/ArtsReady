@@ -177,6 +177,9 @@ Then(/^I can update the organization's next billing date$/) do
   end
   click_on 'Edit Billing'
 
+  expect(page).
+    to have_selector('.warning', text: 'managed by an external service')
+
   select '2024', from: 'subscription_organization_attributes_next_billing_date_1i'
   select 'March', from: 'subscription_organization_attributes_next_billing_date_2i'
   select '19', from: 'subscription_organization_attributes_next_billing_date_3i'

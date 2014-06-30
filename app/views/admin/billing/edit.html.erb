@@ -10,7 +10,18 @@
 
     <%= simple_form_for @subscription, as: :subscription, url: [:admin, @organization, :billing] do |f| %>
       <%= f.input :regular_amount %>
+
       <%= f.fields_for :organization do |ff| %>
+        <% if @subscription.automatic? %>
+          <p class="warning">
+            This subscription is managed by an external service which
+            does not allow us to change the payment date. Change this
+            field only if the date shown here does not match the external
+            service's payment date. (This can happen if the ArtsReady
+            application misses a payment notification.)
+          </p>
+        <% end %>
+
         <%= ff.input :next_billing_date, as: :date,
           start_year: [Date.today.year, ff.object.next_billing_date.year].min,
           end_year: Date.today.year + 3
