@@ -61,12 +61,14 @@ Feature: Todo list
   Scenario: Export todos
     Given I am signed in as an editor
     And I have created the following todo items:
-      | critical function | action  | description | due on      | priority |
-      | technology        | Review  | backup      | May 1, 2012 | critical |
+      | critical function | action   | description | due on      | priority     | complete |
+      | finance           | Work On  | budget      | May 1, 2012 | non-critical | true     |
+      | technology        | Review   | backup      | May 1, 2012 | critical     | false    |
 
     When I follow "To-Do"
     And I follow "Export"
     Then I should receive the following CSV:
-      | Critical Function    | Action | Description | Assigned To | Due Date   | Priority |
-      | Technology           | Review | backup      |             | 2012-05-01 | critical |
+      | Critical Function    | Action | Description | Assigned To | Due Date   | Priority     |
+      | Finances & Insurance | Done   | budget      |             | 2012-05-01 | non-critical |
+      | Technology           | Review | backup      |             | 2012-05-01 | critical     |
 

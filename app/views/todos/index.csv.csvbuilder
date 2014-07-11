@@ -6,7 +6,7 @@ csv << [
 @todos.find_each do |todo|
   csv << [
     todo.critical_function_title,
-    todo.action,
+    todo.complete? ? 'Done' : todo.action,
     todo.description,
     todo.user_name,
     todo.due_on,
