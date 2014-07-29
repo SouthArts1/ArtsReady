@@ -113,4 +113,8 @@ Feature: Assessment
     And 340 days pass
     And the scheduled tasks have run
     Then I should have another re-assessment to-do
-        
+
+    # Add another question, so we can "partially complete" an assessment
+    Given an active question exists
+    When I have a partially completed assessment
+    And I can re-assess without completing the previous assessment

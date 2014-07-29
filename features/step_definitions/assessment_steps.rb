@@ -96,3 +96,24 @@ Then /^all "(.*)" questions should be skipped$/ do |cf|
   click_link cf
   page.all('.question:not(.not-applicable)').should be_empty
 end
+
+When(/^I have a partially completed assessment$/) do
+  step %{I initiate a re-assessment}
+  click_on 'Begin Assessment'
+
+  choose "critical"
+  choose "needs work"
+  click_button "save answer"
+end
+
+And(/^I can re\-assess without completing the previous assessment$/) do
+  click_link 'Assess'
+  # question has been answered
+  expect(page).to have_selector('label', text: 'non-critical', count: 1)
+
+  click_link 'Archive and Re-Assess'
+  click_on 'Begin Assessment'
+
+  # question should be unanswered
+  expect(page).to have_selector('label', text: 'non-critical', count: 2)
+end

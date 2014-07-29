@@ -1,13 +1,8 @@
 class AssessmentsController < ApplicationController
 
   def new
-    current = current_org.assessment
-    if current && !current.complete?
-      redirect_to assessment_path
-    else
-      @assessment = Assessment.new(:organization => current_org)
-      @assessment.initialize_critical_functions
-    end
+    @assessment = Assessment.new(:organization => current_org)
+    @assessment.initialize_critical_functions
   end
 
   def create

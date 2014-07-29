@@ -18,8 +18,8 @@ describe "assessments/show" do
       render
     end
     
-    it 'offers a re-assess button' do
-      rendered.should have_selector("a[href='#{new_assessment_path}']")
+    it 'offers a re-assess button with no confirmation' do
+      rendered.should have_selector("a[href='#{new_assessment_path}']:not([confirm])")
     end
   end
   
@@ -30,8 +30,8 @@ describe "assessments/show" do
       render
     end
     
-    it 'does not offer a re-assess button' do
-      rendered.should_not have_selector("a[href='#{new_assessment_path}']")
+    it 'offers a re-assess button with confirmation' do
+      rendered.should_not have_selector("a[href='#{new_assessment_path}'][confirm]")
     end
   end
 end

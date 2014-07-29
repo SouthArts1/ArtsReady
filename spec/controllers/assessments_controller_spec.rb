@@ -26,11 +26,18 @@ describe AssessmentsController do
       context '(assessment in progress)' do
         let(:assessment) {
           Factory.create(:assessment,
-            :organization => user.organization)
+            :organization => user.organization,
+            :has_exhibits => true)
 
         }
-        
-        it { should redirect_to assessment_path }
+
+        it 'builds a new assessment' do
+          assigns[:assessment].should be_present
+          assigns[:assessment].should_not == assessment
+          assigns[:assessment].should have_exhibits
+        end
+
+        it { should render_template :new }
       end
       
       context '(assessment complete)' do

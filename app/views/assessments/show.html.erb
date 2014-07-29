@@ -1,7 +1,8 @@
 <div class="grid_12">
   <%= render :partial => 'progress' %>
   <h1>Readiness Assessment</h1>
-  <%= link_to('Archive and Re-Assess', new_assessment_path, :class => 'button reassessment_button') if @assessment.complete? %>
+  <%= link_to('Archive and Re-Assess', new_assessment_path, :class => 'button reassessment_button',
+      :confirm => ('Are you sure you want to archive this assessment and start over?' unless @assessment.complete?)) %>
   <p><%= link_to "Need help?", page_path('help_assessment') %></p>
   <ul class="top-nav">
     <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>

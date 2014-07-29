@@ -13,9 +13,11 @@ class Assessment < ActiveRecord::Base
   validates_presence_of :organization
   validate :cannot_skip_section_with_answered_questions
 
+  before_create :mark_existing_assessments_complete
   after_create :populate_empty_answers
 
   scope :complete, where('completed_at IS NOT NULL')
+  scope :active, where('completed_at IS NULL')
 
   scope :pending_reassessment_todo, lambda {
     where(['completed_at < ?', 11.months.ago]).
@@ -28,10 +30,12 @@ class Assessment < ActiveRecord::Base
 
   # internal method checks whether all questions are skipped or answered
   private
+
   def completed?
     return false unless answers_count > 0
     (completed_answers_count + skipped_answers_count) == answers_count
   end
+
   public
 
   # public method: true if the assessment has already been declared complete
@@ -65,10 +69,19 @@ class Assessment < ActiveRecord::Base
 
   def check_complete
     if !completed_at && completed?
-      update_attribute :completed_at, Time.zone.now
+      mark_completed
     end
   end
-  
+
+  def mark_completed
+    update_attribute :completed_at, Time.zone.now
+  end
+
+  def mark_existing_assessments_complete
+    organization.assessments.active.update_all(:completed_at => Time.zone.now)
+  end
+
+
   def create_reassessment_todo
     attrs = {
       :critical_function => 'people', :user => users.first,
@@ -117,7 +130,8 @@ class Assessment < ActiveRecord::Base
   end
 
   def initialize_critical_functions
-    previous = organization.assessments.complete.order('completed_at ASC').last
+    # treat incomplete assessments as "completed now"
+    previous = organization.assessments.order('ifnull(completed_at, NOW()) DESC').first
     return unless previous
 
     self.has_performances = previous.has_performances if self.has_performances.nil?
