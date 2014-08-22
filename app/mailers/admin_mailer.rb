@@ -7,7 +7,7 @@ class AdminMailer < ActionMailer::Base
 
   def new_organization(organization,admin)
     @organization = organization
-    mail :to => admin.email, :subject => "There is a organization to approve."
+    mail :to => admin.email, :subject => "There is an organization to approve."
   end
 
   def review_public(article,admin)
