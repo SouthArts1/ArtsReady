@@ -28,6 +28,10 @@ class Subscription < ActiveRecord::Base
     false
   end
 
+  def payment_method_expires_before?(date)
+    false
+  end
+
   def past_due?
     next_billing_date && (next_billing_date <= Time.zone.today)
   end

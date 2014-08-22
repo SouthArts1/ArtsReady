@@ -52,4 +52,6 @@ shared_examples_for 'a subscription' do
       end
     end
   end
+
+  it { should respond_to :payment_method_expires_before? }
 end

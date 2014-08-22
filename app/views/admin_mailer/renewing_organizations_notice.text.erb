@@ -2,5 +2,7 @@ The following organization(s) are due to renew next month:
 
 <% @organizations.order(:next_billing_date).each do |org| %>
   <% url = edit_admin_organization_url(org) %>
-  <%= org.next_billing_date.to_s(:slashed) %> <%= org.name %> <%= url %>
+  <%= org.next_billing_date.to_s(:slashed) %> <%= '!!! ' if org.payment_method_expires_before_next_billing_date? %><%= org.name %> <%= url %>
 <% end %>
+
+(Organizations marked !!! have expiring/expired payment cards.)

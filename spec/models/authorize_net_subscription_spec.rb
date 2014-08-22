@@ -326,6 +326,16 @@ describe AuthorizeNetSubscription do
     end
   end
 
+  describe '.payment_method_expires_before?(date)' do
+    it 'depends on the expiration date' do
+      subscription.attributes = {expiry_month: 12, expiry_year: 2021}
+      expect(subscription.payment_method_expires_before?(
+        Date.parse('January 1, 2022'))).to be_true
+      expect(subscription.payment_method_expires_before?(
+        Date.parse('December 31, 2021'))).to be_false
+    end
+  end
+
   describe '.credit_card_expiring_this_month' do
     it 'returns subscriptions with credit cards expiring this month' do
       subscriptions = [2, 3, 4].map do |month|

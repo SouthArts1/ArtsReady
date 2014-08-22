@@ -93,6 +93,10 @@ class AuthorizeNetSubscription < Subscription
     return expiry_month.to_s + expiry_year.to_s
   end
 
+  def payment_method_expires_before?(date)
+    expiration_date && expiration_date < date
+  end
+
   def skipping_callbacks
     was_skipping_callbacks = skip_callbacks
     self.skip_callbacks = true
@@ -328,17 +332,19 @@ class AuthorizeNetSubscription < Subscription
 
   def credit_card_must_not_have_expired_by_billing_date
     return unless payment_type == 'cc'
-    return unless expiry_month.presence && expiry_year.presence
+    return unless expiration_date
 
-    expiration =
-      Date.new(Integer(expiry_year), Integer(expiry_month)).
-        end_of_month
-
-    if Time.zone.today > expiration
+    if Time.zone.today > expiration_date
       errors[:base] << 'Credit card has expired'
-    elsif billing_date_after(Time.zone.today) > expiration
+    elsif billing_date_after(Time.zone.today) > expiration_date
       errors[:base] << 'Credit card will expire before billing date'
     end
+  end
+
+  def expiration_date
+    return unless expiry_month.presence && expiry_year.presence
+
+    Date.new(Integer(expiry_year), Integer(expiry_month)).end_of_month
   end
 
   def set_next_billing_date

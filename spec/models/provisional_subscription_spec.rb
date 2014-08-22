@@ -31,4 +31,10 @@ describe 'ProvisionalSubscription' do
       expect(subscription.billing_phone_number).to eq(org.phone_number)
     end
   end
+
+  describe '.payment_method_expires_before?' do
+    it 'always returns false' do
+      expect(subscription.payment_method_expires_before?(double)).to be_false
+    end
+  end
 end
