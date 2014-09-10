@@ -26,6 +26,9 @@ class SalesforceClient
     # duplicate it as `id`.
     Airbrake.notify_or_ignore(e, parameters: fields.merge(id: organization.id))
     false
+  rescue Restforce::Error => e
+    Airbrake.notify_or_ignore(e, parameters: fields.merge(id: organization.id))
+    false
   end
 
   def account_fields(organization)
