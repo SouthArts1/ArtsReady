@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.1.5'
 
 gem 'rails', '~> 3.2.3'
 gem 'mysql2', '>= 0.3.11'
@@ -25,7 +25,7 @@ gem 'simple_form'
 gem 'strong_parameters'
 
 gem 'airbrake'
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', '~> 3.5.5'
 gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'
@@ -33,7 +33,8 @@ gem 'restforce'
 gem 'activerecord-import', '~> 0.3.0'
 
 gem 'rack-ssl', :require => 'rack/ssl'
-gem 'delayed_job'
+gem 'delayed_job_active_record', '~> 0.4.4'
+gem 'delayed_job', '~> 3.0.5'
 
 gem 'authorize-net', '1.5.2', :path => "vendor/gems/authorize-net-1.5.2"
 
