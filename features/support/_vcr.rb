@@ -16,10 +16,11 @@ end
 # flags it. Supposedly this was fixed in Cucumber, but it's still failing
 # for us even after an upgrade. Anyway, for now we use Before and After.
 Before do |scenario|
-  VCR.insert_cassette [
+  cassette_name = [
     scenario.feature, scenario
-  ].map { |component| component.title.parameterize }.join('/') #,
-    # record: :new_episodes
+  ].map { |component| component.title.parameterize }.join('/')
+
+  VCR.insert_cassette cassette_name#, record: :new_episodes
 end
 
 After do
