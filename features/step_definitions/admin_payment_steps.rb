@@ -175,10 +175,13 @@ Then(/^I can update the organization's next billing date$/) do
     edit_last_organization
     click_on 'Billing'
   end
+  provisional = page.has_text? '[Provisional Access]'
   click_on 'Edit Billing'
 
-  expect(page).
-    to have_selector('.warning', text: 'managed by an external service')
+  unless provisional
+    expect(page).
+      to have_selector('.warning', text: 'managed by an external service')
+  end
 
   select '2024', from: 'subscription_organization_attributes_next_billing_date_1i'
   select 'March', from: 'subscription_organization_attributes_next_billing_date_2i'
