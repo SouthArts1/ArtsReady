@@ -28,7 +28,7 @@ class Organization < ActiveRecord::Base
   has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
   has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
   has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
-  has_many :subscriptions
+  has_many :subscriptions, order: :start_date
   has_one :active_subscription, class_name: 'Subscription',
     conditions: {subscriptions: {active: true}}
   has_many :subscription_events

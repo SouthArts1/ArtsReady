@@ -38,5 +38,28 @@
       </p>
 
     <% end %>
+
+    <% unless @organization.subscriptions.empty? %>
+      <h3>Subscription History:</h3>
+      <table id="subscription_log">
+        <thead>
+          <tr>
+            <th>Subscription ID</th>
+            <th>Start Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @organization.subscriptions.reverse.each do |sub| %>
+            <tr>
+              <td><p><%= sub.arb_id %></p></td>
+              <td><p><%= sub.start_date.try(:strftime, "%m/%d/%Y") %></p></td>
+              <td><p><%= sub.active? ? 'Active' : 'Inactive' %></p></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </section>
 </div>
