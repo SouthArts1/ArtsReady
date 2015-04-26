@@ -6,11 +6,6 @@ GIT
     kelp (0.2.3)
       capybara (~> 2.1.0)
 
-PATH
-  remote: vendor/gems/authorize-net-1.5.2
-  specs:
-    authorize-net (1.5.2)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -51,6 +46,8 @@ GEM
       builder
       multi_json
     arel (3.0.3)
+    authorizenet (1.8.2)
+      nokogiri (>= 1.4.3)
     awesome_print (1.2.0)
     bcrypt-ruby (2.1.4)
     better_errors (0.9.0)
@@ -301,7 +298,7 @@ DEPENDENCIES
   activerecord-import (~> 0.3.0)
   acts-as-taggable-on (>= 2.2.2)
   airbrake
-  authorize-net (= 1.5.2)!
+  authorizenet
   awesome_print
   bcrypt-ruby (= 2.1.4)
   better_errors

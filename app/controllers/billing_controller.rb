@@ -133,14 +133,14 @@ class BillingController < ApplicationController
   end
 
   def report_failed_transaction
-    response = @subscription.failed_transaction_response
+    transaction = @subscription.failed_transaction
 
-    if response
+    if transaction
       Airbrake.notify_or_ignore(nil,
         error_message: 'ARB response',
         parameters: {
-          response: response.inspect.gsub(/([0-9]{2})[0-9]{10}[0-9]*/, '0x\1L0NGNUMB3R'),
-          response_response: (response.response rescue nil).inspect
+          response: transaction.response.inspect.
+            gsub(/([0-9]{2})[0-9]{10}[0-9]*/, '0x\1L0NGNUMB3R'),
         }
       )
 

@@ -3,7 +3,7 @@ class AuthorizeNetSubscription < Subscription
   attr_accessor :amount, :number, :ccv,
     :bank_name, :account_type, :routing_number, :account_number,
     :payment_type
-  attr_accessor :failed_transaction_response
+  attr_accessor :failed_transaction
 
   before_validation :initialize_start_date, on: :create
   before_create :create_and_charge_arb_subscription
@@ -215,7 +215,7 @@ class AuthorizeNetSubscription < Subscription
     response = arb_tran.create(arb_sub)
 
     if !response.success?
-      self.failed_transaction_response = response
+      note_transaction_failure(arb_tran, response)
     end
 
     success = response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
@@ -260,7 +260,7 @@ class AuthorizeNetSubscription < Subscription
       self.payment_method = "Credit Card"
       self.payment_number = number.last(4)
     elsif payment_type == "bank"
-      arb_sub.bank_account = AuthorizeNet::ECheck.new(
+      arb_sub.credit_card = AuthorizeNet::ECheck.new(
         routing_number, account_number, bank_name,
         billing_first_name + " " + billing_last_name,
         account_type: account_type
@@ -287,7 +287,7 @@ class AuthorizeNetSubscription < Subscription
 
       true
     else
-      self.failed_transaction_response = response
+      note_transaction_failure(arb_tran, response)
 
       false
     end
@@ -349,5 +349,9 @@ class AuthorizeNetSubscription < Subscription
 
   def set_next_billing_date
     organization.update_attributes(next_billing_date: start_date.to_date)
+  end
+
+  def note_transaction_failure(transaction, response)
+    self.failed_transaction = transaction
   end
 end

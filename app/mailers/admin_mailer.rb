@@ -22,8 +22,8 @@ class AdminMailer < ActionMailer::Base
 
   def payment_submission_error(subscription, user)
     @subscription = subscription
-    @response = subscription.failed_transaction_response
-    @transaction = @response.transaction
+    @transaction = @subscription.failed_transaction
+    @response = @transaction.response
     @user = user
 
     mail to: ADMIN_RECIPIENTS, subject: 'ArtsReady payment submission error'

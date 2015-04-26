@@ -36,7 +36,7 @@ gem 'rack-ssl', :require => 'rack/ssl'
 gem 'delayed_job_active_record', '~> 0.4.4'
 gem 'delayed_job', '~> 3.0.5'
 
-gem 'authorize-net', '1.5.2', :path => "vendor/gems/authorize-net-1.5.2"
+gem 'authorizenet'
 
 # Production dependencies. Keeping these in the default gem group so
 # we'll automatically keep them compatible while developing.
