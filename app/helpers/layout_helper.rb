@@ -8,4 +8,8 @@ module LayoutHelper
     return "$0.00" if cents == 0 || cents.nil? || cents.is_a?(String)
     number_to_currency (cents.to_f / 100)
   end
+
+  def rfc822_time(time)
+    time.try(:to_s, :rfc822)
+  end
 end

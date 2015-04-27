@@ -3,9 +3,20 @@ $(function(){
 	$("input[type='checkbox'], input:file").uniform();
 	
 	$(".questionnaire tbody, .resource tbody").hide().eq(0).show();
-	
-	$("table").tablesorter();
-	
+
+  $.tablesorter.addParser({
+	id: 'rfc822TimeOrNever',
+
+	format: function (s) {
+	  return Date.parse(s) || 0;
+	},
+	type: 'numeric'
+  });
+
+  $("table").tablesorter({
+	//debug: true
+  });
+
 	$('.datepicker').datepicker({
 	  showOn: 'both',
 	  buttonImage: '/images/calendar.gif',

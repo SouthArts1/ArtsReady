@@ -124,7 +124,7 @@ class Organization < ActiveRecord::Base
   end
 
   def last_activity
-    users.order('last_login_at DESC').first.try(:last_activity) || 'Never'
+    users.order('last_login_at DESC').first.try(:last_activity)
   end
 
   def declared_crisis?

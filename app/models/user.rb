@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def last_activity
-    last_login_at.nil? ? 'Never' : last_login_at
+    last_login_at
   end
 
   def is_admin?
