@@ -10,4 +10,4 @@ identical to the ANET_MD5_HASH_VALUE configuration variable defined
 for the ArtsReady application.
 
 The affected account is <%= @organization.name %>.
-<%= url_for [:admin, @organization] %>
+<%= billing_admin_organization_url(@organization) %>
