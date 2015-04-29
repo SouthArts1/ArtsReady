@@ -4,6 +4,8 @@ class PaymentNotification < ActiveRecord::Base
   attr_accessible :params, :state
   serialize :params
 
+  delegate :organization, to: :subscription, allow_nil: true
+
   def capture?
     type =~ /CAPTURE/i
   end

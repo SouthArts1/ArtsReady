@@ -58,4 +58,11 @@ class AdminMailer < ActionMailer::Base
 
     mail to: recipients, subject: subject
   end
+
+  def payment_notification_authentication_warning(notification)
+    @organization = notification.organization
+
+    mail to: ADMIN_RECIPIENTS,
+      subject: 'ArtsReady payment notification authentication problem'
+  end
 end

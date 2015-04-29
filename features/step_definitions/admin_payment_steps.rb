@@ -94,6 +94,23 @@ When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
   receive_payment_notification_for(organization.subscription)
 end
 
+When(/^we receive an unauthenticated payment notification for "([^"]*)"$/) do |org_name|
+  organization = Organization.find_by_name(org_name)
+
+  receive_payment_notification_for(
+    organization.subscription, 'x_MD5_Hash' => 'fakehash'
+  )
+end
+
+Then(/^admins should receive an authentication warning about "(.*?)"$/) do |org_name|
+  notices = unread_emails_for('admin@artsready.org').select do |m|
+    m.subject =~ /payment notification authentication/
+  end
+
+  expect(notices.count).to eq 1
+  expect(notices.first.body).to include org_name
+end
+
 Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
   visit_admin_notes_for(org_name)
 

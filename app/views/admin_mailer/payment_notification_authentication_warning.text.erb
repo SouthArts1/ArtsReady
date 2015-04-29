@@ -1,0 +1,13 @@
+ArtsReady received a notification of payment, but could not verify
+that it was from Authorize.Net.
+
+This might mean that somebody is trying to fake payment, but more
+likely means the Authorize.Net account's notification credentials
+have gotten out of sync.
+
+Please make sure that the MD5 Hash Value found on Authorize.Net is
+identical to the ANET_MD5_HASH_VALUE configuration variable defined
+for the ArtsReady application.
+
+The affected account is <%= @organization.name %>.
+<%= url_for [:admin, @organization] %>

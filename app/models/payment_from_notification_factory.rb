@@ -6,8 +6,12 @@ class PaymentFromNotificationFactory
   end
 
   def eligible?
+    notification.authenticated? &&
+      eligible_aside_from_authentication?
+  end
+
+  def eligible_aside_from_authentication?
     notification.success? &&
-      notification.authenticated? &&
       notification.capture? &&
       subscription.present?
   end
@@ -20,8 +24,16 @@ class PaymentFromNotificationFactory
     if eligible?
       build_payment
       notification.update_attributes(state: 'processed')
-    else
+    elsif notification.authenticated?
       notification.update_attributes(state: 'discarded')
+    else
+      notification.update_attributes(state: 'unauthenticated')
+
+      if eligible_aside_from_authentication?
+        AdminMailer.
+          payment_notification_authentication_warning(notification).
+          deliver
+      end
     end
   end
 

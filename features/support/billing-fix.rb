@@ -1,11 +1,11 @@
 module BillingStepHelpers
-  def receive_payment_notification_for(subscription)
+  def receive_payment_notification_for(subscription, overrides = {})
     params = YAML.load(
       File.read(
         'features/fixtures/payment_notifications/auth_capture_1_1_CC.yml')
     ).with_indifferent_access
 
-    params.merge!(
+    params.merge!(overrides).merge!(
       x_subscription_id: subscription.arb_id
     )
 

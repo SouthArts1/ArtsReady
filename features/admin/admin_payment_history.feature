@@ -22,3 +22,6 @@ Feature: Admin payment history
     And we receive automatic payment notifications for "Paying Org"
     Then I can view the automatic payment details for "Paying Org"
     And the next billing date for "Paying Org" is "March 17, 2025"
+
+    When we receive an unauthenticated payment notification for "Paying Org"
+    Then admins should receive an authentication warning about "Paying Org"
