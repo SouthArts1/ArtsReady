@@ -8,14 +8,22 @@ $(function(){
 	id: 'rfc822TimeOrNever',
 
 	format: function (s) {
-	  return Date.parse(s) || 0;
+	  return Date.parse(s);
 	},
 	type: 'numeric'
   });
 
   $(".wrapper table").tablesorter({
-	//debug: true
+	//debug: true,
+	emptyTo: 'none'
   });
+
+  //$('.tablesorter input, .tablesorter select').on(
+	//'change', function() {
+	//  var $this = $(this), cell = $this.parents('td')[0];
+	//  $this.parents('.tablesorter').trigger('updateCell', [cell]);
+	//}
+  //);
 
 	$('.datepicker').datepicker({
 	  showOn: 'both',
