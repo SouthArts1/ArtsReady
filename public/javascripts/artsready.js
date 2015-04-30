@@ -13,7 +13,7 @@ $(function(){
 	type: 'numeric'
   });
 
-  $("table").tablesorter({
+  $(".wrapper table").tablesorter({
 	//debug: true
   });
 
