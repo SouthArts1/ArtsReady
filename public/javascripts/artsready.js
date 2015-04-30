@@ -13,6 +13,40 @@ $(function(){
 	type: 'numeric'
   });
 
+  $.tablesorter.addParser({
+	id: 'selectedOption',
+
+	// Use this parser if the cell has a select and doesn't have any
+	// text outside of the select.
+	is: function(s, table, cell) {
+	  var $cell = $(cell);
+	  var $select = $cell.find('select');
+
+	  return $select.length &&
+		($cell.text().replace(/\s+/g, ' ').trim() ==
+		  $select.text().replace(/\s+/g, ' ').trim());
+	},
+
+	format: function(s, table, cell) {
+	  return $(cell).find(':selected').text();
+	},
+	type: 'text'
+  });
+
+  $.tablesorter.addParser({
+	id: 'datepicker',
+
+	is: function(s, table, cell) {
+	  return $(cell).find('.datepicker').is('*');
+	},
+
+	format: function(s, table, cell) {
+	  s = $(cell).find('.datepicker').val();
+	  return s ? new Date(s) : s;
+	},
+	type: 'numeric'
+  });
+
   $(".wrapper table").tablesorter({
 	//debug: true,
 	emptyTo: 'none'

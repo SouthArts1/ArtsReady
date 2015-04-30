@@ -127,14 +127,6 @@
       type: 'text'
   });
 
-    $('.actionitems').tablesorter({   
-        headers: {
-          1 : { sorter : 'input' },
-          2 : { sorter : 'picker' },
-          3 : { sorter : 'input' },
-              }
-    });
-		
     $('.updateable').change(function (){
       _form = $(this).closest('form.edit_todo');
       $.post(_form.attr('action'), _form.serialize(), null, "script");
