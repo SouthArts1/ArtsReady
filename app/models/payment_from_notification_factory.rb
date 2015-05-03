@@ -11,8 +11,7 @@ class PaymentFromNotificationFactory
   end
 
   def eligible_aside_from_authentication?
-    notification.success? &&
-      notification.capture? &&
+    notification.capture? &&
       subscription.present?
   end
 
@@ -47,7 +46,8 @@ class PaymentFromNotificationFactory
       account_number: notification.account_number,
       account_type: account_type,
       subscription_event: SubscriptionEvent.new(
-        happened_at: notification.created_at
+        happened_at: notification.created_at,
+        notes: "#{notification.status_text}: #{notification.response_reason_text}"
       )
     )
   end

@@ -56,6 +56,29 @@ describe PaymentNotification do
     end
   end
 
+  describe '#status_text' do
+    describe 'for known response codes' do
+      it 'is a string' do
+        (1..4).each do |code|
+          notification =
+            PaymentNotification.new(params: {'x_response_code' => code.to_s})
+          expect(notification.status_text).to be_a_kind_of String
+          expect(notification.status_text).not_to be_blank
+        end
+      end
+    end
+
+    describe 'for unknown response codes' do
+      it 'raises an error' do
+        notification = PaymentNotification.new(
+          params: {'x_response_code' => '5'}
+        )
+
+        expect { notification.status_text }.to raise_error
+      end
+    end
+  end
+
   describe '#authenticated?' do
     let(:notification) {
       notification = PaymentNotification.new(

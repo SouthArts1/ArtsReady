@@ -24,12 +24,28 @@ describe Payment do
         subscription_event.stub(:extend_next_billing_date!)
       end
 
-      it "sets the organization's next billing date" do
-        subscription_event.should_receive(:extend_next_billing_date!).with()
+      context '(successful)' do
+        before { payment.notification.stub(:success? => true) }
 
-        payment.save
+        it "sets the organization's next billing date" do
+          subscription_event.should_receive(:extend_next_billing_date!).with()
 
-        expect(payment).to be_persisted
+          payment.save
+
+          expect(payment).to be_persisted
+        end
+      end
+
+      context '(unsuccessful)' do
+        before { payment.notification.stub(:success? => false) }
+
+        it "does not the organization's next billing date" do
+          subscription_event.should_not_receive(:extend_next_billing_date!)
+
+          payment.save
+
+          expect(payment).to be_persisted
+        end
       end
     end
 

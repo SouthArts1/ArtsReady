@@ -6,6 +6,8 @@ describe PaymentFromNotificationFactory do
   let(:eligible_notification) {
     double(
       success?: true,
+      status_text: 'Approved',
+      response_reason_text: 'This transaction has been approved.',
       capture?: true,
       authenticated?: true,
       subscription: subscription
@@ -48,7 +50,8 @@ describe PaymentFromNotificationFactory do
           state: 'processed'
         )
         SubscriptionEvent.should_receive(:new).with(
-          happened_at: payment_date
+          happened_at: payment_date,
+          notes: 'Approved: This transaction has been approved.'
         )
 
         PaymentFromNotificationFactory.process(notification)
@@ -91,7 +94,7 @@ describe PaymentFromNotificationFactory do
     context 'given an unsuccessful notification' do
       before { notification.stub(:success?).and_return(false) }
 
-      it { should_not be_eligible }
+      it { should be_eligible }
     end
 
     context 'given an non-capture notification' do

@@ -92,6 +92,11 @@ end
 When(/^we receive automatic payment notifications for "([^"]*)"$/) do |org_name|
   organization = Organization.find_by_name(org_name)
   receive_payment_notification_for(organization.subscription)
+  receive_payment_notification_for(organization.subscription,
+    x_response_code: 3,
+    x_response_reason_code: 8,
+    x_response_reason_text: 'The credit card has expired.'
+  )
 end
 
 When(/^we receive an unauthenticated payment notification for "([^"]*)"$/) do |org_name|
@@ -122,7 +127,18 @@ Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
       'Transaction ID' => '2210831157',
       'Account type'   => 'American Express',
       'Account number' => '0002',
-      'Routing number' => ''
+      'Routing number' => '',
+      'Notes'          => 'Approved: This transaction has been approved.'
+    },
+    {
+      'Date/Time'      => '03/20/24 3:18 PM',
+      'Discount code'  => '',
+      'Amount'         => '$300.00',
+      'Transaction ID' => '2210831157',
+      'Account type'   => 'American Express',
+      'Account number' => '0002',
+      'Routing number' => '',
+      'Notes'          => 'Error: The credit card has expired.'
     }
   ])
 

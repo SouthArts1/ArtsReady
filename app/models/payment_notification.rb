@@ -14,6 +14,15 @@ class PaymentNotification < ActiveRecord::Base
     response_code == '1'
   end
 
+  def status_text
+    {
+      AuthorizeNet::AIM::Response::ResponseCode::APPROVED => 'Approved',
+      AuthorizeNet::AIM::Response::ResponseCode::DECLINED => 'Declined',
+      AuthorizeNet::AIM::Response::ResponseCode::ERROR => 'Error',
+      AuthorizeNet::AIM::Response::ResponseCode::HELD => 'Held for Review'
+    }.fetch(response_code)
+  end
+
   def subscription
     Subscription.find_by_arb_id(subscription_id) if subscription_id
   end

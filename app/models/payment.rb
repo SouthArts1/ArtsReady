@@ -15,7 +15,7 @@ class Payment < ActiveRecord::Base
   before_save :clear_routing_number, unless: :bank_account?
   before_validation :associate_subscription, on: :create
   after_save :extend_next_billing_date, if: :extend_subscription?
-  after_create :extend_next_billing_date, if: :notification
+  after_create :extend_next_billing_date, if: :success_from_notification?
 
   CREDIT_ACCOUNT_TYPES = [
     'Visa', 'MasterCard', 'American Express',
@@ -85,6 +85,10 @@ class Payment < ActiveRecord::Base
   # it to 365 days after the previous billing date.
   def extend_next_billing_date
     subscription_event.extend_next_billing_date!
+  end
+
+  def success_from_notification?
+    notification && notification.success?
   end
 
   def clear_routing_number
