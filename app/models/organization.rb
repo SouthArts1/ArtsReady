@@ -184,6 +184,11 @@ class Organization < ActiveRecord::Base
     (next_billing_date ? next_billing_date : Time.zone.today) + 365
   end
 
+  def payment_method_expired?
+    active_subscription &&
+      active_subscription.payment_method_expires_before?(Time.zone.now.to_date)
+  end
+
   def payment_method_expires_before_next_billing_date?
     next_billing_date &&
       active_subscription &&

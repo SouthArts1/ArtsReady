@@ -261,9 +261,14 @@ Then(/^I should receive a credit card expiration notice$/) do
     to include 'July  2, 2023' # see "my credit card expires" step
 end
 
-And(/^my next billing date should be (.*)$/) do |date|
+Then(/^my next billing date should be (.*)$/) do |date|
   click_on 'Settings'
   click_on 'Billing'
 
   expect(page).to have_content "Next billing date: #{date}"
+end
+
+Then(/^(.*) should warn about the expired card$/) do |path|
+  visit path_to(path)
+  expect(page.body).to have_text /card .* expired/
 end

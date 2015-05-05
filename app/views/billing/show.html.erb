@@ -11,6 +11,9 @@
     <% if @subscription && @subscription.active? %>
       <%= render 'shared/billing_info' %>
 
+      <% if current_org.payment_method_expired? %>
+        <p><b>The credit card you use for payment has expired.</b></p>
+      <% end %>
       <p>
         <%= link_to "Update Billing/Payment Information", edit_billing_path %>
       </p>
