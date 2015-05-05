@@ -9,7 +9,7 @@ module NavigationHelpers
     case page_name
       when /^the home\s?page$/
         '/'
-      when /^the dashboard( page)?$/
+      when /^(?:the|my) dashboard( page)?$/
         '/member/index'
       when /^the todo item$/
         todo_path(@current_todo)

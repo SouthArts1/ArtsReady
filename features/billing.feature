@@ -79,3 +79,7 @@ Feature: Organization billing
     And I have been charged automatically
     When the scheduled tasks have run
     Then I should receive a credit card expiration notice
+
+    When 31 days have passed
+    Then my dashboard should warn about the expired card
+    And the billing page should warn about the expired card
