@@ -86,11 +86,11 @@ class AuthorizeNetSubscription < Subscription
   end
 
   def get_expiry(expiry_month, expiry_year)
-    expiry_month = "01" if expiry_month.to_s.length == 0
-    expiry_year = Time.now.year.to_s if expiry_year.to_s.length < 4
-    expiry_month = "0" + expiry_month.to_s if expiry_month.to_s.length == 1
-    expiry_year = expiry_year.to_s.split("")[2] + expiry_year.to_s.split("")[3]
-    return expiry_month.to_s + expiry_year.to_s
+    expiry_month = [expiry_month.to_i, 1].max # default to January
+    expiry_year = expiry_year.to_i
+    expiry_year = Time.now.year if expiry_year < 1000
+
+    "0#{expiry_month}#{expiry_year % 100}"[-4..-1] # pad month with 0 if needed
   end
 
   def payment_method_expires_before?(date)
@@ -203,20 +203,13 @@ class AuthorizeNetSubscription < Subscription
     set_payment_info(arb_sub)
 
     # ARB doesn't support free subscriptions, so we bypass it in that case
-    return false unless free_after_first_year? || create_arb_transaction(arb_sub)
+    return false unless free_after_first_year? || create_arb_subscription(arb_sub)
 
     self.active = true
   end
 
-  def create_arb_transaction(arb_sub)
-    arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
-    Rails.logger.debug("ARB TRAN: #{arb_tran.inspect}")
-
-    response = arb_tran.create(arb_sub)
-
-    if !response.success?
-      note_transaction_failure(arb_tran, response)
-    end
+  def create_arb_subscription(arb_sub)
+    response = execute_arb_transaction(:create, arb_sub)
 
     success = response.success? || (response.response.response_reason_text.include?("ACH") rescue false)
     self.arb_id = response.subscription_id if success
@@ -271,34 +264,24 @@ class AuthorizeNetSubscription < Subscription
   end
 
   def update_or_replace_arb_subscription(arb_sub, replacing)
-    cancel_arb_subscription if replacing
-
-    arb_tran = build_transaction(AuthorizeNet::ARB::Transaction, true)
     Rails.logger.debug("Updating Payment Number to #{self.payment_number}")
 
-    response = replacing ?
-      arb_tran.create(arb_sub) :
-      arb_tran.update(arb_sub)
+    cancel_arb_subscription if replacing
+    response = execute_arb_transaction(replacing ? :create : :update, arb_sub)
 
-    if response.success? || (replacing && (response.response.response_reason_text.include?("ACH") rescue false))
+    if response.success?
       self.arb_id = response.subscription_id if response.subscription_id
       self.active = true
       self.end_date = nil
-
-      true
-    else
-      note_transaction_failure(arb_tran, response)
-
-      false
     end
+
+    response.success?
   end
 
   def cancel_arb_subscription
-    status_arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
-    status_response = status_arb_tran.get_status(self.arb_id)
+    status_response = execute_arb_transaction(:get_status, arb_id)
     if status_response.success?
-      arb_tran = build_transaction(AuthorizeNet::ARB::Transaction)
-      response = arb_tran.cancel(self.arb_id)
+      response = execute_arb_transaction(:cancel, arb_id)
       Rails.logger.debug("Response: #{response.inspect}")
       Rails.logger.debug("Message: #{response.message_text}")
       if response.success? || (response.message_text.include?("canceled") rescue false)
@@ -317,16 +300,28 @@ class AuthorizeNetSubscription < Subscription
     end
   end
 
-  def build_transaction(klass, include_subscription_info = false)
-    klass.new(ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE).tap do |transaction|
+  def build_arb_transaction
+    AuthorizeNet::ARB::Transaction.new(
+      ANET_API_LOGIN_ID, ANET_TRANSACTION_KEY, gateway: ANET_MODE
+    ).tap do |transaction|
       if ANET_ALLOW_DUPLICATE_TRANSACTIONS
         transaction.set_fields(:duplicate_window => 0)
       end
+    end
+  end
 
-      if include_subscription_info
-        transaction.set_address(billing_address_for_transaction)
-        transaction.set_customer(email: billing_email.presence || organization.email)
-      end
+  def execute_arb_transaction(method, data)
+    transaction = build_arb_transaction
+
+    if method == :create || method == :update
+      transaction.set_address(billing_address_for_transaction)
+      transaction.set_customer(email: billing_email.presence || organization.email)
+    end
+
+    Rails.logger.debug("ARB TRAN: #{transaction.inspect}")
+
+    transaction.send(method, data).tap do |response|
+      note_transaction_failure(transaction) if !response.success?
     end
   end
 
@@ -351,7 +346,7 @@ class AuthorizeNetSubscription < Subscription
     organization.update_attributes(next_billing_date: start_date.to_date)
   end
 
-  def note_transaction_failure(transaction, response)
+  def note_transaction_failure(transaction)
     self.failed_transaction = transaction
   end
 end
