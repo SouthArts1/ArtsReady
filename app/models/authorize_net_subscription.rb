@@ -321,7 +321,7 @@ class AuthorizeNetSubscription < Subscription
     Rails.logger.debug("ARB TRAN: #{transaction.inspect}")
 
     transaction.send(method, data).tap do |response|
-      note_transaction_failure(transaction) if !response.success?
+      self.failed_transaction = transaction if !response.success?
     end
   end
 
@@ -346,7 +346,4 @@ class AuthorizeNetSubscription < Subscription
     organization.update_attributes(next_billing_date: start_date.to_date)
   end
 
-  def note_transaction_failure(transaction)
-    self.failed_transaction = transaction
-  end
 end
