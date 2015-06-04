@@ -1,7 +1,15 @@
 client = SalesforceClient.new
 
-After do
+After do |scenario|
+  errors = []
+
   Organization.find_each do |org|
-    client.destroy_account(org)
+    begin
+      client.destroy_account(org)
+    rescue Faraday::Error::ResourceNotFound => e
+      errors << e
+    end
   end
+
+  raise errors.first if errors.any?
 end
