@@ -13,7 +13,23 @@ Feature: Admin edits pages
     
     When I follow "Manage Pages"
     Then I should be on the admin pages page
-    
+
+  Scenario: An admin can create a page
+    Given I am on the admin pages page
+    When I follow "Create a new Page"
+    Then I should see "New Public Page"
+
+    And I fill in "Slug" with "newpage"
+    And I fill in "Title" with "A New Page"
+    When I fill in "Body" with "New page content."
+    And I press "Save"
+    Then I should see "Page created"
+
+    When I follow "A New Page"
+    And I follow "/page/newpage"
+    Then I should see "A New Page"
+    And I should see "New page content."
+
   Scenario: An admin can edit a page
     Given I am on the admin pages page
     When I follow "Test Page"

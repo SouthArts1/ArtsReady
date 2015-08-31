@@ -1,0 +1,24 @@
+<%= form_for([:admin, @page]) do |f| %>
+  <%= f.error_messages %>
+  <section>
+    <div class="field">
+      <% if @page.persisted? %>
+        Page: <%= link_to page_url(@page.slug), page_path(@page.slug), target: '_new' %>
+      <% else %>
+        <%= f.label :slug %>
+        <%= f.text_field :slug %>
+      <% end %>
+    </div>
+    <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Save', :class => 'button' %>
+    </div>
+  </section>
+<% end %>
