@@ -12,6 +12,16 @@ module ArtsreadyDomain
     {:name => 'exhibits', :title => 'Exhibits', :optional => 'We put on exhibits'}
   ]
 
+  MEMBER_LIBRARY_TOPICS = CRITICAL_FUNCTIONS + [
+    {:name => 'before_and_after', :title => 'Before and After a Crisis'},
+    {:name => 'general', :title => 'General Resources'}
+  ]
+
+  LIBRARY_TOPICS = MEMBER_LIBRARY_TOPICS + [
+    {:name => 'newsletters', :title => 'ArtsReady eNewsletters'},
+    {:name => 'events', :title => 'ArtsReady Workshops and Webinars'},
+  ]
+
   PREPAREDNESS = %w{unknown not_ready needs_work ready}
   PRIORITY = %w{critical non-critical}
   TODO_STATUS = ['Not Started', 'In Progress', 'Complete']

@@ -6,10 +6,14 @@ Feature: Create articles
 	Scenario: User adds an article
 	  Given a user
 	  When I go to the new article page
-		And I fill in "article[title]" with "this is a test"
+		Then critical function options should include "Programs"
+		And critical function options should include "General Resources"
+		But critical function options should not include "ArtsReady eNewsletters"
+
+		When I fill in "article[title]" with "this is a test"
 		And I fill in "article[description]" with "this is only a test"
 		And I fill in "article[body]" with "this is not an actual emergency"
-		And I select "People" from "article[critical_function]"
+		And I select "Before and After a Crisis" from "article[critical_function]"
 		And I press "Save"
 		Then I should see "created article"
 		And I should see "this is a test"

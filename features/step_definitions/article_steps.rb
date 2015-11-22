@@ -50,4 +50,10 @@ Then /^I should see no article icons$/ do
   page.should_not have_selector(".icon img[alt='Critical']")
 end
 
+Then /^critical function options should include "(.*)"$/ do |topic|
+  page.should have_select('Critical Function', with_options: [topic])
+end
 
+Then /^critical function options should not include "(.*)"$/ do |topic|
+  page.should have_no_select('Critical Function', with_options: [topic])
+end

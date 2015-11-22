@@ -42,7 +42,8 @@
 
   <div class="field">
     <%= f.label :critical_function, 'Critical Function *', :class => 'required' %>
-    <%= f.select :critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]] }, :include_blank => true %>
+    <% topics = current_user.admin? ? ArtsreadyDomain::LIBRARY_TOPICS : ArtsreadyDomain::MEMBER_LIBRARY_TOPICS %>
+    <%= f.select :critical_function, topics.map { |cf| [cf[:title], cf[:name]] }, :include_blank => true %>
   </div>
 
   <section>

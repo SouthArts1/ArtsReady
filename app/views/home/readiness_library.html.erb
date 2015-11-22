@@ -13,7 +13,7 @@
   <div class="grid_4 alpha">
     <h3>Topics</h3>
     <ul class="library categories">
-      <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |function| %>
+      <% ArtsreadyDomain::LIBRARY_TOPICS.each do |function| %>
         <li><%= link_to "#{function[:title]} (#{@critical_function_counts[function[:name]] rescue 0})", public_articles_path(:critical_function => function[:name]) %></li>
       <% end %>
     </ul>
