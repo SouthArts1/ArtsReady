@@ -3,12 +3,12 @@ require "spec_helper"
 describe Admin::PagesController do
   describe "routing" do
 
-    it "does not route to #new" do
-      get("/admin/pages/new").should_not be_routable
+    it "routes to #new" do
+      get("/admin/pages/new").should be_routable
     end
 
-    it "does not route to #create" do
-      post("/admin/pages").should_not be_routable
+    it "routes to #create" do
+      post("/admin/pages").should be_routable
     end
 
     it "routes to #index" do
