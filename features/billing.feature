@@ -21,6 +21,11 @@ Feature: Organization billing
     Then the billing form is rejected
     And admins should receive a failed payment form notification
 
+  Scenario: Change address
+    When I sign up and pay
+    And I update my billing address
+    Then my billing info should show my new address
+
   Scenario: Change payment type
     Given the date is March 19, 2024
     When I sign up and pay with a checking account

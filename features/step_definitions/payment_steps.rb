@@ -43,6 +43,19 @@ When(/^I update my subscription( and am rejected.*)?$/) do |rejected|
     ).submit
 end
 
+When /^I update my billing address$/ do
+  visit dashboard_path
+  click_on 'Visit Billing'
+  click_on 'Update Billing/Payment Information'
+
+  fill_in 'Billing address', with: '3737 New St.'
+  click_on 'Update'
+
+  expect(page).to have_no_text('problem')
+  expect(page).to have_text '3737 New St.'
+  expect(page).to have_text 'Account status: Active'
+end
+
 When /^I change my payment method to a credit card$/ do
   visit dashboard_path
   click_on 'Visit Billing'
@@ -59,6 +72,13 @@ Then(/^my billing info should be saved$/) do
 
   billing_page = BillingInfoTestPage.new(self)
   expect(billing_page.missing_billing_info).to eq []
+end
+
+Then(/^my billing info should show my new address$/) do
+  click_on 'Settings'
+  click_on 'Billing'
+
+  expect(page).to have_text '3737 New St.'
 end
 
 Given /^a (\d+)% discount code exists$/ do |percentage|

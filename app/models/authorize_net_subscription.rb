@@ -14,6 +14,7 @@ class AuthorizeNetSubscription < Subscription
     :billing_email
   validates_inclusion_of :payment_type, in: %w(cc bank),
     message: 'must be Credit Card or Bank Account',
+    on: :create, # allow updating address without re-entering CC
     allow_nil: true # for updates that don't include payment info
   validates_presence_of :number, :expiry_month, :expiry_year, :ccv,
     if: :submitted_as_cc?
