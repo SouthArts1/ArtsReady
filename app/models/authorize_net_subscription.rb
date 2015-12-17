@@ -168,7 +168,7 @@ class AuthorizeNetSubscription < Subscription
   def customer_for_transaction
     {
       email: (billing_email.presence || organization.email),
-      phone_number: billing_phone_number || organization.phone_number
+      phone: billing_phone_number || organization.phone_number
     }
   end
 
@@ -316,7 +316,7 @@ class AuthorizeNetSubscription < Subscription
 
     if method == :create || method == :update
       transaction.set_address(billing_address_for_transaction)
-      transaction.set_customer(email: billing_email.presence || organization.email)
+      transaction.set_customer(customer_for_transaction)
     end
 
     Rails.logger.debug("ARB TRAN: #{transaction.inspect}")

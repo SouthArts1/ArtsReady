@@ -228,7 +228,7 @@ describe AuthorizeNetSubscription do
           should_receive(:new) do |hash|
             expect(hash[:billing_address][:first_name]).
               to eq(subscription.billing_first_name)
-            expect(hash[:customer][:phone_number]).
+            expect(hash[:customer][:phone]).
               to eq(subscription.billing_phone_number)
             expect(hash[:start_date]).
               to eq(subscription.start_date)
