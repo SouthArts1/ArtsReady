@@ -40,3 +40,13 @@ Feature: Admin edits pages
     Then I should see "Page updated"
     And I should be on the admin pages page
     And I should see "NEW CONTENT"
+
+  Scenario: An admin can delete a page
+    Given the following page exists:
+      | Slug      | Title     | Body               |
+      | delete-me | Delete Me | Delete me, please. |
+    And I am on the admin pages page
+    When I follow "Delete Me"
+    And I press "Delete This Page"
+    Then I should be on the admin pages page
+    And I should not see "Delete Me"

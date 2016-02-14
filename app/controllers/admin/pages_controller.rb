@@ -31,5 +31,14 @@ class Admin::PagesController < Admin::AdminController
       render 'edit'
     end
   end
-  
+
+  def destroy
+    @page = Page.find(params[:id])
+
+    if @page.destroy
+      redirect_to admin_pages_path, notice: 'Page deleted'
+    else
+      render 'edit'
+    end
+  end
 end

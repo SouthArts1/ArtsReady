@@ -37,7 +37,7 @@ Artsready::Application.routes.draw do
     resources :articles, :only => [:update, :destroy, :index]
     resources :comments, :only => [:destroy]
     resources :messages, :only => [:destroy]
-    resources :pages, :only => [:index, :new, :create, :edit, :update]
+    resources :pages
     resources :templates, only: [:index, :edit, :update]
     resources :questions
     resources :action_items
