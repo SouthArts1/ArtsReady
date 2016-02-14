@@ -7,6 +7,9 @@ class HomeController < ApplicationController
 
     @featured_articles = Article.featured.order('created_at DESC')
     @public_articles = Article.only_public.order('created_at DESC').limit(3)
+
+    @page = Page.find_by_slug('home')
+    @page = nil if !@page || @page.body.blank?
   end
 
   def readiness_library

@@ -1,4 +1,7 @@
 <div id="landing">
+  <% if @page %>
+    <%= raw(@page.body) %>
+  <% else %>
   <div class="grid_6">
 
     <div id="headline">
@@ -52,6 +55,7 @@
       </p>
     </div>
   </div>
+  <% end %>
   <div class="grid_6">
     <div id="dont-risk-it">
       <h1>Don't risk it.</h1>

@@ -50,3 +50,24 @@ Feature: Admin edits pages
     And I press "Delete This Page"
     Then I should be on the admin pages page
     And I should not see "Delete Me"
+
+  Scenario: An admin can modify the home page
+    Given I am on the admin pages page
+    When I follow "Create a new Page"
+    And I fill in "Slug" with "home"
+    And I fill in "Title" with "Home Page"
+    And I fill in "Body" with "<h1>Hey</h1>"
+    And I press "Save"
+
+    When I follow "Logout"
+    Then I should see "Hey" within "#landing h1"
+    And I should not see "Be ArtsReady"
+
+    When I sign in as "admin@test.host/password"
+    And I go to the admin pages page
+    And I follow "Home Page"
+    And I press "Delete This Page"
+
+    When I follow "Logout"
+    Then I should see "Be ArtsReady" within "#landing h1"
+    And I should not see "Hey"
