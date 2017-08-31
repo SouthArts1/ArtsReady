@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  skip_before_filter :authenticate!, :only => :show
+  before_filter :allow_public_article, :only => :show
 
   def index
     @articles = Article.visible_to_organization(current_org)
@@ -73,5 +75,17 @@ class ArticlesController < ApplicationController
 #    authorize! :destroy, @article
     @article.update_attribute(:disabled, true) if @article.deleteable_by(current_user)
     redirect_to articles_url, :notice => "Successfully destroyed article."
+  end
+
+  private
+
+  def allow_public_article
+    @article = Article.find(params[:id])
+
+    if @article.is_public? && !user_signed_in?
+      redirect_to public_article_url(@article)
+    else
+      authenticate!
+    end
   end
 end

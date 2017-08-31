@@ -16,6 +16,12 @@ Feature: View articles
     When I go to the articles page
     Then I should not see "Private article"
 
+  Scenario: Share private link to public article
+    Given a public article exists with a title of "Public article"
+    When I sign out
+    And I view the article page for "Public article"
+    Then I should see "Public article"
+
   Scenario: Disabled articles should not be visible
     Given a disabled article exists with a title of "Disabled article"
     When I go to the articles page
