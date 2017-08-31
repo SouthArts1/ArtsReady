@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 ruby '2.1.5'
 
 gem 'rails', '~> 3.2.3'
-gem 'mysql2', '>= 0.3.11'
+gem 'mysql2', '~> 0.3.11'
 gem 'jquery-rails'
 
 gem 'figaro'
