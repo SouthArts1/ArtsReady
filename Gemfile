@@ -57,6 +57,7 @@ group :test, :development do
 end
 
 group :development do
+  gem 'puma'
   gem 'rails-footnotes', '>= 3.7'
   gem 'sass'
   gem "binding_of_caller"
