@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-  acts_as_gmappable
+  acts_as_gmappable validation: false
   geocoded_by :full_street_address
 
   has_one :assessment, :dependent => :destroy, :order => 'created_at DESC'
