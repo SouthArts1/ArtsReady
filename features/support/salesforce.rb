@@ -1,6 +1,9 @@
 client = SalesforceClient.new
 
 After do |scenario|
+  # disabled as app approaches EOL
+  next
+
   errors = []
 
   Organization.find_each do |org|

@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.3.8'
+
+gem 'rake', '< 11.0' # until we upgrade rspec-core or maybe cucumber
 
 gem 'rails', '~> 3.2.3'
 gem 'mysql2', '~> 0.3.11'
@@ -8,7 +10,7 @@ gem 'jquery-rails'
 
 gem 'figaro'
 
-gem 'bcrypt-ruby', '2.1.4', :require => 'bcrypt'
+gem 'bcrypt', '3.1.13'
 gem 'cancan', '1.6.7'
 
 gem 'carrierwave', '0.5.7'
@@ -70,7 +72,10 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner', :require => false
   gem 'launchy'    # So you can do Then show me the page
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
+  gem 'cucumber', '~> 1.0', require: false
+  gem 'minitest'
+  gem 'test-unit', '~> 3.0'
   gem 'capybara'
   gem 'poltergeist'
   gem 'shoulda'

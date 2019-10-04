@@ -27,8 +27,8 @@ describe Admin::PagesController do
       put("/admin/pages/1").should route_to("admin/pages#update", :id => "1")
     end
 
-    it "does not route to #destroy" do
-      delete("/admin/pages/1").should_not be_routable
+    it "routes to #destroy" do
+      delete("/admin/pages/1").should route_to("admin/pages#destroy", :id => "1")
     end
 
   end

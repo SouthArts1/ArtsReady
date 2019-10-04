@@ -70,5 +70,7 @@ class SalesforceClient
 
   def destroy_account(organization)
     restforce.destroy('Account', find_account(organization).Id)
+  rescue Faraday::Error::ResourceNotFound
+    Rails.logger.error("Could not delete nonexistent Salesforce account for #{organization.name} (#{organization.id})")
   end
 end

@@ -39,13 +39,15 @@ class Organization < ActiveRecord::Base
 
   validates_presence_of :name, :address, :city, :state, :zipcode, :organizational_status
 
-  after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
+  # disabled as app approaches EOL
+  # after_validation :geocode, :if => lambda{ |obj| (obj.changed.include?("address") || obj.changed.include?("city") || obj.changed.include?("state") || obj.changed.include?("zipcode"))  }
 
   after_create :send_admin_notification
   after_update :send_approval_email, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
   after_update :setup_initial_todo, :if => lambda{ |obj| (obj.changed.include?("active") && obj.active?)  }
 
-  after_save :update_salesforce
+  # disabled as app approaches EOL
+  # after_save :update_salesforce
 
   scope :active, where(:active => true)
   scope :in_buddy_network, where(:battle_buddy_enabled => true)

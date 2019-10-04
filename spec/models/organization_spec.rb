@@ -82,7 +82,7 @@ describe Organization do
     end
   end
   
-  context "geocoding address" do
+  context "geocoding address", pending: 'disabled as app approaches EOL' do
     it "should geocode address when created" do
       @organization = Factory.build(:organization)
       @organization.should_receive(:geocode)
