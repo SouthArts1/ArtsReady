@@ -8,12 +8,12 @@ class Crisis < ActiveRecord::Base
   accepts_nested_attributes_for :updates
   accepts_nested_attributes_for :needs
 
-  scope :active, includes(:organization).where(:resolved_on => nil)
+  scope :active, -> { includes(:organization).where(:resolved_on => nil) }
 
-  scope :shared_with_the_community, active.where(:visibility => 'public')
-  scope :shared_with_my_battle_buddy_network, lambda {|list| active.where("visibility = 'buddies' AND organization_id IN (?)",list)}
-  scope :shared_privately, active.where(:visibility => 'private')
-  scope :resolved, where( "resolved_on IS NOT NULL")
+  scope :shared_with_the_community, -> { active.where(:visibility => 'public') }
+  scope :shared_with_my_battle_buddy_network, lambda { |list| active.where("visibility = 'buddies' AND organization_id IN (?)", list) }
+  scope :shared_privately, -> { active.where(:visibility => 'private') }
+  scope :resolved, -> { where("resolved_on IS NOT NULL") }
 
   delegate :name, :to => :user, :allow_nil => true, :prefix => true
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true

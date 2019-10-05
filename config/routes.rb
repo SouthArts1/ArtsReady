@@ -1,8 +1,6 @@
 Artsready::Application.routes.draw do
-  match "/billing/cancel/(:id)" => "billing#cancel", :as => "billing_cancel"
-  match "/billing/new/(:code)" => "billing#new", :as => 'billing_new'
-  match "/billing/get_discount/(:code)" => "billing#get_discount"
-  match "/billing/(:id)/edit/(:code)" => "billing#edit", :as => "billing_edit"
+  patch "/billing/cancel/(:id)" => "billing#cancel", :as => "billing_cancel"
+  get "/billing/get_discount/(:code)" => "billing#get_discount"
   resource :billing, controller: 'billing'
 
   resources :payment_notifications, only: :create
@@ -17,12 +15,11 @@ Artsready::Application.routes.draw do
   get "buddies/profile"
 
   namespace :admin do
-    get 'home/dashboard', :as => "dashboard"
     get "/organizations/billing/(:id)" => "organizations#billing"
     get "/discount_codes/disabled" => "discount_codes#disabled"
     get "/discount_codes/usage" => "discount_codes#usage"
     get "/discount_codes/show_usage/(:id)" => "discount_codes#show_usage"
-    match "/organizations/allow_provisionary_access/(:id)" => "organizations#allow_provisionary_access"
+    patch "/organizations/allow_provisionary_access/(:id)" => "organizations#allow_provisionary_access"
     
     resources :organizations, :only => [:index, :edit, :update, :destroy] do
       resources :users, :only => [:index, :create, :destroy, :edit, :update]
@@ -90,7 +87,7 @@ Artsready::Application.routes.draw do
   post "sign_in" => "sessions#create"
   get "sign_out" => "sessions#destroy", :as => "sign_out"
 
-  match 'confirm(/:id)' => 'password_resets#edit', :as => :confirmation
+  get 'confirm(/:id)' => 'password_resets#edit', :as => :confirmation
   
   resources :users, :only => [:new, :create, :edit, :update, :destroy]
   get "profile" => "users#profile", :as => "profile"
@@ -101,7 +98,7 @@ Artsready::Application.routes.draw do
 
   # public pages
   get "page/:slug" => "pages#show", :as => "page"
-  match '/offer' => 'pages#show', :slug => 'afta' 
+  get '/offer' => 'pages#show', :slug => 'afta'
 
   get "readiness_library" => "home#readiness_library", :as => "readiness_library"
   get "home/public_articles" => "home#public_articles", :as => "public_articles"

@@ -205,7 +205,10 @@
 
   <% if f.object.persisted? %>
     <br/><br/>
-    <%= link_to "I would like to cancel my automated billing entirely.", billing_cancel_path, confirm: "Are you sure?  This will affect your ArtsReady access." %>
+    <%= link_to "I would like to cancel my automated billing entirely.",
+        billing_cancel_path,
+        method: :patch,
+        data: {confirm: "Are you sure?  This will affect your ArtsReady access."} %>
   <% end %>
 
   <script type="text/javascript">

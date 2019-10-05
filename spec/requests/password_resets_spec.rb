@@ -31,7 +31,7 @@ describe "PasswordResets" do
         password_confirmation: ''
       }
     )
-    expect(response.body).to include("match confirmation")
+    expect(response.body).to include("match Password")
 
     put password_reset_path(user.password_reset_token,
       user: {

@@ -2,9 +2,9 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-# If you have a Gemfile, require the gems listed there, including any gems
+# Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+Bundler.require(*Rails.groups)
 
 module Artsready
   class Application < Rails::Application
@@ -31,13 +31,12 @@ module Artsready
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery jquery_ujs)
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.assets_enabled = false
+    config.assets_enabled = true
+    config.assets.version = '1.0'
+    config.serve_static_assets = true
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :number, :routing_number, :account_number, :bank_name]

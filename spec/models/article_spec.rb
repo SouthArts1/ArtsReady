@@ -91,8 +91,7 @@ describe Article do
     it "should sort newer articles first" do
       older = Factory.create(:article, :created_at => 1.day.ago)
       newer = Factory.create(:article, :created_at => 1.hour.ago)
-      Article.recent.first.should == newer
-      Article.recent.should == [newer,older]
+      Article.recent.should == [newer, older]
     end
     
   end
@@ -102,7 +101,7 @@ describe Article do
 
     it 'should create a todo note when saved' do
       subject.save!
-      subject.todo.todo_notes.all.last.article.should == subject
+      subject.todo.todo_notes.order(:id).last.article.should == subject
     end
   end
 

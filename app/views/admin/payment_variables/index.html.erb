@@ -15,7 +15,7 @@
     <td><%= payment_variable.value %></td>
     <td><%= link_to 'Show', admin_payment_variable_path(payment_variable) %></td>
     <td><%= link_to 'Edit', edit_admin_payment_variable_path(payment_variable) %></td>
-    <td><%= link_to 'Destroy', admin_payment_variable_path(payment_variable), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', admin_payment_variable_path(payment_variable), data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -7,7 +7,7 @@ describe Admin::TemplatesController do
 
   describe 'update' do
     let(:template) { double('template', id: 1) }
-    let(:template_params) { {fake: 'params'} }
+    let(:template_params) { {subject: 'no subject'} }
 
     before do
       Template.stub(:find).and_return(template)

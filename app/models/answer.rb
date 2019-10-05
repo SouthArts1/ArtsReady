@@ -19,14 +19,16 @@ class Answer < ActiveRecord::Base
   after_update :add_todo_items#, :unless => "was_skipped == true"
   after_update :notify_assessment
   
-  scope :pending, where(
-    '(NOT was_skipped OR was_skipped IS NULL) AND
-    preparedness IS NULL AND
-    priority IS NULL'
-  )
-  
+  scope :pending, -> {
+    where(
+      '(NOT was_skipped OR was_skipped IS NULL) AND
+      preparedness IS NULL AND
+      priority IS NULL'
+    )
+  }
+
   scope :for_critical_function, proc {|critical_function| 
-    includes(:question).
+    includes(:question).references(:question).
     where(['questions.critical_function = ?', critical_function])
   }
 
@@ -38,10 +40,9 @@ class Answer < ActiveRecord::Base
     preparedness.present? && priority.present?
   end
 
-  scope :answered,
-    :conditions => 'priority IS NOT NULL AND preparedness IS NOT NULL'
-  scope :not_skipped, :conditions => 'was_skipped IS NOT TRUE'
-  scope :skipped, :conditions => 'was_skipped'
+  scope :answered, -> { where('priority IS NOT NULL AND preparedness IS NOT NULL') }
+  scope :not_skipped, -> { where('was_skipped IS NOT TRUE') }
+  scope :skipped, -> { where('was_skipped') }
 
   def add_todo_items
     question.action_items.active.each do |i|

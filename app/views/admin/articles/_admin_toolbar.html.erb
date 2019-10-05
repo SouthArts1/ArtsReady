@@ -5,5 +5,5 @@
   <p><%= button_to 'Disable Article?', admin_article_path(@article), :method => :delete, :class => 'button white' unless @article.disabled? %></p>
   <p><%= button_to 'Enable Article?', admin_article_path(@article, :toggle => 'disabled'), :method => :put, :class => 'button white' if @article.disabled? %></p>
 
-  <p><%= button_to 'Take Ownership of Article?', admin_article_path(@article, :toggle => 'owner'), :confirm => 'Are you sure? This CANNOT BE UNDONE.', :method => :put, :class => 'button white' unless @article.user == current_user%></p>
+  <p><%= button_to 'Take Ownership of Article?', admin_article_path(@article, :toggle => 'owner'), data: {:confirm => 'Are you sure? This CANNOT BE UNDONE.'}, :method => :put, :class => 'button white' unless @article.user == current_user%></p>
 </div>

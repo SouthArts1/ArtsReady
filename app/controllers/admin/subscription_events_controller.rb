@@ -57,6 +57,7 @@ class Admin::SubscriptionEventsController < Admin::AdminController
       :happened_at_time,
       :notes,
       :payment_attributes => [
+        :id,
         :extend_subscription,
         :discount_code_id,
         :amount,

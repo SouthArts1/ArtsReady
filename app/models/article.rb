@@ -19,16 +19,16 @@ class Article < ActiveRecord::Base
   validates_presence_of :critical_function
   validates_presence_of :buddy_list, :if => :shared?
 
-  default_scope where(:disabled => false)
+  default_scope -> { where(:disabled => false) }
   
-  scope :on_critical_list, where(:on_critical_list => true)
-  scope :only_public, where("visibility = 'public' AND disabled = false AND featured = false")
-  scope :for_public, where("visibility = 'public' AND disabled = false")
-  scope :featured, where(:featured => true)
-  scope :only_private, where(:visibility => 'private')
-  scope :recent, order("created_at DESC")
-  scope :matching, lambda { |term| includes(:tags).where("articles.title LIKE ? OR articles.body LIKE ? OR tags.name LIKE ?","%#{term}%","%#{term}%","%#{term}%") }  
-  scope :executive, where(:visibility => 'executive')
+  scope :on_critical_list, -> { where(:on_critical_list => true) }
+  scope :only_public, -> { where("visibility = 'public' AND disabled = false AND featured = false") }
+  scope :for_public, -> { where("visibility = 'public' AND disabled = false") }
+  scope :featured, -> { where(:featured => true) }
+  scope :only_private, -> { where(:visibility => 'private') }
+  scope :recent, -> { order("created_at DESC") }
+  scope :matching, lambda { |term| includes(:tags).where("articles.title LIKE ? OR articles.body LIKE ? OR tags.name LIKE ?","%#{term}%","%#{term}%","%#{term}%").references(:tags) }
+  scope :executive, -> { where(:visibility => 'executive') }
   scope :visible_to_organization, lambda { |organization|
     where("
           articles.organization_id = :organization
@@ -45,7 +45,7 @@ class Article < ActiveRecord::Base
           :organization => organization,
           :id => organization.id)
   }
-  scope :disabled, where(:disabled => true)
+  scope :disabled, -> { where(:disabled => true) }
   scope :with_critical_function, lambda { |cf| where(:critical_function => cf)}
   after_save :notify_admin, :if => "is_public?"
   after_save :create_todo_note, :if => :todo

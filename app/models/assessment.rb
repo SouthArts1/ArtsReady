@@ -4,8 +4,9 @@ class Assessment < ActiveRecord::Base
   has_many :users, :through => :organization
   has_many :answers, :dependent => :destroy
   has_many :todos, :through => :answers
-  has_one :reassessment_todo, :through => :organization, :source => :todos, 
-    :conditions => {:key => 'reassessment'}
+  has_one :reassessment_todo, -> { where(:key => 'reassessment') },
+    :through => :organization, :source => :todos
+
   # TODO: make this work for multiple years.
 
   attr_accessor :critical_functions
@@ -16,8 +17,8 @@ class Assessment < ActiveRecord::Base
   before_create :mark_existing_assessments_complete
   after_create :populate_empty_answers
 
-  scope :complete, where('completed_at IS NOT NULL')
-  scope :active, where('completed_at IS NULL')
+  scope :complete, -> { where('completed_at IS NOT NULL') }
+  scope :active, -> { where('completed_at IS NULL') }
 
   scope :pending_reassessment_todo, lambda {
     where(['completed_at < ?', 11.months.ago]).

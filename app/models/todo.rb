@@ -5,7 +5,7 @@ class Todo < ActiveRecord::Base
   belongs_to :user
   belongs_to :last_user, :class_name => 'User'
   has_many :articles
-  has_many :todo_notes, :dependent => :destroy, :order => 'created_at ASC'
+  has_many :todo_notes, -> { order('created_at ASC') }, :dependent => :destroy
 
   validates_presence_of :description
   validates_presence_of :critical_function
@@ -17,14 +17,14 @@ class Todo < ActiveRecord::Base
   delegate :title, :to => :critical_function, :prefix => true
 
   before_save :set_status
-  before_save :check_user_change
+  before_update :check_user_change
   before_create :initialize_action
   after_create :send_assignment_email, :add_create_note
   after_update :add_update_note
 
   scope :for_critical_function, proc {|critical_function| where(:critical_function => critical_function) }
-  scope :in_action_order, order('complete')
-  scope :completed, where(:complete => true)
+  scope :in_action_order, -> { order('complete') }
+  scope :completed, -> { where(:complete => true) }
   scope :nearing_due_date, lambda {
     where("complete IS NOT true AND due_on <= ?", Time.zone.today + 2.days)
   }
@@ -51,34 +51,27 @@ class Todo < ActiveRecord::Base
   end
 
   def check_user_change
-    if self.id
-      old_todo = Todo.find(self.id)
-      if old_todo
-        if old_todo.user != self.user
-          old_todo.send_reassignment_email
-          self.send_assignment_email
-        end
-      end
+    if user_id_changed?
+      send_reassignment_email
+      send_assignment_email
     end
   end
 
   def send_reassignment_email
-    begin !self.user.nil?
-      TodoMailer.reassign_to(self.user, self).deliver
-    rescue Exception => exc
-      if self.user.nil?
-        logger.debug("Mail could not be sent because user was nil.")
-      else
-        logger.debug("General Mailer error: #{exc.message}")
-      end
+    begin
+      TodoMailer.reassign_to(User.find(user_id_was), self).deliver
+    rescue ActiveRecord::RecordNotFound
+      logger.debug("Mail could not be sent because user was nil.")
+    rescue
+      logger.debug("General Mailer error: #{exc.message}")
     end
   end
 
   def send_assignment_email
-    begin !self.user.nil?
-      TodoMailer.assign_to(self.user, self).deliver
+    begin
+      TodoMailer.assign_to(user, self).deliver
     rescue Exception => exc
-      if self.user.nil?
+      if !user
         logger.debug("Mail could not be sent because user was nil.")
       else
         logger.debug("General Mailer error: #{exc.message}")
@@ -103,13 +96,11 @@ class Todo < ActiveRecord::Base
       :organization_id => attributes[:organization].id,
       :action_item_id => attributes[:action_item].id
     }
-    existing = with_exclusive_scope { where(matching_attributes).first }
+    existing = unscoped.where(matching_attributes).first
     
     if existing
       matching_keys = matching_attributes.keys
-      with_exclusive_scope do
-        existing.restart(attributes.reject { |k, v| matching_keys.include? k })
-      end
+      existing.restart(attributes.reject { |k, v| matching_keys.include? k })
       existing
     else
       create(attributes.merge(matching_attributes))

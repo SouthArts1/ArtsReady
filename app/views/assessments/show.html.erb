@@ -1,8 +1,11 @@
 <div class="grid_12">
   <%= render :partial => 'progress' %>
   <h1>Readiness Assessment</h1>
-  <%= link_to('Archive and Re-Assess', new_assessment_path, :class => 'button reassessment_button',
-      :confirm => ('Are you sure you want to archive this assessment and start over?' unless @assessment.complete?)) %>
+  <%= link_to('Archive and Re-Assess', new_assessment_path,
+      :class => 'button reassessment_button',
+      data: {
+          :confirm => ('Are you sure you want to archive this assessment and start over?' unless @assessment.complete?)
+      }) %>
   <p><%= link_to "Need help?", page_path('help_assessment') %></p>
   <ul class="top-nav">
     <% ArtsreadyDomain::CRITICAL_FUNCTIONS.each do |critical_function| %>
@@ -28,7 +31,7 @@
              <td class="action"><p><%= f.select(:action, options_for_select(Todo::NEXT_ACTIONS.keys)) %></p></td>
              <td class="description"><p><%= f.text_field :description %></p></td>
              <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => params[:tab]) %></td>
-             <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
+             <td class="assigned"><p><%= f.select(:user_id, current_org.users.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
              <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
              <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
              <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green",:style => 'width:50px' %></p></td>

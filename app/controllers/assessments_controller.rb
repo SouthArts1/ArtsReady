@@ -6,7 +6,7 @@ class AssessmentsController < ApplicationController
   end
 
   def create
-    @assessment = current_org.create_assessment(params[:assessment]) #unless current_org.assessment.present?
+    @assessment = current_org.create_assessment(assessment_params) #unless current_org.assessment.present?
     redirect_to assessment_path
   end
 
@@ -25,6 +25,15 @@ class AssessmentsController < ApplicationController
         @answers = @answers.for_critical_function(@critical_function)
       end
     end
+  end
+
+  private
+
+  def assessment_params
+    params.require(:assessment).permit(
+      :has_performances, :has_tickets, :has_facilities,
+      :has_programs, :has_grants, :has_exhibits
+    )
   end
 
 end

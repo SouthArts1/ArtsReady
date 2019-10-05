@@ -27,7 +27,7 @@ class CrisesController < ApplicationController
       buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
       params[:crisis].merge!(:buddy_list => buddy_list)
     end
-    if @current_org.crisis.update_attributes(params[:crisis])
+    if @current_org.crisis.update_attributes(crisis_params)
       redirect_to crisis_path(current_org.crisis), :notice => "Crisis updated"
     else
       redirect_to crisis_path(current_org.crisis), :notice => "Problem updating your crisis"
@@ -40,7 +40,7 @@ class CrisesController < ApplicationController
       buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
       params[:crisis].merge!(:buddy_list => buddy_list)
     end
-    @crisis=current_org.crises.create(params[:crisis])
+    @crisis = current_org.crises.create(crisis_params)
     @crisis.user = current_user
     if @crisis.save
       redirect_to dashboard_path, :notice => 'Crisis declared!'
@@ -55,6 +55,16 @@ class CrisesController < ApplicationController
     else
       redirect_to dashboard_path, :notice => 'Crisis could not be resolved'
     end
+  end
+
+  private
+
+  def crisis_params
+    params.require(:crisis).permit(
+      :description,
+      :visibility,
+      buddy_list: []
+    )
   end
 
 end

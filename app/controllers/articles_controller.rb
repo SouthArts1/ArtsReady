@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
       params[:article].merge!(:buddy_list => buddy_list)
     end
     
-    @article = current_org.articles.new(params[:article].merge({:user => current_user}))
+    @article = current_org.articles.new(article_params.merge({:user => current_user}))
 
     if @article.save
       redirect_to @article.todo || @article,
@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
       buddy_list = params[:buddy_list].collect {|i| i.to_i}.join(',')
       params[:article].merge!(:buddy_list => buddy_list)
     end
-    if @article.update_attributes(params[:article])
+    if @article.update_attributes(article_params)
       redirect_to @article, :notice  => "Successfully updated article."
     else
       render 'edit'
@@ -78,6 +78,15 @@ class ArticlesController < ApplicationController
   end
 
   private
+
+  def article_params
+    params.require(:article).permit(
+      :title, :description, :tag_list,
+      :document, :link, :body,
+      :critical_function, :on_critical_list,
+      :visibility, :todo_id,
+      buddy_list: [])
+  end
 
   def allow_public_article
     @article = Article.find(params[:id])

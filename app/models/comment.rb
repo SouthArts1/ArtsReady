@@ -7,11 +7,11 @@ class Comment < ActiveRecord::Base
   validates_presence_of :comment
   
   after_create :notify_admins
-  
-  scope :recent, limit(3).order("created_at DESC")
-  scope :approved, where(:disabled => false)
-  scope :for_public, joins(:article).where("articles.visibility = 'public' AND articles.disabled = false")
-    
+
+  scope :recent, -> { limit(3).order("created_at DESC") }
+  scope :approved, -> { where(:disabled => false) }
+  scope :for_public, -> { joins(:article).where("articles.visibility = 'public' AND articles.disabled = false") }
+
   delegate :title, :to => :article, :prefix => true
   
   private

@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :page do
     title "Title"
     body "Some body"
-    slug "test"
+    sequence(:slug) { |n| "test-#{n}" }
   end
 end

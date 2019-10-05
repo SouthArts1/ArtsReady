@@ -29,7 +29,9 @@ class PaymentNotification < ActiveRecord::Base
 
   # Handle "notification.foo" by returning "params['x_foo']" if available.
   def method_missing(method_id, *arguments)
-    if params.has_key?("x_#{method_id}")
+    if [:params, :params=].include? method_id
+      super
+    elsif params.has_key?("x_#{method_id}")
       params["x_#{method_id}"]
     else
       super

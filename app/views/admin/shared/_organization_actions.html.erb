@@ -14,12 +14,12 @@
 <% end if @organization.active? %>
 
 <%= button_to("DELETE", admin_organization_path(@organization),
-  :confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE.",
+  data: {:confirm => "Delete #{@organization.name} and #{pluralize @organization.users.count, 'user'}? THIS CAN NOT BE UNDONE."},
   :method  => :delete) if @organization.deletable? %>
 
 <% if @organization.subscription && @organization.subscription.active? %>
   <%= button_to("Cancel Billing", [:cancel, :admin, @organization, :billing],
-    :confirm => "THIS CAN NOT BE UNDONE.",
+    data: {:confirm => "THIS CAN NOT BE UNDONE."},
     :method  => :delete) %>
   <%= link_to 'Edit Billing', [:edit, :admin, @organization, :billing], class: 'button' %>
 <% end %>

@@ -1,39 +1,41 @@
 class Organization < ActiveRecord::Base
+  include Gmaps4rails::ActsAsGmappable
   acts_as_gmappable validation: false
   geocoded_by :full_street_address
 
-  has_one :assessment, :dependent => :destroy, :order => 'created_at DESC'
+  has_one :assessment, -> { order('created_at DESC') }, :dependent => :destroy
   has_many :assessments, :dependent => :destroy
-  has_one :crisis, :conditions => ("resolved_on IS NULL") #TODO ensure there is only one, and maybe sort by latest date as a hack
+  has_one :crisis, -> { where("resolved_on IS NULL") } #TODO ensure there is only one, and maybe sort by latest date as a hack
   has_many :articles
-  has_many :public_articles, :class_name => 'Article',
-    :conditions => "visibility = 'public'",
+  has_many :public_articles, -> { where("visibility = 'public'") },
+    :class_name => 'Article',
     :dependent => :nullify
-  has_many :non_public_articles, :class_name => 'Article',
-    :conditions => "visibility <> 'public'",
+  has_many :non_public_articles, -> { where("visibility <> 'public'") },
+    :class_name => 'Article',
     :dependent => :destroy
   has_many :comments, :through => :articles
   has_many :battle_buddy_requests, :dependent => :destroy
-  has_many :battle_buddies, :through => :battle_buddy_requests, 
-    :conditions => {:battle_buddy_requests => {:accepted => true}}
-  has_many :battle_buddy_requests_received, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
-  has_many :battle_buddy_requests_sent, :conditions => ["battle_buddy_requests.accepted IS NOT true"], :class_name => 'BattleBuddyRequest'
+  has_many :battle_buddies,
+    -> { where(:battle_buddy_requests => {:accepted => true}) },
+    :through => :battle_buddy_requests
+  has_many :battle_buddy_requests_received, -> { where("battle_buddy_requests.accepted IS NOT true") }, :class_name => 'BattleBuddyRequest', :foreign_key => 'battle_buddy_id'
+  has_many :battle_buddy_requests_sent, -> { where("battle_buddy_requests.accepted IS NOT true") }, :class_name => 'BattleBuddyRequest'
   has_many :crises, :dependent => :destroy
   has_many :messages, :dependent => :destroy
   has_many :resources, :dependent => :destroy
   has_many :todos, :dependent => :destroy
   has_many :updates, :dependent => :destroy
   has_many :users, :dependent => :destroy
-  has_many :managers, :conditions => ["users.role = 'manager'"], :class_name => 'User'
-  has_many :executives, :conditions => ["users.role = 'executive'"], :class_name => 'User'
-  has_many :editors, :conditions => ["users.role = 'editor'"], :class_name => 'User'
-  has_many :readers, :conditions => ["users.role = 'reader'"], :class_name => 'User'
-  has_many :subscriptions, order: :start_date
-  has_one :active_subscription, class_name: 'Subscription',
-    conditions: {subscriptions: {active: true}}
+  has_many :managers, -> { where("users.role = 'manager'") }, :class_name => 'User'
+  has_many :executives, -> { where("users.role = 'executive'") }, :class_name => 'User'
+  has_many :editors, -> { where("users.role = 'editor'") }, :class_name => 'User'
+  has_many :readers, -> { where("users.role = 'reader'") }, :class_name => 'User'
+  has_many :subscriptions, -> { order(:start_date) }
+  has_one :active_subscription, -> { where(subscriptions: {active: true}) },
+    class_name: 'Subscription'
   has_many :subscription_events
-  has_many :payments, through: :subscription_events,
-    order: 'subscription_events.happened_at ASC'
+  has_many :payments, -> { order('subscription_events.happened_at ASC') },
+    through: :subscription_events
 
   accepts_nested_attributes_for :users
 
@@ -49,11 +51,11 @@ class Organization < ActiveRecord::Base
   # disabled as app approaches EOL
   # after_save :update_salesforce
 
-  scope :active, where(:active => true)
-  scope :in_buddy_network, where(:battle_buddy_enabled => true)
-  scope :to_approve, where(:active => false)
-  scope :nearing_expiration, where('0=1')
-  scope :in_crisis, includes(:crisis).where('crises.resolved_on IS NULL')
+  scope :active, -> { where(:active => true) }
+  scope :in_buddy_network, -> { where(:battle_buddy_enabled => true) }
+  scope :to_approve, -> { where(:active => false) }
+  scope :nearing_expiration, -> { where('0=1') }
+  scope :in_crisis, -> { includes(:crisis).where('crises.resolved_on IS NULL') }
   scope :billing_next_month, -> {
     next_month = Time.zone.today + 1.month
 
@@ -114,7 +116,7 @@ class Organization < ActiveRecord::Base
 
   def deletable?
     # must deactivate an organization before deleting it
-    !active? && users.all(&:disabled?)
+    !active? && users.all?(&:disabled?)
   end
     
   def battle_buddy_list

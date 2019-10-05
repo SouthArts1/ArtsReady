@@ -5,7 +5,7 @@ describe ArticlesController do
   render_views
   
   def valid_attributes
-    Factory.attributes_for(:article)
+    Factory.attributes_for(:article).except(:organization)
   end
 
   context "logged in" do
@@ -62,12 +62,12 @@ describe ArticlesController do
         end
 
         it "assigns a newly created but unsaved article as @article" do
-          post :create, :article => {}
+          post :create, :article => {title: 'a title'}
           assigns(:article).should be_a_new(Article)
         end
 
         it "re-renders the 'new' template" do
-          post :create, :article => {}
+          post :create, :article => {title: 'a title'}
           response.should render_template("new")
         end
       end
@@ -82,8 +82,8 @@ describe ArticlesController do
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
           expect_any_instance_of(Article).
-            to receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => article.id, :article => {'these' => 'params'}
+            to receive(:update_attributes).with({'title' => 'new title'})
+          put :update, :id => article.id, :article => {'title' => 'new title'}
         end
 
         it "assigns the requested article as @article" do
@@ -108,13 +108,13 @@ describe ArticlesController do
 
         it "assigns the article as @article" do
           article = Factory.create(:article, :organization => organization)
-          put :update, :id => article.id.to_s, :article => {}
+          put :update, :id => article.id.to_s, :article => {title: 'a title'}
           assigns(:article).should eq(article)
         end
 
         it "re-renders the 'edit' template" do
           article = Factory.create(:article, :organization => organization)
-          put :update, :id => article.id.to_s, :article => {}
+          put :update, :id => article.id.to_s, :article => {title: 'a title'}
           response.should render_template("edit")
         end
       end
@@ -123,7 +123,7 @@ describe ArticlesController do
     it "create action should redirect to todo when article has a todo" do
       todo = Factory.create(:todo)
       post(:create, :article =>
-        Factory.attributes_for(:article, :todo_id => todo.id))
+        Factory.attributes_for(:article, :todo_id => todo.id).except(:organization))
       response.should redirect_to todo
     end
     

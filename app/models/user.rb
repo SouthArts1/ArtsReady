@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_uniqueness_of :email
   validates_acceptance_of :accepted_terms, :accept => true, :on => :create
-  
+
   validates_inclusion_of :role, :in => ArtsreadyDomain::ROLES
 
   attr_accessor :password
@@ -23,9 +23,9 @@ class User < ActiveRecord::Base
   delegate :name, :to => :organization, :allow_nil => true, :prefix => true
   delegate :assessment, :to => :organization
 
-  scope :admins, where(:admin => true)
-  scope :active, where(:disabled => false)
-  scope :executives, where(:role => ['manager', 'executive'])
+  scope :admins, -> { where(:admin => true) }
+  scope :active, -> { where(:disabled => false) }
+  scope :executives, -> { where(:role => ['manager', 'executive']) }
   scope :in_organizations, lambda { |*orgs_list|
     ids = orgs_list.map do | orgs |
       Array(orgs).map(&:id)
@@ -33,14 +33,14 @@ class User < ActiveRecord::Base
 
     where(:organization_id => ids)
   }
-  
+
   before_validation :set_first_password, :if => "password.nil? && encrypted_password.nil?"
   before_validation :set_default_role
 
   before_save :encrypt_password
-  
+
   after_create :send_welcome_email, :if => lambda{ |obj| (obj.organization.active?) }
-  
+
   after_save :add_to_mailchimp, :if => lambda{ |obj| (obj.changed.include?("email")) }
 
   def self.authenticate(email, password)
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   def is_admin?
     admin
   end
-  
+
   def is_executive?
     ['manager','executive'].include?(role)
   end
@@ -96,11 +96,11 @@ class User < ActiveRecord::Base
     self.role = 'manager' unless organization && organization.active?
     self.role ||= 'reader'
   end
-  
+
   def can_set_executive_permission_for_article?
     (role == 'executive' || role == 'manager')
   end
-  
+
   def can_set_battlebuddy_permission_for_article?
     (role == 'executive' || role == 'manager' || role == 'editor')
   end
@@ -123,21 +123,21 @@ class User < ActiveRecord::Base
     !user || (!user.disabled? && user.organization.active?)
   end
 
-  private 
-  
+  private
+
   def mailchimp_merge_fields
     {
       :FNAME => first_name,
       :LNAME => last_name,
       :ORGNAME => organization.name,
-      :ADDRESS1 => organization.address, 
+      :ADDRESS1 => organization.address,
       :ADDRESS2 => organization.address_additional,
       :CITY => organization.city,
       :STATE => organization.state,
       :ZIPCODE => organization.zipcode
-    }  
+    }
   end
-  
+
   def add_to_mailchimp
     begin
       gb = Gibbon.new(MAILCHIMP_API_KEY)
@@ -145,10 +145,10 @@ class User < ActiveRecord::Base
       logger.debug("Sending #{user_info} to mailchimp list #{MAILCHIMP_LIST_ID}")
       response = gb.listSubscribe({:id => MAILCHIMP_LIST_ID, :email_address => email, :double_optin => false, :merge_vars => user_info})
     rescue Exception => e
-      logger.debug(e.message) 
+      logger.debug(e.message)
       logger.warn("Failed to register #{email} with mailchimp")
     end
-    
+
   end
 
 end

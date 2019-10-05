@@ -4,27 +4,28 @@ ruby '2.3.8'
 
 gem 'rake', '< 11.0' # until we upgrade rspec-core or maybe cucumber
 
-gem 'rails', '~> 3.2.3'
+gem 'rails', '~> 4.0.13'
 gem 'mysql2', '~> 0.3.11'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.1.4'
+gem 'coffee-rails'
 
 gem 'figaro'
 
 gem 'bcrypt', '3.1.13'
 gem 'cancan', '1.6.7'
 
-gem 'carrierwave', '0.5.7'
+gem 'carrierwave', '~> 1.0'
 gem 'fog'
 
-gem 'geocoder'
-gem 'gmaps4rails', '1.3.1'
+gem 'geocoder', '~> 1.1.6'
+gem 'gmaps4rails', '1.5.7'
 
 gem 'csv_builder'
 gem 'RedCloth'
 gem 'mustache'
-gem 'acts-as-taggable-on', '>= 2.2.2'
-gem 'simple_form'
-gem 'strong_parameters'
+gem 'acts-as-taggable-on', '~> 3.5.0'
+gem 'simple_form', '~> 3.0'
+gem 'protected_attributes'
 
 gem 'airbrake'
 gem 'newrelic_rpm', '~> 3.5.5'
@@ -32,11 +33,11 @@ gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'
 gem 'restforce'
-gem 'activerecord-import', '~> 0.3.0'
+gem 'activerecord-import', '~> 1.0.2'
 
 gem 'rack-ssl', :require => 'rack/ssl'
-gem 'delayed_job_active_record', '~> 0.4.4'
-gem 'delayed_job', '~> 3.0.5'
+gem 'delayed_job_active_record', '~> 4.0.0'
+gem 'delayed_job', '~> 4.0'
 
 gem 'authorizenet'
 
@@ -60,7 +61,7 @@ end
 
 group :development do
   gem 'puma'
-  gem 'rails-footnotes', '>= 3.7'
+  gem 'rails-footnotes', '~> 3.7'
   gem 'sass'
   gem "binding_of_caller"
   gem 'better_errors'
@@ -75,7 +76,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'cucumber', '~> 1.0', require: false
   gem 'minitest'
-  gem 'test-unit', '~> 3.0'
+  gem 'test-unit', '~> 3.3.4'
   gem 'capybara'
   gem 'poltergeist'
   gem 'shoulda'

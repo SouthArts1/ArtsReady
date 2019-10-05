@@ -33,7 +33,8 @@
       <p>
         This organization has not set up their billing yet!
         <%= link_to "Allow provisional access for 1 year",
-          "/admin/organizations/allow_provisionary_access/#{@organization.id}"
+          "/admin/organizations/allow_provisionary_access/#{@organization.id}",
+          method: :patch
         %>
       </p>
 

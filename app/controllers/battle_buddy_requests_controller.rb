@@ -1,7 +1,7 @@
 class BattleBuddyRequestsController < ApplicationController
   
   def create
-    @bb_request = current_org.battle_buddy_requests.create(params[:battle_buddy_request]) 
+    @bb_request = current_org.battle_buddy_requests.create(battle_buddy_request_params)
     redirect_to get_help_path
   end
   
@@ -25,5 +25,13 @@ class BattleBuddyRequestsController < ApplicationController
     @bb_request.reject!
     redirect_to :back, :notice => "Battle buddy removed."
   end
-  
+
+  private
+
+  def battle_buddy_request_params
+    params.require(:battle_buddy_request).permit(
+      :battle_buddy_id
+    )
+  end
+
 end

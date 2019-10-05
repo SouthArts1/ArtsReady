@@ -1,6 +1,6 @@
 <h1>Editing Assessment Question</h1>
 
-<%= button_to 'DELETE QUESTION', admin_question_path(@question), :method => :delete, :confirm => 'Are you *SURE* you want to remove this question?' %>
+<%= button_to 'DELETE QUESTION', admin_question_path(@question), :method => :delete, data: {:confirm => 'Are you *SURE* you want to remove this question?'} %>
 
 <section>
 <% if @question.errors.any? %>
@@ -51,10 +51,10 @@
           <%= form_for([:admin,t]) do |f| %>
           <%= f.label :description %>
           <%= f.text_field :description, :size => '100' %>
-          <%= f.submit 'Update', :confirm => 'Are you sure you want to change this?' %>
+          <%= f.submit 'Update', data: {:confirm => 'Are you sure you want to change this?'} %>
           <% end %>
         </p></td>
-        <td><p><%= button_to 'DELETE', admin_action_item_path(t), :method => :delete, :confirm => 'Are you *SURE*?' %></p></td>
+        <td><p><%= button_to 'DELETE', admin_action_item_path(t), :method => :delete, data: {:confirm => 'Are you *SURE*?'} %></p></td>
       </tr>
       <% end %>
       <tr>

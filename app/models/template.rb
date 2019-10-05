@@ -32,7 +32,7 @@ class Template < ActiveRecord::Base
 
   def self.create_required_templates
     TEMPLATE_NAMES.each do |name|
-      find_or_create_by_name(name)
+      find_or_create_by(name: name)
     end
   end
 end

@@ -46,7 +46,7 @@
             <td class="item"><p><%= todo.description %></p></td>
             <td class="assigned">
               <%= form_for todo, :class=>'edit_todo', :remote => true do |f| %>
-                <%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
+                <%= f.select(:user_id, current_org.users.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }, {:class => 'updateable'}) %>
               <% end %>
             </td>
             <td class="duedate">
@@ -76,7 +76,7 @@
               <td class="action"><p><%= f.select(:action, options_for_select(Todo::NEXT_ACTIONS.keys)) %></p></td>
               <td class="description"><p><%= f.text_field :description %></p></td>
               <td class="critical_function"><%= f.select(:critical_function, ArtsreadyDomain::CRITICAL_FUNCTIONS.collect.each { |cf| [cf[:title], cf[:name]]}, :selected => params[:tab]) %></td>
-              <td class="assigned"><p><%= f.select(:user_id, current_org.users.all.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
+              <td class="assigned"><p><%= f.select(:user_id, current_org.users.collect {|p| [ p.name, p.id ] }, { :include_blank => 'Unassigned' }) %></p></td>
               <td class="due"><p><%= f.text_field :due_on, :class => 'datepicker', :placeholder => 'Due' %></p></td>
               <td class="priority"><p><%= f.select :priority, options_for_select(Todo::PRIORITY) %></p></td>
               <td class="add-button"><p><%= f.submit "Add", :class => "button add-actionitem-button green", :style => 'width:60px;'%></p></td>

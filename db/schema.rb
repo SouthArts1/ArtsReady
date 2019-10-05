@@ -9,24 +9,24 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150424212435) do
+ActiveRecord::Schema.define(version: 20191004165952) do
 
-  create_table "action_items", :force => true do |t|
+  create_table "action_items", force: true do |t|
     t.string   "description"
     t.integer  "question_id"
     t.integer  "import_id"
     t.string   "recurrence"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",     :default => false
+    t.boolean  "deleted",     default: false
   end
 
-  add_index "action_items", ["import_id"], :name => "index_action_items_on_import_id"
-  add_index "action_items", ["question_id"], :name => "index_action_items_on_question_id"
+  add_index "action_items", ["import_id"], name: "index_action_items_on_import_id", using: :btree
+  add_index "action_items", ["question_id"], name: "index_action_items_on_question_id", using: :btree
 
-  create_table "answers", :force => true do |t|
+  create_table "answers", force: true do |t|
     t.integer  "assessment_id"
     t.integer  "question_id"
     t.string   "preparedness"
@@ -37,11 +37,11 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.string   "critical_function"
   end
 
-  add_index "answers", ["assessment_id"], :name => "index_answers_on_assessment_id"
-  add_index "answers", ["critical_function"], :name => "index_answers_on_critical_function"
-  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+  add_index "answers", ["assessment_id"], name: "index_answers_on_assessment_id", using: :btree
+  add_index "answers", ["critical_function"], name: "index_answers_on_critical_function", using: :btree
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
-  create_table "articles", :force => true do |t|
+  create_table "articles", force: true do |t|
     t.string   "title"
     t.string   "link"
     t.string   "document"
@@ -52,19 +52,19 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
-    t.string   "visibility",        :default => "private"
+    t.string   "visibility",        default: "private"
     t.string   "critical_function"
-    t.boolean  "on_critical_list",  :default => false
+    t.boolean  "on_critical_list",  default: false
     t.integer  "todo_id"
-    t.boolean  "featured",          :default => false
-    t.boolean  "disabled",          :default => false
+    t.boolean  "featured",          default: false
+    t.boolean  "disabled",          default: false
     t.string   "buddy_list"
   end
 
-  add_index "articles", ["organization_id"], :name => "index_articles_on_organization_id"
-  add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
+  add_index "articles", ["organization_id"], name: "index_articles_on_organization_id", using: :btree
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
-  create_table "assessments", :force => true do |t|
+  create_table "assessments", force: true do |t|
     t.integer  "organization_id"
     t.boolean  "has_performances"
     t.boolean  "has_tickets"
@@ -74,36 +74,36 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.boolean  "has_exhibits"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "complete",                :default => false
-    t.integer  "answers_count",           :default => 0
-    t.integer  "completed_answers_count", :default => 0
+    t.boolean  "complete",                default: false
+    t.integer  "answers_count",           default: 0
+    t.integer  "completed_answers_count", default: 0
     t.datetime "completed_at"
   end
 
-  add_index "assessments", ["completed_at"], :name => "index_assessments_on_completed_at"
-  add_index "assessments", ["organization_id"], :name => "index_assessments_on_organization_id"
+  add_index "assessments", ["completed_at"], name: "index_assessments_on_completed_at", using: :btree
+  add_index "assessments", ["organization_id"], name: "index_assessments_on_organization_id", using: :btree
 
-  create_table "battle_buddy_requests", :force => true do |t|
+  create_table "battle_buddy_requests", force: true do |t|
     t.integer  "organization_id"
     t.integer  "battle_buddy_id"
-    t.boolean  "accepted",        :default => false
+    t.boolean  "accepted",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "comments", :force => true do |t|
+  create_table "comments", force: true do |t|
     t.text     "comment"
     t.integer  "user_id"
     t.integer  "article_id"
-    t.boolean  "disabled",   :default => false
+    t.boolean  "disabled",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["article_id"], :name => "index_comments_on_article_id"
-  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "crises", :force => true do |t|
+  create_table "crises", force: true do |t|
     t.integer  "organization_id"
     t.date     "resolved_on"
     t.text     "resolution"
@@ -115,12 +115,12 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.string   "buddy_list"
   end
 
-  add_index "crises", ["organization_id"], :name => "index_crises_on_organization_id"
-  add_index "crises", ["user_id"], :name => "index_crises_on_user_id"
+  add_index "crises", ["organization_id"], name: "index_crises_on_organization_id", using: :btree
+  add_index "crises", ["user_id"], name: "index_crises_on_user_id", using: :btree
 
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0
+    t.integer  "attempts",   default: 0
     t.text     "handler"
     t.text     "last_error"
     t.datetime "run_at"
@@ -132,9 +132,9 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.string   "queue"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "discount_codes", :force => true do |t|
+  create_table "discount_codes", force: true do |t|
     t.string   "discount_code"
     t.integer  "deduction_value"
     t.string   "deduction_type"
@@ -146,11 +146,11 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
-    t.integer  "recurring_deduction_value", :default => 0
-    t.string   "recurring_deduction_type",  :default => "dollar"
+    t.integer  "recurring_deduction_value", default: 0
+    t.string   "recurring_deduction_type",  default: "dollar"
   end
 
-  create_table "messages", :force => true do |t|
+  create_table "messages", force: true do |t|
     t.integer  "user_id"
     t.integer  "organization_id"
     t.string   "visibility"
@@ -160,24 +160,24 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "updated_at"
   end
 
-  create_table "needs", :force => true do |t|
+  create_table "needs", force: true do |t|
     t.integer  "organization_id"
     t.integer  "crisis_id"
     t.integer  "user_id"
     t.string   "resource"
     t.text     "description"
-    t.boolean  "provided",        :default => false
+    t.boolean  "provided",        default: false
     t.string   "provider"
     t.date     "last_updated_on"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "needs", ["crisis_id"], :name => "index_needs_on_crisis_id"
-  add_index "needs", ["organization_id"], :name => "index_needs_on_organization_id"
-  add_index "needs", ["user_id"], :name => "index_needs_on_user_id"
+  add_index "needs", ["crisis_id"], name: "index_needs_on_crisis_id", using: :btree
+  add_index "needs", ["organization_id"], name: "index_needs_on_organization_id", using: :btree
+  add_index "needs", ["user_id"], name: "index_needs_on_user_id", using: :btree
 
-  create_table "organizations", :force => true do |t|
+  create_table "organizations", force: true do |t|
     t.string   "name"
     t.string   "address"
     t.string   "city"
@@ -185,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.string   "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",                     :default => false
-    t.boolean  "battle_buddy_enabled",       :default => false
+    t.boolean  "active",                     default: false
+    t.boolean  "battle_buddy_enabled",       default: false
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "gmaps"
@@ -207,12 +207,12 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.string   "ein"
     t.string   "duns"
     t.string   "nsic_code"
-    t.integer  "users_count",                :default => 0
+    t.integer  "users_count",                default: 0
     t.string   "other_nsic_code"
     t.date     "next_billing_date"
   end
 
-  create_table "pages", :force => true do |t|
+  create_table "pages", force: true do |t|
     t.string   "title"
     t.string   "slug"
     t.text     "body"
@@ -220,54 +220,54 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "updated_at"
   end
 
-  create_table "payment_notifications", :force => true do |t|
+  create_table "payment_notifications", force: true do |t|
     t.integer  "payment_id"
     t.text     "params"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.string   "state",      :default => "new"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "state",      default: "new"
   end
 
-  add_index "payment_notifications", ["payment_id"], :name => "index_payment_notifications_on_payment_id"
-  add_index "payment_notifications", ["state"], :name => "index_payment_notifications_on_state"
+  add_index "payment_notifications", ["payment_id"], name: "index_payment_notifications_on_payment_id", using: :btree
+  add_index "payment_notifications", ["state"], name: "index_payment_notifications_on_state", using: :btree
 
-  create_table "payment_variables", :force => true do |t|
+  create_table "payment_variables", force: true do |t|
     t.string   "key"
     t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "payments", :force => true do |t|
+  create_table "payments", force: true do |t|
     t.integer  "subscription_id"
     t.integer  "discount_code_id"
     t.integer  "amount_in_cents"
-    t.integer  "transaction_id",        :limit => 8
+    t.integer  "transaction_id",        limit: 8
     t.string   "payment_method"
     t.string   "routing_number"
     t.string   "account_number"
     t.string   "account_type"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "check_number"
     t.integer  "subscription_event_id"
   end
 
-  add_index "payments", ["subscription_event_id"], :name => "index_payments_on_subscription_event_id"
+  add_index "payments", ["subscription_event_id"], name: "index_payments_on_subscription_event_id", using: :btree
 
-  create_table "questions", :force => true do |t|
+  create_table "questions", force: true do |t|
     t.text     "description"
     t.string   "critical_function"
     t.integer  "import_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted",           :default => false
+    t.boolean  "deleted",           default: false
     t.text     "help"
   end
 
-  add_index "questions", ["import_id"], :name => "index_questions_on_import_id"
+  add_index "questions", ["import_id"], name: "index_questions_on_import_id", using: :btree
 
-  create_table "resources", :force => true do |t|
+  create_table "resources", force: true do |t|
     t.string   "name"
     t.string   "details"
     t.integer  "organization_id"
@@ -275,19 +275,19 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "updated_at"
   end
 
-  add_index "resources", ["organization_id"], :name => "index_resources_on_organization_id"
+  add_index "resources", ["organization_id"], name: "index_resources_on_organization_id", using: :btree
 
-  create_table "subscription_events", :force => true do |t|
+  create_table "subscription_events", force: true do |t|
     t.text     "notes"
     t.integer  "organization_id"
     t.datetime "happened_at"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "subscription_events", ["organization_id"], :name => "index_subscription_events_on_organization_id"
+  add_index "subscription_events", ["organization_id"], name: "index_subscription_events_on_organization_id", using: :btree
 
-  create_table "subscriptions", :force => true do |t|
+  create_table "subscriptions", force: true do |t|
     t.integer  "organization_id"
     t.integer  "discount_code_id"
     t.integer  "starting_amount_in_cents"
@@ -310,11 +310,11 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "updated_at"
     t.string   "billing_email"
     t.string   "billing_phone_number"
-    t.boolean  "provisional",              :default => false
+    t.boolean  "provisional",              default: false
     t.string   "type"
   end
 
-  create_table "taggings", :force => true do |t|
+  create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
     t.string   "taggable_type"
@@ -324,22 +324,25 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
-  create_table "tags", :force => true do |t|
-    t.string "name"
+  create_table "tags", force: true do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
   end
 
-  create_table "templates", :force => true do |t|
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "templates", force: true do |t|
     t.string   "name"
     t.string   "subject"
     t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "todo_notes", :force => true do |t|
+  create_table "todo_notes", force: true do |t|
     t.integer  "todo_id"
     t.integer  "user_id"
     t.text     "message"
@@ -348,11 +351,11 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.integer  "article_id"
   end
 
-  add_index "todo_notes", ["article_id"], :name => "index_todo_notes_on_article_id"
-  add_index "todo_notes", ["todo_id"], :name => "index_todo_notes_on_todo_id"
-  add_index "todo_notes", ["user_id"], :name => "index_todo_notes_on_user_id"
+  add_index "todo_notes", ["article_id"], name: "index_todo_notes_on_article_id", using: :btree
+  add_index "todo_notes", ["todo_id"], name: "index_todo_notes_on_todo_id", using: :btree
+  add_index "todo_notes", ["user_id"], name: "index_todo_notes_on_user_id", using: :btree
 
-  create_table "todos", :force => true do |t|
+  create_table "todos", force: true do |t|
     t.integer  "action_item_id"
     t.integer  "answer_id"
     t.integer  "organization_id"
@@ -364,19 +367,19 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.string   "priority"
     t.date     "review_on"
     t.string   "critical_function"
-    t.boolean  "complete",          :default => false,     :null => false
+    t.boolean  "complete",          default: false,     null: false
     t.string   "status"
     t.integer  "last_user_id"
-    t.string   "action",            :default => "Work On"
+    t.string   "action",            default: "Work On"
     t.string   "key"
   end
 
-  add_index "todos", ["action_item_id"], :name => "index_todos_on_action_item_id"
-  add_index "todos", ["answer_id"], :name => "index_todos_on_answer_id"
-  add_index "todos", ["organization_id"], :name => "index_todos_on_organization_id"
-  add_index "todos", ["user_id"], :name => "index_todos_on_user_id"
+  add_index "todos", ["action_item_id"], name: "index_todos_on_action_item_id", using: :btree
+  add_index "todos", ["answer_id"], name: "index_todos_on_answer_id", using: :btree
+  add_index "todos", ["organization_id"], name: "index_todos_on_organization_id", using: :btree
+  add_index "todos", ["user_id"], name: "index_todos_on_user_id", using: :btree
 
-  create_table "updates", :force => true do |t|
+  create_table "updates", force: true do |t|
     t.text     "message"
     t.integer  "user_id"
     t.integer  "crisis_id"
@@ -385,11 +388,11 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "updated_at"
   end
 
-  add_index "updates", ["crisis_id"], :name => "index_updates_on_crisis_id"
-  add_index "updates", ["organization_id"], :name => "index_updates_on_organization_id"
-  add_index "updates", ["user_id"], :name => "index_updates_on_user_id"
+  add_index "updates", ["crisis_id"], name: "index_updates_on_crisis_id", using: :btree
+  add_index "updates", ["organization_id"], name: "index_updates_on_organization_id", using: :btree
+  add_index "updates", ["user_id"], name: "index_updates_on_user_id", using: :btree
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -397,17 +400,17 @@ ActiveRecord::Schema.define(:version => 20150424212435) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
-    t.boolean  "admin",                  :default => false
-    t.boolean  "disabled",               :default => false
+    t.boolean  "admin",                  default: false
+    t.boolean  "disabled",               default: false
     t.string   "role"
     t.datetime "last_login_at"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.string   "title"
     t.string   "phone_number"
-    t.boolean  "accepted_terms",         :default => true
+    t.boolean  "accepted_terms",         default: true
   end
 
-  add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
+  add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
 
 end

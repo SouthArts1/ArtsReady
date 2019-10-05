@@ -23,8 +23,8 @@ class BuddiesController < ApplicationController
   end
   
   def profile
+    @resources = current_org.resources.to_a
     @resource = current_org.resources.new
-    @resources = current_org.resources.all
   end
 
 end

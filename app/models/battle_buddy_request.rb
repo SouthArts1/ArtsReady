@@ -3,7 +3,7 @@ class BattleBuddyRequest < ActiveRecord::Base
   belongs_to :organization
   belongs_to :battle_buddy, :class_name => 'Organization'
 
-  scope :pending, where('accepted IS NULL')
+  scope :pending, -> { where('accepted IS NULL') }
   
   after_create :email_potential_buddy, :unless => "accepted?" #only email on the intial request, not the reciprocal one
   before_destroy :email_spurned_buddy

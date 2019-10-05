@@ -45,7 +45,7 @@
               :class => 'button' %>
             <%= link_to 'Delete', [:admin, event.organization, event],
               method: :delete,
-              confirm: 'Really delete this note?',
+              data: {confirm: 'Really delete this note?'},
               :class => 'button' %>
           </td>
         </tr>

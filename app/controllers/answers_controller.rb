@@ -25,7 +25,7 @@ class AnswersController < ApplicationController
   def update
     @answer = current_org.assessment.answers.find(params[:id])
 
-    if @answer.update_attributes(params[:answer])
+    if @answer.update_attributes(answer_params)
       flash.notice = 'Answer was successfully updated.'
     else
       flash.notice = 'All fields are required for your answer'
@@ -35,6 +35,12 @@ class AnswersController < ApplicationController
   end
 
 private
+
+  def answer_params
+    params.require(:answer).permit(
+      :preparedness, :priority
+    )
+  end
 
   def respond
     if request.xhr?

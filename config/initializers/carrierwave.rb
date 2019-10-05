@@ -1,4 +1,4 @@
-if Rails.env.test? or Rails.env.cucumber?
+if Rails.env.test? or Rails.env.cucumber? or Rails.env.development?
 
   CarrierWave.configure do |config|
     config.storage = :file
@@ -6,6 +6,7 @@ if Rails.env.test? or Rails.env.cucumber?
   end
 
 else
+  require 'carrierwave/storage/fog'
 
   CarrierWave.configure do |config|
     config.cache_dir = "#{Rails.root}/tmp/uploads"

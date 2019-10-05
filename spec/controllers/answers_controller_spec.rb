@@ -3,7 +3,7 @@ require 'spec_helper'
 describe AnswersController do
   describe 'update' do
     let(:answer) { Factory.create(:answer) }
-    let(:answer_params) { {} }
+    let(:answer_params) { {preparedness: 'unknown', priority: 'critical'} }
     before do
       controller.stubs :authenticate!
       controller.stub(:current_org).and_return(answer.assessment.organization)

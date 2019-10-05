@@ -1,7 +1,7 @@
 <hgroup class="grid_12">
   <h1>Edit Public Page</h1>
   <%= button_to 'Delete This Page', [:admin, @page], method: :delete,
-      confirm: "Really delete #{@page.title}?"
+      data: {confirm: "Really delete #{@page.title}?"}
   %>
 </hgroup>
 

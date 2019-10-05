@@ -36,8 +36,8 @@ describe OrganizationsController do
     describe "PUT update" do
       describe "with valid params" do
         it "updates the requested organization" do
-          organization.should_receive(:update_attributes).with({'these' => 'params'})
-          put :update, :id => organization.id, :organization => {'these' => 'params'}
+          organization.should_receive(:update_attributes).with({'name' => 'An Org'})
+          put :update, :id => organization.id, :organization => {'name' => 'An Org'}
         end
 
         it "assigns the requested organization as @organization" do
@@ -59,12 +59,12 @@ describe OrganizationsController do
         end
 
         it "assigns the organization as @organization" do
-          put :update, :id => organization.id.to_s, :organization => {}
+          put :update, :id => organization.id.to_s, :organization => {name: 'An Org'}
           assigns(:organization).should eq(organization)
         end
 
         it "re-renders the 'edit' template" do
-          put :update, :id => organization.id.to_s, :organization => {}
+          put :update, :id => organization.id.to_s, :organization => {name: 'An Org'}
           response.should render_template("edit")
         end
       end

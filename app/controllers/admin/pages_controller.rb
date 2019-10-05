@@ -9,7 +9,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def create
-    @page = Page.new(params[:page])
+    @page = Page.new(page_params)
 
     if @page.save
       redirect_to admin_pages_path, notice: 'Page created'
@@ -25,7 +25,7 @@ class Admin::PagesController < Admin::AdminController
   def update
     @page = Page.find(params[:id])
 
-    if @page.update_attributes(params[:page])
+    if @page.update_attributes(page_params)
       redirect_to admin_pages_path, :notice => "Page updated"
     else
       render 'edit'
@@ -40,5 +40,13 @@ class Admin::PagesController < Admin::AdminController
     else
       render 'edit'
     end
+  end
+
+  private
+
+  def page_params
+    params.require(:page).permit(
+      :slug, :title, :body
+    )
   end
 end
