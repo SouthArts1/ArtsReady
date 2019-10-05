@@ -14,8 +14,8 @@ describe User do
   it { should validate_uniqueness_of(:email)}
 
   specify {subject.role.should == 'reader'}
-  specify {subject.admin.should be_false}
-  specify {subject.is_admin?.should be_false}
+  specify {subject.admin.should be_falsey}
+  specify {subject.is_admin?.should be_falsey}
 
   describe 'admin_emails' do
     it "is a list of admins' email addresses" do
@@ -56,46 +56,46 @@ describe User do
   context "#can_set_battlebuddy_permission_for_article?" do
     it "should be false for user" do
       @member = Factory.create(:user)
-      @member.can_set_battlebuddy_permission_for_article?.should be_false
+      @member.can_set_battlebuddy_permission_for_article?.should be_falsey
     end
     it "should be false for reader" do
       @member = Factory.create(:reader)
-      @member.can_set_battlebuddy_permission_for_article?.should be_false
+      @member.can_set_battlebuddy_permission_for_article?.should be_falsey
     end
     it "should be true for editor" do
       @member = Factory.create(:editor)
-      @member.can_set_battlebuddy_permission_for_article?.should be_true
+      @member.can_set_battlebuddy_permission_for_article?.should be_truthy
     end
     it "should be true for executive" do
       @member = Factory.create(:executive)
-      @member.can_set_battlebuddy_permission_for_article?.should be_true
+      @member.can_set_battlebuddy_permission_for_article?.should be_truthy
     end
     it "should be true for manager" do
       @member = Factory.create(:manager)
-      @member.can_set_battlebuddy_permission_for_article?.should be_true
+      @member.can_set_battlebuddy_permission_for_article?.should be_truthy
     end
   end
   
   context "#can_set_executive_permission_for_article?" do
     it "should be false for user" do
       @member = Factory.create(:user)
-      @member.can_set_executive_permission_for_article?.should be_false
+      @member.can_set_executive_permission_for_article?.should be_falsey
     end
     it "should be false for reader" do
       @member = Factory.create(:reader)
-      @member.can_set_executive_permission_for_article?.should be_false
+      @member.can_set_executive_permission_for_article?.should be_falsey
     end
     it "should be false for editor" do
       @member = Factory.create(:editor)
-      @member.can_set_executive_permission_for_article?.should be_false
+      @member.can_set_executive_permission_for_article?.should be_falsey
     end
     it "should be true for executive" do
       @member = Factory.create(:executive)
-      @member.can_set_executive_permission_for_article?.should be_true
+      @member.can_set_executive_permission_for_article?.should be_truthy
     end
     it "should be true for manager" do
       @member = Factory.create(:manager)
-      @member.can_set_executive_permission_for_article?.should be_true
+      @member.can_set_executive_permission_for_article?.should be_truthy
     end
   end
   
@@ -105,11 +105,11 @@ describe User do
     end
     
     it "should authenticate successfully when the password hash matches the encrypted password" do
-      User.authenticate('member@test.host', 'secret').should be_true
+      User.authenticate('member@test.host', 'secret').should be_truthy
     end
 
     it "should not authenticate when the password hash does not match the encrypted password" do
-      User.authenticate('member@test.host', 'badpassword').should_not be_true
+      User.authenticate('member@test.host', 'badpassword').should_not be_truthy
     end
     
     it "should not authenticate if the password is blank"
@@ -140,15 +140,15 @@ describe User do
     let(:admin) { Factory.create(:user, :email => 'admin@test.host', :password => 'secret', :admin => true) }
 
     it "should not be an admin by default" do
-      member.admin?.should be_false
+      member.admin?.should be_falsey
     end
 
     it "should be an admin if set" do
-      admin.admin?.should be_true
+      admin.admin?.should be_truthy
     end
 
     it "should be an admin if set" do
-      admin.is_admin?.should be_true
+      admin.is_admin?.should be_truthy
     end
 
     it "should not have member in the .admins scope" do
@@ -188,26 +188,26 @@ describe User do
     it 'allows non-disabled users of active orgs' do
       user = Factory.create(:user)
 
-      expect(User.send_email_to_address?(user.email)).to be_true
+      expect(User.send_email_to_address?(user.email)).to be_truthy
     end
 
     it 'rejects disabled users' do
       user = Factory.create(:user, :disabled => true)
 
-      expect(User.send_email_to_address?(user.email)).to be_false
+      expect(User.send_email_to_address?(user.email)).to be_falsey
     end
 
     it 'rejects users from inactive orgs' do
       org = Factory.create(:organization, :active => false)
       user = Factory.create(:user, :organization => org)
 
-      expect(User.send_email_to_address?(user.email)).to be_false
+      expect(User.send_email_to_address?(user.email)).to be_falsey
     end
 
     it 'allows addresses with no associated user' do
       email = 'admin@bossland.com'
 
-      expect(User.send_email_to_address?(email)).to be_true
+      expect(User.send_email_to_address?(email)).to be_truthy
     end
   end
 end

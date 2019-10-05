@@ -64,7 +64,7 @@ end
 
 Then /^the "([^"]*)" todo should be restarted$/ do |label|
   go_to_todo(label)
-  find_field('Completed?')['checked'].should be_false
+  find_field('Completed?')['checked'].should be_falsey
   find('.log').should have_content('Restarted')
 end
 

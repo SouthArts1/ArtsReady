@@ -23,7 +23,7 @@ shared_examples_for 'a subscription' do
     end
 
     it 'should return true' do
-      expect(result).to be_true
+      expect(result).to be_truthy
     end
 
     it { should_not be_active }

@@ -11,10 +11,10 @@ describe Article do
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:critical_function) }
 
-  it { subject.is_public?.should be_false}
-  it { subject.is_featured?.should be_false}
-  it { subject.is_disabled?.should be_false}
-  it { subject.on_critical_list?.should be_false}
+  it { subject.is_public?.should be_falsey}
+  it { subject.is_featured?.should be_falsey}
+  it { subject.is_disabled?.should be_falsey}
+  it { subject.on_critical_list?.should be_falsey}
 
   context "scopes" do
     let(:private_article) { Factory.create(:private_article) }

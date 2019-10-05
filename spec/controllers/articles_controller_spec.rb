@@ -139,7 +139,7 @@ describe ArticlesController do
         :organization => organization, :user => user)
       delete :destroy, :id => article.id
       response.should redirect_to(articles_url)
-      Article.exists?(article.id).should be_false
+      Article.exists?(article.id).should be_falsey
     end
   end
 end

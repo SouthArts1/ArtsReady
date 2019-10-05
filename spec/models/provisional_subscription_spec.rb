@@ -34,7 +34,7 @@ describe 'ProvisionalSubscription' do
 
   describe '.payment_method_expires_before?' do
     it 'always returns false' do
-      expect(subscription.payment_method_expires_before?(double)).to be_false
+      expect(subscription.payment_method_expires_before?(double)).to be_falsey
     end
   end
 end

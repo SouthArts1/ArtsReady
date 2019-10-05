@@ -47,7 +47,7 @@ gem 'thin'
 gem 'foreman'
 
 group :test, :development do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'rb-fsevent'
   gem 'ruby_gntp'
   gem 'guard'
@@ -77,13 +77,15 @@ group :test do
   gem 'cucumber', '~> 1.0', require: false
   gem 'minitest'
   gem 'test-unit', '~> 3.3.4'
-  gem 'capybara'
+  gem 'capybara', '~> 2.18'
   gem 'poltergeist'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
   gem 'shoulda'
   gem 'timecop'
   gem 'simplecov', require: false
-  gem 'kelp', github: 'eostrom/kelp', branch: 'capybara-2-1'
-  gem 'email_spec'
+  gem 'kelp'
+  gem 'email_spec', '~> 2.2.0'
   gem 'webmock'
   gem 'vcr'
 end

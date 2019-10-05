@@ -29,7 +29,7 @@ describe Answer do
     specify {subject.critical_function.should_not be_blank}
     specify {subject.preparedness.should be_blank}
     specify {subject.priority.should be_blank}
-    specify {subject.was_skipped.should be_false}
+    specify {subject.was_skipped.should be_falsey}
   end
   
   context "valid answer" do

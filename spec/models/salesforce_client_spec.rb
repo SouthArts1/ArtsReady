@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SalesforceClient do
+describe SalesforceClient, pending: 'disabled as app approaches EOL' do
   subject(:client) { SalesforceClient.new }
 
   let(:external_id_field) { 'ArtsReady_ID__c' }

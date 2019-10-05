@@ -39,7 +39,7 @@ describe DisabledMailInterceptor do
 
           DisabledMailInterceptor.delivering_email(message)
 
-          expect(message.perform_deliveries).to be_true
+          expect(message.perform_deliveries).to be_truthy
           expect(message.to).to eq(['valid@kosher.com'])
         end
       end

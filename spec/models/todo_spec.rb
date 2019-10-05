@@ -13,7 +13,7 @@ describe Todo do
   it { should validate_presence_of(:priority)}
   
   subject { Factory.create(:todo) }
-  it {subject.complete?.should be_false}
+  it {subject.complete?.should be_falsey}
   it {subject.status.should_not == 'Complete'}
 
   it "should default to 'Work On'" do
@@ -28,12 +28,12 @@ describe Todo do
   it "should allow its user to be changed" do
     todo = Factory.create(:todo)
     todo.user_id = 2
-    todo.save.should be_true
+    todo.save.should be_truthy
   end
   
   it "should allow its priority to be changed" do
     todo = Factory.create(:todo)
-    todo.update_attribute(:priority, "non-critical").should be_true
+    todo.update_attribute(:priority, "non-critical").should be_truthy
   end
   
   it "should know what its next action is" do
@@ -45,7 +45,7 @@ describe Todo do
   
   it "should accept being set to complete" do
     todo = Factory.create(:todo)
-    todo.update_attribute(:complete, false).should be_true
+    todo.update_attribute(:complete, false).should be_truthy
   end
 
   it "should set status to 'Complete' when completed" do
@@ -57,7 +57,7 @@ describe Todo do
   
   it "should accept a review date" do
     todo = Factory.build(:todo)
-    todo.update_attribute(:review_on, Date.tomorrow).should be_true
+    todo.update_attribute(:review_on, Date.tomorrow).should be_truthy
   end
   
   context ".nearing_due_date" do

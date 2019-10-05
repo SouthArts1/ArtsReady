@@ -28,7 +28,7 @@ describe Payment do
         before { payment.notification.stub(:success? => true) }
 
         it "sets the organization's next billing date" do
-          subscription_event.should_receive(:extend_next_billing_date!).with()
+          subscription_event.should_receive(:extend_next_billing_date!).with(no_args)
 
           payment.save
 
@@ -66,7 +66,7 @@ describe Payment do
         before { payment.extend_subscription = true }
 
         it "sets the organization's next billing date" do
-          subscription_event.should_receive(:extend_next_billing_date!).with()
+          subscription_event.should_receive(:extend_next_billing_date!).with(no_args)
 
           payment.save
 

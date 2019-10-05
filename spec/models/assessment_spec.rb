@@ -7,7 +7,7 @@ describe Assessment do
   
   context "default values" do
     subject { Factory.create(:assessment) }
-    it {subject.complete?.should be_false} 
+    it {subject.complete?.should be_falsey}
     it {subject.percentage_complete.should be_zero} 
   end
   
@@ -17,7 +17,7 @@ describe Assessment do
 
     context '(for a required function)' do
       let(:function) { 'people' }
-      it { should be_false }
+      it { should be_falsey }
     end
 
     context '(for an optional function)' do
@@ -31,11 +31,11 @@ describe Assessment do
               :priority => 'critical', :preparedness => 'not ready')
         end
 
-        it { should be_false }
+        it { should be_falsey }
       end
 
       context '(with no answered questions)' do
-        it { should be_true }
+        it { should be_truthy }
       end
     end
   end
@@ -82,7 +82,7 @@ describe Assessment do
 
     it 'reconsiders all answers in the section' do
       assessment.reload # makes the 'answers' association work right
-      assessment.update_section('facilities', :applicable => true).should be_true
+      assessment.update_section('facilities', :applicable => true).should be_truthy
       assessment.answers.for_critical_function('facilities').skipped.
         should be_empty
     end
@@ -98,21 +98,21 @@ describe Assessment do
     }
 
     it 'should be true if all the questions are answered or skipped' do
-      assessment.should_not be_completed
+      assessment.send(:completed?).should be_falsey
 
       first_answer.update_attributes(
           :priority => 'critical', :preparedness => 'not ready')
-      assessment.reload.should_not be_completed
+      assessment.reload.send(:completed?).should be_falsey
 
       second_answer.update_attribute(:was_skipped, true)
-      assessment.reload.should be_completed
+      assessment.reload.send(:completed?).should be_truthy
 
       second_answer.update_attribute(:was_skipped, false)
-      assessment.reload.should_not be_completed
+      assessment.reload.send(:completed?).should be_falsey
 
       second_answer.update_attributes(
         :priority => 'critical', :preparedness => 'not ready')
-      assessment.reload.should be_completed
+      assessment.reload.send(:completed?).should be_truthy
     end
   end
   

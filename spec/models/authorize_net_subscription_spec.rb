@@ -126,7 +126,7 @@ describe AuthorizeNetSubscription do
       before { cancel_response.stub(:success?).and_return(true) }
 
       it 'should succeed' do
-        expect(result).to be_true
+        expect(result).to be_truthy
         expect(subscription).not_to be_active
       end
     end
@@ -135,7 +135,7 @@ describe AuthorizeNetSubscription do
       before { cancel_response.stub(:success?).and_return(false) }
 
       it "should fail" do
-        expect(result).to be_false
+        expect(result).to be_falsey
         expect(subscription).to be_active
       end
     end
@@ -330,9 +330,9 @@ describe AuthorizeNetSubscription do
     it 'depends on the expiration date' do
       subscription.attributes = {expiry_month: 12, expiry_year: 2021}
       expect(subscription.payment_method_expires_before?(
-        Date.parse('January 1, 2022'))).to be_true
+        Date.parse('January 1, 2022'))).to be_truthy
       expect(subscription.payment_method_expires_before?(
-        Date.parse('December 31, 2021'))).to be_false
+        Date.parse('December 31, 2021'))).to be_falsey
     end
   end
 
