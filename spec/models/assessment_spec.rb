@@ -6,13 +6,13 @@ describe Assessment do
   it {should have_many(:todos)}
   
   context "default values" do
-    subject { Factory.create(:assessment) }
+    subject { FactoryGirl.create(:assessment) }
     it {subject.complete?.should be_falsey}
     it {subject.percentage_complete.should be_zero} 
   end
   
   describe '#can_skip_section?' do
-    let(:assessment) { Factory.create(:assessment) }
+    let(:assessment) { FactoryGirl.create(:assessment) }
     subject { assessment.can_skip_section?(function) }
 
     context '(for a required function)' do
@@ -25,7 +25,7 @@ describe Assessment do
 
       context '(with answered questions)' do
         before do
-          Factory.create(:question, :critical_function => function)
+          FactoryGirl.create(:question, :critical_function => function)
           assessment.answers.for_critical_function(function).first.
             update_attributes(
               :priority => 'critical', :preparedness => 'not ready')
@@ -41,16 +41,16 @@ describe Assessment do
   end
 
   describe 'a new assessment' do
-    subject { Factory.build(:assessment) }
+    subject { FactoryGirl.build(:assessment) }
     it { should be_valid }
   end
 
   describe 'skipping a section' do
-    let(:assessment) { Factory.create(:assessment) }
+    let(:assessment) { FactoryGirl.create(:assessment) }
     subject { assessment }
     before do
-      Factory.create(:question, :critical_function => 'ticketing')
-      Factory.create(:question, :critical_function => 'facilities')
+      FactoryGirl.create(:question, :critical_function => 'ticketing')
+      FactoryGirl.create(:question, :critical_function => 'facilities')
       assessment.answers.for_critical_function('ticketing').
         first.update_attributes(
           :priority => 'critical', :preparedness => 'ready')
@@ -74,10 +74,10 @@ describe Assessment do
   end
 
   describe 'reconsidering a section' do
-    let(:assessment) { Factory.create(:assessment, :has_facilities => false) }
+    let(:assessment) { FactoryGirl.create(:assessment, :has_facilities => false) }
     subject { assessment }
     before do
-      Factory.create(:question, :critical_function => 'facilities')
+      FactoryGirl.create(:question, :critical_function => 'facilities')
     end
 
     it 'reconsiders all answers in the section' do
@@ -89,9 +89,9 @@ describe Assessment do
   end
 
   describe "#completed?" do
-    before { 2.times { Factory.create(:question) } }
+    before { 2.times { FactoryGirl.create(:question) } }
 
-    let(:assessment) { Factory.create(:assessment) }
+    let(:assessment) { FactoryGirl.create(:assessment) }
     let(:first_answer) { assessment.answers.first }
     let(:second_answer) { 
       assessment.answers.where(['id <> ?', first_answer]).last
@@ -118,7 +118,7 @@ describe Assessment do
   
   describe '#check_complete' do
     it 'records when the last question is answered or skipped' do
-      assessment = Factory.create(:assessment)
+      assessment = FactoryGirl.create(:assessment)
       assessment.stub(:completed?) { false }
       assessment.check_complete
       assessment.completed_at.should be_nil
@@ -140,8 +140,8 @@ describe Assessment do
   
   describe '#create_reassessment_todo' do
     let(:completed_at) { Time.zone.now }
-    let(:assessment) { Factory.create(:assessment, :completed_at => completed_at) }
-    let!(:user) { Factory.create(:user, :organization => assessment.organization) }
+    let(:assessment) { FactoryGirl.create(:assessment, :completed_at => completed_at) }
+    let!(:user) { FactoryGirl.create(:user, :organization => assessment.organization) }
     let(:todo) { assessment.create_reassessment_todo }
     subject { todo }
     
@@ -171,11 +171,11 @@ describe Assessment do
   
   describe '.pending_reassessment_todo' do
     it 'means 11 months since completion and not yet served a reassessment todo' do
-      too_new = Factory.create(:assessment, :completed_at => 45.weeks.ago)
-      already_served = Factory.create(:assessment, :completed_at => 50.weeks.ago)
+      too_new = FactoryGirl.create(:assessment, :completed_at => 45.weeks.ago)
+      already_served = FactoryGirl.create(:assessment, :completed_at => 50.weeks.ago)
       already_served.create_reassessment_todo
-      in_need = Factory.create(:assessment, :completed_at => 50.weeks.ago)
-      in_need_again = Factory.create(:assessment, :completed_at => 100.weeks.ago)
+      in_need = FactoryGirl.create(:assessment, :completed_at => 50.weeks.ago)
+      in_need_again = FactoryGirl.create(:assessment, :completed_at => 100.weeks.ago)
       in_need_again.create_reassessment_todo.
         update_attributes(:complete => true)
 
@@ -185,7 +185,7 @@ describe Assessment do
   end
 
   describe 'initialize_critical_functions' do
-    let(:assessment) { Factory.build(:assessment) }
+    let(:assessment) { FactoryGirl.build(:assessment) }
 
     context '(given no previous assessments)' do
       it 'uses the default' do
@@ -201,13 +201,13 @@ describe Assessment do
     end
     context '(given previous assessments)' do
       before do
-        Factory.create(:completed_assessment, 
+        FactoryGirl.create(:completed_assessment,
                        :organization => assessment.organization, 
                        :has_facilities => true,
                        :has_programs => false,
                        :completed_at => 1.month.ago)
 
-        Factory.create(:completed_assessment, 
+        FactoryGirl.create(:completed_assessment,
                        :organization => assessment.organization, 
                        :has_programs => true,
                        :has_facilities => false,

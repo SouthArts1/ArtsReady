@@ -32,19 +32,19 @@ class BattleBuddyRequest < ActiveRecord::Base
   
   def email_potential_buddy
     battle_buddy.managers.each do |manager|
-      OrganizationMailer.battle_buddy_invitation(manager,battle_buddy,organization).deliver
+      OrganizationMailer.battle_buddy_invitation(manager,battle_buddy,organization).deliver_now
     end
     battle_buddy.editors.each do |editor|
-      OrganizationMailer.battle_buddy_invitation(editor,battle_buddy,organization).deliver
+      OrganizationMailer.battle_buddy_invitation(editor,battle_buddy,organization).deliver_now
     end
   end
 
   def email_spurned_buddy
     battle_buddy.managers.each do |manager|
-      OrganizationMailer.battle_buddy_dissolution(manager,battle_buddy,organization).deliver
+      OrganizationMailer.battle_buddy_dissolution(manager,battle_buddy,organization).deliver_now
     end
     battle_buddy.editors.each do |editor|
-      OrganizationMailer.battle_buddy_dissolution(editor,battle_buddy,organization).deliver
+      OrganizationMailer.battle_buddy_dissolution(editor,battle_buddy,organization).deliver_now
     end
   end
 end

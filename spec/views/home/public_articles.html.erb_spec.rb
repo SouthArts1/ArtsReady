@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "home/public_articles" do
   let(:critical_function) { 'Important Things' }
   let(:article) {
-    Factory.create(:public_article,
+    FactoryGirl.create(:public_article,
       :critical_function => critical_function)
   }
   let(:critical_function_path) {

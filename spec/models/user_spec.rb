@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  subject { Factory.create(:user) }
+  subject { FactoryGirl.create(:user) }
   
   it { should have_many(:articles) }
   it { should have_many(:todo_notes) }
@@ -19,8 +19,8 @@ describe User do
 
   describe 'admin_emails' do
     it "is a list of admins' email addresses" do
-      admin = Factory.create(:sysadmin, email: 'myemail@admin.example.org')
-      Factory.create(:executive)
+      admin = FactoryGirl.create(:sysadmin, email: 'myemail@admin.example.org')
+      FactoryGirl.create(:executive)
 
       expect(User.admin_emails).to eq(['myemail@admin.example.org'])
     end
@@ -44,7 +44,7 @@ describe User do
   
   
   context "first user for an organization should be a manager" do
-    let(:organization) { Factory.create(:new_organization) }
+    let(:organization) { FactoryGirl.create(:new_organization) }
     
     it "should set the first user for an organization to a manager" do
       u=organization.users.create(:first_name => 'First', :last_name => 'Last', :email => 'first_user@test.host')
@@ -55,53 +55,53 @@ describe User do
   
   context "#can_set_battlebuddy_permission_for_article?" do
     it "should be false for user" do
-      @member = Factory.create(:user)
+      @member = FactoryGirl.create(:user)
       @member.can_set_battlebuddy_permission_for_article?.should be_falsey
     end
     it "should be false for reader" do
-      @member = Factory.create(:reader)
+      @member = FactoryGirl.create(:reader)
       @member.can_set_battlebuddy_permission_for_article?.should be_falsey
     end
     it "should be true for editor" do
-      @member = Factory.create(:editor)
+      @member = FactoryGirl.create(:editor)
       @member.can_set_battlebuddy_permission_for_article?.should be_truthy
     end
     it "should be true for executive" do
-      @member = Factory.create(:executive)
+      @member = FactoryGirl.create(:executive)
       @member.can_set_battlebuddy_permission_for_article?.should be_truthy
     end
     it "should be true for manager" do
-      @member = Factory.create(:manager)
+      @member = FactoryGirl.create(:manager)
       @member.can_set_battlebuddy_permission_for_article?.should be_truthy
     end
   end
   
   context "#can_set_executive_permission_for_article?" do
     it "should be false for user" do
-      @member = Factory.create(:user)
+      @member = FactoryGirl.create(:user)
       @member.can_set_executive_permission_for_article?.should be_falsey
     end
     it "should be false for reader" do
-      @member = Factory.create(:reader)
+      @member = FactoryGirl.create(:reader)
       @member.can_set_executive_permission_for_article?.should be_falsey
     end
     it "should be false for editor" do
-      @member = Factory.create(:editor)
+      @member = FactoryGirl.create(:editor)
       @member.can_set_executive_permission_for_article?.should be_falsey
     end
     it "should be true for executive" do
-      @member = Factory.create(:executive)
+      @member = FactoryGirl.create(:executive)
       @member.can_set_executive_permission_for_article?.should be_truthy
     end
     it "should be true for manager" do
-      @member = Factory.create(:manager)
+      @member = FactoryGirl.create(:manager)
       @member.can_set_executive_permission_for_article?.should be_truthy
     end
   end
   
   context "#authenticate" do
     before do
-      @member = Factory.create(:user, :email => 'member@test.host', :password => 'secret')
+      @member = FactoryGirl.create(:user, :email => 'member@test.host', :password => 'secret')
     end
     
     it "should authenticate successfully when the password hash matches the encrypted password" do
@@ -119,25 +119,25 @@ describe User do
   context "#name" do
 
     it "should be composed of first_name and last_name" do
-      member=Factory.build(:user, :first_name => 'First', :last_name => 'Last')
+      member=FactoryGirl.build(:user, :first_name => 'First', :last_name => 'Last')
       member.name.should eq("First Last")
     end
 
     it "should handle a missing or blank first name" do
       
-      member=Factory.build(:user, :first_name => nil, :last_name => 'Last')
+      member=FactoryGirl.build(:user, :first_name => nil, :last_name => 'Last')
       member.name.should eq("Last")
     end
 
     it "should be composed of first_name and last_name" do
-      member=Factory.build(:user, :first_name => 'First', :last_name => nil)
+      member=FactoryGirl.build(:user, :first_name => 'First', :last_name => nil)
       member.name.should eq("First")
     end
   end
 
   context "#admin?" do
-    let(:member) { Factory.create(:user, :email => 'member@test.host', :password => 'secret') }
-    let(:admin) { Factory.create(:user, :email => 'admin@test.host', :password => 'secret', :admin => true) }
+    let(:member) { FactoryGirl.create(:user, :email => 'member@test.host', :password => 'secret') }
+    let(:admin) { FactoryGirl.create(:user, :email => 'admin@test.host', :password => 'secret', :admin => true) }
 
     it "should not be an admin by default" do
       member.admin?.should be_falsey
@@ -162,7 +162,7 @@ describe User do
   end
   
   context "#send_password_reset" do
-    let(:user) { Factory.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
 
     it "generates a unique password_reset_token each time" do
       user.send_password_reset
@@ -186,20 +186,20 @@ describe User do
 
   describe '.send_email_to_address?' do
     it 'allows non-disabled users of active orgs' do
-      user = Factory.create(:user)
+      user = FactoryGirl.create(:user)
 
       expect(User.send_email_to_address?(user.email)).to be_truthy
     end
 
     it 'rejects disabled users' do
-      user = Factory.create(:user, :disabled => true)
+      user = FactoryGirl.create(:user, :disabled => true)
 
       expect(User.send_email_to_address?(user.email)).to be_falsey
     end
 
     it 'rejects users from inactive orgs' do
-      org = Factory.create(:organization, :active => false)
-      user = Factory.create(:user, :organization => org)
+      org = FactoryGirl.create(:organization, :active => false)
+      user = FactoryGirl.create(:user, :organization => org)
 
       expect(User.send_email_to_address?(user.email)).to be_falsey
     end

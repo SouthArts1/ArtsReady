@@ -6,7 +6,7 @@ FactoryGirl.define do
     factory :completed_assessment do
       completed_at { Time.now }
 
-      after_create do |proxy|
+      after(:create) do |proxy|
         answers = proxy.answers
         last_answer = answers.last
         unless last_answer.blank?

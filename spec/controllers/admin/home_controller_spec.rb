@@ -10,7 +10,7 @@ describe Admin::HomeController do
   end
 
   context "logged in as user" do
-    let(:organization) { Factory.create(:organization)}
+    let(:organization) { FactoryGirl.create(:organization)}
 
     before(:each) do
       controller.stubs :authenticate!
@@ -27,8 +27,8 @@ describe Admin::HomeController do
   end
 
   context "logged in a sysadmin" do
-    let(:sysadmin) { Factory.create(:sysadmin)}
-    let(:organization) { Factory.create(:organization)}
+    let(:sysadmin) { FactoryGirl.create(:sysadmin)}
+    let(:organization) { FactoryGirl.create(:organization)}
 
     before(:each) do
       controller.stub(:authenticate_admin!).and_return(sysadmin)

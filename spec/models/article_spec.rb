@@ -17,10 +17,10 @@ describe Article do
   it { subject.on_critical_list?.should be_falsey}
 
   context "scopes" do
-    let(:private_article) { Factory.create(:private_article) }
-    let(:public_article) { Factory.create(:public_article) }
-    let(:featured_article) { Factory.create(:featured_article) }
-    let(:disabled_article) { Factory.create(:disabled_article) }
+    let(:private_article) { FactoryGirl.create(:private_article) }
+    let(:public_article) { FactoryGirl.create(:public_article) }
+    let(:featured_article) { FactoryGirl.create(:featured_article) }
+    let(:disabled_article) { FactoryGirl.create(:disabled_article) }
   
     context "for_public" do
       subject { Article.for_public }
@@ -41,18 +41,18 @@ describe Article do
     end
     
     context 'visible_to_organization' do
-      let(:organization) { Factory.create(:organization) }
+      let(:organization) { FactoryGirl.create(:organization) }
 
-      let!(:public_article) { Factory.create(:public_article, :title => 'public article') }
-      let!(:own_public_article) { Factory.create(:public_article, :title => 'own public article', :organization => organization) }
-      let!(:private_article) { Factory.create(:private_article, :title => 'private article') }
-      let!(:own_private_article) { Factory.create(:private_article, :title => 'own private article', :organization => organization) }
-      let!(:buddies_article) { Factory.create(:buddies_article, :title => 'buddies article') }
-      let!(:own_buddies_article) { Factory.create(:buddies_article, :title => 'own buddies article', :organization => organization) }
-      let!(:allowed_buddies_article) { Factory.create(:buddies_article, :title => 'allowed buddies article', :organization => Factory.create(:organization, :battle_buddies => [organization])) }
-      let!(:shared_article) { Factory.create(:shared_article, :title => 'shared article', :buddy_list => "0") }
-      let!(:shared_by_article) { Factory.create(:shared_article, :title => 'shared-by article', :organization => organization, :buddy_list => "0") }
-      let!(:shared_with_article) { Factory.create(:shared_article, :title => 'shared-with article', :buddy_list => organization.id.to_s) }
+      let!(:public_article) { FactoryGirl.create(:public_article, :title => 'public article') }
+      let!(:own_public_article) { FactoryGirl.create(:public_article, :title => 'own public article', :organization => organization) }
+      let!(:private_article) { FactoryGirl.create(:private_article, :title => 'private article') }
+      let!(:own_private_article) { FactoryGirl.create(:private_article, :title => 'own private article', :organization => organization) }
+      let!(:buddies_article) { FactoryGirl.create(:buddies_article, :title => 'buddies article') }
+      let!(:own_buddies_article) { FactoryGirl.create(:buddies_article, :title => 'own buddies article', :organization => organization) }
+      let!(:allowed_buddies_article) { FactoryGirl.create(:buddies_article, :title => 'allowed buddies article', :organization => FactoryGirl.create(:organization, :battle_buddies => [organization])) }
+      let!(:shared_article) { FactoryGirl.create(:shared_article, :title => 'shared article', :buddy_list => "0") }
+      let!(:shared_by_article) { FactoryGirl.create(:shared_article, :title => 'shared-by article', :organization => organization, :buddy_list => "0") }
+      let!(:shared_with_article) { FactoryGirl.create(:shared_article, :title => 'shared-with article', :buddy_list => organization.id.to_s) }
 
       subject { Article.visible_to_organization(organization) }
 
@@ -89,15 +89,15 @@ describe Article do
   context "recent scope" do
 
     it "should sort newer articles first" do
-      older = Factory.create(:article, :created_at => 1.day.ago)
-      newer = Factory.create(:article, :created_at => 1.hour.ago)
+      older = FactoryGirl.create(:article, :created_at => 1.day.ago)
+      newer = FactoryGirl.create(:article, :created_at => 1.hour.ago)
       Article.recent.should == [newer, older]
     end
     
   end
   
   context 'given a todo' do
-    subject { Factory.build(:article, :todo => Factory.create(:todo)) }
+    subject { FactoryGirl.build(:article, :todo => FactoryGirl.create(:todo)) }
 
     it 'should create a todo note when saved' do
       subject.save!

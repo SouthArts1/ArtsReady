@@ -221,7 +221,7 @@ class Organization < ActiveRecord::Base
   end
 
   def send_renewal_reminder
-    BillingMailer.renewal_reminder(self).deliver
+    BillingMailer.renewal_reminder(self).deliver_now
   end
 
   def self.send_credit_card_expiration_notices
@@ -231,7 +231,7 @@ class Organization < ActiveRecord::Base
   end
 
   def send_credit_card_expiration_notice
-    BillingMailer.credit_card_expiration(self).deliver
+    BillingMailer.credit_card_expiration(self).deliver_now
   end
 
   def update_salesforce
@@ -244,13 +244,13 @@ class Organization < ActiveRecord::Base
     logger.debug("Sending sign_up email for organization #{name}")
     User.admins.each do |admin|
       logger.debug("Trying to send to #{admin.email}")
-      AdminMailer.new_organization(self,admin).deliver rescue logger.debug("send org notification to admin email failed")
+      AdminMailer.new_organization(self,admin).deliver_now rescue logger.debug("send org notification to admin email failed")
     end
   end
 
   def send_approval_email
     logger.debug("Sending approval email for organization #{name}")
-    OrganizationMailer.approved(self).deliver rescue logger.debug("send approval email failed")
+    OrganizationMailer.approved(self).deliver_now rescue logger.debug("send approval email failed")
   end
   
   def setup_initial_todo

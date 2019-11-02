@@ -14,7 +14,7 @@ class Admin::UsersController < Admin::AdminController
     @organization = Organization.find(params[:organization_id])
     @user = @organization.users.new(params[:user])
     if @user.save
-      UserMailer.welcome(@user).deliver
+      UserMailer.welcome(@user).deliver_now
       redirect_to admin_organization_users_path(@organization), :notice => "User created"
     else
       @users = @organization.users

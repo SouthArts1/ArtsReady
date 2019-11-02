@@ -1,14 +1,14 @@
 Given /^I have started an assessment$/ do
-  Factory.create(:assessment, :organization => @current_user.organization)
+  FactoryGirl.create(:assessment, :organization => @current_user.organization)
 end
 
 Given /^I have started an assessment with (.*)$/ do |critical_function|
-  Factory.create(:assessment, :organization => @current_user.organization,
+  FactoryGirl.create(:assessment, :organization => @current_user.organization,
     Assessment.critical_function_attribute(critical_function) => true)
 end
 
 Given /^I have finished an assessment$/ do
-  Factory.create(:completed_assessment, :organization => @current_user.organization)
+  FactoryGirl.create(:completed_assessment, :organization => @current_user.organization)
 end
 
 When /^I finish the (?:re-)?assessment$/ do

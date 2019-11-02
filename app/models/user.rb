@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    UserMailer.password_reset(self).deliver
+    UserMailer.password_reset(self).deliver_now
   end
 
   def generate_token(column)
@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver
+    UserMailer.welcome(self).deliver_now
   end
 
   def self.send_email_to_address?(addr)

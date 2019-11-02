@@ -31,7 +31,7 @@ class PaymentFromNotificationFactory
       if eligible_aside_from_authentication?
         AdminMailer.
           payment_notification_authentication_warning(notification).
-          deliver
+          deliver_now
       end
     end
   end

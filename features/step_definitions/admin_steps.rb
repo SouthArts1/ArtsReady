@@ -1,12 +1,12 @@
 Given /^(?:I am signed in as )?a sysadmin$/ do
   email = 'admin@test.host'
   password = 'password'
-  @current_user = Factory.create(:sysadmin, :email => email, :password => password)
+  @current_user = FactoryGirl.create(:sysadmin, :email => email, :password => password)
   login(email,password)
 end
 
 Given /^I am a sysadmin with email "([^"]*)"$/ do |email|
-  Factory.create(:sysadmin, :email => email)
+  FactoryGirl.create(:sysadmin, :email => email)
 end
 
 Given /^all users .* "(.*)" are disabled$/ do |org|

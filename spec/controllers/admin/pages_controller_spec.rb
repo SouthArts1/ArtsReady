@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Admin::PagesController do
 
   context "a visitor" do
-    let(:page) { Factory.create(:page)}
+    let(:page) { FactoryGirl.create(:page)}
 
     describe "GET 'index'" do
       it "should fail" do
@@ -29,8 +29,8 @@ describe Admin::PagesController do
   end
   
   context "logged in as user" do
-    let(:organization) { Factory.create(:organization) }
-    let(:page) { Factory.create(:page)}
+    let(:organization) { FactoryGirl.create(:organization) }
+    let(:page) { FactoryGirl.create(:page)}
 
     before(:each) do
       controller.stubs :authenticate!
@@ -62,8 +62,8 @@ describe Admin::PagesController do
   
 
   context "logged in a sysadmin" do
-    let(:sysadmin) { Factory.create(:sysadmin)}
-    let(:page) { Factory.create(:page)}
+    let(:sysadmin) { FactoryGirl.create(:sysadmin)}
+    let(:page) { FactoryGirl.create(:page)}
 
     before(:each) do
       controller.stub(:authenticate_admin!).and_return(sysadmin)

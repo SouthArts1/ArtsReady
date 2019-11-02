@@ -14,7 +14,7 @@ end
 World(TodoStepHelper)
 
 Given /^I have created a todo item$/ do
-  @current_todo = Factory.create(:todo,
+  @current_todo = FactoryGirl.create(:todo,
     :user => @current_user, :organization => @current_user.organization)
 end
 

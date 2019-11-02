@@ -9,7 +9,7 @@ describe TodosController do
 
     context '(authorized)' do
       let(:user) { 
-        Factory.create(:reader)
+        FactoryGirl.create(:reader)
       }
       let!(:todos) {
         FactoryGirl.create_list(:todo, 1,

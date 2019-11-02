@@ -6,7 +6,7 @@ class BillingMailer < ActionMailer::Base
   def subscription_renewal(organization)
     @organization = organization
     @user = @organization.users.first
-    AdminMailer.subscription_renewal(organization).deliver
+    AdminMailer.subscription_renewal(organization).deliver_now
     mail :to => @user.email, :subject => "Your ArtsReady Subscription is about to Renew"
   end
   

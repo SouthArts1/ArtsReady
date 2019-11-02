@@ -7,7 +7,7 @@ describe ArchivedAssessmentsController do
     before { get :index }
     
     context '(authorized)' do
-      let(:user) { Factory.create(:reader) }
+      let(:user) { FactoryGirl.create(:reader) }
       
       it 'assigns to assessments' do
         expect(assigns(:assessments)).not_to be_nil
@@ -18,12 +18,12 @@ describe ArchivedAssessmentsController do
   end
   
   describe 'show' do
-    let(:assessment) { Factory.create(:completed_assessment) }
+    let(:assessment) { FactoryGirl.create(:completed_assessment) }
     before { get :show, show_params }
     
     context '(authorized)' do
       let(:user) {
-        Factory.create(:reader, :organization => assessment.organization)
+        FactoryGirl.create(:reader, :organization => assessment.organization)
       }
 
       context '(CSV)' do

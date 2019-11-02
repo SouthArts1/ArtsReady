@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe "archived_assessments/index" do
-  let(:current_org) { Factory.create(:organization) }
-  let(:first_assessment) { Factory.create(:completed_assessment, :organization => current_org) }
-  let(:second_assessment) { Factory.create(:completed_assessment, :organization => current_org) }
+  let(:current_org) { FactoryGirl.create(:organization) }
+  let(:first_assessment) { FactoryGirl.create(:completed_assessment, :organization => current_org) }
+  let(:second_assessment) { FactoryGirl.create(:completed_assessment, :organization => current_org) }
   
   before do
     stub_template 'shared/_settings_navbar.html.erb' => ''

@@ -5,7 +5,7 @@ module Arbly
 
       orgs.each do |o|
         if !o.subscription && o.active?
-          BillingMailer.setup_subscription_now(o).deliver
+          BillingMailer.setup_subscription_now(o).deliver_now
           begin
             if ((Time.now - o.created_at).to_i / (24 * 60 * 60)) > 2
               o.update_attribute(:active, false)
@@ -35,7 +35,7 @@ module Arbly
       end
 
       Organization.where(next_billing_date: Time.zone.today).find_each do |org|
-        AdminMailer.organization_expired(org).deliver
+        AdminMailer.organization_expired(org).deliver_now
       end
     end
   end

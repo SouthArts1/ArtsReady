@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
   
   def notify_admins
     User.admins.each do |admin|
-      AdminMailer.review_comment(self,admin).deliver
+      AdminMailer.review_comment(self,admin).deliver_now
     end
   end
   

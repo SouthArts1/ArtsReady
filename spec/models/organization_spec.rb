@@ -66,13 +66,13 @@ describe Organization do
   end
 
   context 'given multiple assessments' do
-    let(:organization) { Factory.create(:organization) }
+    let(:organization) { FactoryGirl.create(:organization) }
     let!(:first_assessment) {
-      Factory.create(:assessment, :organization => organization,
+      FactoryGirl.create(:assessment, :organization => organization,
         :created_at => 1.year.ago)
     }
     let!(:second_assessment) {
-      Factory.create(:assessment, :organization => organization)
+      FactoryGirl.create(:assessment, :organization => organization)
     }
 
     describe '.assessment' do
@@ -84,13 +84,13 @@ describe Organization do
   
   context "geocoding address", pending: 'disabled as app approaches EOL' do
     it "should geocode address when created" do
-      @organization = Factory.build(:organization)
+      @organization = FactoryGirl.build(:organization)
       @organization.should_receive(:geocode)
       @organization.valid?
     end
 
     context "on changed address fields" do
-      let(:organization) { Factory.create(:organization) }
+      let(:organization) { FactoryGirl.create(:organization) }
       before {organization.should_receive(:geocode)}
       it "should geocode address if address is changed" do
         organization.address = 'New Address'
@@ -114,7 +114,7 @@ describe Organization do
       it "should not geocode address if name is changed" do
         skip
 
-        organization = Factory.create(:organization)
+        organization = FactoryGirl.create(:organization)
         organization.should_not_receive(:geocode)
         organization.update_attribute(:address, 'New Address')
       end
@@ -123,12 +123,12 @@ describe Organization do
 
   describe '#last_activity' do
     it 'is the activity of the last-logged-in user, or never' do
-      subject = Factory.create(:organization)
+      subject = FactoryGirl.create(:organization)
       subject.last_activity.should == nil
 
       time = Time.zone.parse('Mon, 02 Apr 2012 04:24:14 UTC +00:00')
       subject.users = [
-        Factory.create(:member,
+        FactoryGirl.create(:member,
           :organization => subject,
           :last_login_at => time)
       ]
@@ -137,13 +137,13 @@ describe Organization do
   end
 
   describe '#destroy' do
-    let(:organization) { Factory.create(:organization) }
+    let(:organization) { FactoryGirl.create(:organization) }
     let!(:public_article) {
-      Factory.create(:article, :organization => organization,
+      FactoryGirl.create(:article, :organization => organization,
         :visibility => 'public')
     }
     let!(:executive_article) {
-      Factory.create(:article, :organization => organization,
+      FactoryGirl.create(:article, :organization => organization,
         :visibility => 'executive')
     }
 

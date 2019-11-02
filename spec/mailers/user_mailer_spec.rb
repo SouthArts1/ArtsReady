@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe UserMailer do
   describe "welcome" do
-    let(:user) { Factory.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
     let(:mail) { UserMailer.welcome(user) }
 
     it "renders the headers" do
@@ -19,7 +19,7 @@ describe UserMailer do
   end
 
   describe "password_reset" do
-     let(:user) { Factory.create(:user, :password_reset_token => "anything") }
+     let(:user) { FactoryGirl.create(:user, :password_reset_token => "anything") }
      let(:mail) { UserMailer.password_reset(user) }
 
      it "send user password reset url" do

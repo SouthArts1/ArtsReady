@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe BuddiesController do
 
-  let(:organization) { Factory.create(:organization)}
+  let(:organization) { FactoryGirl.create(:organization)}
   context "when not logged in" do
     it "requires authentication" do
       controller.expects :authenticate!

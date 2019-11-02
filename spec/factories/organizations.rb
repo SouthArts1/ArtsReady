@@ -19,7 +19,7 @@ FactoryGirl.define do
       renewing_in nil
     end
 
-    after_build do |org, evaluator|
+    after(:build) do |org, evaluator|
       if evaluator.member_count
         org.users << FactoryGirl.build_list(
           :member, evaluator.member_count.to_i,
@@ -33,7 +33,7 @@ FactoryGirl.define do
       end
     end
 
-    after_create do |org, evaluator|
+    after(:create) do |org, evaluator|
       answered = evaluator.completed_answers_count.to_i
       if answered > 0
         org.create_assessment unless org.assessment
@@ -77,7 +77,7 @@ FactoryGirl.define do
       name 'Provisional Organization'
       member_count 1 # so the subscription can copy the user's info
 
-      after_create do |org|
+      after(:create) do |org|
         org.subscriptions << FactoryGirl.build(:provisional_subscription)
       end
     end
@@ -90,7 +90,7 @@ FactoryGirl.define do
         subscription_factory :authorize_net_subscription
       end
 
-      after_create do |org, evaluator|
+      after(:create) do |org, evaluator|
         active = org.active
         next_billing_date = org.next_billing_date
 
@@ -127,7 +127,7 @@ FactoryGirl.define do
 
     factory :paid_organization_with_discount_code do
       name 'Discount Organization'
-      after_create do |org|
+      after(:create) do |org|
         org.subscriptions << FactoryGirl.build(:subscription_with_discount_code)
       end
     end

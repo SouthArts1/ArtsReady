@@ -59,7 +59,7 @@ class Todo < ActiveRecord::Base
 
   def send_reassignment_email
     begin
-      TodoMailer.reassign_to(User.find(user_id_was), self).deliver
+      TodoMailer.reassign_to(User.find(user_id_was), self).deliver_now
     rescue ActiveRecord::RecordNotFound
       logger.debug("Mail could not be sent because user was nil.")
     rescue
@@ -69,7 +69,7 @@ class Todo < ActiveRecord::Base
 
   def send_assignment_email
     begin
-      TodoMailer.assign_to(user, self).deliver
+      TodoMailer.assign_to(user, self).deliver_now
     rescue Exception => exc
       if !user
         logger.debug("Mail could not be sent because user was nil.")
