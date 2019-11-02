@@ -4,7 +4,7 @@ ruby '2.3.8'
 
 gem 'rake', '< 11.0' # until we upgrade rspec-core or maybe cucumber
 
-gem 'rails', '~> 4.1.16'
+gem 'rails', '~> 4.2.11'
 gem 'mysql2', '~> 0.3.11'
 gem 'jquery-rails', '~> 2.1.4'
 gem 'coffee-rails'

@@ -169,7 +169,7 @@ class Assessment < ActiveRecord::Base
   end
 
   def update_section(section, params)
-    applicable = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(
+    applicable = ActiveRecord::Type::Boolean.new.type_cast_from_user(
       params[:applicable])
     self[critical_function_attribute(section)] = applicable
     if save
