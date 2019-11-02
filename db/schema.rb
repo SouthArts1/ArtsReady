@@ -185,10 +185,10 @@ ActiveRecord::Schema.define(version: 20191004165952) do
     t.string   "zipcode"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",                     default: false
-    t.boolean  "battle_buddy_enabled",       default: false
-    t.float    "latitude"
-    t.float    "longitude"
+    t.boolean  "active",                                default: false
+    t.boolean  "battle_buddy_enabled",                  default: false
+    t.float    "latitude",                   limit: 24
+    t.float    "longitude",                  limit: 24
     t.boolean  "gmaps"
     t.string   "phone_number"
     t.string   "email"
@@ -207,7 +207,7 @@ ActiveRecord::Schema.define(version: 20191004165952) do
     t.string   "ein"
     t.string   "duns"
     t.string   "nsic_code"
-    t.integer  "users_count",                default: 0
+    t.integer  "users_count",                           default: 0
     t.string   "other_nsic_code"
     t.date     "next_billing_date"
   end

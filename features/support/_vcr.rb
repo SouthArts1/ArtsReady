@@ -17,8 +17,8 @@ end
 # for us even after an upgrade. Anyway, for now we use Before and After.
 Before do |scenario|
   cassette_name = [
-    scenario.feature, scenario
-  ].map { |component| component.title.parameterize }.join('/')
+    scenario.feature.short_name, scenario.name
+  ].map { |component| component.parameterize }.join('/')
 
   VCR.insert_cassette cassette_name#, record: :new_episodes
 end

@@ -25,18 +25,19 @@ module AdminStepHelpers
   end
 
   def payment_table
-    # exclude the footer row, since Cucumber::Ast::Table doesn't
+    # exclude the footer row, since Cucumber::Ast::DataTable doesn't
     # understand it.
     rows = page.find('#subscription_events').all('thead tr, tbody tr')
-    Cucumber::Ast::Table.new(
+    Cucumber::Ast::Table.new(Cucumber::Core::Ast::DataTable.new(
       rows.map do |row|
         row.
           # exclude the actions column, since it's not germane
           # to our tests
           all('td:not(:last-child), th:not(:last-child)').
           map(&:text)
-      end
-    )
+      end,
+      Cucumber::Core::Ast::Location.of_caller
+    ))
   end
 end
 World(AdminStepHelpers)

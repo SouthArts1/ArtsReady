@@ -60,7 +60,7 @@ FactoryGirl.define do
     
     factory :crisis_organization do
       name "Crisis Organization"
-      crises
+      association :crises
     end
 
     trait :unpaid do

@@ -11,7 +11,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
 
   expect(page).to have_content 'Saved new note'
 
-  expected_table = Cucumber::Ast::Table.new([
+  expected_table = Cucumber::Ast::Table.new(Cucumber::Core::Ast::DataTable.new([
     {
       'Date/Time'      => '03/20/24 3:18 PM',
       'Discount code'  => 'DISCO',
@@ -22,7 +22,7 @@ Then(/^I can add a payment for "([^"]*)"$/) do |org_name|
       'Routing number' => '2387',
       'Notes'          => 'Some notes.'
     }
-  ])
+  ], Cucumber::Core::Ast::Location.of_caller))
 
   payment_table.diff!(expected_table)
 end
@@ -69,7 +69,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
 
   expect(page).to have_content 'Updated note'
 
-  expected_table = Cucumber::Ast::Table.new([
+  expected_table = Cucumber::Ast::Table.new(Cucumber::Core::Ast::DataTable.new([
     {
       'Date/Time'      => '03/19/24 3:18 PM',
       'Discount code'  => 'DISCO',
@@ -80,7 +80,7 @@ And(/^I can edit the payment for "([^"]*)"$/) do |org_name|
       'Routing number' => '',
       'Notes'          => 'Some notes.'
     }
-  ])
+  ], Cucumber::Core::Ast::Location.of_caller))
 
   payment_table.diff!(expected_table)
 end
@@ -119,7 +119,7 @@ end
 Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
   visit_admin_notes_for(org_name)
 
-  expected_table = Cucumber::Ast::Table.new([
+  expected_table = Cucumber::Ast::Table.new(Cucumber::Core::Ast::DataTable.new([
     {
       'Date/Time'      => '03/20/24 3:18 PM',
       'Discount code'  => '',
@@ -140,7 +140,7 @@ Then(/^I can view the automatic payment details for "([^"]*)"$/) do |org_name|
       'Routing number' => '',
       'Notes'          => 'Error: The credit card has expired.'
     }
-  ])
+  ], Cucumber::Core::Ast::Location.of_caller))
 
   expected_table.diff!(payment_table)
 end

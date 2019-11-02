@@ -4,7 +4,7 @@ ruby '2.3.8'
 
 gem 'rake', '< 11.0' # until we upgrade rspec-core or maybe cucumber
 
-gem 'rails', '~> 4.0.13'
+gem 'rails', '~> 4.1.16'
 gem 'mysql2', '~> 0.3.11'
 gem 'jquery-rails', '~> 2.1.4'
 gem 'coffee-rails'
@@ -61,7 +61,7 @@ end
 
 group :development do
   gem 'puma'
-  gem 'rails-footnotes', '~> 3.7'
+  gem 'rails-footnotes', '~> 4.1'
   gem 'sass'
   gem "binding_of_caller"
   gem 'better_errors'
@@ -69,12 +69,12 @@ end
 
 group :test do
   gem 'mocha', :require => 'mocha/api'
-  gem 'factory_girl', '~> 2.5'
-  gem 'factory_girl_rails'
+  gem 'factory_girl', '~> 3.0'
+  gem 'factory_girl_rails', '~> 3.0'
   gem 'database_cleaner', :require => false
   gem 'launchy'    # So you can do Then show me the page
   gem 'cucumber-rails', require: false
-  gem 'cucumber', '~> 1.0', require: false
+  gem 'cucumber', '~> 2.4.0', require: false
   gem 'minitest'
   gem 'test-unit', '~> 3.3.4'
   gem 'capybara', '~> 2.18'

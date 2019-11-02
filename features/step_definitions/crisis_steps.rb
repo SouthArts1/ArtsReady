@@ -8,6 +8,7 @@ end
 
 And /^I have a Battle Buddy(?: with a name of "(.*)")?$/i do |name|
   org = Factory.create(:organization, :name => name || "Default Org")
+  Factory.create(:user, organization: org)
   Factory.create(:battle_buddy_request,
     :organization => @current_user.organization,
     :battle_buddy => org,
@@ -45,10 +46,12 @@ When /^I declare a crisis$/ do
 end
 
 Then /^the crisis has been announced$/ do
+  Delayed::Worker.new.work_off
   step %{I should receive an email with subject "declared a crisis"}
 end
 
 Then /^the crisis resolution has been announced$/ do
+  Delayed::Worker.new.work_off
   step %{I should receive an email with subject "resolved their crisis"}
 end
 
