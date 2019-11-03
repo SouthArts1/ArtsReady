@@ -8,6 +8,7 @@ gem 'rails', '~> 4.2.11'
 gem 'mysql2', '~> 0.3.11'
 gem 'jquery-rails', '~> 2.1.4'
 gem 'coffee-rails'
+gem 'sassc-rails'
 
 gem 'figaro'
 
@@ -63,7 +64,6 @@ end
 group :development do
   gem 'puma'
   gem 'rails-footnotes', '~> 4.1'
-  gem 'sass'
   gem "binding_of_caller"
   gem 'better_errors'
 end
