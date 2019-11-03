@@ -29,7 +29,7 @@ gem 'simple_form', '~> 3.0'
 gem 'protected_attributes'
 
 gem 'airbrake'
-gem 'newrelic_rpm', '~> 3.5.5'
+gem 'newrelic_rpm'
 gem 'awesome_print'
 
 gem 'gibbon', '0.3.0'

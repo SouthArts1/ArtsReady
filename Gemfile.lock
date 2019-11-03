@@ -213,7 +213,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
-    newrelic_rpm (3.5.8.72)
+    newrelic_rpm (6.7.0.359)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     power_assert (1.1.5)
@@ -374,7 +374,7 @@ DEPENDENCIES
   mocha
   mustache
   mysql2 (~> 0.3.11)
-  newrelic_rpm (~> 3.5.5)
+  newrelic_rpm
   protected_attributes
   puma
   rack-ssl
