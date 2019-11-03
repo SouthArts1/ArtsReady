@@ -36,7 +36,6 @@ module Artsready
 
     config.assets_enabled = true
     config.assets.version = '1.0'
-    config.serve_static_assets = true
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :number, :routing_number, :account_number, :bank_name]

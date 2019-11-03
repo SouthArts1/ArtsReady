@@ -6,6 +6,8 @@ Artsready::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.eager_load = true
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -19,10 +21,10 @@ Artsready::Application.configure do
   # If you have no front-end server that supports something like X-Sendfile,
   # just comment this out and Rails will serve the files
 
-  # Make sure our logger works with Heroku.
-  config.logger = Logger.new(STDOUT)
-
   # See everything in the log (default is :info)
+  config.log_level = :debug
+
+  config.logger = Logger.new(STDOUT)
   config.logger.level =
     Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 
@@ -34,7 +36,7 @@ Artsready::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -68,6 +70,15 @@ Artsready::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
 
   config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
+
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
 end
 
 S3_UPLOAD_BUCKET = 'artsready-staging'

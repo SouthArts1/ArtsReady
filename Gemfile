@@ -90,3 +90,7 @@ group :test do
   gem 'webmock', '~> 2.3.1'
   gem 'vcr'
 end
+
+group :production, :staging do
+  gem 'rails_12factor'
+end

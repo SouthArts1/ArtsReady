@@ -25,7 +25,8 @@ Artsready::Application.configure do
   config.log_level = :debug
 
   config.logger = Logger.new(STDOUT)
-  config.logger.level = Logger::INFO
+  config.logger.level =
+    Logger.const_get((ENV["LOG_LEVEL"] || "INFO").upcase)
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -35,7 +36,7 @@ Artsready::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = true
+  config.serve_static_files = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"

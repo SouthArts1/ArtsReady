@@ -247,6 +247,11 @@ GEM
       rails (>= 3.2)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (4.2.11.1)
       actionpack (= 4.2.11.1)
       activesupport (= 4.2.11.1)
@@ -388,6 +393,7 @@ DEPENDENCIES
   rack-ssl
   rails (~> 4.2.11)
   rails-footnotes (~> 4.1)
+  rails_12factor
   rake (< 11.0)
   rb-fsevent
   restforce
