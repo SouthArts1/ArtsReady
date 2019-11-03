@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.3.8'
+ruby '2.4.9'
 
 gem 'rake', '< 11.0' # until we upgrade rspec-core or maybe cucumber
 
@@ -16,6 +16,7 @@ gem 'cancan', '1.6.7'
 
 gem 'carrierwave', '~> 1.0'
 gem 'fog'
+gem 'xmlrpc'
 
 gem 'geocoder', '~> 1.1.6'
 gem 'gmaps4rails', '1.5.7'
@@ -78,7 +79,7 @@ group :test do
   gem 'minitest'
   gem 'test-unit', '~> 3.3.4'
   gem 'capybara', '~> 2.18'
-  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
   gem 'shoulda'
@@ -86,6 +87,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'kelp'
   gem 'email_spec', '~> 2.2.0'
-  gem 'webmock'
+  gem 'webmock', '~> 2.3.1'
   gem 'vcr'
 end
