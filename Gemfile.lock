@@ -209,7 +209,7 @@ GEM
     multi_xml (0.4.1)
     multipart-post (1.2.0)
     mustache (0.99.5)
-    mysql2 (0.3.21)
+    mysql2 (0.5.3)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
@@ -386,7 +386,7 @@ DEPENDENCIES
   minitest
   mocha
   mustache
-  mysql2 (~> 0.3.11)
+  mysql2 (~> 0.5.3)
   newrelic_rpm
   protected_attributes
   puma
