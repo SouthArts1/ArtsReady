@@ -2,76 +2,148 @@
   <% if @page %>
     <%= raw(@page.body) %>
   <% else %>
-  <div class="grid_6">
+    <div class="grid_4">
 
-    <div id="headline">
-      <p>Create your arts organization's business continuity plan, because the
-        unexpected, won't-happen-to-me,<br/> I-don't-want-to-think-about-it
-        actually <i>does</i> happen.</p>
+      <div id="headline">
+        <p>
+          <b>Create your arts organization's business continuity plan, because
+            the
+            unexpected, won't-happen-to-me,<br/>I-don't-want-to-think-about-it
+            actually <i>does</i> happen.</b></p>
 
-      <h1>Be ArtsReady.</h1>
+        <p>
+          A readiness plan is a combination of documents, processes, policies,
+          and
+          trainings/drills to build your organization’s sustainability<br/>and
+          resilience.
+        </p>
+
+        <h1>Be ArtsReady.</h1>
+      </div>
+
+      <div id="subhead">
+        <h2>What is ArtsReady?</h2>
+
+        <p>ArtsReady, an online emergency preparedness service by and for
+          arts/cultural nonprofits, provides arts organizations with customized
+          readiness plans for business continuity and post-crisis
+          sustainability.
+          ArtsReady 2.0 is being rolled out in two phases:
+        </p>
+
+        <p>
+          <a href="https://www.nedcc.org/free-resources/dplan-the-online-disaster-planning-tool">
+            <b>Pocket Response Resource:</b>
+          </a>
+          Available now, this free customizable emergency document puts critical
+          emergency information in the pocket (or device) of staff, crew and
+          volunteers, ensuring immediate access to information they’ll need in
+          the
+          first minutes and hours of any type of emergency. Download your
+          customizable template and instructions
+          <a href="https://www.nedcc.org/free-resources/dplan-the-online-disaster-planning-tool">here.</a>
+        </p>
+
+        <p>
+          <b>Online Planning Tool:</b>
+          Rolling out in 2021, this
+          updated online tool provides a readiness assessment, guidance on
+          updating/creating your readiness plan, and Guides and Resources to use
+          and adapt for your organization’s customized plan. Your information
+          will
+          be securely stored, and you will be able to generate reports, training
+          documents, templates, plan elements and more. Designed as an annual
+          subscription, fee waivers for the first year will be offered.
+        </p>
+
+        <p>
+          ArtsReady 2.0 also offers
+          <a href="https://www.nedcc.org/free-resources/dplan-the-online-disaster-planning-tool/prr-library">
+            <b>Guides and Resources,</b>
+          </a> an evolving inventory of publications, examples,
+          and free resources makes sure you have access to current information
+          to
+          incorporate into your planning.
+        </p>
+      </div>
     </div>
 
-    <div id="subhead">
-      <h2>What is ArtsReady?</h2>
+    <div class="grid_4">
+      <div>
+        <h2>Why do readiness planning?</h2>
+        <ul class="list-join">
+          <li>To be able to get up and running after crisis.</li>
+          <li>To protect community and cultural assets.</li>
+          <li>To demonstrate sustainability to funders and investors.</li>
+          <li>
+            To be prepared for any type of crisis, whether within your own
+            organization or facility, in your local area, or a widespread
+            disaster.
+          </li>
+        </ul>
+      </div>
 
-      <p>ArtsReady is a web-based emergency preparedness platform designed to
-        provide arts and cultural organizations with customized business
-        continuity plans for post crisis
-        sustainability.
-        <a href="/page/tour">Learn More.</a>
-      </p>
+      <div>
+
+        <p>
+          <b>If the Show Can't Go On - Will You Recover?</b><br/>
+          <b>Winter Storm Jonas 2016 hits box office hard.</b><br/>
+        </p>
+
+        <p>
+          As the east coast braced for Winter Storm Jonas the weekend of
+          January 22, 2016, presenters and artists with scheduled events
+          were likely faced with the questions, “What is our cancellation
+          policy? Are we ready to put it into action? And can we survive
+          the possible financial impact?” Those with clear cancellation
+          plans almost certainly found ease from the stress of having to
+          create one off the cuff, and only needed to take on the task of
+          implementing it, giving them a jump start on the ultimate goal
+          of mitigating losses.
+          <a href="https://www.artsready.org/home/public_article/821">
+            Read more…
+          </a>
+        </p>
+      </div>
     </div>
-
-    <div class="grid_2 alpha">
-      <h3>Why do readiness planning?</h3>
-      <ul class="list-join">
-        <li>To protect community and cultural assets.</li>
-        <li>To demonstrate sustainability to investors.</li>
-        <li>To show mitigated risk to insurance companies.</li>
-        <li>To be able to get up and running after crisis.</li>
-      </ul>
-    </div>
-    <div class="grid_4 omega">
-
-      <p>
-        <b>If the Show Can't Go On - Will You Recover?</b><br/>
-        <b>Winter Storm Jonas 2016 hits box office hard.</b><br/>
-      </p>
-
-      <p>
-        As the east coast braced for Winter Storm Jonas the weekend of
-        January 22, 2016, presenters and artists with scheduled events
-        were likely faced with the questions, “What is our cancellation
-        policy? Are we ready to put it into action? And can we survive
-        the possible financial impact?” Those with clear cancellation
-        plans almost certainly found ease from the stress of having to
-        create one off the cuff, and only needed to take on the task of
-        implementing it, giving them a jump start on the ultimate goal
-        of mitigating losses.
-        <a href="https://www.artsready.org/home/public_article/821">
-          Read more…
-        </a>
-      </p>
-    </div>
-  </div>
   <% end %>
-  <div class="grid_6">
-    <div id="dont-risk-it">
-      <h1>Don't risk it.</h1>
+  <div class="grid_4">
+    <%= link_to page_path('get_arts_ready') do %>
+      <div id="dont-risk-it">
+        <h1>Don't risk it.</h1>
 
-      <p>Get a free Basic Membership to
-        <i>start protecting your organization!</i></p>
-
-      <p><%= link_to "Join the Movement", sign_up_path, :class => 'button button-join' %></p>
-    </div>
-    <hgroup><h2>ArtsReady Library Features</h2></hgroup>
+        <p><span class="linklike">Sign up</span> to
+          <i>start protecting your organization!</i></p>
+      </div>
+    <% end %>
     <section>
-      <% @featured_articles.each do |article| %>
-        <article>
-          <h3><%= link_to article.title, public_article_path(:id => article) %></h3>
-        </article>
-      <% end %>
+      <h2>Partners</h2>
+      <p>
+        ArtsReady works in partnership with these organizations to provide free
+        resources and training for arts organizations and artists to increase
+        their readiness, as well as respond and recover from crises.
+      </p>
+      <ul>
+        <li>dPlan/ArtsReady 2.0 is a partnership of South Arts and NEDCC</li>
+        <li>
+          <a href="https://ncaper.org/">
+            NCAPER – National Coalition for Arts’
+            Preparedness and
+            Emergency Response
+          </a>
+        </li>
+        <li>
+          <a href="https://cerfplus.org/">CERF+/The Artists Safety Net</a>
+        </li>
+        <li>
+          <a href="https://performingartsreadiness.org/">
+            Performing Arts Readiness,
+          </a>
+          a community served by LYRASIS. The PAR
+          project is made possible through generous support from the Andrew W.
+          Mellon Foundation.
+        </li>
+      </ul>
     </section>
   </div>
 </div>

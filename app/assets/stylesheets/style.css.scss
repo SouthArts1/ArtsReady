@@ -104,8 +104,11 @@ a {
     position: relative;
     top: 1px; } }
 
-input[type=submit].linklike {
+.linklike {
   text-decoration: underline;
+}
+
+input[type=submit].linklike {
   background: none;
   border: none;
   padding: 0;
@@ -391,7 +394,7 @@ button {
 
 
 /* Primary Styles
-   Author: 
+   Author:
 */
 
 h1, h2 {
@@ -463,13 +466,15 @@ h1.logo {
   font-size: 16px;
   margin-bottom: 0;
   a {
+    position: relative;
+    top: 0.75em;
     float: left;
     display: block;
     width: 150px;
     height: 90px;
     margin: 10px 5px 0 0;
     text-indent: -9999px;
-    background: url("/images/logo.png") no-repeat; }
+    background: url("/images/logo.svg") no-repeat; }
   .company-name {
     color: #28387d;
     display: block;
@@ -478,6 +483,7 @@ h1.logo {
 
 header {
   .user-nav {
+    min-height: 36px;
     float: right;
     margin: 5px 0;
     padding: 0;
@@ -997,7 +1003,7 @@ tbody {
     padding-top: 1px;
     width: 75px;
     width: 95px; }
-  .complete td a.button {  
+  .complete td a.button {
     background-color: #84983D;
     background-image: -moz-linear-gradient(100% 100% 90deg, #84983D, #A8B653);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#84983D), to(#A8B653));
@@ -1384,7 +1390,6 @@ input.datepicker, table input.datepicker {
 
 .logos {
   overflow: hidden;
-  margin-bottom: 50px;
   p {
     margin: 0;
     padding: 0; }
@@ -1418,9 +1423,9 @@ input.datepicker, table input.datepicker {
   .field { clear: left; }
 }
 
-.short-details { 
+.short-details {
   margin: 0 10px 30px;
-  .icon { 
+  .icon {
     float: left;
     padding: 8px 8px 8px 0;} }
 
@@ -1466,7 +1471,6 @@ input[type="submit"].todo-note-submit {
 
 footer {
   position: relative;
-  margin-top: -30px;
   height: 30px;
   clear: both;
   nav li {
@@ -1521,7 +1525,7 @@ h3 {
   &.nopad {
     padding: 0; } }
 .buddies {
-  h4 { 
+  h4 {
     padding: 5px 65px 10px;
   }
   ul {
@@ -1613,10 +1617,10 @@ table#messages {
   border-radius: 5px;
   &.on {
     background: #C31D29;
-    color: #fff; 
+    color: #fff;
   }
-  span#distress-status { font-weight: bold; } 
-  .join_button { padding: 15px; } 
+  span#distress-status { font-weight: bold; }
+  .join_button { padding: 15px; }
   .crisis-vis {
     left: 30px;
     position: absolute;
@@ -1712,8 +1716,8 @@ table {
     input[type="text"], textarea {
       width: 600px; } }
   &#edit_todos td .delete, &#edit_questions td .delete {
-    float: right; } 
-  .icon{ 
+    float: right; }
+  .icon{
     text-align: center;
     white-space: nowrap;} }
 .articles td{ border: none; }
@@ -1770,7 +1774,7 @@ h3 {
 
 #landing #dont-risk-it {
   height: 275px;
-  background: url("/images/dont-risk-it.jpg") center bottom no-repeat;
+  background: url("/images/lightning.png") center bottom / cover no-repeat;
   margin: 0 10px 20px;
   h1, p {
     color: #fff;
@@ -1780,7 +1784,9 @@ h3 {
     text-shadow: #000 2px 2px 5px; }
   p {
     font-size: 17px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    max-width: 67%;
+  }
   .button {
     margin-top: 30px;
     font-size: 17px;

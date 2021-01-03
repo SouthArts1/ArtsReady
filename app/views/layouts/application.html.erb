@@ -20,20 +20,15 @@
           <a href="/" title="Home">ArtsReady</a>
         </h1>
         <div class="user-nav">
-          <ul>
-            <% if user_signed_in? %>
-            <li><%= link_to "Settings", profile_path %></li>
-            <% if current_user.admin? %>
-            <li><%= link_to "Admin", admin_dashboard_path %></li>
-            <% end %>
-            <li><%= link_to "Logout", sign_out_path %></li>
-            <% else %>
-            <li><%= link_to "Login", sign_in_path %></li>
-            <li><%= link_to "Join", sign_up_path %></li>
-            <% end %>
-            <li><%= link_to "Help", page_path('arts_ready_how_to') %></li>
-          </ul>
-          <% if user_signed_in? %>
+          <% if user_signed_in? && current_user.admin? %>
+            <ul>
+              <li><%= link_to "Settings", profile_path %></li>
+              <li><%= link_to "Admin", admin_dashboard_path %></li>
+              <li><%= link_to "Logout", sign_out_path %></li>
+              <li><%= link_to "Login", sign_in_path %></li>
+              <li><%= link_to "Join", sign_up_path %></li>
+              <li><%= link_to "Help", page_path('arts_ready_how_to') %></li>
+            </ul>
             <div id="logged-in-status">
               <%= current_user.name %> @ <%= current_user.organization_name %>
             </div>
@@ -41,25 +36,9 @@
         </div>
         <nav>
           <ul>
-            <% if user_signed_in? %>
-              <li><%= link_to 'Dashboard', dashboard_path %></li>
-              <li><%= link_to 'Assess', assessment_path %></li>
-              <li><%= link_to 'To-Do', todos_path %></li>
-              <li><%= link_to 'Our Critical Stuff', critical_list_articles_path %></li>
-              <li><%= link_to 'Battle Buddy Network', lend_a_hand_path %></li>
-              <li><%= link_to 'Useful Links', page_path('useful_links') %></li>
-              <li><%= link_to 'Library', library_path %></li>
-              <li><%= link_to 'Current News', news_path %></li>
-            <% else %>
-              <li><%= link_to 'About', page_path('about') %></li>
-              <li><%= link_to 'Tour', page_path('tour') %></li>
-              <li><%= link_to 'FAQ', page_path('faq') %></li>
-              <li><%= link_to 'Get ArtsReady', sign_up_path %></li>
-              <li><%= link_to 'Give To ArtsReady', page_path('give_to_artsready') %></li>
-              <li><%= link_to 'Useful Links', page_path('useful_links') %></li>
-              <li><%= link_to 'Library', readiness_library_path %></li>
-              <li><%= link_to 'Current News', news_path %></li>
-            <% end %>
+            <li><%= link_to 'Home', root_path %></li>
+            <li><%= link_to 'About', page_path('about') %></li>
+            <li><%= link_to 'Get ArtsReady', page_path('get_arts_ready') %></li>
           </ul>
         </nav>
       </div>
@@ -78,27 +57,17 @@
   <div class="logos container_12 clearfix">
     <div class="grid_2">
       <p>ArtsReady is a<br /> national initiative of:</p>
-      <%= image_tag 'south_90.png' %>
-    </div>
-    <div class="grid_2">
-      <p style="text-align:right;">ArtsReady is<br /> supported by:</p>
-    </div>
-    <div class="grid_8">
-      <%= image_tag 'mellon_short.png' %><br>
-      <%= image_tag 'nea_68.png' %>
-      <%= image_tag 'ddcf_68.png' %>
+      <%= image_tag 'south-arts-logo.svg', alt: 'South Arts' %>
     </div>
   </div>
   <footer class="container container_12 clearfix">
     <p class="f-left">
-      Copyright 2011
+      Copyright &copy; 2020
     </p>
     <nav class="f-right">
       <ul>
-        <li><%= link_to 'Sitemap', page_path('site_map') %></li>
-        <li><%= link_to 'Support for ArtsReady', page_path('support_arts_ready') %></li>
-        <li><%= link_to 'Contact Us', page_path('contact_us') %></li>
-        <li><%= link_to 'Press Center', page_path('press_center') %></li>
+        <li><%= link_to 'Site Map', page_path('site_map') %></li>
+        <li><%= link_to 'Contact', page_path('contact_us') %></li>
         <li><%= link_to 'Terms of Use', page_path('terms') %></li>
         <li><%= link_to 'Privacy Policy', page_path('privacy') %></li>
       </ul>
