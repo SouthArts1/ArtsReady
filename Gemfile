@@ -19,7 +19,7 @@ gem 'carrierwave', '~> 1.0'
 gem 'fog'
 gem 'xmlrpc'
 
-gem 'geocoder', '~> 1.1.6'
+gem 'geocoder', '~> 1.6.1'
 gem 'gmaps4rails', '1.5.7'
 
 gem 'csv_builder'
