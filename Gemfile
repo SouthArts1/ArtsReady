@@ -15,7 +15,7 @@ gem 'figaro'
 gem 'bcrypt', '3.1.13'
 gem 'cancan', '1.6.7'
 
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem 'fog'
 gem 'xmlrpc'
 
